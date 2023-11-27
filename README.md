@@ -6,7 +6,7 @@ Verklegt Námskeið 1 - Háskólinn í Reykjavík
 
 ### Mánudgaur 27.Nóvember - Dagur 1
 #### Verkefni Dagsins
-- [ ] Búa til Use Case Diagrams fyrir **A** Kröfur
+- [X] Búa til Use Case Diagrams fyrir **A** Kröfur
 - [ ] Setja upp Hönnunarskjal
 - [ ] Setja upp Github ReadMe Skjal
 - [ ] Notendahópagreiningu
