@@ -11,12 +11,6 @@ Verklegt Námskeið 1 - Háskólinn í Reykjavík
 - [ ] Setja upp Github ReadMe Skjal
 - [ ] Notendahópagreiningu
 
-1. **Axel** -> Búa til Use case diagrams
-1. **Dagur** -> Búa til Use Case diagrams
-1. **Elías** -> Búa til Use Case diagrams
-1. **Marteinn** -> Búa til og setja upp Hönnunarskýrslu
-1. **Viktor** -> ???
-
 #### Dagslok skýrsla (Hvað gerði hver og einn í dag) ?
 
 1. **Axel**
