@@ -6,8 +6,8 @@ Verklegt Námskeið 1 - Háskólinn í Reykjavík
 
 ### Mánudgaur 27.Nóvember - Dagur 1
 
-1. Axel
-1. Dagur
-1. Elías
-1. Marteinn
-1. Viktor
+1. **Axel** 
+1. **Dagur**
+2. **Elías**
+3. **Mart einn**
+1. **Viktor**
