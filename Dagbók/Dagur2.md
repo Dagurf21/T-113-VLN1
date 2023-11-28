@@ -21,7 +21,7 @@ Viktor Breki hefur ekki mætt.
 #### Dagslok skýrsla (Hvað gerði hver og einn í dag) ?
 - Axel Snær: 
 - Dagur Freyr: 
-- Elías Andri: 
-- Kristján Kári: 
+- Elías Andri:
+- Kristján Kári: Gerði kröfulista, aðstoðaði við class diagrams og vann í Hönnunarskjalinu.
 - Marteinn Logi: 
 - Viktor Breki: N/A
