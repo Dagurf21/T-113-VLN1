@@ -1,9 +1,9 @@
 ## Miðvikudagur 29.Nóvember - Dagur 3
 
 #### Verkefni Vikunar
-- [ ] Búa til Use Cases fyrir **A** og **B** Kröfur
+- [X] Búa til Use Cases fyrir **A** og **B** Kröfur
 - [ ] Setja í Hönnunarskjalið
-- [ ] Class diagram
+- [X] Class diagram
 - [X] Gera Dagbókina
 - [X] Notendahópagreining
 - [X] Kröfulisti
@@ -19,8 +19,14 @@
 
 #### Dagslok skýrsla (Hvað gerði hver og einn í dag) ?
 
-- Axel Snær:
-- Dagur Freyr:
-- Elías Andri:
-- Kristján Kári:
-- Marteinn Logi:
+- Axel Snær: Kláraði class diagram og byrjaði á útlitshönnun.
+- Dagur Freyr: Kláraði use cases.
+- Elías Andri: Sá um dagbók, kláraði class diagram og byrjaði á útlitshönnun.
+- Kristján Kári: Inngang í hönnunarskjal, hjálpaði með use cases og útlitshönnun.
+- Marteinn Logi: Vann í hönnunarskjalinu, lét inn class diagram og fleira.
+
+#### TODO á morgun
+
+- Halda afrám með útlitshönnun, vonalega klára.
+- Gera Git manual.
+- Koma öllu í hönnunarskjalið.
