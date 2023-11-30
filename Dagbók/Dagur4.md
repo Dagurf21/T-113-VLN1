@@ -22,7 +22,7 @@
 - Axel Snær: Kláraði útlisthönnun, fór yfir hönnunarskjalið.
 - Dagur Freyr: Kláraði uppsetningu á hönnunarskjalinu og git manual.
 - Elías Andri: Sá um dagbók, kláraði útlitshönnun og hönnunarskjalið.
-- Kristján Kári: kláraði með útlitshönnun og hönnunarskjalið.
+- Kristján Kári: kláraði útlitshönnun og hönnunarskjalið.
 - Marteinn Logi: Kláraði hönnunarskjalið.
 
 #### TODO á morgun
