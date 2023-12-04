@@ -1,4 +1,3 @@
-
 class Employee_Logic:
     def __init__(self, data_connection):
         self.data_wrapper = data_connection
@@ -10,6 +9,16 @@ class Employee_Logic:
 
     def list_all_employees(self):
         return self.data_wrapper.get_all_employees()
+
+    def list_employee(self, id):
+        return self.data_wrapper.get_employee(id)
+
+    def update_employee(self, id, data):
+        return self.data_wrapper.update_employee(id, data)
+
+    def delete_employee(self, id):
+        return self.data_wrapper.delete_employee(id)
+
 
 '''
 from data.customer_data import Customer_Data
