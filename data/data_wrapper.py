@@ -6,7 +6,7 @@ class Data_Wrapper:
         self.employee_data = Employee_Data()
 
     def get_all_employees(self):
-        return self.employee_data.read_all_employee()
+        return self.employee_data.read_all_employees()
 
     def create_customer(self, employee):
         return self.employee_data.create_employee(employee)
