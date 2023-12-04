@@ -1,6 +1,3 @@
-
-
-'''
 from data.customer_data import Customer_Data
 from model.customer import Customer
 
@@ -15,4 +12,3 @@ class Customer_Logic:
 
     def get_all_customers(self):
         return self.data_wrapper.get_all_customers()
-'''
