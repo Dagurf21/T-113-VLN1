@@ -3,12 +3,13 @@ class Flight_route_logic():
 
     def __init__ (self):
 
-        id: int
-        flight_number: str
-        departure: str # Destination
-        destination: str # Destination
-        departure_time: str
-        arrival_time: str
+        self.id: int
+        self.flight_number: str
+        self.departure: str # Destination
+        self.destination: str # Destination
+        self.departure_time: str
+        self.arrival_time: str
+
         pass
 
     def create_flight_route(self, data) -> None:
@@ -26,5 +27,5 @@ class Flight_route_logic():
     def delete_flight_route(self, id) -> None:
         pass
 
-    def assign_pilot(pilot) -> None:
+    def assign_pilot(self, pilot) -> None:
         pass
