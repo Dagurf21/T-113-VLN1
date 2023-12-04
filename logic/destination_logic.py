@@ -1,8 +1,10 @@
-import data.data_wrapper as data_wrapper
-import model.destination as destination
+from data.data_wrapper import Data_Wrapper
+from model.destination import Destination
+
 
 class DestinationLogic:
     """This class is the logic layer for the destination class"""
+
     def __init__(self, data_connection):
         self.data_wrapper = data_connection
 

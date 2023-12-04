@@ -1,5 +1,6 @@
-import data.flight_route_data as flightroute_data
-import model.flight_route as flightroute
+from data.flight_route_data import FlightRoute_Data
+from model.flight_route import FlightRoute
+
 
 class VoyageLogic:
     def __init__(self, data_connection) -> None:
@@ -7,7 +8,7 @@ class VoyageLogic:
 
     def create_voyage(self, data) -> None:
         self.data_wrapper.create_voyage(data)
-    
+
     def list_all_voyages(self) -> list:
         return self.data_wrapper.list_all_voyages()
 
