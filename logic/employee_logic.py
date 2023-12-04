@@ -1,4 +1,8 @@
+from data.employee_data import Employee_Data
+from model.employee import Employee
+
 class Employee_Logic:
+    """This class is the logic layer for the employee class"""
     def __init__(self, data_connection):
         self.data_wrapper = data_connection
 
@@ -7,17 +11,21 @@ class Employee_Logic:
 
         self.data_wrapper.create_employee(employee)
 
-    def list_all_employees(self):
-        return self.data_wrapper.get_all_employees()
+    def list_all_employees(self) -> list:
+        """Returns a list of all employees"""
+        return self.data_wrapper.list_all_employees()
 
     def list_employee(self, id):
-        return self.data_wrapper.get_employee(id)
+        """Returns a employee object with the given id"""
+        return self.data_wrapper.list_employee(id)
 
     def update_employee(self, id, data):
-        return self.data_wrapper.update_employee(id, data)
+        """Updates a employee object with the given id"""
+        self.data_wrapper.update_employee(id, data)
 
     def delete_employee(self, id):
-        return self.data_wrapper.delete_employee(id)
+        """Deletes a employee object with the given id"""
+        self.data_wrapper.delete_employee(id)
 
 
 '''

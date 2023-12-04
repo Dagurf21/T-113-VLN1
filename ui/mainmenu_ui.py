@@ -1,33 +1,57 @@
-from logic.customer_logic import Customer_Logic
-from model.customer import Customer
-from ui.customer_ui import Customer_UI
-from logic.logic_wrapper import Logic_Wrapper
+from ui.widget import UIWidget
+from ui.employee_ui import EmployeeUI
+from ui.planes_ui import PlaneUI
+from ui.voyage_ui import VoyageUI
+from ui.destination_ui import DestinationUI
+from model.employee import Employee
 
-class MainMenu_UI:
-    def __init__(self):
-        self.logic_wrapper = Logic_Wrapper()
+class MainMenuUI(UIWidget):
+    def __init__(self, user: Employee):
+        self.user = user
 
-    def menu_output(self):
-        print("main menu")
-        print("1. customer menu")
-        print("2. car menu")
-        print("q. to exit")
+    def show(self):
+        self._clear_screen()
+        self._print_header(message=f"Welcome {self.user.name}!", add_extra_newline=True)
 
-    def input_prompt(self):
         while True:
-            self.menu_output()
-            command = input("Enter your command:")
-            command = command.lower()
-            if command == "q":
-                print("Goodbye")
-                break
-            elif command == "1":
-                menu = Customer_UI(self.logic_wrapper)
-                back_method = menu.input_prompt()
-                if back_method == "q":
-                    return "q"
-            elif command == "2":
-                pass
-            else:
-                print("invalid input, try again")
-            
+            self._print_options_list([
+                "Employees",
+                "Planes",
+                "Voyages",
+                "Destinations",
+                "Log out",
+            ], True)
+
+            option = input("Choose an option: ")
+
+            match option:
+                case "1": # Employees
+                    employee_ui = EmployeeUI(self.user)
+                    employee_ui.show()
+                    self._clear_screen()
+                    self._print_header(add_extra_newline=True)
+
+                case "2": # Planes
+                    planes_ui = PlaneUI(self.user)
+                    planes_ui.show()
+                    self._clear_screen()
+                    self._print_header(add_extra_newline=True)
+
+                case "3": # Voyage
+                    voyage_ui = VoyageUI(self.user)
+                    voyage_ui.show()
+                    self._clear_screen()
+                    self._print_header(add_extra_newline=True)
+
+                case "4": # Planes
+                    destination_ui = DestinationUI(self.user)
+                    destination_ui.show()
+                    self._clear_screen()
+                    self._print_header(add_extra_newline=True)
+                    
+                case "5": # Log out
+                    break
+                
+                case _: # Unknown option, reprompt
+                    self._clear_screen()
+                    self._print_header(message="Unknown option", add_extra_newline=True)

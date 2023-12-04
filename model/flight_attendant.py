@@ -3,5 +3,5 @@ from model.employee import Employee
 
 @dataclass
 class FlightAttendant(Employee):
-    assignments: List[int]
+    assignments: list[int]
 

@@ -6,5 +6,5 @@ class Plane:
     ty: str
     manufacturer: str
     capacity: int
-    flights: List[int]
+    flights: list[int]
 
