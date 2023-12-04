@@ -10,8 +10,9 @@ class destination_logic:
 
     def list_destinations(self, id) -> Destination:
         return self.data_wrapper.list_destination(id)
-    
+
     def update_destination(self, id) -> None:
         pass
 
     def delete_destination(self, id) -> None:
+        pass
