@@ -1,7 +1,36 @@
+
+class Logic_Wrapper(object):
+    
+    def __init__(self):
+        pass
+
+    def _employee_logic():
+        pass
+
+    def _flight_route_logic():
+        pass
+
+    def _destination_logic():
+        pass
+
+    def Voyage_logic():
+        pass
+
+    def plane_logic():
+        pass
+
+
+
+
+
+
+'''
+# Example from T-113-VLN1
+
 from logic.customer_logic import Customer_Logic
 from data.data_wrapper import Data_Wrapper
 
-class Logic_Wrapper:
+#class Logic_Wrapper:
     def __init__(self):
         self.data_wrapper = Data_Wrapper()
         self.customer_logic = Customer_Logic(self.data_wrapper)
@@ -12,3 +41,4 @@ class Logic_Wrapper:
 
     def get_all_customers(self):
         return self.customer_logic.get_all_customers()
+'''
