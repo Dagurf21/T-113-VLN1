@@ -2,6 +2,7 @@
 class Logic_Wrapper(object):
     
     def __init__(self):
+        
         pass
 
     def _employee_logic(self):
