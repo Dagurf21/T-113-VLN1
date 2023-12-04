@@ -1,6 +1,12 @@
 #import os
 import csv
 from model.employee import Employee
+from model.pilot import Pilot
+from model.flight_attendant import FlightAttendant
+from model.manager import Manager
+from model.flight_manager import FlightManager
+from tempfile import NamedTemporaryFile
+import shutil
 
 class Employee_Data:
     def __init__(self):
@@ -13,7 +19,7 @@ class Employee_Data:
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                ret_list.append(Employee(row["name"], row["birth_year"]))
+                ret_list.append(Employee(row["id"], row["name"], row["job_title"], row["address"], row["ssn"], row["mobile_phone"], row["email"], row["home_phone"]))
         return ret_list
 
 
@@ -35,3 +41,63 @@ class Employee_Data:
                 id += 1
 
             return id
+    
+
+    def get_employee(self, employee_id):
+        with open(self.file_name, newline='', encoding="utf-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                if row["id"] == employee_id:
+                    if row["job_title"] == "Pilot":
+                        return Pilot(row["id"], row["name"], row["job_title"],row["license"], row["address"], row["ssn"], row["mobile_phone"], row["email"], row["home_phone"])
+                    else:
+                        return Employee(row["id"], row["name"], row["job_title"], row["address"], row["ssn"], row["mobile_phone"], row["email"], row["home_phone"])
+    
+
+    def update_employee(self, employee_id, employee):
+        """Updates the employee with the given id"""
+        # Makes temporary file to not overwrite the original file
+        tempfile = NamedTemporaryFile(mode='w', delete=False)
+        with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
+            fieldnames = ["id", "name", "job_title","license", "password", "address", "ssn", "mobile_phone", "email", "home_phone"]
+            reader = csv.DictReader(csvfile, fieldnames=fieldnames)
+            writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
+
+            # Looks for the employee to update
+            for row in reader:
+
+                # If the employee is found, the new data is written to the temporary file
+                if row["id"] == employee_id:
+                    row["job_title"],row["license"], row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"]  = employee.job_title, employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone
+                
+                # Each row from the original file is written to the temporary file
+                row = {'id': row["id"], 'name': row["name"], 'job_title': row["job_title"], 'password': row["password"], 'address': row["address"], 'ssn': row["ssn"], 'mobile_phone': row["mobile_phone"], 'email': row["email"], 'home_phone': row["home_phone"]}
+                writer.writerow(row)
+
+        # The temporary file replaces the original file
+        shutil.move(tempfile.name, self.file_name)
+    
+
+    def delete_employee(self, employee_id):
+        """Deletes the employee with the given id"""
+        # Makes temporary file to not overwrite the original file
+        tempfile = NamedTemporaryFile(mode='w', delete=False)
+        with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
+            fieldnames = ["id", "name", "job_title", "password", "address", "ssn", "mobile_phone", "email", "home_phone"]
+            reader = csv.DictReader(csvfile, fieldnames=fieldnames)
+            writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
+
+            # Looks for the employee to delete
+            for row in reader:
+
+                # If the employee is found, the row is not written to the temporary file
+                if row["id"] == employee_id:
+                    pass
+                
+                # Each row from the original file is written to the temporary file
+                else:
+                    row = {'id': row["id"], 'name': row["name"], 'job_title': row["job_title"], 'password': row["password"], 'address': row["address"], 'ssn': row["ssn"], 'mobile_phone': row["mobile_phone"], 'email': row["email"], 'home_phone': row["home_phone"]}
+                    writer.writerow(row)
+
+        # The temporary file replaces the original file
+        shutil.move(tempfile.name, self.file_name)
