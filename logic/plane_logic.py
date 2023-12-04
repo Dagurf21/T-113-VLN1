@@ -2,10 +2,10 @@
 from data.data_wrapper import Data_Wrapper
 
 class Plane_logic(Data_Wrapper):
-    ''''''
+    ''' '''
 
     def __init__(self):
-        ''''''
+        ''' '''
         
         self.id: int
         self.name: str
