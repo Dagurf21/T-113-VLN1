@@ -1,33 +1,30 @@
 from ui.widget import UIWidget
-from ui.employee_ui import EmployeeUI
 from model.employee import Employee
 
-class MainMenuUI(UIWidget):
+class EmployeeUI(UIWidget):
     def __init__(self, user: Employee):
         self.user = user
 
     def show(self):
         self._clear_screen()
-        self._print_header(message=f"Welcome {self.user.name}!", add_extra_newline=True)
+        self._print_header(add_extra_newline=True)
 
         while True:
             self._print_options_list([
-                "Employees",
-                "Planes",
-                "Voyages",
-                "Destinations",
-                "Log out",
+                "List employees",
+                "List employee",
+                "Register employee",
+                "Update employee",
+                "Remove employee",
+                "Back",
             ], True)
 
             option = input("Choose an option: ")
 
             match option:
-                case "1": # Employees
-                    employee_ui = EmployeeUI(self.user)
-                    employee_ui.show()
-                case "5": # Log out
+                case "6": # Back
                     break
-                
+
                 case _: # Unknown option, reprompt
                     self._clear_screen()
                     self._print_header(message="Unknown option", add_extra_newline=True)

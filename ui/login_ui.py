@@ -1,5 +1,5 @@
 from ui.widget import UIWidget
-from ui.mainmenu_ui import MainMenuUI, Permissions
+from ui.mainmenu_ui import MainMenuUI
 from model.employee import Employee
 
 class LoginUI(UIWidget):
@@ -27,7 +27,7 @@ class LoginUI(UIWidget):
         passwd = input("Input password: ")
         # TODO: More validation
 
-        # TODO: Get actual employee
+        # TODO: Log in as an actual employee
         user = Employee(
             name="Chuck Norris",
             email="chucknorris@nanair.is",
@@ -38,7 +38,7 @@ class LoginUI(UIWidget):
             mobile_phone="12345678",
         )
 
-        main_menu = MainMenuUI(user, Permissions.Admin) # Temporary permission 0 -- Admin
+        main_menu = MainMenuUI(user)
         main_menu.show()
 
 
