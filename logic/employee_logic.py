@@ -1,7 +1,7 @@
 from data.employee_data import Employee_Data
 from model.employee import Employee
 
-class Employee_Logic:
+class EmployeeLogic:
     """This class is the logic layer for the employee class"""
     def __init__(self, data_connection):
         self.data_wrapper = data_connection
