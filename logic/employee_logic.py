@@ -1,3 +1,6 @@
+from data.employee_data import Employee_Data
+from model.employee import Employee
+
 class Employee_Logic:
     def __init__(self, data_connection):
         self.data_wrapper = data_connection
@@ -14,10 +17,10 @@ class Employee_Logic:
         return self.data_wrapper.list_employee(id)
 
     def update_employee(self, id, data):
-        return self.data_wrapper.update_employee(id, data)
+        self.data_wrapper.update_employee(id, data)
 
     def delete_employee(self, id):
-        return self.data_wrapper.delete_employee(id)
+        self.data_wrapper.delete_employee(id)
 
 
 '''
