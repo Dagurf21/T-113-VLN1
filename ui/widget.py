@@ -5,8 +5,6 @@ UI_WIDTH = 69
 class UIWidget:
     # TODO: Implement
     def _clear_screen(self):
-        # TEMPORARY!!!!!
-        #for _ in range(50): print()
         os.system('cls' if os.name == 'nt' else 'clear')
 
     def _print_options_list(self, lst: [str], numbered: bool = False):
@@ -20,6 +18,9 @@ class UIWidget:
                 print(f"{padding}{i+1:>2} {option}")
             else:
                 print(f"{padding}{option}")
+
+    def _print_centered(self, text: str):
+        print(text.center(UI_WIDTH))
 
     def _print_datalist(self, headers: {str: int}, data: [[str]]):
         """Prints a centered table of data with headers.
