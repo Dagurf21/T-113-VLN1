@@ -1,4 +1,9 @@
 from logic.employee_logic import Employee_Logic
+from logic.flight_route_logic import Flight_Route_Logic
+from logic.destination_logic import Destination_Logic
+from logic.voyage_logic import Voyage_Logic
+from logic.plane_logic import Plane_Logic
+
 from data.data_wrapper import Data_Wrapper
 
 class Logic_Wrapper(object):
