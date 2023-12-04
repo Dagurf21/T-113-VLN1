@@ -1,5 +1,8 @@
 from ui.widget import UIWidget
 from ui.employee_ui import EmployeeUI
+from ui.planes_ui import PlaneUI
+from ui.voyage_ui import VoyageUI
+from ui.destination_ui import DestinationUI
 from model.employee import Employee
 
 class MainMenuUI(UIWidget):
@@ -25,6 +28,15 @@ class MainMenuUI(UIWidget):
                 case "1": # Employees
                     employee_ui = EmployeeUI(self.user)
                     employee_ui.show()
+                case "2": # Planes
+                    planes_ui = PlaneUI(self.user)
+                    planes_ui.show()
+                case "3": # Voyage
+                    voygae_ui = VoyageUI(self.user)
+                    voygae_ui.show()
+                case "4": # Planes
+                    destination_ui = DestinationUI(self.user)
+                    destination_ui.show()
                 case "5": # Log out
                     break
                 
