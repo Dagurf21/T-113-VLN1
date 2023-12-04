@@ -4,4 +4,4 @@ from model.employee import Employee
 @dataclass
 class Pilot(Employee):
     license: str
-    assignments: List[int]
+    assignments: list[int]
