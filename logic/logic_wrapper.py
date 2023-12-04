@@ -11,6 +11,7 @@ class Logic_Wrapper(object):
     
     def __init__(self):
         ''' '''
+        
         pass
 
     def _employee_logic(self):
@@ -105,7 +106,7 @@ class Logic_Wrapper(object):
         ''' '''
         return []
 
-    def list_destination(self, id) -> list : # Destination
+    def list_destination(self, id) -> list: # Destination
         ''' '''
         return
 
