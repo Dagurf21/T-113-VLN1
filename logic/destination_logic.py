@@ -1,4 +1,4 @@
-from data.data_wrapper import Data_Wrapper
+from data.data_wrapper import DataWrapper
 from model.destination import Destination
 
 

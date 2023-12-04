@@ -1,7 +1,7 @@
 #import os
-from data.data_wrapper import Data_Wrapper
+from data.data_wrapper import DataWrapper
 
-class Flight_route_logic(Data_Wrapper):
+class FlightRouteLogic(DataWrapper):
     ''' '''
 
     def __init__ (self):

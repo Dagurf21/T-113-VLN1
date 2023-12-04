@@ -5,7 +5,7 @@ from logic.destination_logic import DestinationLogic
 from logic.voyage_logic import VoyageLogic
 from logic.plane_logic import Planelogic
 
-from data.data_wrapper import Data_Wrapper
+from data.data_wrapper import DataWrapper
 
 class Logic_Wrapper(object):
     
