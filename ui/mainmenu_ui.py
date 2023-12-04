@@ -30,21 +30,25 @@ class MainMenuUI(UIWidget):
                     employee_ui.show()
                     self._clear_screen()
                     self._print_header(add_extra_newline=True)
+
                 case "2": # Planes
                     planes_ui = PlaneUI(self.user)
                     planes_ui.show()
                     self._clear_screen()
                     self._print_header(add_extra_newline=True)
+
                 case "3": # Voyage
                     voyage_ui = VoyageUI(self.user)
                     voyage_ui.show()
                     self._clear_screen()
                     self._print_header(add_extra_newline=True)
+
                 case "4": # Planes
                     destination_ui = DestinationUI(self.user)
                     destination_ui.show()
                     self._clear_screen()
                     self._print_header(add_extra_newline=True)
+                    
                 case "5": # Log out
                     break
                 

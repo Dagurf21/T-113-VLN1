@@ -48,6 +48,7 @@ class PlaneUI(UIWidget):
 
                 case "5": # Back
                     break
+                
                 case _: # Unkown option, reprompt
                     self._clear_screen()
                     self._print_header(message="Unknown option", add_extra_newline=True)
