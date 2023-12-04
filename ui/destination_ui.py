@@ -28,30 +28,35 @@ class DestinationUI(UIWidget):
                     self._clear_screen()
                     self._print_header(message="List all Destinations")
                     DestinationUI.list_destinations()
+                    self._clear_screen()
                     self._print_header(message="Completed Successfully") # Not sure, may change
 
                 case "2": # List a Destination
                     self._clear_screen()
                     self._print_header(message="List a Destination")
                     DestinationUI.list_destination()
+                    self._clear_screen()
                     self._print_header(message="Completed Successfully") # Not sure, may change
                 
                 case "3": # Register Destination
                     self._clear_screen()
                     self._print_header(message="Register Destination")
                     DestinationUI.register_destination()
+                    self._clear_screen()
                     self._print_header(message="Completed Successfully") # Not sure, may change
                 
                 case "4": # Update Destination
                     self._clear_screen()
                     self._print_header(message="Update Destination")
                     DestinationUI.update_destination()
+                    self._clear_screen()
                     self._print_header(message="Completed Successfully") # Not sure, may change
                 
                 case "5": # Remove destination
                     self._clear_screen()
                     self._print_header(message="Remove Destination")
                     DestinationUI.remove_destination()
+                    self._clear_screen()
                     self._print_header(message="Completed Successfully") # Not sure, may change
 
                 case "6": # Back

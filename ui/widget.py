@@ -1,3 +1,4 @@
+import os
 
 UI_WIDTH = 69
 
@@ -5,8 +6,9 @@ class UIWidget:
     # TODO: Implement
     def _clear_screen(self):
         # TEMPORARY!!!!!
-        for _ in range(50): print()
-    
+        #for _ in range(50): print()
+        os.system('cls' if os.name == 'nt' else 'clear')
+
     def _print_options_list(self, lst: [str], numbered: bool = False):
         """Prints a list of options centered around the ui width. List can optionally be numbered"""
         largest_option = max(map(len, lst))
