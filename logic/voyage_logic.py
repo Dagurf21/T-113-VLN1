@@ -1,5 +1,5 @@
-import data.flightroute_data as flightroute_data
-import model.flightroute as flightroute
+import data.flight_route_data as flightroute_data
+import model.flight_route as flightroute
 
 class VoyageLogic:
     def __init__(self, data_connection) -> None:
