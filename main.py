@@ -1,5 +1,5 @@
-from ui.mainmenu_ui import MainMenu_UI
+from ui.login_ui import LoginUI
 
-mainmenu = MainMenu_UI()
-mainmenu.input_prompt()
+login_ui = LoginUI()
+login_ui.show()
 
