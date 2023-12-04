@@ -2,7 +2,7 @@
 class Logic_Wrapper(object):
     
     def __init__(self):
-        
+
         pass
 
     def _employee_logic(self):
@@ -59,7 +59,7 @@ class Logic_Wrapper(object):
     def list_all_voyages(self) -> list:
         return []
 
-    def list_voyage(self, id) -> : # Destination
+    def list_voyage(self, id) -> list: # Destination
         return
 
     def update_voyage(self, id) -> None:
