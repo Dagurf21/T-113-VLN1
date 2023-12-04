@@ -8,10 +8,10 @@ class Employee_Logic:
         self.data_wrapper.create_employee(employee)
 
     def list_all_employees(self):
-        return self.data_wrapper.get_all_employees()
+        return self.data_wrapper.list_all_employees()
 
     def list_employee(self, id):
-        return self.data_wrapper.get_employee(id)
+        return self.data_wrapper.list_employee(id)
 
     def update_employee(self, id, data):
         return self.data_wrapper.update_employee(id, data)
