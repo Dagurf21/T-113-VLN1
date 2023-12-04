@@ -17,7 +17,7 @@ class UIWidget:
             else:
                 print(f"{padding}{option}{padding}")
 
-    def _print_header(self, message = None):
+    def _print_header(self, message = None, add_extra_newline: bool = False):
         print("""
 ---------------------------------------------------------------------
 |                     NaN AIR Management system                     |
@@ -26,4 +26,7 @@ class UIWidget:
             padding_len = (UI_WIDTH - len(message)) // 2
             padding = " " * padding_len
             print(f"{padding}{message}{padding}")
+
+        if add_extra_newline:
+            print()
 

@@ -1,33 +1,38 @@
-from logic.customer_logic import Customer_Logic
-from model.customer import Customer
-from ui.customer_ui import Customer_UI
-from logic.logic_wrapper import Logic_Wrapper
+from enum import Enum
+from ui.widget import UIWidget
+from model.employee import Employee
 
-class MainMenu_UI:
-    def __init__(self):
-        self.logic_wrapper = Logic_Wrapper()
+class Permissions(Enum):
+    Admin           = 0
+    Manager         = 1
+    FlightManager   = 2
+    Pilot           = 3
+    FlightAttendant = 3
 
-    def menu_output(self):
-        print("main menu")
-        print("1. customer menu")
-        print("2. car menu")
-        print("q. to exit")
+class MainMenuUI(UIWidget):
+    def __init__(self, user: Employee, permissions: Permissions):
+        self.user = user
+        self.permissions = permissions
 
-    def input_prompt(self):
+    def show(self):
+        self._clear_screen()
+        self._print_header(message=f"Welcome {self.user.name}!", add_extra_newline=True)
+
         while True:
-            self.menu_output()
-            command = input("Enter your command:")
-            command = command.lower()
-            if command == "q":
-                print("Goodbye")
-                break
-            elif command == "1":
-                menu = Customer_UI(self.logic_wrapper)
-                back_method = menu.input_prompt()
-                if back_method == "q":
-                    return "q"
-            elif command == "2":
-                pass
-            else:
-                print("invalid input, try again")
-            
+            self._print_options_list([
+                "Employees",
+                "Planes",
+                "Voyages",
+                "Destinations",
+                "Log out",
+            ], True)
+
+            option = input("Choose an option: ")
+
+            match option:
+                case "5": # Log out
+                    break
+                
+                case _: # Unknown option, reprompt
+                    self._clear_screen()
+                    self._print_header(message="Unknown option", add_extra_newline=True)
