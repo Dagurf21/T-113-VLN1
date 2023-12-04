@@ -32,7 +32,17 @@ class UIWidget:
         # Print rows
         header_sizes = [headers[header] for header in headers]
         for row in data:
-            data_row = [elem.ljust(header_sizes[i]) for i, elem in enumerate(row)]
+            # Left pad with defined column size and make sure the data can't surpass that size
+            data_row = []
+            for i, elem in enumerate(row):
+                column_size = header_sizes[i]
+                elem = elem.ljust(column_size)
+
+                if len(elem) > column_size:
+                    elem = elem[:column_size - 1] + "."
+
+                data_row.append(elem)
+
             print(" | ".join(data_row).center(UI_WIDTH))
 
     def _print_header(self, message = None, add_extra_newline: bool = False):
