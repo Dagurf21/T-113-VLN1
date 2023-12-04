@@ -26,29 +26,33 @@ class PlaneUI(UIWidget):
                     self._clear_screen()
                     self._print_header(message="List all planes")
                     PlaneUI.list_planes()
+                    self._clear_screen()
                     self._print_header(message="Completed Successfully") # Not sure, may change
 
                 case "2": # List a plane
                     self._clear_screen()
                     self._print_header(message="List a singular plane")
                     PlaneUI.list_plane()
+                    self._clear_screen()
                     self._print_header(message="Completed Successfully") # Not sure, may change
 
                 case "3": # Register plane
                     self._clear_screen()
                     self._print_header(message="Register a plane")
                     PlaneUI.register_plane()
+                    self._clear_screen()
                     self._print_header(message="Completed Successfully") # Not sure, may change
 
                 case "4": # Remove plane
                     self._clear_screen()
                     self._print_header(message="Removing a plane")
                     PlaneUI.remove_plane()
+                    self._clear_screen()
                     self._print_header(message="Completed Successfully") # Not sure, may change
 
                 case "5": # Back
                     break
-                
+
                 case _: # Unkown option, reprompt
                     self._clear_screen()
                     self._print_header(message="Unknown option", add_extra_newline=True)
