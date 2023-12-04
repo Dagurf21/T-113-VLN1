@@ -1,4 +1,4 @@
-class destination_logic:
+class Destination_Logic:
     def __init__(self, data_connection):
         self.data_wrapper = data_connection
 
