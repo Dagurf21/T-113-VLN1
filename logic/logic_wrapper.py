@@ -1,3 +1,5 @@
+from logic.employee_logic import Employee_Logic
+from data.data_wrapper import Data_Wrapper
 
 class Logic_Wrapper(object):
     
