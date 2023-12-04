@@ -21,6 +21,8 @@ class Plane_logic(Data_Wrapper):
     def create_plane(self, data) -> None:
         ''' '''
 
+        
+
         pass
 
     def list_all_planes(self) -> list: # Plane
