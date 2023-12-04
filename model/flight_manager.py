@@ -2,6 +2,6 @@ from dataclasses import dataclass
 from model.employee import Employee
 
 @dataclass
-class FlightManager:
+class FlightManager(Employee):
     work_phone: str
 
