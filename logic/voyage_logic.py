@@ -1,7 +1,7 @@
 import data.flightroute_data as flightroute_data
 import model.flightroute as flightroute
 
-class Voyage_Logic:
+class VoyageLogic:
     def __init__(self, data_connection) -> None:
         self.data_wrapper = data_connection
 
