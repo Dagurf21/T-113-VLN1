@@ -24,9 +24,55 @@ class DestinationUI(UIWidget):
             option = input("Choose an option: ")
 
             match option:
+                case "1": # List Destinations
+                    self._clear_screen()
+                    self._print_header(message="List all Destinations")
+                    DestinationUI.list_destinations()
+                    self._print_header(message="Completed Successfully") # Not sure, may change
+
+                case "2": # List a Destination
+                    self._clear_screen()
+                    self._print_header(message="List a Destination")
+                    DestinationUI.list_destination()
+                    self._print_header(message="Completed Successfully") # Not sure, may change
+                
+                case "3": # Register Destination
+                    self._clear_screen()
+                    self._print_header(message="Register Destination")
+                    DestinationUI.register_destination()
+                    self._print_header(message="Completed Successfully") # Not sure, may change
+                
+                case "4": # Update Destination
+                    self._clear_screen()
+                    self._print_header(message="Update Destination")
+                    DestinationUI.update_destination()
+                    self._print_header(message="Completed Successfully") # Not sure, may change
+                
+                case "5": # Remove destination
+                    self._clear_screen()
+                    self._print_header(message="Remove Destination")
+                    DestinationUI.remove_destination()
+                    self._print_header(message="Completed Successfully") # Not sure, may change
+
                 case "6": # Back
                     break
 
                 case _: # Unknown option, reprompt
                     self._clear_screen()
                     self._print_header(message="Unknown option", add_extra_newline=True)
+
+    def list_destinations():
+        print ("We are listing all destinations here")
+    
+    def list_destination():
+        print ("We are showing a single destination here")
+
+    def register_destination():
+        print("We are registering a single destination here")
+    
+    def update_destination():
+        print ("We are updating a destination here")
+
+    def remove_destination():
+        print ("We are removing a single destination here")
+
