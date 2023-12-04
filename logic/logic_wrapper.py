@@ -109,7 +109,7 @@ class Logic_Wrapper(object):
         ''' '''
         return []
 
-    def list_destination(self, id) -> list : # Destination
+    def list_destination(self, id) -> list: # Destination
         ''' '''
         return
 

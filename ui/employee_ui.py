@@ -17,47 +17,36 @@ class EmployeeUI(UIWidget):
                 "Update employee",
                 "Remove employee",
                 "Back",
-            ], True)
+            ], numbered=True)
 
             option = input("Choose an option: ")
 
             match option:
-
                 case "1": # List employees
+                    self.display_employee_list()
                     self._clear_screen()
-                    self._print_header(message="List all employees")
-                    EmployeeUI.list_employees()
-                    self._clear_screen()
-                    self._print_header(message="Completed Successfully") # Not sure, may change
-                    
-                case "2": # List an employee
-                    self._clear_screen()
-                    self._print_header(message="List a single employee")
-                    EmployeeUI.list_employee()
-                    self._clear_screen()
-                    self._print_header(message="Completed Successfully") # Not sure, may change
-                    
-                case "3": # Register employees
-                    self._clear_screen()
-                    self._print_header(message="Register employee")
-                    EmployeeUI.register_employee()
-                    self._clear_screen()
-                    self._print_header(message="Completed Successfully") # Not sure, may change
-                    
-                case "4": # Update employees
-                    self._clear_screen()
-                    self._print_header(message="Update employees")
-                    EmployeeUI.update_employee()
-                    self._clear_screen()
-                    self._print_header(message="Completed Successfully") # Not sure, may change
-                    
-                case "5": # Remove employees
-                    self._clear_screen()
-                    self._print_header(message="Remove employee")
-                    EmployeeUI.remove_employee()
-                    self._clear_screen()
-                    self._print_header(message="Completed Successfully") # Not sure, may change
+                    self._print_header(add_extra_newline=True)
 
+                case "2": # List employee
+                    self.display_employee()
+                    self._clear_screen()
+                    self._print_header(add_extra_newline=True)
+
+                case "3": # Register employee
+                    self.register_employee()
+                    self._clear_screen()
+                    self._print_header(add_extra_newline=True)
+
+                case "4": # Update employee
+                    self.update_employee()
+                    self._clear_screen()
+                    self._print_header(add_extra_newline=True)
+
+                case "5": # Remove employee
+                    self.remove_employee()
+                    self._clear_screen()
+                    self._print_header(add_extra_newline=True)
+                    
                 case "6": # Back
                     break
 
@@ -65,20 +54,28 @@ class EmployeeUI(UIWidget):
                     self._clear_screen()
                     self._print_header(message="Unknown option", add_extra_newline=True)
 
+    def display_employee_list(self):
+        self._clear_screen()
+        self._print_header(message="Employees", add_extra_newline=True)
+        # TODO: Insert data
+        self._print_datalist(
+            { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, [
+            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
+            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
+            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
+            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
+        ])
+        input()
 
+    def display_employee(self):
+        pass
 
-    def list_employees():
-        print ("We are printing all employees")
-    
-    def list_employee():
-        print ("We are showing a single employee here")
-    
-    def register_employee():
-        print ("we are registering an employee here")
+    def register_employee(self):
+        pass
 
-    def update_employee():
-        print ("we are updating a employee here")
-    
-    def remove_employee():
-        print ("We are removing an employee here")
+    def update_employee(self):
+        pass
+
+    def remove_employee(self):
+        pass
 
