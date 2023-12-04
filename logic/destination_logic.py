@@ -12,7 +12,7 @@ class Destination_Logic:
     def create_destination(self, destination):
         self.destination = destination
 
-    def list_all_destinations(self) -> list:  # Destination
+    def list_all_destinations(self) -> list:  # List of Destinations
         return self.data_wrapper.list_all_destinations()
 
     def list_destinations(self, id):  # Destination
