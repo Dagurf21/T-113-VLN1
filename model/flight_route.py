@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-@dataclass
+@dataclass(kw_only=True)
 class FlightRoute:
     id: int = None
     flight_number: str

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-@dataclass
+@dataclass(kw_only=True)
 class Voyage:
     id: int = None
     sold_seats: int
