@@ -4,6 +4,7 @@ from model.flight_route import FlightRoute
 
 class VoyageLogic:
     """This class handles all the logic for the Voyage class."""
+
     def __init__(self, data_connection) -> None:
         self.data_wrapper = data_connection
 
@@ -19,9 +20,10 @@ class VoyageLogic:
         """Returns a voyage object with the given id"""
         return self.data_wrapper.get_voyage(id)
 
-    def update_voyage(self, id) -> None:
+    def update_voyage(self, id, destination) -> None:
         """Updates a voyage object with the given id"""
-        self.data_wrapper.update_voyage(id)
+        destination.id = id
+        return self.data_wrapper.update_voyage(id)
 
     def delete_voyage(self, id) -> None:
         """Deletes a voyage object with the given id"""

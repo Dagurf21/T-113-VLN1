@@ -58,7 +58,7 @@ class LogicWrapper(object):
         """ """
         return self.flight_route_logic.delete_flight_route(id)
 
-    def assign_pilot(self, id,pilot) -> None:
+    def assign_pilot(self, id, pilot) -> None:
         """ """
         return self.flight_route_logic.assign_pilot(pilot)
 
@@ -94,9 +94,9 @@ class LogicWrapper(object):
         """ """
         return self.destination_logic.list_destination(id)
 
-    def update_destination(self, id) -> None:
+    def update_destination(self, id, destination) -> None:
         """ """
-        return self.destination_logic.update_destination(id)
+        return self.destination_logic.update_destination(id, destination)
 
     def delete_destination(self, id) -> None:
         """ """

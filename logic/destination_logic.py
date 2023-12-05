@@ -16,7 +16,7 @@ class DestinationLogic:
         """Returns a list of all destinations"""
         return self.data_wrapper.get_all_destinations()
 
-    def list_destinations(self, id):  # Destination
+    def list_destination(self, id):  # Destination
         """Returns a destination object with the given id"""
         destination_list = self.data_wrapper.get_destination(id)
         # sorting tomfoolery
