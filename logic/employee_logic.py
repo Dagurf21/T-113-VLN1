@@ -27,7 +27,6 @@ class EmployeeLogic:
         """Deletes a employee object with the given id"""
         return self.data_wrapper.delete_employee(id)
 
-
 '''
 from data.customer_data import Customer_Data
 from model.customer import Customer
