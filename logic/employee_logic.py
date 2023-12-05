@@ -19,10 +19,8 @@ class EmployeeLogic:
         employee = self.data_wrapper.get_employee(id)
         return employee
 
-    def update_employee(self, id, employee):
+    def update_employee(self, employee):
         """Updates a employee object with the given id"""
-        employee.id = id
-
         return self.data_wrapper.update_employee(employee)
 
     def delete_employee(self, id):
