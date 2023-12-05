@@ -101,8 +101,9 @@ class EmployeeData:
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
             fieldnames = ["id", "name", "job_title", "license", "password", "address", "ssn", "mobile_phone", "email", "home_phone", "work_phone"]
             reader = csv.DictReader(csvfile)
-            writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
+            writer = csv.DictWriter(tempfile, fieldnames = fieldnames)
 
+            writer.writeheader(fieldnames)
             # Looks for the employee to update
             for row in reader:
 
