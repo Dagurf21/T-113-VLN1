@@ -3,7 +3,7 @@ import csv
 from tempfile import NamedTemporaryFile
 import shutil
 
-class Destination_Data:
+class DestinationData:
     def __init__(self) -> None:
         self.file_name = "files/destinations.csv"
 

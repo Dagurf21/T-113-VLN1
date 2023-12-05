@@ -7,7 +7,7 @@ from model.flight_manager import FlightManager
 from tempfile import NamedTemporaryFile
 import shutil
 
-class Employee_Data:
+class EmployeeData:
     def __init__(self):
         self.file_name = "files/employees.csv"
 

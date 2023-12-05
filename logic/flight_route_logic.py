@@ -7,6 +7,7 @@ class FlightRouteLogic():
 
     def __init__ (self, data_wrapper):
         '''Initiates flightroutelogic through data_wrapper'''
+        self.data_wrapper = data_wrapper
 
     def create_flight_route(self, data: FlightRoute) -> None:
         '''Creates flight route:
