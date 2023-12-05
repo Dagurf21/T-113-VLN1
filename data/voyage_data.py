@@ -32,7 +32,7 @@ class Voyage_Data:
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                if row["id"] == voyage_id:
+                if int(row["id"]) == voyage_id:
                     return Voyage(row["id"], row["sold_seats"], row["plane"], row["departure_flight"], row["arrival_flight"], row["date"])
 
             # If no voyage is found with the given id, return None
@@ -57,7 +57,7 @@ class Voyage_Data:
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
             for row in reader:
-                if row["id"] == voyage.id:
+                if int(row["id"]) == voyage.id:
                     writer.writerow({'id': voyage.id, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'departure_flight': voyage.departure_flight, 'arrival_flight': voyage.arrival_flight, 'date': voyage.date})
                 else:
                     writer.writerow({'id': row["id"], 'sold_seats': row["sold_seats"], 'plane': row["plane"], 'departure_flight': row["departure_flight"], 'arrival_flight': row["arrival_flight"], 'date': row["date"]})

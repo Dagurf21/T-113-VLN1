@@ -78,7 +78,7 @@ class Employee_Data:
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                if row["id"] == employee_id:
+                if int(row["id"]) == employee_id:
                     if row["job_title"] == "Manager" or row["job_title"] == "Chuck Norris":
                         return Manager(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
                     elif row["job_title"] == "Pilot":
@@ -89,7 +89,7 @@ class Employee_Data:
                         return FlightManager(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
                     else:
                         pass
-                    
+
             # If no employee is found with the given id, return None
             return None
 
@@ -107,11 +107,18 @@ class Employee_Data:
             for row in reader:
 
                 # If the employee is found, the new data is written to the temporary file
-                if row["id"] == employee.id:
-                    row["job_title"],row["license"], row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"]  = employee.job_title, employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone
+                if int(row["id"]) == employee.id:
+                    if row["job_title"] == "Manager" or row["job_title"] == "Chuck Norris" or row["job_title"] == "Flight Manager":
+                        row["job_title"], row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"], row["work_phone"] = employee.job_title, employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone, employee.work_phone
+                    
+                    elif row["job_title"] == "Pilot":
+                        row["job_title"], row["license"], row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"]  = employee.job_title, employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone
+                    
+                    elif row["job_title"] == "Flight Attendant":
+                        row["job_title"], row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"]  = employee.job_title, employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone
                 
                 # Each row from the original file is written to the temporary file
-                row = {'id': row["id"], 'name': row["name"], 'job_title': row["job_title"], 'password': row["password"], 'address': row["address"], 'ssn': row["ssn"], 'mobile_phone': row["mobile_phone"], 'email': row["email"], 'home_phone': row["home_phone"]}
+                row = {'id': row["id"], 'name': row["name"], 'job_title': row["job_title"], 'license': row["license"], 'password': row["password"], 'address': row["address"], 'ssn': row["ssn"], 'mobile_phone': row["mobile_phone"], 'email': row["email"], 'home_phone': row["home_phone"], 'work_phone': row["work_phone"]}
                 writer.writerow(row)
 
         # The temporary file replaces the original file

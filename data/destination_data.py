@@ -32,7 +32,7 @@ class Destination_Data:
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                if row["id"] == destination_id:
+                if int(row["id"]) == destination_id:
                     return Destination(row["id"], row["country"], row["airport"], row["flight_time"], row["distance"], row["representative"], row["emergency_phone"])
             
             # If no destination is found with the given id, return None
@@ -53,14 +53,14 @@ class Destination_Data:
         """Updates the destination with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
-        
+
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
             fieldnames = ["id", "country", "airport", "flight_time", "distance", "representative", "emergency_phone"]
             reader = csv.DictReader(csvfile, fieldnames=fieldnames)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
             for row in reader:
-                if row["id"] == destination.id:
+                if int(row["id"]) == destination.id:
                     writer.writerow({'id': destination.id, 'country': destination.country, 'airport': destination.airport, 'flight_time': destination.flight_time, 'distance': destination.distance, 'representative': destination.representative, 'emergency_phone': destination.emergency_phone})
                 else:
                     writer.writerow({'id': row["id"], 'country': row["country"], 'airport': row["airport"], 'flight_time': row["flight_time"], 'distance': row["distance"], 'representative': row["representative"], 'emergency_phone': row["emergency_phone"]})

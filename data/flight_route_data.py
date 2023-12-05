@@ -32,7 +32,7 @@ class FlightRoute_Data:
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                if row["id"] == flight_route_id:
+                if int(row["id"]) == flight_route_id:
                     return FlightRoute(row["id"], row["flight_nr"], row["departure"], row["destination"], row["departure_time"], row["arrival_time"])
 
             # If no flight_route is found with the given id, return None
@@ -58,7 +58,7 @@ class FlightRoute_Data:
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
             for row in reader:
-                if row["id"] == flight_route.id:
+                if int(row["id"]) == flight_route.id:
                     writer.writerow({'id': flight_route.id, 'flight_nr': flight_route.flight_nr, 'departure': flight_route.departure, 'destination': flight_route.destination, 'departure_time': flight_route.departure_time, 'arrival_time': flight_route.arrival_time})
                 else:
                     writer.writerow({'id': row["id"], 'flight_nr': row["flight_nr"], 'departure': row["departure"], 'destination': row["destination"], 'departure_time': row["departure_time"], 'arrival_time': row["arrival_time"]})
