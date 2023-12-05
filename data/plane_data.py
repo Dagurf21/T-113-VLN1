@@ -32,7 +32,7 @@ class Plane_Data:
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                if row["id"] == plane_id:
+                if int(row["id"]) == plane_id:
                     return Plane(row["id"], row["plane_type"], row["manufacturer"], row["capacity"], row["flights"])
         
             # If no plane is found with the given id, return None
@@ -58,7 +58,7 @@ class Plane_Data:
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
             for row in reader:
-                if row["id"] == plane.id:
+                if int(row["id"]) == plane.id:
                     writer.writerow({'id': plane.id, 'name': plane.name, 'type': plane.type, 'manufacturer': plane.manufacturer, 'capacity': plane.capacity, 'flights': plane.flights})
                 else:
                     writer.writerow({'id': row["id"], 'name': row["name"], 'type': row["type"], 'manufacturer': row["manufacturer"], 'capacity': row["capacity"], 'flights': row["flights"]})
