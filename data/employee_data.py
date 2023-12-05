@@ -99,7 +99,7 @@ class EmployeeData:
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
-            fieldnames = ["id", "name", "job_title","license", "password", "address", "ssn", "mobile_phone", "email", "home_phone"]
+            fieldnames = ["id", "name", "job_title", "license", "password", "address", "ssn", "mobile_phone", "email", "home_phone", "work_phone"]
             reader = csv.DictReader(csvfile, fieldnames=fieldnames)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
@@ -138,12 +138,12 @@ class EmployeeData:
             for row in reader:
 
                 # If the employee is found, the row is not written to the temporary file
-                if row["id"] == employee_id:
-                    pass
+                if int(row["id"]) == employee_id:
+                    row = {'id' : row["id"], 'name' : row["name"], 'job_title' : None, 'password' : None, 'address' : None, 'ssn' : None, 'mobile_phone' : None, 'email' : None, 'home_phone' : None, 'work_phone' : None}
                 
                 # Each row from the original file is written to the temporary file
                 else:
-                    row = {'id': row["id"], 'name': row["name"], 'job_title': row["job_title"], 'password': row["password"], 'address': row["address"], 'ssn': row["ssn"], 'mobile_phone': row["mobile_phone"], 'email': row["email"], 'home_phone': row["home_phone"]}
+                    row = {'id': row["id"], 'name': row["name"], 'job_title': row["job_title"], 'license': row["license"], 'password': row["password"], 'address': row["address"], 'ssn': row["ssn"], 'mobile_phone': row["mobile_phone"], 'email': row["email"], 'home_phone': row["home_phone"], 'work_phone': row["work_phone"]}
                     writer.writerow(row)
 
         # The temporary file replaces the original file
