@@ -109,10 +109,27 @@ class PlaneUI(UIWidget):
             except UICancelException:
                 return
 
-
-
     def register_plane(self):
         print ("We are registering a single plane here")
+        try:
+            name          = self._display_prompt("Enter name",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
+            plane_type    = self._display_prompt("Enter type",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
+            manufacturer  = self._display_prompt("Enter manufacturer",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
+            capacity      = self._display_prompt("Enter capacity",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
+            #flights       = self._display_prompt("Enter ",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
+            # Not sure if we add flights now or later
+
+            plane = Plane(
+                name=name,
+                ty=plane_type,
+                manufacturer=manufacturer, 
+                capacity=capacity
+            )
+
+            self.logic_wrapper.create_plane(plane)
+        except UICancelException:
+            return
+
 
     def remove_plane(self):
         print ("We are removing a plane here")
