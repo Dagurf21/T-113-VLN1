@@ -55,17 +55,33 @@ class EmployeeUI(UIWidget):
                     self._print_header(message="Unknown option", add_extra_newline=True)
 
     def display_employee_list(self):
-        self._clear_screen()
-        self._print_header(message="Employees", add_extra_newline=True)
-        # TODO: Insert data
-        self._print_datalist(
-            { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, [
-            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
-            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
-            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
-            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
-        ])
-        input()
+        while True:
+            self._clear_screen()
+            self._print_header(message="Employees", add_extra_newline=True)
+            # TODO: Insert data
+            self._print_datalist(
+                { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, [
+                [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
+                [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
+                [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
+                [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
+            ])
+            self._print_centered("q: return - n: next page - p: prev page", add_newline_after=True, add_newline_before=True)
+
+            opt = input("Choose an option: ")
+            match opt:
+                case "q": # Return
+                    break
+                
+                case "n": # Next page
+                    continue
+
+                case "p": # Prev page
+                    continue
+
+                case _: # Unknown option
+                    continue
+
 
     def display_employee(self):
         pass

@@ -19,8 +19,12 @@ class UIWidget:
             else:
                 print(f"{padding}{option}")
 
-    def _print_centered(self, text: str):
+    def _print_centered(self, text: str, add_newline_before: bool = False, add_newline_after: bool = False):
+        if add_newline_before:
+            print()
         print(text.center(UI_WIDTH))
+        if add_newline_after:
+            print()
 
     def _print_datalist(self, headers: {str: int}, data: [[str]]):
         """Prints a centered table of data with headers.
