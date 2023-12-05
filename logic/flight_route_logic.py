@@ -5,11 +5,9 @@ from model.flight_route import FlightRoute
 class FlightRouteLogic():
     ''' '''
 
-    def __init__ (self):
+    def __init__ (self, data_wrapper):
         ''' '''
-
-        self.data_wrapper = DataWrapper()
-        self.flight_route = FlightRoute()
+        pass
 
     def create_flight_route(self, data: FlightRoute) -> None:
         '''Creates flight route:
@@ -36,7 +34,7 @@ class FlightRouteLogic():
         self.data_wrapper.update_flight_route
 
     def delete_flight_route(self, id) -> None:
-        ''''''
+        ''' '''
         self.data_wrapper.delete_flight_route(id)
         
     def assign_pilot(self, pilot) -> None:

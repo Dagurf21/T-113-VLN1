@@ -11,7 +11,6 @@ class PlaneLogic:
 
     def create_plane(self, data) -> None:
         ''' '''
-        
         Plane = self.data_wrapper.plane
 
         if Plane.id == None:
@@ -28,11 +27,12 @@ class PlaneLogic:
         return all_planes
     
     def list_plane(self, id): # Plane
-        ''''''
+        ''' '''
         return self.data_wrapper.get_all_planes
     
     def update_plane(self, id) -> None:
         ''' '''
+        self.data_wrapper.update_plane(id, data)
         pass
     
     def delete_plane(self, id) -> None:
