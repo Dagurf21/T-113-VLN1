@@ -35,10 +35,15 @@ class FlightRouteLogic():
 
         self.data_wrapper.update_flight_route(flight_route)
 
-    def delete_flight_route(self, id) -> None:
+    def delete_flight_route(self, id, flight_route) -> None:
         '''Deletes flight route through data_wrapper'''
-        self.data_wrapper.delete_flight_route(id)
         
+        if id == self.data_wrapper.get_flight_route(id):
+            self.data_wrapper.delete_flight_route(id)
+        
+        else:
+            raise ValueError("404 invalid ID")
+
     def assign_pilot(self, pilot) -> None:
         '''Assigns a pilot to a specific flight route'''
         self.data_wrapper.assign_pilot(pilot)
