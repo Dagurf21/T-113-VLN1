@@ -11,8 +11,10 @@
 #         Flight_route_logic
 #         Plane_logic
 
-from model.employee import Employee
+from model.manager import Manager
 
-man = Employee("Marteinn", "1234", "Hafnarfjörður", "1234567890", "1234567890", "", "")
+managerman = Manager(
+    1, "man", "siaebhe", "home", "ssn", "mobile", "email", "home", "work"
+)
 
-print(man.id)
+print(managerman)
