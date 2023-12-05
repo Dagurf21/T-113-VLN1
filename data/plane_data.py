@@ -34,6 +34,9 @@ class Plane_Data:
             for row in reader:
                 if row["id"] == plane_id:
                     return Plane(row["id"], row["plane_type"], row["manufacturer"], row["capacity"], row["flights"])
+        
+            # If no plane is found with the given id, return None
+            return None
 
 
     def get_all_planes(self):
