@@ -10,45 +10,23 @@ class DestinationLogic:
 
     def create_destination(self, destination):
         """Takes in a destination object and forwards it to the data layer"""
-        destination_class = self.make_destination_class(destination)
-        return self.data_wrapper.create_destination(destination_class)
+        return self.data_wrapper.create_destination(destination)
 
     def list_all_destinations(self) -> list:  # List of Destinations
         """Returns a list of all destinations"""
-        return self.data_wrapper.list_all_destinations()
+        return self.data_wrapper.get_all_destinations()
 
     def list_destinations(self, id):  # Destination
         """Returns a destination object with the given id"""
-        destination_list = self.data_wrapper.list_destination(id)
-        #sorting tomfoolery
+        destination_list = self.data_wrapper.get_destination(id)
+        # sorting tomfoolery
         return destination_list
 
     def update_destination(self, id, destination) -> None:
         """Updates a destination object with the given id"""
-        destination_class = self.make_destination_class(destination_data, id)
-        self.data_wrapper.update_destination(id)
+        destination.id = id
+        return self.data_wrapper.update_destination(destination)
 
     def delete_destination(self, id) -> None:
         """Deletes a destination object with the given id"""
         self.data_wrapper.delete_destination(id)
-
-    def make_destination_class(self, destination_data, id=None):
-        """Creates a destination object with the given data and returns it"""
-        (
-            destination_country,
-            destination_airport,
-            destination_distance,
-            destination_flight_time,
-            destination_representative,
-            destination_emergency_number,
-        ) = destination_data
-        destination = Destination(
-            id=id,
-            country=destination_country,
-            airport=destination_airport,
-            distance_km=destination_distance,
-            flight_time=destination_flight_time,
-            representative=destination_representative,
-            emergency_number=destination_emergency_number,
-        )
-        return destination

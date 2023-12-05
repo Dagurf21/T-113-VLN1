@@ -19,13 +19,13 @@ class EmployeeLogic:
 
     def list_all_employees(self) -> list:
         """Returns a list of all employees"""
-        employee_list = self.data_wrapper.list_all_employees()
+        employee_list = self.data_wrapper.get_all_employees()
         # Sorting and tomfoolery
         return employee_list
 
     def list_employee(self, id):
         """Returns a employee object with the given id"""
-        employee = self.data_wrapper.list_employee(id)
+        employee = self.data_wrapper.get_employee(id)
         return employee
 
     def update_employee(self, id, employee):
