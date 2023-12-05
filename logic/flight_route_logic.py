@@ -44,6 +44,8 @@ class FlightRouteLogic():
         else:
             raise ValueError("404 invalid ID")
 
-    def assign_pilot(self, pilot) -> None:
+    def assign_pilot(self, pilot, flight_route) -> None:
         '''Assigns a pilot to a specific flight route'''
+
+        #if flight_route.pilot != 
         self.data_wrapper.assign_pilot(pilot)
