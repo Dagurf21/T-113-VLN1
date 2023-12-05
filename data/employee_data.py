@@ -26,6 +26,8 @@ class Employee_Data:
                     ret_list.append(FlightAttendant(id = row["id"], name = row["name"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"]))
                 elif row["job_title"] == "Flight Manager":
                     ret_list.append(FlightManager(id = row["id"], name = row["name"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
+                elif row["job_title"] == "Chuck Norris":
+                    ret_list.append(Manager(id = row["id"], name = row["name"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
 
         return ret_list
 
