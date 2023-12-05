@@ -1,9 +1,9 @@
 #import os
 from logic.employee_logic import EmployeeLogic
-from logic.flight_route_logic import FlightRoutelogic
+from logic.flight_route_logic import FlightRouteLogic
 from logic.destination_logic import DestinationLogic
 from logic.voyage_logic import VoyageLogic
-from logic.plane_logic import Planelogic
+from logic.plane_logic import PlaneLogic
 
 from data.data_wrapper import DataWrapper
 
@@ -11,9 +11,9 @@ class LogicWrapper(object):
     
     def __init__(self):
         ''' '''
-        self.data_wrapper = Data_Wrapper()
+        self.data_wrapper = DataWrapper()
         self.employee_logic = EmployeeLogic(self.data_wrapper)
-        self.flight_route_logic = Flight_Route_logic(self.data_wrapper)
+        self.flight_route_logic = FlightRouteLogic(self.data_wrapper)
         self.destination_logic = DestinationLogic(self.data_wrapper)
         self.voyage_logic = VoyageLogic(self.data_wrapper)
         self.plane_logic = PlaneLogic(self.data_wrapper)
