@@ -15,7 +15,7 @@ class FlightRouteLogic():
         '''Creates flight route:
                 Checks if ID is valid'''
 
-        destination = self.data_wrapper.get_destination
+        destination = self.data_wrapper.get_destination(data.id)
 
         if destination.id == None:
             raise ValueError("Invalid Input")
