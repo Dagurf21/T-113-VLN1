@@ -14,7 +14,9 @@ class LogicWrapper(object):
         self.data_wrapper = Data_Wrapper()
         self.employee_logic = EmployeeLogic(self.data_wrapper)
         self.flight_route_logic = Flight_Route_logic(self.data_wrapper)
-        self.
+        self.destination_logic = DestinationLogic(self.data_wrapper)
+        self.voyage_logic = VoyageLogic(self.data_wrapper)
+        self.plane_logic = PlaneLogic(self.data_wrapper)
         pass
 
     def _employee_logic(self):
