@@ -94,14 +94,15 @@ class EmployeeUI(UIWidget):
                     self._print_centered(f"Employee with id {employee_id} doesn't exist", add_newline_after=True)
                     continue
 
+                self._print_header(f"List Employee [id:{employee.id}]", add_extra_newline=True)
                 self._print_options_list([
-                    f"Id:     {employee.id}"
-                    f"Name:   {employee.name}"
-                    f"Email:  {employee.name}"
-                    f"SSN:    {employee.name}"
-                    f"Mobile: {employee.name}"
-                    f"Home:   {employee.name}"
-                ])
+                    f"Id:     {employee.id}",
+                    f"Name:   {employee.name}",
+                    f"Email:  {employee.email}",
+                    f"SSN:    {employee.ssn}",
+                    f"Mobile: {employee.mobile_phone}",
+                    f"Home:   {employee.home_phone}"
+                ], add_newline_after=True)
 
             except ValueError:
                 self._print_header("List Employee", add_extra_newline=True)

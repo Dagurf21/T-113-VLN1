@@ -7,6 +7,7 @@ class FlightRouteLogic():
 
     def __init__ (self, data_wrapper):
         '''Initiates flightroutelogic through data_wrapper'''
+        self.data_wrapper = data_wrapper
 
     def create_flight_route(self, data: FlightRoute) -> None:
         '''Creates flight route:
@@ -15,10 +16,10 @@ class FlightRouteLogic():
         destination = self.data_wrapper.get_destination(data.id)
 
         if destination.id == None:
-            raise ValueError("Invalid Input")
+            self.data_wrapper.create_flight_route(data)
         
         else:
-            self.data_wrapper.create_flight_route(data)
+            raise ValueError("Invalid Input")
 
     def list_all_flight_routes(self) -> list[FlightRoute]:
         '''Gets list of all flight_routes from data_wrapper and forwards list of flight_routes'''
@@ -38,5 +39,4 @@ class FlightRouteLogic():
         
     def assign_pilot(self, pilot) -> None:
         '''Assigns a pilot to a specific flight route'''
-        self.data_wrapper
-        pass
+        self.data_wrapper.assign_pilot(pilot)

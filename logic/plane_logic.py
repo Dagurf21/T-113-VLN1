@@ -5,19 +5,20 @@ from model.plane import Plane
 class PlaneLogic:
     '''This is a Logic class for Plane'''
 
-    def __init__(self, data_wrapper):
+    def __init__(self, data_wrapper: DataWrapper):
         '''Intitiatets plane with data_wrapper'''
-        pass
+        self.data_wrapper = data_wrapper
+
 
     def create_plane(self, data) -> None:
         '''Takes in plane data checks if ID is valid and forwards it to data layer'''
         Plane = self.data_wrapper.plane
 
         if Plane.id == None:
-            raise ValueError("Invalid Input")
-        
-        else:
             self.data_wrapper.create_plane(data)
+
+        else:
+            raise ValueError("Invalid Input")
 
     def list_all_planes(self) -> list[Plane]:
         '''Gets list of all planes through data wrapper and forwards list of planes'''
