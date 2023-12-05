@@ -24,11 +24,11 @@ class LogicWrapper(object):
         """Takes in a employee object and forwards it to the create_employee function"""
         return self.employee_logic.create_employee(employee)
 
-    def list_all_employees(self) -> list:  #List(Employee)
+    def list_all_employees(self) -> list:  # List(Employee)
         """ """
         return self.employee_logic.list_all_employees()
 
-    def list_employee(self, id): # Employee
+    def list_employee(self, id):  # Employee
         """ """
         return self.employee_logic.list_employee(id)
 
@@ -48,7 +48,7 @@ class LogicWrapper(object):
         """ """
         return self.flight_route_logic.list_all_flight_routes()
 
-    def list_flight_route(self, id): # Flight route
+    def list_flight_route(self, id):  # Flight route
         """ """
         return self.flight_route_logic.list_flight_route(id)
 
