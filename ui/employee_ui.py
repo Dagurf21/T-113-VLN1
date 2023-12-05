@@ -186,7 +186,6 @@ class EmployeeUI(UIWidget):
                     continue
 
                 employee_fields = [
-                    "Name",
                     "Password",
                     "Address",
                     "Mobile Phone",
@@ -206,19 +205,17 @@ class EmployeeUI(UIWidget):
                 field_to_update = self._display_selection(employee_fields, header_title=f"Update Employee [{employee.name}]")
 
                 match field_to_update:
-                    case 0: # Name
-                        employee.name = self._display_prompt("Enter new name", opt_instruction="Leave empty to cancel")
-                    case 1: # Password
+                    case 0: # Password
                         employee.password_hash = self._display_prompt("Enter new password", opt_instruction="Leave empty to cancel")
-                    case 2: # Address
+                    case 1: # Address
                         employee.address = self._display_prompt("Enter new address", opt_instruction="Leave empty to cancel")
-                    case 3: # Mobile Phone
+                    case 2: # Mobile Phone
                         employee.mobile_phone = self._display_prompt("Enter new mobile phone", opt_instruction="Leave empty to cancel")
-                    case 4: # Email
+                    case 3: # Email
                         employee.email = self._display_prompt("Enter new email", opt_instruction="Leave empty to cancel")
-                    case 5: # Home Phone
+                    case 4: # Home Phone
                         employee.home_phone = self._display_prompt("Enter new home phone", opt_instruction="Leave empty to cancel")
-                    case 6: # Field 6 [Manager, FlightManager, Pilot, FlightAttendant]
+                    case 5: # Field 5 [Manager, FlightManager, Pilot, FlightAttendant]
                         if isinstance(employee, Pilot):
                             return # TODO
                         elif isinstance(employee, FlightAttendant):
@@ -227,7 +224,7 @@ class EmployeeUI(UIWidget):
                             employee.work_phone = self._display_prompt("Enter new work phone", opt_instruction="Leave empty to cancel")
                         elif isinstance(employee, FlightManager):
                             employee.work_phone = self._display_prompt("Enter new work phone", opt_instruction="Leave empty to cancel")
-                    case 7: # Field 7 [Pilot]
+                    case 6: # Field 6 [Pilot]
                         return # Todo
 
                 self.logic_wrapper.update_employee(employee)
