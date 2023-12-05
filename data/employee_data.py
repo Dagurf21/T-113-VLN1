@@ -50,7 +50,7 @@ class Employee_Data:
                 pilot_license = None
                 work_phone = employee.work_phone
 
-            writer.writerow({'id': id, 'name': employee.name, 'job_title': job_title, 'license': pilot_license, 'password': employee.password, 'address': employee.address, 'ssn': employee.ssn, 'mobile_phone': employee.mobile_phone, 'email': employee.email, 'home_phone': employee.home_phone, 'work_phone': work_phone})
+            writer.writerow({'id': id, 'name': employee.name, 'job_title': job_title, 'license': pilot_license, 'password': employee.password_hash, 'address': employee.address, 'ssn': employee.ssn, 'mobile_phone': employee.mobile_phone, 'email': employee.email, 'home_phone': employee.home_phone, 'work_phone': work_phone})
             
     
 
