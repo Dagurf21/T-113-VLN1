@@ -11,7 +11,7 @@ class VoyageLogic:
         seats_available = capacity - seats_sold
 
         if seats_available < 0:
-            raise ValueError("Plane over capacity!")
+            raise ValueError("Plane is FULL of people (Seat availability less than 0)")
 
         return self.data_wrapper.create_voyage(data)
 
