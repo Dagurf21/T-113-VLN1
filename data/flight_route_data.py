@@ -35,6 +35,9 @@ class FlightRoute_Data:
                 if row["id"] == flight_route_id:
                     return FlightRoute(row["id"], row["flight_nr"], row["departure"], row["destination"], row["departure_time"], row["arrival_time"])
 
+            # If no flight_route is found with the given id, return None
+            return None
+
 
     def get_all_flight_routes(self):
         ret_list = []

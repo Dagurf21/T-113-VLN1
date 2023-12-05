@@ -1,4 +1,3 @@
-#import os
 import csv
 from model.employee import Employee
 from model.pilot import Pilot
@@ -10,16 +9,17 @@ import shutil
 
 class Employee_Data:
     def __init__(self):
-        #print(os.getcwd())
         self.file_name = "files/employees.csv"
 
 
-    def read_all_employees(self):
+    def get_all_employees(self):
         ret_list = []
+        
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 ret_list.append(Employee(row["id"], row["name"], row["job_title"], row["address"], row["ssn"], row["mobile_phone"], row["email"], row["home_phone"]))
+        
         return ret_list
 
 
@@ -52,7 +52,10 @@ class Employee_Data:
                         return Pilot(row["id"], row["name"], row["job_title"],row["license"], row["address"], row["ssn"], row["mobile_phone"], row["email"], row["home_phone"])
                     else:
                         return Employee(row["id"], row["name"], row["job_title"], row["address"], row["ssn"], row["mobile_phone"], row["email"], row["home_phone"])
-    
+            
+            # If no employee is found with the given id, return None
+            return None
+
 
     def update_employee(self, employee):
         """Updates the employee with the given id"""
