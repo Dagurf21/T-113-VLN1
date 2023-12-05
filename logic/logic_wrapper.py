@@ -30,7 +30,7 @@ class LogicWrapper(object):
         """ """
         return self.employee_logic.list_employee(id)
 
-    def update_employee(self, id, data) -> None:
+    def update_employee(self, id, employee) -> None:
         """ """
         return self.employee_logic.update_employee(id, employee)
 
@@ -58,7 +58,7 @@ class LogicWrapper(object):
         """ """
         return self.flight_route_logic.delete_flight_route(id)
 
-    def assign_pilot(self, id,pilot) -> None:
+    def assign_pilot(self, id, pilot) -> None:
         """ """
         return self.flight_route_logic.assign_pilot(pilot)
 
@@ -74,9 +74,9 @@ class LogicWrapper(object):
         """ """
         return self.voyage_logic.list_voyage(id)
 
-    def update_voyage(self, id) -> None:
+    def update_voyage(self, id, voyage) -> None:
         """ """
-        return self.voyage_logic.update_voyage(id)
+        return self.voyage_logic.update_voyage(id, voyage)
 
     def delete_voyage(self, id) -> None:
         """ """
@@ -94,9 +94,9 @@ class LogicWrapper(object):
         """ """
         return self.destination_logic.list_destination(id)
 
-    def update_destination(self, id) -> None:
+    def update_destination(self, id, destination) -> None:
         """ """
-        return self.destination_logic.update_destination(id)
+        return self.destination_logic.update_destination(id, destination)
 
     def delete_destination(self, id) -> None:
         """ """
