@@ -1,7 +1,3 @@
-from data.data_wrapper import DataWrapper
-from model.destination import Destination
-
-
 class DestinationLogic:
     """This class is the logic layer for the destination class"""
 

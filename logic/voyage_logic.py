@@ -1,7 +1,3 @@
-from data.flight_route_data import FlightRoute_Data
-from model.flight_route import FlightRoute
-
-
 class VoyageLogic:
     """This class handles all the logic for the Voyage class."""
 
