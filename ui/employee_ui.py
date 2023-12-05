@@ -166,12 +166,75 @@ class EmployeeUI(UIWidget):
             return
 
     def update_employee(self):
-        try:
-            employee_id = self._display_prompt("Enter employee id", header_title="Update employee", opt_instruction="Leave empty to cancel")
+        self._print_header("Update Employee", add_extra_newline=True)
 
-            
-        except UICancelException:
-            pass
+        while True:
+            try:
+                employee_id = self._display_prompt("Enter employee id", opt_instruction="Leave empty to cancel", clear_screen=False)
+                employee_id = int(employee_id)
+            except ValueError:
+                self._print_header("List Employee", add_extra_newline=True)
+                self._print_centered("Id has to be a number", add_newline_after=True)
+                continue
+                
+            try:
+                employee = self.logic_wrapper.list_employee(employee_id)
+
+                if employee == None:
+                    self._print_header("List Employee", add_extra_newline=True)
+                    self._print_centered(f"Employee with id {employee_id} doesn't exist", add_newline_after=True)
+                    continue
+
+                employee_fields = [
+                    "Name",
+                    "Password",
+                    "Address",
+                    "Mobile Phone",
+                    "Email",
+                    "Home Phone",
+                ]
+
+                if isinstance(employee, Pilot):
+                    pass # TODO
+                elif isinstance(employee, FlightAttendant):
+                    pass # TODO
+                elif isinstance(employee, Manager):
+                    employee_fields.append("Work Phone")
+                elif isinstance(employee, FlightManager):
+                    employee_fields.append("Work Phone")
+
+                field_to_update = self._display_selection(employee_fields, header_title="Update Employee")
+
+                match field_to_update:
+                    case 0: # Name
+                        employee.name = self._display_prompt("Enter new name", opt_instruction="Leave empty to cancel")
+                    case 1: # Password
+                        employee.password_hash = self._display_prompt("Enter new password", opt_instruction="Leave empty to cancel")
+                    case 2: # Address
+                        employee.address = self._display_prompt("Enter new address", opt_instruction="Leave empty to cancel")
+                    case 3: # Mobile Phone
+                        employee.mobile_phone = self._display_prompt("Enter new mobile phone", opt_instruction="Leave empty to cancel")
+                    case 4: # Email
+                        employee.email = self._display_prompt("Enter new email", opt_instruction="Leave empty to cancel")
+                    case 5: # Home Phone
+                        employee.home_phone = self._display_prompt("Enter new home phone", opt_instruction="Leave empty to cancel")
+                    case 6: # Field 6 [Manager, FlightManager, Pilot, FlightAttendant]
+                        if isinstance(employee, Pilot):
+                            return # TODO
+                        elif isinstance(employee, FlightAttendant):
+                            return # TODO
+                        elif isinstance(employee, Manager):
+                            employee.work_phone = self._display_prompt("Enter new work phone", opt_instruction="Leave empty to cancel")
+                        elif isinstance(employee, FlightManager):
+                            employee.work_phone = self._display_prompt("Enter new work phone", opt_instruction="Leave empty to cancel")
+                    case 7: # Field 7 [Pilot]
+                        return # Todo
+
+                self.logic_wrapper.update_employee(employee)
+
+                return
+            except UICancelException:
+                return
 
     def remove_employee(self):
         pass
