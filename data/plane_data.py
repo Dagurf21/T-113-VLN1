@@ -45,7 +45,7 @@ class Plane_Data:
         return ret_list
 
 
-    def update_plane(self, plane_id, plane):
+    def update_plane(self, plane):
         """Updates the plane with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
@@ -55,8 +55,8 @@ class Plane_Data:
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
             for row in reader:
-                if row["id"] == plane_id:
-                    writer.writerow({'id': plane_id, 'name': plane.name, 'type': plane.type, 'manufacturer': plane.manufacturer, 'capacity': plane.capacity, 'flights': plane.flights})
+                if row["id"] == plane.id:
+                    writer.writerow({'id': plane.id, 'name': plane.name, 'type': plane.type, 'manufacturer': plane.manufacturer, 'capacity': plane.capacity, 'flights': plane.flights})
                 else:
                     writer.writerow({'id': row["id"], 'name': row["name"], 'type': row["type"], 'manufacturer': row["manufacturer"], 'capacity': row["capacity"], 'flights': row["flights"]})
         

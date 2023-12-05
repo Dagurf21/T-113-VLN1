@@ -45,7 +45,7 @@ class Destination_Data:
         return ret_list
     
 
-    def update_destination(self, destination_id, destination):
+    def update_destination(self, destination):
         """Updates the destination with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
@@ -55,8 +55,8 @@ class Destination_Data:
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
             for row in reader:
-                if row["id"] == destination_id:
-                    writer.writerow({'id': destination_id, 'country': destination.country, 'airport': destination.airport, 'flight_time': destination.flight_time, 'distance': destination.distance, 'representative': destination.representative, 'emergency_phone': destination.emergency_phone})
+                if row["id"] == destination.id:
+                    writer.writerow({'id': destination.id, 'country': destination.country, 'airport': destination.airport, 'flight_time': destination.flight_time, 'distance': destination.distance, 'representative': destination.representative, 'emergency_phone': destination.emergency_phone})
                 else:
                     writer.writerow({'id': row["id"], 'country': row["country"], 'airport': row["airport"], 'flight_time': row["flight_time"], 'distance': row["distance"], 'representative': row["representative"], 'emergency_phone': row["emergency_phone"]})
 

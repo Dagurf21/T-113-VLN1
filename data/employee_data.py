@@ -54,7 +54,7 @@ class Employee_Data:
                         return Employee(row["id"], row["name"], row["job_title"], row["address"], row["ssn"], row["mobile_phone"], row["email"], row["home_phone"])
     
 
-    def update_employee(self, employee_id, employee):
+    def update_employee(self, employee):
         """Updates the employee with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
@@ -67,7 +67,7 @@ class Employee_Data:
             for row in reader:
 
                 # If the employee is found, the new data is written to the temporary file
-                if row["id"] == employee_id:
+                if row["id"] == employee.id:
                     row["job_title"],row["license"], row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"]  = employee.job_title, employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone
                 
                 # Each row from the original file is written to the temporary file
