@@ -10,7 +10,8 @@ class DestinationLogic:
 
     def create_destination(self, destination):
         """Takes in a destination object and forwards it to the data layer"""
-        return self.data_wrapper.create_destination(destination)
+        destination_class = self.make_destination_class(destination)
+        return self.data_wrapper.create_destination(destination_class)
 
     def list_all_destinations(self) -> list:  # List of Destinations
         """Returns a list of all destinations"""
@@ -18,10 +19,13 @@ class DestinationLogic:
 
     def list_destinations(self, id):  # Destination
         """Returns a destination object with the given id"""
-        return self.data_wrapper.list_destination(id)
+        destination_list = self.data_wrapper.list_destination(id)
+        #sorting tomfoolery
+        return destination_list
 
-    def update_destination(self, id) -> None:
+    def update_destination(self, id, destination) -> None:
         """Updates a destination object with the given id"""
+        destination_class = self.make_destination_class(destination_data, id)
         self.data_wrapper.update_destination(id)
 
     def delete_destination(self, id) -> None:
