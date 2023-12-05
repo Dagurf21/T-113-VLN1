@@ -30,25 +30,19 @@ class PlaneUI(UIWidget):
                     self._print_header(add_extra_newline=True)
                     
                 case "2": # List a plane
+                    self.display_plane_list()
                     self._clear_screen()
-                    self._print_header(message="List a singular plane")
-                    self.list_plane()
-                    self._clear_screen()
-                    self._print_header(message="Completed Successfully") # Not sure, may change
+                    self._print_header(add_extra_newline=True)
 
                 case "3": # Register plane
-                    self._clear_screen()
-                    self._print_header(message="Register a plane")
                     self.register_plane()
                     self._clear_screen()
-                    self._print_header(message="Completed Successfully") # Not sure, may change
+                    self._print_header(add_extra_newline=True)
 
                 case "4": # Remove plane
-                    self._clear_screen()
-                    self._print_header(message="Removing a plane")
                     self.remove_plane()
                     self._clear_screen()
-                    self._print_header(message="Completed Successfully") # Not sure, may change
+                    self._print_header(add_extra_newline=True)
 
                 case "5": # Back
                     break
@@ -110,7 +104,6 @@ class PlaneUI(UIWidget):
                 return
 
     def register_plane(self):
-        print ("We are registering a single plane here")
         try:
             name          = self._display_prompt("Enter name",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
             plane_type    = self._display_prompt("Enter type",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
@@ -133,7 +126,6 @@ class PlaneUI(UIWidget):
             return
 
     def remove_plane(self):
-        print ("We are removing a plane here")
         self._print_header("Remove Plane", add_extra_newline=True)
 
         while True:
