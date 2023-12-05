@@ -7,7 +7,7 @@ from logic.plane_logic import Planelogic
 
 from data.data_wrapper import DataWrapper
 
-class Logic_Wrapper(object):
+class LogicWrapper(object):
     
     def __init__(self):
         ''' '''
