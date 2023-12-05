@@ -25,7 +25,7 @@ class DataWrapper:
         return self.employee_data.update_employee(employee)
         
     def delete_employee(self, employee_id):
-        pass
+        return self.employee_data.delete_employee(employee_id)
 
     def create_destination(self, destination):
         return self.destination_data.create_destination(destination)
