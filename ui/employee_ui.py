@@ -80,15 +80,35 @@ class EmployeeUI(UIWidget):
 
 
     def display_employee(self):
-        testdata = [["000", "Testman", "Coolstreet", "581-2345", "test@nanair.is"]]
-        self._print_header(message="Employee search by ID")
-        employee_id = input("ID of employee: ")
-        employee_information = self.logic_wrapper.list_employee(employee_id)
-        self._print_datalist(
-            { "id": 3, "name":8, "addr.":10, "phone": 8, "email": 25}, employee_information
-            )
-        input()
-        pass
+        self._print_header("List Employee", add_extra_newline=True)
+
+        while True:
+            try:
+                employee_id = self._display_prompt("Enter employee id", opt_instruction="Leave empty to cancel", clear_screen=False)
+                employee_id = int(employee_id)
+                
+                employee = self.logic_wrapper.list_employee(employee_id)
+
+                if employee == None:
+                    self._print_header("List Employee", add_extra_newline=True)
+                    self._print_centered(f"Employee with id {employee_id} doesn't exist", add_newline_after=True)
+                    continue
+
+                self._print_options_list([
+                    f"Id:     {employee.id}"
+                    f"Name:   {employee.name}"
+                    f"Email:  {employee.name}"
+                    f"SSN:    {employee.name}"
+                    f"Mobile: {employee.name}"
+                    f"Home:   {employee.name}"
+                ])
+
+            except ValueError:
+                self._print_header("List Employee", add_extra_newline=True)
+                self._print_centered("Id has to be a number", add_newline_after=True)
+                continue
+            except UICancelException:
+                return
 
     def register_employee(self):
         try:
