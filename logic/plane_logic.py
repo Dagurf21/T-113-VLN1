@@ -1,7 +1,7 @@
 #import os
-from data.data_wrapper import Data_Wrapper
+from data.data_wrapper import DataWrapper
 
-class Plane_logic(Data_Wrapper):
+class PlaneLogic(DataWrapper):
     ''' '''
 
     def __init__(self):
@@ -24,12 +24,12 @@ class Plane_logic(Data_Wrapper):
 
     def list_all_planes(self) -> list: # Plane
         ''' '''
-        all_planes = Data_Wrapper.get_all_planes()
+        all_planes = DataWrapper.get_all_planes()
         return all_planes
     
     def list_plane(self, id): # Plane
         ''' '''
-        plane = Data_Wrapper.get_plane(id)
+        plane = DataWrapper.get_plane(id)
         
         return plane
 

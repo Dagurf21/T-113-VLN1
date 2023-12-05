@@ -25,28 +25,28 @@ class PlaneUI(UIWidget):
                 case "1": # List Planes
                     self._clear_screen()
                     self._print_header(message="List all planes")
-                    PlaneUI.list_planes()
+                    self.list_planes()
                     self._clear_screen()
                     self._print_header(message="Completed Successfully") # Not sure, may change
 
                 case "2": # List a plane
                     self._clear_screen()
                     self._print_header(message="List a singular plane")
-                    PlaneUI.list_plane()
+                    self.list_plane()
                     self._clear_screen()
                     self._print_header(message="Completed Successfully") # Not sure, may change
 
                 case "3": # Register plane
                     self._clear_screen()
                     self._print_header(message="Register a plane")
-                    PlaneUI.register_plane()
+                    self.register_plane()
                     self._clear_screen()
                     self._print_header(message="Completed Successfully") # Not sure, may change
 
                 case "4": # Remove plane
                     self._clear_screen()
                     self._print_header(message="Removing a plane")
-                    PlaneUI.remove_plane()
+                    self.remove_plane()
                     self._clear_screen()
                     self._print_header(message="Completed Successfully") # Not sure, may change
 
@@ -57,14 +57,14 @@ class PlaneUI(UIWidget):
                     self._clear_screen()
                     self._print_header(message="Unknown option", add_extra_newline=True)
 
-    def list_planes():
+    def list_planes(self):
         print ("We are listing all planes here")
 
-    def list_plane():
+    def list_plane(self):
         print ("We are printing a singular plane here")
 
-    def register_plane():
+    def register_plane(self):
         print ("We are registering a single plane here")
 
-    def remove_plane():
+    def remove_plane(self):
         print ("We are removing a plane here")

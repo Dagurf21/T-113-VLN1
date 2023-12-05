@@ -1,5 +1,6 @@
 from ui.widget import UIWidget
 from model.employee import Employee
+from logic.logic_wrapper import Logic_Wrapper
 
 class EmployeeUI(UIWidget):
     def __init__(self, user: Employee):
@@ -84,6 +85,15 @@ class EmployeeUI(UIWidget):
 
 
     def display_employee(self):
+        testdata = [["000", "Testman", "Coolstreet", "581-2345", "test@nanair.is"]]
+        self._clear_screen()
+        self._print_header(message="Employee search by ID")
+        employee_id = input("ID of employee: ")
+        employee_information = Logic_Wrapper.list_employee(employee_id)
+        self._print_datalist(
+            { "id": 3, "name":8, "addr.":10, "phone": 8, "email": 25}, employee_information
+            )
+        input()
         pass
 
     def register_employee(self):

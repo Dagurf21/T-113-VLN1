@@ -1,6 +1,6 @@
 from data.employee_data import Employee_Data
 
-class Data_Wrapper:
+class DataWrapper:
     def __init__(self):
         self.employee_data = Employee_Data()
 
