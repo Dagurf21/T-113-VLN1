@@ -17,7 +17,7 @@ class FlightRouteLogic():
         destination = self.data_wrapper.get_destination
 
         if destination.id == None:
-            return
+            raise ValueError("Invalid Input")
         
         else:
             self.data_wrapper.create_flight_route(data)
