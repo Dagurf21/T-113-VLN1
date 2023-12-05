@@ -45,6 +45,28 @@ class UIWidget:
                 self._clear_screen()
                 self._print_header(message="Invalid option", add_extra_newline=True)
 
+    def _prompt_interactive_datalist(self, headers: {str: int}, data: [[str]], title: str = ""):
+        while True:
+            self._clear_screen()
+            self._print_header(message=title, add_extra_newline=True)
+            # TODO: Insert data
+            self._print_datalist(headers, data)
+            self._print_centered("q: return - n: next page - p: prev page", add_newline_after=True, add_newline_before=True)
+
+            opt = input("Choose an option: ")
+            match opt:
+                case "q": # Return
+                    break
+                
+                case "n": # Next page
+                    continue
+
+                case "p": # Prev page
+                    continue
+
+                case _: # Unknown option
+                    continue
+
     def _print_options_list(self, lst: [str], numbered: bool = False):
         """Prints a list of options centered around the ui width. List can optionally be numbered"""
         largest_option = max(map(len, lst))

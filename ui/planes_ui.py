@@ -1,10 +1,12 @@
 from ui.widget import UIWidget
 from model.plane import Plane # Dont think we need this ??
 from model.employee import Employee
+from logic.logic_wrapper import LogicWrapper
 
 class PlaneUI(UIWidget):
-    def __init__(self, user: Employee):
+    def __init__(self, user: Employee, logic_wrapper: LogicWrapper):
         self.user = user
+        self.logic_wrapper = logic_wrapper
 
     def show(self):
         self._clear_screen()
