@@ -14,7 +14,15 @@
 from model.manager import Manager
 
 managerman = Manager(
-    1, "man", "siaebhe", "home", "ssn", "mobile", "email", "home", "work"
+    name="Marteinn",
+    password_hash="1234",
+    address="Hafnarstræti 103",
+    ssn="1234567890",
+    mobile_phone="1234567",
+    email="",
+    home_phone="",
+    work_phone="1234567",
+    id=1,
 )
 
 print(managerman)
