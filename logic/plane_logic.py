@@ -15,10 +15,10 @@ class PlaneLogic:
         Plane = self.data_wrapper.plane
 
         if Plane.id == None:
-            raise ValueError("Invalid Input")
-        
-        else:
             self.data_wrapper.create_plane(data)
+
+        else:
+            raise ValueError("Invalid Input")
 
     def list_all_planes(self) -> list[Plane]:
         '''Gets list of all planes through data wrapper and forwards list of planes'''
