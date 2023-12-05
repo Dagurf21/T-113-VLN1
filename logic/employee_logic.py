@@ -8,7 +8,8 @@ class EmployeeLogic:
 
     def create_employee(self, employee_data):
         """Takes in a employee object and forwards it to the data layer"""
-        employee = Employee(employee_data)
+        name, password, address, ssn, mobile_phone, email, home_phone = employee_data
+        employee = Employee(None, name, password, address, ssn, mobile_phone, email, home_phone)
 
         self.data_wrapper.create_employee(employee)
 
