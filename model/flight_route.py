@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 @dataclass
 class FlightRoute:
-    id = None
+    id: int = None
     flight_number: str
     departure: int
     destination: int

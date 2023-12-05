@@ -35,6 +35,8 @@ class Voyage_Data:
                 if row["id"] == voyage_id:
                     return Voyage(row["id"], row["sold_seats"], row["plane"], row["departure_flight"], row["arrival_flight"], row["date"])
 
+            # If no voyage is found with the given id, return None
+            return None
 
     def get_all_voyages(self):
         ret_list = []

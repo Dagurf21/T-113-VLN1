@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 @dataclass
 class Employee:
-    id = None
+    id: int = None
     name: str
     password_hash: str
     address: str

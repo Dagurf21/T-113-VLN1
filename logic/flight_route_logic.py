@@ -8,12 +8,19 @@ class FlightRouteLogic():
     def __init__ (self):
         ''' '''
 
-        self.flight_route = FlightRoute
+        self.data_wrapper = DataWrapper()
+        self.flight_route = FlightRoute()
 
-    def create_flight_route(self, data) -> None:
+    def create_flight_route(self, data: FlightRoute) -> None:
         ''' '''
 
-        pass
+        destination = self.data_wrapper.get_destination
+
+        if destination.id == None:
+            raise ValueError("Invalid Input")
+        
+        else:
+            self.data_wrapper.create_flight_route(data)
 
     def list_all_flight_routes(self) -> list: # FlightRoute
         ''' '''

@@ -28,20 +28,24 @@ class Destination_Data:
             return id
     
 
-    def get_destination(self, destination_id):
+    def get_destination(self, destination_id) -> "Destination":
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 if row["id"] == destination_id:
                     return Destination(row["id"], row["country"], row["airport"], row["flight_time"], row["distance"], row["representative"], row["emergency_phone"])
+            
+            # If no destination is found with the given id, return None
+            return None
     
 
-    def get_all_destinations(self):
+    def get_all_destinations(self) -> list["Destination"]:
         ret_list = []
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 ret_list.append(Destination(row["id"], row["country"], row["airport"], row["flight_time"], row["distance"], row["representative"], row["emergency_phone"]))
+        
         return ret_list
     
 
@@ -49,6 +53,7 @@ class Destination_Data:
         """Updates the destination with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
+        
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
             fieldnames = ["id", "country", "airport", "flight_time", "distance", "representative", "emergency_phone"]
             reader = csv.DictReader(csvfile, fieldnames=fieldnames)

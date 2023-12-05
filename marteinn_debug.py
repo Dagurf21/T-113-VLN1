@@ -13,6 +13,6 @@
 
 from model.employee import Employee
 
-man = Employee("Marteinn", "1234", "Hafnarfjörður", "1234567890", "", "", "")
+man = Employee("Marteinn", "1234", "Hafnarfjörður", "1234567890", "1234567890", "", "")
 
-print(man)
+print(man.id)
