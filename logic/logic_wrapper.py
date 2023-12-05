@@ -18,28 +18,9 @@ class LogicWrapper(object):
         self.voyage_logic = VoyageLogic(self.data_wrapper)
         self.plane_logic = PlaneLogic(self.data_wrapper)
 
-    def _employee_logic(self):
-        """ """
-
-    def _flight_route_logic(self):
-        """ """
-        pass
-
-    def _destination_logic(self):
-        """ """
-        pass
-
-    def _Voyage_logic(self):
-        """ """
-        pass
-
-    def _plane_logic(self):
-        """ """
-        pass
-
     def create_employee(self) -> None:
         """ """
-        pass
+        return
 
     def list_all_employees(self) -> list:  # Employee
         """"""
@@ -159,4 +140,24 @@ from data.data_wrapper import Data_Wrapper
 
     def get_all_customers(self):
         return self.customer_logic.get_all_customers()
+
+    def _employee_logic(self):
+        """ """
+        return self.employee_logic
+
+    def _flight_route_logic(self):
+        """ """
+        return self.flight_route_logic
+
+    def _destination_logic(self):
+        """ """
+        return self.destination_logic
+
+    def _Voyage_logic(self):
+        """ """
+        return self.voyage_logic
+
+    def _plane_logic(self):
+        """ """
+        return PlaneLogic
 '''
