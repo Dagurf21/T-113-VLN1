@@ -19,13 +19,13 @@ class EmployeeData:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 if row["job_title"] == "Manager" or row["job_title"] == "Chuck Norris":
-                    ret_list.append(Manager(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
+                    ret_list.append(Manager(id = row["id"], name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
                 elif row["job_title"] == "Pilot":
-                    ret_list.append(Pilot(id = row["id"], name = row["name"], password_hash = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"]))
+                    ret_list.append(Pilot(id = row["id"], name = row["name"], password = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"]))
                 elif row["job_title"] == "Flight Attendant":
-                    ret_list.append(FlightAttendant(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"]))
+                    ret_list.append(FlightAttendant(id = row["id"], name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"]))
                 elif row["job_title"] == "Flight Manager":
-                    ret_list.append(FlightManager(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
+                    ret_list.append(FlightManager(id = row["id"], name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
                 else:
                     pass
 
@@ -59,7 +59,7 @@ class EmployeeData:
                 pilot_license = None
                 work_phone = employee.work_phone
 
-            writer.writerow({'id': id, 'name': employee.name, 'job_title': job_title, 'license': pilot_license, 'password': employee.password_hash, 'address': employee.address, 'ssn': employee.ssn, 'mobile_phone': employee.mobile_phone, 'email': employee.email, 'home_phone': employee.home_phone, 'work_phone': work_phone})
+            writer.writerow({'id': id, 'name': employee.name, 'job_title': job_title, 'license': pilot_license, 'password': employee.password, 'address': employee.address, 'ssn': employee.ssn, 'mobile_phone': employee.mobile_phone, 'email': employee.email, 'home_phone': employee.home_phone, 'work_phone': work_phone})
             
     
 
@@ -80,13 +80,13 @@ class EmployeeData:
             for row in reader:
                 if int(row["id"]) == employee_id:
                     if row["job_title"] == "Manager" or row["job_title"] == "Chuck Norris":
-                        return Manager(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
+                        return Manager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
                     elif row["job_title"] == "Pilot":
-                        return Pilot(id = row["id"], name = row["name"], password_hash = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"])
+                        return Pilot(id = int(row["id"]), name = row["name"], password = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"])
                     elif row["job_title"] == "Flight Attendant":
-                        return FlightAttendant(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"])
+                        return FlightAttendant(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"])
                     elif row["job_title"] == "Flight Manager":
-                        return FlightManager(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
+                        return FlightManager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
                     else:
                         pass
 
@@ -110,13 +110,13 @@ class EmployeeData:
                 # If the employee is found, the new data is written to the temporary file
                 if int(row["id"]) == employee.id:
                     if row["job_title"] == "Manager" or row["job_title"] == "Chuck Norris" or row["job_title"] == "Flight Manager":
-                        row["job_title"], row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"], row["work_phone"] = employee.job_title, employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone, employee.work_phone
+                        row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"], row["work_phone"] = employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone, employee.work_phone
                     
                     elif row["job_title"] == "Pilot":
-                        row["job_title"], row["license"], row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"]  = employee.job_title, employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone
+                        row["license"], row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"]  = employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone
                     
                     elif row["job_title"] == "Flight Attendant":
-                        row["job_title"], row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"]  = employee.job_title, employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone
+                        row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"]  = employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone
                 
                 # Each row from the original file is written to the temporary file
                 row = {'id': row["id"], 'name': row["name"], 'job_title': row["job_title"], 'license': row["license"], 'password': row["password"], 'address': row["address"], 'ssn': row["ssn"], 'mobile_phone': row["mobile_phone"], 'email': row["email"], 'home_phone': row["home_phone"], 'work_phone': row["work_phone"]}
