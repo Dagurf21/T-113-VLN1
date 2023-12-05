@@ -2,10 +2,48 @@ import os
 
 UI_WIDTH = 69
 
+class UICancelException(Exception):
+    pass
+
 class UIWidget:
-    # TODO: Implement
     def _clear_screen(self):
         os.system('cls' if os.name == 'nt' else 'clear')
+
+    def _display_prompt(self, prompt: str, opt_instruction: str = None, clear_screen: bool = True, header_title: str = "", enable_cancel: bool = True):
+        if clear_screen:
+            self._print_header(message=header_title, add_extra_newline=True)
+
+        if isinstance(opt_instruction, str):
+            self._print_centered(opt_instruction, add_newline_after=True, add_newline_before=False)
+
+        inp = input(f"{prompt}: ")
+        if enable_cancel and inp == "":
+            raise UICancelException
+        
+        return inp
+    
+    def _display_selection(self, options: [str], opt_instruction: str = None, header_title: str = "", include_back: bool = True) -> int:
+        if include_back:
+            options.append("Back")
+
+        while True:
+            self._print_header(message = header_title, add_extra_newline=True)
+            self._print_options_list(options, numbered=True)
+            option = self._display_prompt("Choose an option", opt_instruction=opt_instruction, clear_screen=False)
+
+            try:
+                option = int(option) - 1
+                if option < 0 or option >= len(options):
+                    self._clear_screen()
+                    self._print_header(message="Invalid option", add_extra_newline=True)
+
+                if include_back and option == len(options) - 1:
+                    raise UICancelException
+
+                return option
+            except ValueError:
+                self._clear_screen()
+                self._print_header(message="Invalid option", add_extra_newline=True)
 
     def _print_options_list(self, lst: [str], numbered: bool = False):
         """Prints a list of options centered around the ui width. List can optionally be numbered"""
@@ -52,7 +90,9 @@ class UIWidget:
 
             print(" | ".join(data_row).center(UI_WIDTH))
 
-    def _print_header(self, message = None, add_extra_newline: bool = False):
+    def _print_header(self, message = None, add_extra_newline: bool = False, clear_screen: bool = True):
+        if clear_screen:
+            self._clear_screen()
         print("""
 ---------------------------------------------------------------------
 |                     NaN AIR Management system                     |

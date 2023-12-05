@@ -1,5 +1,9 @@
-from ui.widget import UIWidget
+from ui.widget import UIWidget, UICancelException
 from model.employee import Employee
+from model.pilot import Pilot
+from model.manager import Manager
+from model.flight_attendant import FlightAttendant
+from model.flight_manager import FlightManager
 from logic.logic_wrapper import LogicWrapper
 
 class EmployeeUI(UIWidget):
@@ -86,7 +90,6 @@ class EmployeeUI(UIWidget):
 
     def display_employee(self):
         testdata = [["000", "Testman", "Coolstreet", "581-2345", "test@nanair.is"]]
-        self._clear_screen()
         self._print_header(message="Employee search by ID")
         employee_id = input("ID of employee: ")
         employee_information = LogicWrapper.list_employee(employee_id)
@@ -97,7 +100,40 @@ class EmployeeUI(UIWidget):
         pass
 
     def register_employee(self):
-        pass
+        try:
+            employee_title = self._display_selection([
+                "Manager",
+                "Pilot",
+                "Flight Attendant",
+                "Flight Manager",
+            ], header_title="Register Employee")
+
+            name         = self._display_prompt("Enter name",         header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            password     = self._display_prompt("Enter password",     header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            address      = self._display_prompt("Enter address",      header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            ssn          = self._display_prompt("Enter SSN",          header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            mobile_phone = self._display_prompt("Enter mobile phone", header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            email        = self._display_prompt("Enter email",        header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            home_phone   = self._display_prompt("Enter home phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel (optional: n to skip)")
+
+            if home_phone == "n":
+                home_phone = None
+
+            match employee_title:
+                case 0: # Manager
+                    work_phone   = self._display_prompt("Enter work phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel")
+                    employee = Manager(name, password, address, ssn, mobile_phone, email, home_phone, work_phone)
+                case 1: # Pilot
+                    pass # TODO
+                case 2: # Flight Attendant
+                    pass # TODO
+                case 3: # Flight Manager
+                    work_phone   = self._display_prompt("Enter work phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel")
+                    employee = FlightManager(name, password, address, ssn, mobile_phone, email, home_phone, work_phone)
+        except UICancelException:
+            return
+
+                
 
     def update_employee(self):
         pass
