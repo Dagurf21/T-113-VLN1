@@ -12,7 +12,8 @@ class FlightRouteLogic():
         self.flight_route = FlightRoute()
 
     def create_flight_route(self, data: FlightRoute) -> None:
-        ''' '''
+        '''Creates flight route:
+                Checks if ID is valid'''
 
         destination = self.data_wrapper.get_destination
 
@@ -24,20 +25,21 @@ class FlightRouteLogic():
 
     def list_all_flight_routes(self) -> list: # FlightRoute
         ''' '''
-        return
-
+        return self.data_wrapper.get_all_flight_routes
+    
     def list_flight_route(self, id): # FlightRoute
         ''' '''
-        return
+        return self.data_wrapper.get_flight_route(id)
     
     def update_flight_route(self, id) -> None:
         ''' '''
-        pass 
+        self.data_wrapper.update_flight_route
 
     def delete_flight_route(self, id) -> None:
-        ''' '''
-        pass
-
+        ''''''
+        self.data_wrapper.delete_flight_route(id)
+        
     def assign_pilot(self, pilot) -> None:
         ''' '''
+        self.data_wrapper
         pass
