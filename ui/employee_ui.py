@@ -234,5 +234,31 @@ class EmployeeUI(UIWidget):
                 return
 
     def remove_employee(self):
-        pass
+        self._print_header("Remove Employee", add_extra_newline=True)
+
+        while True:
+            try:
+                employee_id = self._display_prompt("Enter employee id", opt_instruction="Leave empty to cancel", clear_screen=False)
+                employee_id = int(employee_id)
+            except ValueError:
+                self._print_header("List Employee", add_extra_newline=True)
+                self._print_centered("Id has to be a number", add_newline_after=True)
+                continue
+                
+            try:
+                employee = self.logic_wrapper.list_employee(employee_id)
+
+                if employee == None:
+                    self._print_header("List Employee", add_extra_newline=True)
+                    self._print_centered(f"Employee with id {employee_id} doesn't exist", add_newline_after=True)
+                    continue
+
+                should_delete = self._display_selection(["Delete"], header_title=f"Delete {employee.name}?", opt_instruction="Leave empty to cancel")
+
+                if should_delete == 0:
+                    self.logic_wrapper.delete_employee(employee_id)
+    
+                return
+            except UICancelException:
+                return
 
