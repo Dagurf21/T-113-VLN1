@@ -18,8 +18,15 @@ class Employee_Data:
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                ret_list.append(Employee(row["id"], row["name"], row["job_title"], row["address"], row["ssn"], row["mobile_phone"], row["email"], row["home_phone"]))
-        
+                if row["job_title"] == "Manager":
+                    ret_list.append(Manager(id = row["id"], name = row["name"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
+                elif row["job_title"] == "Pilot":
+                    ret_list.append(Pilot(id = row["id"], name = row["name"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"]))
+                elif row["job_title"] == "Flight Attendant":
+                    ret_list.append(FlightAttendant(id = row["id"], name = row["name"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"]))
+                elif row["job_title"] == "Flight Manager":
+                    ret_list.append(FlightManager(id = row["id"], name = row["name"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
+
         return ret_list
 
 
