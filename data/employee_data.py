@@ -103,7 +103,7 @@ class EmployeeData:
             reader = csv.DictReader(csvfile)
             writer = csv.DictWriter(tempfile, fieldnames = fieldnames)
 
-            writer.writeheader(fieldnames)
+            writer.writerow(fieldnames)
             # Looks for the employee to update
             for row in reader:
 
