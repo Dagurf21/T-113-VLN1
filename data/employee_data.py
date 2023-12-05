@@ -18,7 +18,7 @@ class Employee_Data:
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                if row["job_title"] == "Manager":
+                if row["job_title"] == "Manager" or row["job_title"] == "Chuck Norris":
                     ret_list.append(Manager(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
                 elif row["job_title"] == "Pilot":
                     ret_list.append(Pilot(id = row["id"], name = row["name"], password_hash = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"]))
@@ -26,8 +26,8 @@ class Employee_Data:
                     ret_list.append(FlightAttendant(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"]))
                 elif row["job_title"] == "Flight Manager":
                     ret_list.append(FlightManager(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
-                elif row["job_title"] == "Chuck Norris":
-                    ret_list.append(Manager(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
+                else:
+                    pass
 
         return ret_list
 
@@ -79,11 +79,17 @@ class Employee_Data:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 if row["id"] == employee_id:
-                    if row["job_title"] == "Pilot":
-                        return Pilot(row["id"], row["name"], row["job_title"],row["license"], row["address"], row["ssn"], row["mobile_phone"], row["email"], row["home_phone"])
+                    if row["job_title"] == "Manager" or row["job_title"] == "Chuck Norris":
+                        return Manager(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
+                    elif row["job_title"] == "Pilot":
+                        return Pilot(id = row["id"], name = row["name"], password_hash = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"])
+                    elif row["job_title"] == "Flight Attendant":
+                        return FlightAttendant(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"])
+                    elif row["job_title"] == "Flight Manager":
+                        return FlightManager(id = row["id"], name = row["name"], password_hash = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
                     else:
-                        return Employee(row["id"], row["name"], row["job_title"], row["address"], row["ssn"], row["mobile_phone"], row["email"], row["home_phone"])
-            
+                        pass
+                    
             # If no employee is found with the given id, return None
             return None
 
