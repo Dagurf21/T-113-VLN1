@@ -6,6 +6,7 @@ class VoyageLogic:
 
     def create_voyage(self, data) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
+        
         self.data_wrapper.create_voyage(data)
 
     def list_all_voyages(self) -> list:
@@ -16,10 +17,9 @@ class VoyageLogic:
         """Returns a voyage object with the given id"""
         return self.data_wrapper.get_voyage(id)
 
-    def update_voyage(self, id, voyage) -> None:
+    def update_voyage(self, voyage) -> None:
         """Updates a voyage object with the given id"""
-        voyage.id = id
-        return self.data_wrapper.update_voyage(id)
+        return self.data_wrapper.update_voyage(voyage)
 
     def delete_voyage(self, id) -> None:
         """Deletes a voyage object with the given id"""

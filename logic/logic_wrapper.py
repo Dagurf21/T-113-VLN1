@@ -76,9 +76,9 @@ class LogicWrapper(object):
         """ """
         return self.voyage_logic.list_voyage(id)
 
-    def update_voyage(self, id, voyage) -> None:
+    def update_voyage(self, voyage) -> None:
         """ """
-        return self.voyage_logic.update_voyage(id, voyage)
+        return self.voyage_logic.update_voyage(voyage)
 
     def delete_voyage(self, id) -> None:
         """ """
