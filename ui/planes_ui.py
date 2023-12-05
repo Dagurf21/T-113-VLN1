@@ -132,7 +132,6 @@ class PlaneUI(UIWidget):
         except UICancelException:
             return
 
-
     def remove_plane(self):
         print ("We are removing a plane here")
         self._print_header("Remove Plane", add_extra_newline=True)

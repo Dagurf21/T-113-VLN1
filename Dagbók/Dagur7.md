@@ -16,7 +16,10 @@
   - [x] Get all employees
   - [ ] Get all pilots
   - [ ] Get all flight attendants
-  - [ ] Create new plane
+  - [x] Create new plane
+  - [x] Get all planes
+  - [x] Get plane
+  - [x] Delete plane
   - [ ] Create new voyage
   - [ ] Add employees to voyage
 - Logic(Kristján & Marteinn):
@@ -44,7 +47,7 @@
 #### Dagslok skýrsla (Hvað gerði hver og einn í dag) ?
 
 - Axel Snær: Kláraði allt Employee UI, Hélt áfram með grunn á UI
-- Dagur Freyr: Endurraðaði og fór yfir texta í hönnunarskjali.
+- Dagur Freyr: Endurraðaði og fór yfir texta í hönnunarskjali, kláraði allt sem átti að klára í Plane UI
 - Elías Andri: Dagbók, Kláraði basic crud á öllu data, lagaði villur í employee data.
 - Kristján Kári: Plane logic, flight route logic, grunn fyrir logic.
 - Marteinn Logi: Employee logic, Logic wrapper, Byrjun á voyage logic.
