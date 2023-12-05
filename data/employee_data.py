@@ -24,8 +24,8 @@ class Employee_Data:
 
 
     def create_employee(self, employee):
-        with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
-            fieldnames = ["id", "name", "job_title", "password", "address", "ssn", "mobile_phone", "email", "home_phone"]
+        with open(self.file_name, 'a', encoding="utf-8") as csvfile:
+            fieldnames = ["id", "name", "job_title", "license", "password", "address", "ssn", "mobile_phone", "email", "home_phone", "work_phone"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             id = self.get_new_id()
