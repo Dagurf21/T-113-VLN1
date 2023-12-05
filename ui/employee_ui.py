@@ -69,7 +69,7 @@ class EmployeeUI(UIWidget):
                 employee.id,
                 employee.name,
                 employee.address,
-                employee.phone,
+                employee.mobile_phone,
                 employee.email
             ])
 
