@@ -118,6 +118,7 @@ class PlaneUI(UIWidget):
             capacity      = self._display_prompt("Enter capacity",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
             #flights       = self._display_prompt("Enter ",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
             # Not sure if we add flights now or later
+            # O
 
             plane = Plane(
                 name=name,
@@ -125,6 +126,7 @@ class PlaneUI(UIWidget):
                 manufacturer=manufacturer, 
                 capacity=capacity
             )
+            # Getting error when creating plane needing argument "flights"
 
             self.logic_wrapper.create_plane(plane)
         except UICancelException:
@@ -133,3 +135,31 @@ class PlaneUI(UIWidget):
 
     def remove_plane(self):
         print ("We are removing a plane here")
+        self._print_header("Remove Plane", add_extra_newline=True)
+
+        while True:
+            try:
+                plane_id = self._display_prompt("Enter plane ID", opt_instruction="Leave empty to cancel", clear_screen=False)
+                plane_id = int(plane_id)
+            except ValueError:
+                self._print_header("Remove Plane", add_extra_newline=True)
+                self._print_centered("ID has to be a number", add_newline_after=True)
+                continue
+
+            try:
+                plane = self.logic_wrapper.list_plane(plane_id)
+
+                if plane == None:
+                    self._print_header("Remove Plane", add_extra_newline=True)
+                    self._print_centered(f"Plane with id {plane_id} doesn't exist", add_newline_after=True)
+                    continue
+
+                should_delete = self._display_selection(["Delete"], header_title=f"Delete {plane.name} ID: {plane.id}?", opt_instruction="Leave empty to cancel")
+
+                if should_delete == 0:
+                    self.logic_wrapper.delete_plane(plane_id)
+                    
+                return
+            except UICancelException:
+                return
+
