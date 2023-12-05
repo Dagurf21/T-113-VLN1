@@ -136,7 +136,7 @@ class EmployeeUI(UIWidget):
                     work_phone   = self._display_prompt("Enter work phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel")
                     employee = Manager(
                         name=name,
-                        password_hash=password,
+                        password=password,
                         address=address,
                         ssn=ssn,
                         mobile_phone=mobile_phone,
@@ -152,7 +152,7 @@ class EmployeeUI(UIWidget):
                     work_phone   = self._display_prompt("Enter work phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel")
                     employee = Manager(
                         name=name,
-                        password_hash=password,
+                        password=password,
                         address=address,
                         ssn=ssn,
                         mobile_phone=mobile_phone,
@@ -206,7 +206,7 @@ class EmployeeUI(UIWidget):
 
                 match field_to_update:
                     case 0: # Password
-                        employee.password_hash = self._display_prompt("Enter new password", opt_instruction="Leave empty to cancel")
+                        employee.password = self._display_prompt("Enter new password", opt_instruction="Leave empty to cancel")
                     case 1: # Address
                         employee.address = self._display_prompt("Enter new address", opt_instruction="Leave empty to cancel")
                     case 2: # Mobile Phone

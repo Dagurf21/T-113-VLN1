@@ -36,7 +36,7 @@ class LoginUI(UIWidget):
             name="Chuck Norris",
             email="chucknorris@nanair.is",
             ssn="123456789",
-            password_hash="lastdigitsofpi",
+            password="lastdigitsofpi",
             address="everywhere",
             home_phone="12345678",
             mobile_phone="12345678",
