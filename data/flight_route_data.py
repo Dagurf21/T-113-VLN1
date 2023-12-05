@@ -45,7 +45,7 @@ class FlightRoute_Data:
         return ret_list
 
 
-    def update_flight_route(self, flight_route_id, flight_route):
+    def update_flight_route(self, flight_route):
         """Updates the flight_route with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
@@ -55,8 +55,8 @@ class FlightRoute_Data:
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
             for row in reader:
-                if row["id"] == flight_route_id:
-                    writer.writerow({'id': flight_route_id, 'flight_nr': flight_route.flight_nr, 'departure': flight_route.departure, 'destination': flight_route.destination, 'departure_time': flight_route.departure_time, 'arrival_time': flight_route.arrival_time})
+                if row["id"] == flight_route.id:
+                    writer.writerow({'id': flight_route.id, 'flight_nr': flight_route.flight_nr, 'departure': flight_route.departure, 'destination': flight_route.destination, 'departure_time': flight_route.departure_time, 'arrival_time': flight_route.arrival_time})
                 else:
                     writer.writerow({'id': row["id"], 'flight_nr': row["flight_nr"], 'departure': row["departure"], 'destination': row["destination"], 'departure_time': row["departure_time"], 'arrival_time': row["arrival_time"]})
 
