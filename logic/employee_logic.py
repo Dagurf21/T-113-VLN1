@@ -6,8 +6,9 @@ class EmployeeLogic:
     def __init__(self, data_connection):
         self.data_wrapper = data_connection
 
-    def create_employee(self, employee):
+    def create_employee(self, employee_data):
         """Takes in a employee object and forwards it to the data layer"""
+        employee = Employee(employee_data)
 
         self.data_wrapper.create_employee(employee)
 
@@ -21,7 +22,8 @@ class EmployeeLogic:
 
     def update_employee(self, id, data):
         """Updates a employee object with the given id"""
-        self.data_wrapper.update_employee(id, data)
+
+        self.data_wrapper.update_employee(id, employee)
 
     def delete_employee(self, id):
         """Deletes a employee object with the given id"""

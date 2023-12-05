@@ -2,11 +2,17 @@
 #   Saman:
 #         Employee_logic
 #
-#Marteinn: 
+# Marteinn:
 #         Employee_logic
 #         Destination_logic
 #         Voyage_logic
 #
-#Kristján:
+# Kristján:
 #         Flight_route_logic
 #         Plane_logic
+
+from model.employee import Employee
+
+man = Employee("Marteinn", "1234", "Hafnarfjörður", "1234567890", "", "", "")
+
+print(man)
