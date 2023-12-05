@@ -5,9 +5,9 @@ from model.plane import Plane
 class PlaneLogic:
     ''' '''
 
-    def __init__(self):
+    def __init__(self, data_wrapper):
         ''' '''
-        self.plane = Plane()
+        pass
 
     def create_plane(self, data) -> None:
         ''' '''
@@ -28,12 +28,8 @@ class PlaneLogic:
         return all_planes
     
     def list_plane(self, id): # Plane
-        ''' '''
-        plane = DataWrapper.get_plane(id)
-        
-        return plane
-
-        return
+        ''''''
+        return self.data_wrapper.get_all_planes
     
     def update_plane(self, id) -> None:
         ''' '''
