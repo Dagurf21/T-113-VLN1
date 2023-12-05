@@ -28,9 +28,12 @@ class PlaneLogic:
         '''Gets info on a plane witha a specific ID and forwards data'''
         return self.data_wrapper.get_plane(id)
     
-    def update_plane(self, id) -> None:
+    def update_plane(self, id, Plane) -> None:
         '''Updates information of a plane with a specific ID'''
-        self.data_wrapper.update_plane(id, data)
+        
+        Plane.id = id
+
+        self.data_wrapper.update_plane(id)
     
     def delete_plane(self, id) -> None:
         '''Removes a plane with specific ID'''

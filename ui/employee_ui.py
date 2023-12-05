@@ -203,7 +203,7 @@ class EmployeeUI(UIWidget):
                 elif isinstance(employee, FlightManager):
                     employee_fields.append("Work Phone")
 
-                field_to_update = self._display_selection(employee_fields, header_title="Update Employee")
+                field_to_update = self._display_selection(employee_fields, header_title=f"Update Employee [{employee.name}]")
 
                 match field_to_update:
                     case 0: # Name

@@ -29,9 +29,11 @@ class FlightRouteLogic():
         '''Gets a specific flight route with a specific ID'''
         return self.data_wrapper.get_flight_route(id)
     
-    def update_flight_route(self, id) -> None:
+    def update_flight_route(self, id, FlightRoute) -> None:
         '''Updates flightroute through data_wrapper'''
-        self.data_wrapper.update_flight_route
+        FlightRoute.id = id
+
+        self.data_wrapper.update_flight_route(id, data)
 
     def delete_flight_route(self, id) -> None:
         '''Deletes flight route through data_wrapper'''
