@@ -35,6 +35,11 @@ class PlaneLogic:
 
         self.data_wrapper.update_plane(plane)
     
-    def delete_plane(self, id) -> None:
+    def delete_plane(self, id, plane) -> None:
         '''Removes a plane with specific ID'''
-        self.data_wrapper.delete_plane
+
+        if id == data_wrapper.get_plane.id:
+            self.data_wrapper.delete_plane
+
+        else:
+            raise ValueError("404 Invalid ID")
