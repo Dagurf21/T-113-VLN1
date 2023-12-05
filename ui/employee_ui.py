@@ -61,13 +61,22 @@ class EmployeeUI(UIWidget):
                     self._print_header(message="Unknown option", add_extra_newline=True)
 
     def display_employee_list(self):
+        employees = self.logic_wrapper.list_all_employees()
+        employee_data = []
+
+        for employee in employees:
+            employee_data.append([
+                employee.id,
+                employee.name,
+                employee.address,
+                employee.phone,
+                employee.email
+            ])
+
         self._prompt_interactive_datalist(
-            { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, [
-            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
-            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
-            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
-            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
-        ])
+            { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, 
+            employee_data
+        )
 
 
     def display_employee(self):
