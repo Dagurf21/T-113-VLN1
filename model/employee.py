@@ -4,7 +4,7 @@ from dataclasses import dataclass
 class Employee:
     id: int = None
     name: str
-    password_hash: str
+    password: str
     address: str
     ssn: str
     mobile_phone: str
