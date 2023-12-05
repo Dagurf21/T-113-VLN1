@@ -1,11 +1,3 @@
-from data.employee_data import Employee_Data
-from model.employee import Employee
-from model.flight_attendant import FlightAttendant
-from model.pilot import Pilot
-from model.flight_manager import FlightManager
-from model.manager import Manager
-
-
 class EmployeeLogic:
     """This class is the logic layer for the employee class"""
 

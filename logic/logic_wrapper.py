@@ -9,6 +9,8 @@ from data.data_wrapper import DataWrapper
 
 
 class LogicWrapper(object):
+    """This is the logic wrapper class. It is used to call the logic layer classes"""
+
     def __init__(self):
         """Constructor for LogicWrapper"""
         self.data_wrapper = DataWrapper()
@@ -19,14 +21,14 @@ class LogicWrapper(object):
         self.plane_logic = PlaneLogic(self.data_wrapper)
 
     def create_employee(self, employee) -> None:
-        """ """
+        """Takes in a employee object and forwards it to the create_employee function"""
         return self.employee_logic.create_employee(employee)
 
-    def list_all_employees(self) -> list:  # Employee
-        """"""
+    def list_all_employees(self) -> list:  #List(Employee)
+        """ """
         return self.employee_logic.list_all_employees()
 
-    def list_employee(self, id):
+    def list_employee(self, id): # Employee
         """ """
         return self.employee_logic.list_employee(id)
 
@@ -46,7 +48,7 @@ class LogicWrapper(object):
         """ """
         return self.flight_route_logic.list_all_flight_routes()
 
-    def list_flight_route(self, id):
+    def list_flight_route(self, id): # Flight route
         """ """
         return self.flight_route_logic.list_flight_route(id)
 
