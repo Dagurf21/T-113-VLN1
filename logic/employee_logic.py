@@ -6,7 +6,6 @@ class EmployeeLogic:
 
     def create_employee(self, employee_data):
         """Takes in a employee object and forwards it to the data layer"""
-
         return self.data_wrapper.create_employee(employee_data)
 
     def list_all_employees(self) -> list:
