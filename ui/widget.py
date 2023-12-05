@@ -1,12 +1,12 @@
+import os
 
 UI_WIDTH = 69
 
 class UIWidget:
     # TODO: Implement
     def _clear_screen(self):
-        # TEMPORARY!!!!!
-        for _ in range(50): print()
-    
+        os.system('cls' if os.name == 'nt' else 'clear')
+
     def _print_options_list(self, lst: [str], numbered: bool = False):
         """Prints a list of options centered around the ui width. List can optionally be numbered"""
         largest_option = max(map(len, lst))
@@ -18,6 +18,13 @@ class UIWidget:
                 print(f"{padding}{i+1:>2} {option}")
             else:
                 print(f"{padding}{option}")
+
+    def _print_centered(self, text: str, add_newline_before: bool = False, add_newline_after: bool = False):
+        if add_newline_before:
+            print()
+        print(text.center(UI_WIDTH))
+        if add_newline_after:
+            print()
 
     def _print_datalist(self, headers: {str: int}, data: [[str]]):
         """Prints a centered table of data with headers.

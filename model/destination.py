@@ -8,4 +8,3 @@ class Destination:
     flight_time: int
     representatie: str
     emergency_number: str
-
