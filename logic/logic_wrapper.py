@@ -7,6 +7,7 @@ from logic.plane_logic import PlaneLogic
 
 from data.data_wrapper import DataWrapper
 
+
 class LogicWrapper(object):
     def __init__(self):
         """Constructor for LogicWrapper"""
@@ -17,109 +18,109 @@ class LogicWrapper(object):
         self.voyage_logic = VoyageLogic(self.data_wrapper)
         self.plane_logic = PlaneLogic(self.data_wrapper)
 
-    def create_employee(self) -> None:
+    def create_employee(self, employee) -> None:
         """ """
-        return
+        return self.employee_logic.create_employee(employee)
 
     def list_all_employees(self) -> list:  # Employee
         """"""
-        pass
+        return self.employee_logic.list_all_employees()
 
     def list_employee(self, id):
         """ """
-        pass
+        return self.employee_logic.list_employee(id)
 
     def update_employee(self, id, data) -> None:
         """ """
-        pass
+        return self.employee_logic.update_employee(id, employee)
 
     def delete_employee(self, id) -> None:
         """ """
-        pass
+        return self.employee_logic.delete_employee(id)
 
     def create_flight_route(self, data) -> None:
         """ """
-        pass
+        return self.flight_route_logic.create_flight_route(data)
 
     def list_all_flight_routes(self) -> list:  # Flight route
         """ """
-        return []
+        return self.flight_route_logic.list_all_flight_routes()
 
     def list_flight_route(self, id):
         """ """
-        pass
+        return self.flight_route_logic.list_flight_route(id)
 
-    def update_flight_route(self, id) -> None:
+    def update_flight_route(self, id, data) -> None:
         """ """
-        pass
+        return self.flight_route_logic.update_flight_route(id)
 
     def delete_flight_route(self, id) -> None:
         """ """
-        pass
+        return self.flight_route_logic.delete_flight_route(id)
 
-    def assign_pilot(self, pilot) -> None:
+    def assign_pilot(self, id,pilot) -> None:
         """ """
-        pass
+        return self.flight_route_logic.assign_pilot(pilot)
 
     def create_voyage(self, data) -> None:
         """ """
-        pass
+        return self.voyage_logic.create_voyage(data)
 
     def list_all_voyages(self) -> list:
         """ """
-        return []
+        return self.voyage_logic.list_all_voyages()
 
     def list_voyage(self, id) -> list:  # Destination
         """ """
-        return
+        return self.voyage_logic.list_voyage(id)
 
     def update_voyage(self, id) -> None:
         """ """
-        pass
+        return self.voyage_logic.update_voyage(id)
 
     def delete_voyage(self, id) -> None:
         """ """
-        pass
+        return self.voyage_logic.delete_voyage(id)
 
     def create_destination(self, data) -> None:
         """ """
-        pass
+        return self.destination_logic.create_destination(data)
 
     def list_all_destinations(self) -> list:  # Destination
         """ """
-        return []
+        return self.destination_logic.list_all_destinations()
 
     def list_destination(self, id) -> list:  # Destination
         """ """
-        return
+        return self.destination_logic.list_destination(id)
 
     def update_destination(self, id) -> None:
         """ """
-        pass
+        return self.destination_logic.update_destination(id)
 
     def delete_destination(self, id) -> None:
         """ """
-        pass
+        return self.destination_logic.delete_destination(id)
 
     def create_plane(self, data) -> None:
         """ """
-        pass
+        return self.plane_logic.create_plane(data)
 
     def list_all_planes(self) -> list:  # Plane
         """ """
-        return []
+        return self.plane_logic.list_all_planes()
 
     def list_plane(self, id):  # Plane
         """ """
-        return
+        return self.plane_logic.list_plane(id)
 
     def update_plane(self, id) -> None:
         """ """
-        pass
+        return self.plane_logic.update_plane(id)
 
     def delete_plane(self, id) -> None:
         """ """
-        pass
+        return self.plane_logic.delete_plane(id)
 
 
 '''
