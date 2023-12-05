@@ -14,11 +14,11 @@ class DestinationLogic:
 
     def list_all_destinations(self) -> list:  # List of Destinations
         """Returns a list of all destinations"""
-        return self.data_wrapper.list_all_destinations()
+        return self.data_wrapper.get_all_destinations()
 
     def list_destinations(self, id):  # Destination
         """Returns a destination object with the given id"""
-        destination_list = self.data_wrapper.list_destination(id)
+        destination_list = self.data_wrapper.get_destination(id)
         # sorting tomfoolery
         return destination_list
 

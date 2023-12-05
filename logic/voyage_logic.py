@@ -13,11 +13,11 @@ class VoyageLogic:
 
     def list_all_voyages(self) -> list:
         """Returns a list of all voyages"""
-        return self.data_wrapper.list_all_voyages()
+        return self.data_wrapper.get_all_voyages()
 
     def list_voyage(self, id):
         """Returns a voyage object with the given id"""
-        return self.data_wrapper.list_voyage(id)
+        return self.data_wrapper.get_voyage(id)
 
     def update_voyage(self, id) -> None:
         """Updates a voyage object with the given id"""
