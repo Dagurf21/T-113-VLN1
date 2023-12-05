@@ -28,7 +28,7 @@ class UIWidget:
 
         while True:
             self._print_header(message = header_title, add_extra_newline=True)
-            self._print_options_list(options, numbered=True)
+            self._print_options_list(options, numbered=True, add_newline_after=True)
             option = self._display_prompt("Choose an option", opt_instruction=opt_instruction, clear_screen=False)
 
             try:
