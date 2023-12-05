@@ -84,5 +84,5 @@ class DataWrapper:
     def update_flight_route(self, flight_route):
         return self.flight_route_data.update_flight_route(flight_route)
 
-    def delete_flight(self, flight_id):
+    def delete_flight_route(self, flight_route_id):
         pass
