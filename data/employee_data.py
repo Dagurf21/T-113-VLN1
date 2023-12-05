@@ -29,7 +29,29 @@ class Employee_Data:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             id = self.get_new_id()
-            writer.writerow({'id': id, 'name': employee.name, 'job_title': employee.job_title, 'password': employee.password, 'address': employee.address, 'ssn': employee.ssn, 'mobile_phone': employee.mobile_phone, 'email': employee.email, 'home_phone': employee.home_phone})
+            
+            if isinstance(employee, Manager):
+                job_title = "Manager"
+                pilot_license = None
+                work_phone = employee.work_phone
+
+            elif isinstance(employee, Pilot):
+                job_title = "Pilot"
+                pilot_license = employee.license
+                work_phone = None
+
+            elif isinstance(employee, FlightAttendant):
+                job_title = "Flight Attendant"
+                pilot_license = None
+                work_phone = None
+
+            elif isinstance(employee, FlightManager):
+                job_title = "Flight Manager"
+                pilot_license = None
+                work_phone = employee.work_phone
+
+            writer.writerow({'id': id, 'name': employee.name, 'job_title': job_title, 'license': pilot_license, 'password': employee.password, 'address': employee.address, 'ssn': employee.ssn, 'mobile_phone': employee.mobile_phone, 'email': employee.email, 'home_phone': employee.home_phone, 'work_phone': work_phone})
+            
     
 
     def get_new_id(self) -> int:

@@ -15,7 +15,8 @@ class EmployeeLogic:
 
     def list_all_employees(self) -> list:
         """Returns a list of all employees"""
-        return self.data_wrapper.list_all_employees()
+        employee_list = self.data_wrapper.list_all_employees()
+        
 
     def list_employee(self, id):
         """Returns a employee object with the given id"""
