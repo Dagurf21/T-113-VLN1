@@ -7,8 +7,9 @@ from model.flight_manager import FlightManager
 from logic.logic_wrapper import LogicWrapper
 
 class EmployeeUI(UIWidget):
-    def __init__(self, user: Employee):
+    def __init__(self, user: Employee, logic_wrapper: LogicWrapper):
         self.user = user
+        self.logic_wrapper = logic_wrapper
 
     def show(self):
         self._clear_screen()
@@ -60,39 +61,20 @@ class EmployeeUI(UIWidget):
                     self._print_header(message="Unknown option", add_extra_newline=True)
 
     def display_employee_list(self):
-        while True:
-            self._clear_screen()
-            self._print_header(message="Employees", add_extra_newline=True)
-            # TODO: Insert data
-            self._print_datalist(
-                { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, [
-                [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
-                [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
-                [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
-                [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
-            ])
-            self._print_centered("q: return - n: next page - p: prev page", add_newline_after=True, add_newline_before=True)
-
-            opt = input("Choose an option: ")
-            match opt:
-                case "q": # Return
-                    break
-                
-                case "n": # Next page
-                    continue
-
-                case "p": # Prev page
-                    continue
-
-                case _: # Unknown option
-                    continue
+        self._prompt_interactive_datalist(
+            { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, [
+            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
+            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
+            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
+            [ "000", "Testman", "Coolstreet", "581-2345", "test@nanair.is" ],
+        ])
 
 
     def display_employee(self):
         testdata = [["000", "Testman", "Coolstreet", "581-2345", "test@nanair.is"]]
         self._print_header(message="Employee search by ID")
         employee_id = input("ID of employee: ")
-        employee_information = LogicWrapper.list_employee(employee_id)
+        employee_information = self.logic_wrapper.list_employee(employee_id)
         self._print_datalist(
             { "id": 3, "name":8, "addr.":10, "phone": 8, "email": 25}, employee_information
             )
@@ -122,21 +104,44 @@ class EmployeeUI(UIWidget):
             match employee_title:
                 case 0: # Manager
                     work_phone   = self._display_prompt("Enter work phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel")
-                    employee = Manager(name, password, address, ssn, mobile_phone, email, home_phone, work_phone)
+                    employee = Manager(
+                        name=name,
+                        password_hash=password,
+                        address=address,
+                        ssn=ssn,
+                        mobile_phone=mobile_phone,
+                        email=email,
+                        home_phone=home_phone,
+                        work_phone=work_phone
+                    )
                 case 1: # Pilot
-                    pass # TODO
+                    return # TODO
                 case 2: # Flight Attendant
-                    pass # TODO
+                    return # TODO
                 case 3: # Flight Manager
                     work_phone   = self._display_prompt("Enter work phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel")
-                    employee = FlightManager(name, password, address, ssn, mobile_phone, email, home_phone, work_phone)
+                    employee = Manager(
+                        name=name,
+                        password_hash=password,
+                        address=address,
+                        ssn=ssn,
+                        mobile_phone=mobile_phone,
+                        email=email,
+                        home_phone=home_phone,
+                        work_phone=work_phone
+                    )
+
+            self.logic_wrapper.create_employee(employee)
         except UICancelException:
             return
 
-                
-
     def update_employee(self):
-        pass
+        try:
+            employee_id = self._display_prompt("Enter employee id", header_title="Update employee", opt_instruction="Leave empty to cancel")
+
+            
+        except UICancelException:
+            pass
 
     def remove_employee(self):
         pass

@@ -1,9 +1,10 @@
 from ui.widget import UIWidget
 from model.voyage import Voyage
 from model.employee import Employee
+from logic.logic_wrapper import LogicWrapper
 
 class VoyageUI(UIWidget):
-    def __init__(self, user: Employee):
+    def __init__(self, user: Employee, logic_wrapper: LogicWrapper):
         self.user = user
     
     def show(self):

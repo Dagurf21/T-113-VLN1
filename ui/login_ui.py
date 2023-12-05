@@ -1,8 +1,12 @@
 from ui.widget import UIWidget
 from ui.mainmenu_ui import MainMenuUI
 from model.employee import Employee
+from logic.logic_wrapper import LogicWrapper
 
 class LoginUI(UIWidget):
+    def __init__(self):
+        self.logic_wrapper = LogicWrapper()
+
     def show(self):
         while True:
             self._clear_screen()
@@ -38,7 +42,7 @@ class LoginUI(UIWidget):
             mobile_phone="12345678",
         )
 
-        main_menu = MainMenuUI(user)
+        main_menu = MainMenuUI(user, self.logic_wrapper)
         main_menu.show()
 
 

@@ -1,11 +1,12 @@
 from ui.widget import UIWidget
 from model.destination import Destination
 from model.employee import Employee
-
+from logic.logic_wrapper import LogicWrapper
 
 class DestinationUI(UIWidget):
-    def __init__(self, user: Employee):
+    def __init__(self, user: Employee, logic_wrapper: LogicWrapper):
         self.user = user
+        self.logic_wrapper = logic_wrapper
 
     def show(self):
         self._clear_screen()

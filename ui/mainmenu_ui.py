@@ -4,9 +4,10 @@ from ui.planes_ui import PlaneUI
 from ui.voyage_ui import VoyageUI
 from ui.destination_ui import DestinationUI
 from model.employee import Employee
+from logic.logic_wrapper import LogicWrapper
 
 class MainMenuUI(UIWidget):
-    def __init__(self, user: Employee):
+    def __init__(self, user: Employee, logic_wrapper: LogicWrapper):
         self.user = user
 
     def show(self):
@@ -26,25 +27,25 @@ class MainMenuUI(UIWidget):
 
             match option:
                 case "1": # Employees
-                    employee_ui = EmployeeUI(self.user)
+                    employee_ui = EmployeeUI(self.user, self.logic_wrapper)
                     employee_ui.show()
                     self._clear_screen()
                     self._print_header(add_extra_newline=True)
 
                 case "2": # Planes
-                    planes_ui = PlaneUI(self.user)
+                    planes_ui = PlaneUI(self.user, self.logic_wrapper)
                     planes_ui.show()
                     self._clear_screen()
                     self._print_header(add_extra_newline=True)
 
                 case "3": # Voyage
-                    voyage_ui = VoyageUI(self.user)
+                    voyage_ui = VoyageUI(self.user, self.logic_wrapper)
                     voyage_ui.show()
                     self._clear_screen()
                     self._print_header(add_extra_newline=True)
 
                 case "4": # Planes
-                    destination_ui = DestinationUI(self.user)
+                    destination_ui = DestinationUI(self.user, self.logic_wrapper)
                     destination_ui.show()
                     self._clear_screen()
                     self._print_header(add_extra_newline=True)
