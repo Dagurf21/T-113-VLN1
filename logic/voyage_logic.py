@@ -20,9 +20,9 @@ class VoyageLogic:
         """Returns a voyage object with the given id"""
         return self.data_wrapper.get_voyage(id)
 
-    def update_voyage(self, id, destination) -> None:
+    def update_voyage(self, id, voyage) -> None:
         """Updates a voyage object with the given id"""
-        destination.id = id
+        voyage.id = id
         return self.data_wrapper.update_voyage(id)
 
     def delete_voyage(self, id) -> None:
