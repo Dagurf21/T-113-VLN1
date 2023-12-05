@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 @dataclass
 class Plane:
-    id = None
+    id: int = None
     name: str
     ty: str
     manufacturer: str
