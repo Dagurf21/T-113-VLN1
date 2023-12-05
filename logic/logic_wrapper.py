@@ -10,18 +10,17 @@ from data.data_wrapper import DataWrapper
 class LogicWrapper(object):
     
     def __init__(self):
-        ''' '''
+        """Constructor for LogicWrapper"""
         self.data_wrapper = DataWrapper()
         self.employee_logic = EmployeeLogic(self.data_wrapper)
         self.flight_route_logic = FlightRouteLogic(self.data_wrapper)
         self.destination_logic = DestinationLogic(self.data_wrapper)
         self.voyage_logic = VoyageLogic(self.data_wrapper)
         self.plane_logic = PlaneLogic(self.data_wrapper)
-        pass
 
     def _employee_logic(self):
         ''' '''
-        pass
+
 
     def _flight_route_logic(self):
         ''' '''
