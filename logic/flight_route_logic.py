@@ -1,26 +1,17 @@
 #import os
 from data.data_wrapper import DataWrapper
+from model.flight_route import FlightRoute
 
-class FlightRouteLogic(DataWrapper):
+class FlightRouteLogic():
     ''' '''
 
     def __init__ (self):
         ''' '''
 
-        self.id: int
-        self.flight_number: str
-        self.departure: str # Destination
-        self.destination: str # Destination
-        self.departure_time: str
-        self.arrival_time: str
-
-        pass
+        self.flight_route = FlightRoute
 
     def create_flight_route(self, data) -> None:
         ''' '''
-
-        #self.flight_number = 
-
 
         pass
 

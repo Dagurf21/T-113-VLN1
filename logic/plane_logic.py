@@ -1,25 +1,19 @@
 #import os
 from data.data_wrapper import DataWrapper
+from model.plane import Plane
 
-class PlaneLogic(DataWrapper):
+class PlaneLogic:
     ''' '''
 
     def __init__(self):
         ''' '''
-        
-        self.id: int
-        self.name: str
-        self.__password: str
-        self.address: str
-        self.ssn: str
-        self.mobil_phone: str
-        self.email: str
-        self.home_phone:str  # Optional
-
-        pass
+        self.plane = Plane()
 
     def create_plane(self, data) -> None:
         ''' '''
+        
+        
+
         pass
 
     def list_all_planes(self) -> list: # Plane
