@@ -1,16 +1,16 @@
-from data.employee_data import Employee_Data
-from data.destination_data import Destination_Data
-from data.flight_route_data import FlightRoute_Data
-from data.plane_data import Plane_Data
-from data.voyage_data import Voyage_Data
+from data.employee_data import EmployeeData
+from data.destination_data import DestinationData
+from data.flight_route_data import FlightRouteData
+from data.plane_data import PlaneData
+from data.voyage_data import VoyageData
 
 class DataWrapper:
     def __init__(self):
-        self.employee_data = Employee_Data()
-        self.destination_data = Destination_Data()
-        self.flight_route_data = FlightRoute_Data()
-        self.plane_data = Plane_Data()
-        self.voyage_data = Voyage_Data()
+        self.employee_data = EmployeeData()
+        self.destination_data = DestinationData()
+        self.flight_route_data = FlightRouteData()
+        self.plane_data = PlaneData()
+        self.voyage_data = VoyageData()
 
     def get_all_employees(self):
         return self.employee_data.get_all_employees()
