@@ -9,8 +9,10 @@
 - UI(Axel & Dagur):
     - [X] Log in
     - [X] Create new employee
-    - [ ] Update employee
-    - [ ] Get employee
+    - [X] Update employee
+    - [X] Get employee
+    - [X] Delete employee
+    - [X] Get all employees
     - [ ] Get all pilots
     - [ ] Get all flight attendants
     - [ ] Create new plane
@@ -18,17 +20,17 @@
     - [ ] Add employees to voyage
 - Logic(Kristján & Marteinn):
     - [X] Setja upp wrapper
-    - [ ] CRUD Employee
+    - [X] CRUD Employee
     - [ ] CRUD Planes
     - [ ] CRUD Voyages
     - [ ] CRUD Destinations
     - [ ] CRUD Flight
 - Storage(Elías):
     - [X] CRUD Employee
-    - [ ] CRUD Planes
-    - [ ] CRUD Voyages
+    - [X] CRUD Planes
+    - [X] CRUD Voyages
     - [X] CRUD Destinations
-    - [ ] CRUD Flight
+    - [X] CRUD Flight
 
 ### Verkefna skipting
 - Axel Snær: Create new employee, get employee
@@ -39,10 +41,16 @@
 
 #### Dagslok skýrsla (Hvað gerði hver og einn í dag) ?
 
-- Axel Snær: 
+- Axel Snær: Kláraði allt Employee UI, Hélt áfram með grunn á UI
 - Dagur Freyr: 
-- Elías Andri: 
-- Kristján Kári: 
-- Marteinn Logi: 
+- Elías Andri: Dagbók, Kláraði basic crud á öllu data, lagaði villur í employee data.
+- Kristján Kári: Plane logic, flight route logic, grunn fyrir logic.
+- Marteinn Logi: Employee logic, Logic wrapper, Byrjun á voyage logic.
 
 #### TODO á morgun
+Ákveða muninn á flight route og Flight.
+Data Destination og Planes
+Voyage, plane og flight route/flight logic
+Voyage, destination, plane UI. 
+UI cleanup
+Ákveða validation method.
