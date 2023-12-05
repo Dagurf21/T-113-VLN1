@@ -12,7 +12,13 @@ class PlaneLogic:
     def create_plane(self, data) -> None:
         ''' '''
         
+        Plane = self.data_wrapper.plane
+
+        if Plane.id == None:
+            raise ValueError("Invalid Input")
         
+        else:
+            self.data_wrapper.create_plane(data)
 
         pass
 
