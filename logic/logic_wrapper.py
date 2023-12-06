@@ -106,13 +106,13 @@ class LogicWrapper(object):
         """Returns a list of all destinations"""
         return self.destination_logic.list_all_destinations()
 
-    def list_destination(self, id) -> list[Destination]:
+    def get_destination(self, id) -> list[Destination]:
         """Returns a Destination/ via ID"""
-        return self.destination_logic.list_destination(id)
+        return self.destination_logic.get_destination(id)
 
-    def update_destination(self, id, destination) -> None:
+    def update_destination(self, destination) -> None:
         """Updates information about a destination"""
-        return self.destination_logic.update_destination(id, destination)
+        return self.destination_logic.update_destination(destination)
 
     def delete_destination(self, id) -> None:
         """Erases a destination"""
