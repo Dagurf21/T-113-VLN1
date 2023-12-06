@@ -10,11 +10,11 @@ class VoyageData:
 
     def create_voyage(self, voyage):
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
-            fieldnames = ["id", "sold_seats", "plane", "departure_flight", "arrival_flight", "date"]
+            fieldnames = ["id", "sold_seats", "plane","pilots", "attendants", "departure_flight", "arrival_flight", "date"]
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             id = self.get_new_id()
-            writer.writerow({'id': id, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'departure_flight': voyage.departure_flight, 'arrival_flight': voyage.arrival_flight, 'date': voyage.date})
+            writer.writerow({'id': id, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': voyage.pilots, 'attendants': voyage.flight_attendants, 'departure_flight': voyage.departure_flight, 'arrival_flight': voyage.arrival_flight, 'date': voyage.date})
 
 
     def get_new_id(self) -> int:
@@ -33,7 +33,7 @@ class VoyageData:
             reader = csv.DictReader(csvfile)
             for row in reader:
                 if int(row["id"]) == voyage_id:
-                    return Voyage(row["id"], row["sold_seats"], row["plane"], row["departure_flight"], row["arrival_flight"], row["date"])
+                    return Voyage(row["id"], row["sold_seats"], row["plane"], row["pilots"], row["attendants"], row["departure_flight"], row["arrival_flight"], row["date"])
 
             # If no voyage is found with the given id, return None
             return None
@@ -43,7 +43,7 @@ class VoyageData:
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             for row in reader:
-                ret_list.append(Voyage(row["id"], row["sold_seats"], row["plane"], row["departure_flight"], row["arrival_flight"], row["date"]))
+                ret_list.append(Voyage(row["id"], row["sold_seats"], row["plane"], row["pilots"], row["attendants"], row["departure_flight"], row["arrival_flight"], row["date"]))
         return ret_list
 
 
@@ -52,15 +52,16 @@ class VoyageData:
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
-            fieldnames = ["id", "sold_seats", "plane", "departure_flight", "arrival_flight", "date"]
-            reader = csv.DictReader(csvfile, fieldnames=fieldnames)
+            fieldnames = ["id", "sold_seats", "plane", "pilots", "attendants", "departure_flight", "arrival_flight", "date"]
+            reader = csv.DictReader(csvfile)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
+            writer.writeheader()
             for row in reader:
                 if int(row["id"]) == voyage.id:
-                    writer.writerow({'id': voyage.id, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'departure_flight': voyage.departure_flight, 'arrival_flight': voyage.arrival_flight, 'date': voyage.date})
+                    writer.writerow({'id': voyage.id, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': voyage.pilots, 'attendants': voyage.flight_attendants, 'departure_flight': voyage.departure_flight, 'arrival_flight': voyage.arrival_flight, 'date': voyage.date})
                 else:
-                    writer.writerow({'id': row["id"], 'sold_seats': row["sold_seats"], 'plane': row["plane"], 'departure_flight': row["departure_flight"], 'arrival_flight': row["arrival_flight"], 'date': row["date"]})
+                    writer.writerow({'id': row["id"], 'sold_seats': row["sold_seats"], 'plane': row["plane"], 'pilots': row["pilots"], 'attendants': row["attendants"], 'departure_flight': row["departure_flight"], 'arrival_flight': row["arrival_flight"], 'date': row["date"]})
 
 
     def delete_voyage(self, voyage_id):
