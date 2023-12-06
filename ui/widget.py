@@ -125,19 +125,25 @@ class UIWidget:
             return option
 
 
-    def _prompt_interactive_datalist(self, headers: {str: int}, data: [[str]], title: str = ""):
+    def _prompt_interactive_datalist(self, headers: {str: int}, data: [[str]], title: str = "", rows_per_page: int = 10):
         """
         Displays an interactive table of data where the data is divided into pages
         and the user can flip between the pages
 
         Options:
             - title: The title used for the header
+            - rows_per_page: The amount of rows displayed per page
         """
 
+        page_count = len(data) // rows_per_page
+        current_page = 0
+
         while True:
-            self._clear_screen()
-            self._print_header(message=title, add_extra_newline=True)
-            self._print_datalist(headers, data)
+            # Clamp current page between 0 and page_count
+            current_page = min(max(current_page, 0), page_count)
+
+            self._print_header(message=f"{title} [{current_page+1}/{page_count+1}]", add_extra_newline=True)
+            self._print_datalist(headers, data[current_page * rows_per_page:current_page*rows_per_page+rows_per_page])
             self._print_centered("q: return - n: next page - p: prev page", add_newline_after=True, add_newline_before=True)
 
             # TODO: Page data
@@ -148,10 +154,10 @@ class UIWidget:
                     break
                 
                 case "n": # Next page
-                    continue
+                    current_page += 1
 
                 case "p": # Prev page
-                    continue
+                    current_page -= 1
 
                 case _: # Unknown option
                     continue
