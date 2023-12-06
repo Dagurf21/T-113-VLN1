@@ -113,7 +113,7 @@ class PlaneUI(UIWidget):
             # Not sure if we add flights now or later
             # O
 
-            plane = ePlane(
+            plane = Plane(
                 name=name,
                 ty=plane_type,
                 manufacturer=manufacturer, 
