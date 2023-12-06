@@ -13,11 +13,6 @@ class MainMenuUI(UIWidget):
 
     def show(self):
         while True:
-            self._print_header(
-                message=f"Welcome {self.user.name}!",
-                add_extra_newline=True
-            )
-
             option = self._display_selection(
                 [
                     "Employees",
@@ -26,6 +21,7 @@ class MainMenuUI(UIWidget):
                     "Destinations",
                     "Log out",
                 ],
+                header_title=f"Welcome {self.user.name}!",
                 include_back=False,
             )
 
