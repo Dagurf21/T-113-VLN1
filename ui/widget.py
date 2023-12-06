@@ -1,6 +1,6 @@
 import os
 
-UI_WIDTH = 69
+UI_WIDTH = 71
 
 class UICancelException(Exception):
     pass
@@ -245,9 +245,9 @@ class UIWidget:
             self._clear_screen()
 
         print("""
----------------------------------------------------------------------
-|                     NaN AIR Management system                     |
----------------------------------------------------------------------""")
+-----------------------------------------------------------------------
+|                      NaN AIR Management system                      |
+-----------------------------------------------------------------------""")
 
         if isinstance(message, str):
             self._print_centered(message)
