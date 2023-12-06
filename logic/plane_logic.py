@@ -10,12 +10,11 @@ class PlaneLogic:
         """Intitiatets plane with data_wrapper"""
         self.data_wrapper = data_wrapper
 
-    def create_plane(self, data) -> None:
+    def create_plane(self, plane) -> None:
         """Takes in plane data checks if ID is valid and forwards it to data layer"""
-        plane = data
 
         if plane.id is None:
-            self.data_wrapper.create_plane(data.id)
+            self.data_wrapper.create_plane(plane)
 
         else:
             raise ValueError("Invalid Input")
