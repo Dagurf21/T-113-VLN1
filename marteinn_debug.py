@@ -10,37 +10,23 @@
 # Kristján:
 #         Flight_route_logic
 #         Plane_logic
-
-from model.pilot import Pilot
-from model.employee import Employee
-
-pilot1 = Pilot(
-    id=None,
-    name="Manny",
-    password="Mannypassword",
-    ssn="ssn",
-    mobile_phone="12312",
-    email="Dance@gmail.com",
-    address="Home",
-    home_phone="Bigphone",
-    license="to kill",
-    assignments="kill",
-)
-pilot2 = Employee(
-    id=None,
-    name="Manny",
-    password="Mannypassword",
-    ssn="ssn",
-    mobile_phone="12312",
-    email="Dance@gmail.com",
-    address="Home",
-    home_phone="Bigphone",
-)
+import datetime
 
 
-pilot_list = [pilot1, pilot2]
+def validate_ssn(ssn):
+    day, month, year, random, check_digit, century = (
+        int(ssn[0:2]),
+        int(ssn[2:4]),
+        int(ssn[4:6]),
+        int(ssn[6:8]),
+        int(ssn[8:9]),
+        int(ssn[9:10]),
+    )
+    try:
+        datetime.date(day, month, year)
+        return True
+    except ValueError:
+        return False
 
-for pilot in pilot_list:
-    if type(pilot).__name__ != "Pilgot":
-        print(False)
-print(True)
+
+print(validate_ssn("05090483k3"))
