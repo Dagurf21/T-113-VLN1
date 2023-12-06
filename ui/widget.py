@@ -40,6 +40,36 @@ class UIWidget:
         
         return inp
     
+    def _prompt_number(self, prompt: str, header_title: str, opt_instruction: str = None, enable_cancel: bool = True): 
+        """
+        Displays a prompt where the input has to be a number
+
+        Options:
+            - opt_instruction: Displays an instruction right above the prompt
+            - enable_cancel: Throws a UICancelException when the input is blank
+        """
+
+        while True:
+            inp = self._display_prompt(
+                prompt,
+                opt_instruction,
+                header_title,
+                enable_cancel
+            )
+
+            try:
+                num = int(inp)
+                return num
+            except ValueError:
+                self._print_header(
+                    header_title,
+                    add_extra_newline=True
+                )
+                self._print_centered(
+                    "Input has to be a number",
+                    add_newline_after=True
+                )
+
     def _display_selection(self, options: [str], opt_instruction: str = None, header_title: str = "", include_back: bool = True) -> int:
         """
         Displays an interactive menu to select one of the provided options.
