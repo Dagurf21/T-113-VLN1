@@ -104,6 +104,7 @@ class UIWidget:
             except ValueError:
                 self._clear_screen()
                 self._print_header(message="Invalid option", add_extra_newline=True)
+                continue
 
             # Display error for out of bounds input and reprompts
             if option < 0 or option >= option_count:
@@ -112,6 +113,7 @@ class UIWidget:
                     message="Invalid option",
                     add_extra_newline=True
                 )
+                continue
 
             # Back is always the last option so if back is enabled and the user selects it
             # then the exception is thrown
