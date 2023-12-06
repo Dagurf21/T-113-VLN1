@@ -15,7 +15,7 @@ class PlaneLogic:
         plane = data
 
         if plane.id is None:
-            self.data_wrapper.create_plane(data)
+            self.data_wrapper.create_plane(data.id)
 
         else:
             raise ValueError("Invalid Input")
