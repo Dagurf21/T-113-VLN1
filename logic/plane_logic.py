@@ -10,10 +10,6 @@ class PlaneLogic:
         """Intitiatets plane with data_wrapper"""
         self.data_wrapper = data_wrapper
 
-    def __repr__():
-        ''' '''
-        pass
-
     def create_plane(self, data) -> None:
         """Takes in plane data checks if ID is valid and forwards it to data layer"""
         plane = data

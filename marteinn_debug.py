@@ -41,8 +41,6 @@ pilot2 = Employee(
 pilot_list = [pilot1, pilot2]
 
 for pilot in pilot_list:
-    try:
-        pilot.license
-    except AttributeError:
+    if type(pilot).__name__ != "Pilgot":
         print(False)
 print(True)
