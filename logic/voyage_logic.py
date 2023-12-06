@@ -1,6 +1,10 @@
 from model.voyage import Voyage
 
 
+class InvalidVoyage(Exception):
+    pass
+
+
 class VoyageLogic:
     """This class handles all the logic for the Voyage class."""
 
@@ -35,7 +39,11 @@ class VoyageLogic:
     def validate_voyage(self, voyage) -> Voyage:
         """Validates a voyage and return a validated
         voyage if possible, else None"""
-        seats_available = voyage.plane.capacity - voyage.seats_sold
+        are_seats_available = 0 > (voyage.plane.capacity - voyage.seats_sold)
+        are_pilots_pilots = self.validate_job_position(voyage.pilots, "Pilot")
+        are_attendants_attendants = self.validate_job_position(
+            voyage.flight_attendants, "FlightAttendant"
+        )
 
     def validate_job_position(self, employee_list, job_title) -> bool:
         """Goes through a list of employees and verifies
