@@ -17,7 +17,7 @@ class PlaneData:
 
             id = self.get_new_id()
             
-            writer.writerow({'id': id, 'name': plane.name, 'type': plane.type, 'manufacturer': plane.manufacturer, 'capacity': plane.capacity, 'flights': plane.flights})
+            writer.writerow({'id': id, 'name': plane.name, 'type': plane.ty, 'manufacturer': plane.manufacturer, 'capacity': plane.capacity, 'flights': plane.flights})
 
 
     def get_new_id(self) -> int:
@@ -72,7 +72,7 @@ class PlaneData:
             for row in reader:
                 # Writes the plane with the new data into the temp file
                 if int(row["id"]) == plane.id:
-                    writer.writerow({'id': plane.id, 'name': plane.name, 'type': plane.type, 'manufacturer': plane.manufacturer, 'capacity': plane.capacity, 'flights': plane.flights})
+                    writer.writerow({'id': plane.id, 'name': plane.name, 'type': plane.ty, 'manufacturer': plane.manufacturer, 'capacity': plane.capacity, 'flights': plane.flights})
                 
                 # Writes the other planes unchanged 
                 else:
