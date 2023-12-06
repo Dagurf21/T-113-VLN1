@@ -139,7 +139,7 @@ class PlaneUI(UIWidget):
                         "Delete"
                     ], 
                     header_title=f"Delete {plane.name} ID: {plane.id}?",
-                    opt_instruction="Leave empty to cancel"
+                    allow_cancel=False
                 )
 
                 if should_delete == 0:
