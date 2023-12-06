@@ -24,11 +24,11 @@ class LogicWrapper(object):
         """Takes in a employee object and forwards it to the create_employee function"""
         return self.employee_logic.create_employee(employee)
 
-    def list_all_employees(self) -> list:  # List(Employee)
+    def list_all_employees(self) -> list[Employee]:
         """ """
         return self.employee_logic.list_all_employees()
 
-    def list_employee(self, id):  # Employee
+    def list_employee(self, id) -> Employee:
         """ """
         return self.employee_logic.list_employee(id)
 
@@ -44,11 +44,11 @@ class LogicWrapper(object):
         """ """
         return self.flight_route_logic.create_flight_route(data)
 
-    def list_all_flight_routes(self) -> list:  # Flight route
+    def list_all_flight_routes(self) -> list[flight_routes]:  # Flight route
         """ """
         return self.flight_route_logic.list_all_flight_routes()
 
-    def list_flight_route(self, id):  # Flight route
+    def list_flight_route(self, id) -> flight_route:  # Flight route
         """ """
         return self.flight_route_logic.list_flight_route(id)
 
@@ -72,7 +72,7 @@ class LogicWrapper(object):
         """ """
         return self.voyage_logic.list_all_voyages()
 
-    def list_voyage(self, id) -> list:  # Destination
+    def list_voyage(self, id) -> list[destination]:
         """ """
         return self.voyage_logic.list_voyage(id)
 
@@ -88,11 +88,11 @@ class LogicWrapper(object):
         """ """
         return self.destination_logic.create_destination(data)
 
-    def list_all_destinations(self) -> list:  # Destination
+    def list_all_destinations(self) -> list[destination]:
         """ """
         return self.destination_logic.list_all_destinations()
 
-    def list_destination(self, id) -> list:  # Destination
+    def list_destination(self, id) -> list[destination]:
         """ """
         return self.destination_logic.list_destination(id)
 
@@ -108,11 +108,11 @@ class LogicWrapper(object):
         """ """
         return self.plane_logic.create_plane(data)
 
-    def list_all_planes(self) -> list:  # Plane
+    def list_all_planes(self) -> list[Plane]:
         """ """
         return self.plane_logic.list_all_planes()
 
-    def list_plane(self, id):  # Plane
+    def list_plane(self, id) -> Plane:
         """ """
         return self.plane_logic.list_plane(id)
 
