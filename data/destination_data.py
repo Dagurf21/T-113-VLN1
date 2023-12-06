@@ -17,7 +17,7 @@ class DestinationData:
 
             id = self.get_new_id()
             
-            writer.writerow({'id': id, 'country': destination.country, 'airport': destination.airport, 'flight_time': destination.flight_time, 'distance': destination.distance_km, 'representative': destination.representative, 'emergency_phone': destination.emergency_phone})
+            writer.writerow({'id': id, 'country': destination.country, 'airport': destination.airport, 'flight_time': destination.flight_time, 'distance': destination.distance_km, 'representative': destination.representative, 'emergency_phone': destination.emergency_number})
 
 
     def get_new_id(self) -> int:
@@ -73,7 +73,7 @@ class DestinationData:
 
             for row in reader:
                 if int(row["id"]) == destination.id:
-                    writer.writerow({'id': destination.id, 'country': destination.country, 'airport': destination.airport, 'flight_time': destination.flight_time, 'distance': destination.distance_km, 'representative': destination.representative, 'emergency_phone': destination.emergency_phone})
+                    writer.writerow({'id': destination.id, 'country': destination.country, 'airport': destination.airport, 'flight_time': destination.flight_time, 'distance': destination.distance_km, 'representative': destination.representative, 'emergency_phone': destination.emergency_number})
                 else:
                     writer.writerow({'id': row["id"], 'country': row["country"], 'airport': row["airport"], 'flight_time': row["flight_time"], 'distance': row["distance"], 'representative': row["representative"], 'emergency_phone': row["emergency_phone"]})
 
