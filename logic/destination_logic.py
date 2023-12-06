@@ -26,3 +26,9 @@ class DestinationLogic:
     def delete_destination(self, id) -> None:
         """Deletes a destination object with the given id"""
         self.data_wrapper.delete_destination(id)
+
+#Verify:
+#
+# 
+#
+#
