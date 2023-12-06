@@ -44,7 +44,7 @@ class PlaneUI(UIWidget):
             planes_data.append([
                 plane.id,
                 plane.name, 
-                plane.type,
+                plane.ty,
                 plane.manufacturer,
                 plane.capacity,
                 plane.flight
