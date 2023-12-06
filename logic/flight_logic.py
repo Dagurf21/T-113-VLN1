@@ -10,14 +10,32 @@ class FlightLogic():
         self.data_wrapper = data_wrapper
 
     def create_flight(self, data: Flight) -> None:
-        '''Creates flight:
-                Checks if ID is valid'''
+        '''Creates flight: Checks if ID is valid'''    
         
+        available_destinations = self.data_wrapper.get_all_destinations()
+
+        dest = self.data_wrapper.get_destination(data.id)
+
+        destination = data.destination
+        departure = data.destination
         
+        if dest.id == None:
 
-        destination = self.data_wrapper.get_destination(data.id)
+            for num in range(len(available_destinations)):
 
-        if destination.id == None:
+                match destination:
+
+                    case available_destinations[num]:
+                        data.flight_number = f"NA0{num}"
+
+                        for ber in range(len(available_destinations)):
+
+                            match departure:
+
+                                case available_destinations[ber]:
+                                    data.flight_number += ber
+                                    
+
             self.data_wrapper.create_flight(data)
         
         else:
