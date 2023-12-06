@@ -37,13 +37,11 @@ class VoyageLogic:
         voyage if possible, else None"""
         seats_available = voyage.plane.capacity - voyage.seats_sold
 
-    def validate_pilots(self, pilot_list) -> bool:
+    def validate_job_position(self, employee_list, job_title) -> bool:
         """Goes through a list of employees and verifies
-        if all of them are pilots"""
-        for pilot in pilot_list:
-            try:
-                pilot.liscense
-            except AttributeError:
+        if all of them are the given job_title"""
+        for employee in employee_list:
+            if type(employee).__name__ != job_title:
                 return False
         return True
 
