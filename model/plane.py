@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 @dataclass(kw_only=True)
 class Plane:
@@ -7,5 +7,5 @@ class Plane:
     ty: str
     manufacturer: str
     capacity: int
-    flights: list[int]
+    flights: list[int] = field(default_factory=lambda: [])
 
