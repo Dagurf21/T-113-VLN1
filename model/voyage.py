@@ -15,3 +15,5 @@ class Voyage:
     departure_flight: int
     arrival_flight: int
     date: datetime
+    status: str
+    # Status options: Finished, Landed abroad, In the Air, Not started, Cancelled 
