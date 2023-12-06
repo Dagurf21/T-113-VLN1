@@ -1,3 +1,7 @@
+class InvalidEmail(Exception):
+    pass
+
+
 class EmployeeLogic:
     """This class is the logic layer for the employee class"""
 
@@ -33,7 +37,7 @@ class EmployeeLogic:
             # Commence sorting!
             return employee
         else:
-            raise Exception("Email does not inclued @ and .", email)
+            raise InvalidEmail
 
     def update_employee(self, employee):
         """Updates a employee object with the given id"""
