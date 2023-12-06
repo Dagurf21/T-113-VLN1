@@ -26,6 +26,17 @@ class EmployeeLogic:
     def delete_employee(self, id):
         """Deletes a employee object with the given id"""
         return self.data_wrapper.delete_employee(id)
+    
+    def validate_employee(self, employee):
+        """Validates a given employee and returns 
+        an validated version of the given employee"""
+
+    def validate_email(self,email):
+        """Checks if the given email is an email"""
+        if "@" not in email or "." not in email:
+            return False
+        return True
+
 
 '''
 from data.customer_data import Customer_Data
