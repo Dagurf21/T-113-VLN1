@@ -20,11 +20,11 @@
   - [x] Get all planes
   - [x] Get plane
   - [x] Delete plane
-  - [ ] Create new Destination
-  - [ ] Get all Destinations
-  - [ ] Get Destination
-  - [ ] Update Destination
-  - [ ] Delete Destination
+  - [X] Create new Destination
+  - [X] Get all Destinations
+  - [X] Get Destination
+  - [X] Update Destination
+  - [X] Delete Destination
   - [ ] Create new voyage
   - [ ] Get all voyages
   - [ ] Get voyage
@@ -37,7 +37,7 @@
   - [x] Setja upp wrapper
   - [x] CRUD Employee
   - [X] CRUD Planes
-  - [ ] CRUD Voyages
+  - [X] CRUD Voyages
   - [X] CRUD Destinations
   - [ ] CRUD Flight
   - [ ] Lista alla flugmenn
@@ -68,10 +68,13 @@
 
 #### Dagslok skýrsla (Hvað gerði hver og einn í dag) ?
 
-- Axel Snær:
-- Dagur Freyr:
-- Elías Andri:
-- Kristján Kári:
-- Marteinn Logi:
+- Axel Snær: Planes UI, Destination UI, Cleanup og comment á UI kóða
+- Dagur Freyr: Voyage UI, 
+- Elías Andri: Dagslok, Bug fixes á data, delete og cancel functions
+- Kristján Kári: Cleanup og comment, Flight logic, laga villur. 
+- Marteinn Logi: Validation á input fyrir employee og voyage, margt logic misc. 
 
 #### TODO á morgun
+Gera Pilot og flight attendant 
+Klára validators fyrir allt
+:)
