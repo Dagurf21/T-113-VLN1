@@ -1,3 +1,6 @@
+import datetime
+
+
 class EmployeeLogic:
     """This class is the logic layer for the employee class"""
 
@@ -50,12 +53,17 @@ class EmployeeLogic:
             return False
         return True
 
+    def validate_ssn(self, ssn):
+        day, month, year = ssn[0:2], ssn[2:4], ssn[4:6]
+        try:
+            datetime.date(day, month, year)
+            return True
+        except ValueError:
+            return False
 
-# def validate_ssn(self,ssn):
-#    day = ssn[0:1]
+    def validate_phone_number(self, phone_number):
+        pass
 
-# def validate_phone_number(self, phone_number):
-# pass
 
 #
 #
