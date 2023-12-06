@@ -83,6 +83,33 @@ class PlaneData:
 
 
     def delete_plane(self, plane_id):
-        pass
+        """Deletes the plane with the given id"""
+        # Makes temporary file to not overwrite the original file
+        tempfile = NamedTemporaryFile(mode='w', delete=False)
+
+        with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
+            fieldnames = ["id", "name", "type", "manufacturer", "capacity", "flights"]
+            
+            reader = csv.DictReader(csvfile)
+            writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
+            
+            # Writes the header to the tempfile
+            writer.writeheader()
+
+            # Looks for the plane to delete
+            for row in reader:
+
+                # If the plane is found, Everything except the id and name is erased
+                if int(row["id"]) == plane_id:
+                    row = {'id' : row["id"], 'name' : row["name"], 'type' : None, 'manufacturer' : None, 'capacity' : None, 'flights' : None}
+
+                # Each row from the original file is written to the temporary file
+                else:
+                    row = {'id': row["id"], 'name': row["name"], 'type': row["type"], 'manufacturer': row["manufacturer"], 'capacity': row["capacity"], 'flights': row["flights"]}
+                
+                writer.writerow(row)
+
+        # The temporary file replaces the original file
+        shutil.move(tempfile.name, self.file_name)
 
 

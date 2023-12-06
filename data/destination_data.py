@@ -41,7 +41,7 @@ class DestinationData:
             for row in reader:
                 
                 if int(row["id"]) == destination_id:
-                    return Destination(row["id"], row["country"], row["airport"], row["flight_time"], row["distance"], row["representative"], row["emergency_number"])
+                    return Destination(id = row["id"], country = row["country"], airport = row["airport"], flight_time = row["flight_time"], distance_km = row["distance"], representative = row["representative"], emergency_number = row["emergency_number"])
             
             # If no destination is found with the given id, return None
             return None
@@ -55,7 +55,7 @@ class DestinationData:
             reader = csv.DictReader(csvfile)
             
             for row in reader:
-                ret_list.append(Destination(row["id"], row["country"], row["airport"], row["flight_time"], row["distance"], row["representative"], row["emergency_number"]))
+                ret_list.append(Destination(id = row["id"], country = row["country"], airport = row["airport"], flight_time = row["flight_time"], distance_km = row["distance"], representative = row["representative"], emergency_number = row["emergency_number"]))
         
         return ret_list
     

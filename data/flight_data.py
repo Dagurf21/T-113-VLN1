@@ -38,9 +38,8 @@ class FlightData:
             reader = csv.DictReader(csvfile)
             
             for row in reader:
-                
                 if int(row["id"]) == flight_id:
-                    return Flight(row["id"], row["flight_nr"], row["departure"], row["destination"], row["departure_time"], row["arrival_time"])
+                    return Flight(id = row["id"], flight_number = row["flight_nr"], departure = row["departure"], destination = row["destination"], departure_time = row["departure_time"], arrival_time = row["arrival_time"])
 
             # If no flight is found with the given id, return None
             return None
@@ -54,7 +53,7 @@ class FlightData:
             reader = csv.DictReader(csvfile)
             
             for row in reader:
-                ret_list.append(Flight(row["id"], row["flight_nr"], row["departure"], row["destination"], row["departure_time"], row["arrival_time"]))
+                ret_list.append(Flight(id = row["id"], flight_number = row["flight_nr"], departure = row["departure"], destination = row["destination"], departure_time = row["departure_time"], arrival_time = row["arrival_time"]))
         
         return ret_list
 
