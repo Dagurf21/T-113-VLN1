@@ -12,53 +12,37 @@ class EmployeeUI(UIWidget):
         self.logic_wrapper = logic_wrapper
 
     def show(self):
-        self._clear_screen()
-        self._print_header(add_extra_newline=True)
-
         while True:
-            self._print_options_list([
-                "List employees",
-                "List employee",
-                "Register employee",
-                "Update employee",
-                "Remove employee",
-                "Back",
-            ], numbered=True)
-
-            option = input("Choose an option: ")
+            try:
+                option = self._display_selection(
+                    [
+                        "List employees",
+                        "List employee",
+                        "Register employee",
+                        "Update employee",
+                        "Remove employee",
+                    ],
+                    header_title="Employees",
+                    include_back=True
+                )
+            except UICancelException:
+                return
 
             match option:
-                case "1": # List employees
+                case 0: # List employees
                     self.display_employee_list()
-                    self._clear_screen()
-                    self._print_header(add_extra_newline=True)
 
-                case "2": # List employee
+                case 1: # List employee
                     self.display_employee()
-                    self._clear_screen()
-                    self._print_header(add_extra_newline=True)
 
-                case "3": # Register employee
+                case 2: # Register employee
                     self.register_employee()
-                    self._clear_screen()
-                    self._print_header(add_extra_newline=True)
 
-                case "4": # Update employee
+                case 3: # Update employee
                     self.update_employee()
-                    self._clear_screen()
-                    self._print_header(add_extra_newline=True)
 
-                case "5": # Remove employee
+                case 4: # Remove employee
                     self.remove_employee()
-                    self._clear_screen()
-                    self._print_header(add_extra_newline=True)
-                    
-                case "6": # Back
-                    break
-
-                case _: # Unknown option, reprompt
-                    self._clear_screen()
-                    self._print_header(message="Unknown option", add_extra_newline=True)
 
     def display_employee_list(self):
         employees = self.logic_wrapper.list_all_employees()
@@ -80,13 +64,25 @@ class EmployeeUI(UIWidget):
 
 
     def display_employee(self):
-        self._print_header("List Employee", add_extra_newline=True)
+        self._print_header(
+            message="List Employee",
+            add_extra_newline=True
+        )
 
         while True:
             try:
-                employee_id = self._display_prompt("Enter employee id", opt_instruction="Leave empty to cancel", clear_screen=False)
+                employee_id = self._display_prompt(
+                    "Enter employee id",
+                    opt_instruction="Leave empty to cancel",
+                    clear_screen=False
+                )
                 employee_id = int(employee_id)
+            except ValueError:
+                self._print_header("List Employee", add_extra_newline=True)
+                self._print_centered("Id has to be a number", add_newline_after=True)
+                continue
                 
+            try:
                 employee = self.logic_wrapper.list_employee(employee_id)
 
                 if employee == None:
@@ -104,10 +100,6 @@ class EmployeeUI(UIWidget):
                     f"Home:   {employee.home_phone}"
                 ], add_newline_after=True)
 
-            except ValueError:
-                self._print_header("List Employee", add_extra_newline=True)
-                self._print_centered("Id has to be a number", add_newline_after=True)
-                continue
             except UICancelException:
                 return
 
@@ -133,7 +125,11 @@ class EmployeeUI(UIWidget):
 
             match employee_title:
                 case 0: # Manager
-                    work_phone   = self._display_prompt("Enter work phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel")
+                    work_phone   = self._display_prompt(
+                        "Enter work phone",
+                        header_title="Register Employee",
+                        opt_instruction="Leave empty to cancel"
+                    )
                     employee = Manager(
                         name=name,
                         password=password,
@@ -149,7 +145,11 @@ class EmployeeUI(UIWidget):
                 case 2: # Flight Attendant
                     return # TODO
                 case 3: # Flight Manager
-                    work_phone   = self._display_prompt("Enter work phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel")
+                    work_phone   = self._display_prompt(
+                        "Enter work phone",
+                        header_title="Register Employee",
+                        opt_instruction="Leave empty to cancel"
+                    )
                     employee = Manager(
                         name=name,
                         password=password,
@@ -162,15 +162,23 @@ class EmployeeUI(UIWidget):
                     )
 
             self.logic_wrapper.create_employee(employee)
+
         except UICancelException:
             return
 
     def update_employee(self):
-        self._print_header("Update Employee", add_extra_newline=True)
+        self._print_header(
+            "Update Employee",
+            add_extra_newline=True
+        )
 
         while True:
             try:
-                employee_id = self._display_prompt("Enter employee id", opt_instruction="Leave empty to cancel", clear_screen=False)
+                employee_id = self._display_prompt(
+                    "Enter employee id",
+                    opt_instruction="Leave empty to cancel",
+                    clear_screen=False
+                )
                 employee_id = int(employee_id)
             except ValueError:
                 self._print_header("List Employee", add_extra_newline=True)
@@ -193,6 +201,7 @@ class EmployeeUI(UIWidget):
                     "Home Phone",
                 ]
 
+                # Add options depending on the employee type
                 if isinstance(employee, Pilot):
                     pass # TODO
                 elif isinstance(employee, FlightAttendant):
@@ -202,28 +211,52 @@ class EmployeeUI(UIWidget):
                 elif isinstance(employee, FlightManager):
                     employee_fields.append("Work Phone")
 
-                field_to_update = self._display_selection(employee_fields, header_title=f"Update Employee [{employee.name}]")
+                field_to_update = self._display_selection(
+                    employee_fields,
+                    header_title=f"Update Employee [{employee.name}]"
+                )
 
                 match field_to_update:
                     case 0: # Password
-                        employee.password = self._display_prompt("Enter new password", opt_instruction="Leave empty to cancel")
+                        employee.password = self._display_prompt(
+                            "Enter new password",
+                            opt_instruction="Leave empty to cancel"
+                        )
                     case 1: # Address
-                        employee.address = self._display_prompt("Enter new address", opt_instruction="Leave empty to cancel")
+                        employee.address = self._display_prompt(
+                            "Enter new address",
+                            opt_instruction="Leave empty to cancel"
+                        )
                     case 2: # Mobile Phone
-                        employee.mobile_phone = self._display_prompt("Enter new mobile phone", opt_instruction="Leave empty to cancel")
+                        employee.mobile_phone = self._display_prompt(
+                            "Enter new mobile phone",
+                            opt_instruction="Leave empty to cancel"
+                        )
                     case 3: # Email
-                        employee.email = self._display_prompt("Enter new email", opt_instruction="Leave empty to cancel")
+                        employee.email = self._display_prompt(
+                            "Enter new email",
+                            opt_instruction="Leave empty to cancel"
+                        )
                     case 4: # Home Phone
-                        employee.home_phone = self._display_prompt("Enter new home phone", opt_instruction="Leave empty to cancel")
+                        employee.home_phone = self._display_prompt(
+                            "Enter new home phone",
+                            opt_instruction="Leave empty to cancel"
+                        )
                     case 5: # Field 5 [Manager, FlightManager, Pilot, FlightAttendant]
                         if isinstance(employee, Pilot):
                             return # TODO
                         elif isinstance(employee, FlightAttendant):
                             return # TODO
                         elif isinstance(employee, Manager):
-                            employee.work_phone = self._display_prompt("Enter new work phone", opt_instruction="Leave empty to cancel")
+                            employee.work_phone = self._display_prompt(
+                                "Enter new work phone",
+                                opt_instruction="Leave empty to cancel"
+                            )
                         elif isinstance(employee, FlightManager):
-                            employee.work_phone = self._display_prompt("Enter new work phone", opt_instruction="Leave empty to cancel")
+                            employee.work_phone = self._display_prompt(
+                                "Enter new work phone",
+                                opt_instruction="Leave empty to cancel"
+                            )
                     case 6: # Field 6 [Pilot]
                         return # Todo
 
@@ -253,7 +286,13 @@ class EmployeeUI(UIWidget):
                     self._print_centered(f"Employee with id {employee_id} doesn't exist", add_newline_after=True)
                     continue
 
-                should_delete = self._display_selection(["Delete"], header_title=f"Delete {employee.name}?", opt_instruction="Leave empty to cancel")
+                should_delete = self._display_selection(
+                    [
+                        "Delete"
+                    ],
+                    header_title=f"Delete {employee.name}?",
+                    opt_instruction="Leave empty to cancel"
+                )
 
                 if should_delete == 0:
                     self.logic_wrapper.delete_employee(employee_id)
