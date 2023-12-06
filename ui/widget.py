@@ -46,7 +46,6 @@ class UIWidget:
 
         Options:
             - opt_instruction: Displays an instruction between the selection list and the input prompt
-            - clear_screen: Clears the screen and prints the header
             - header_title: Specifies the title of the header used when clear_screen is enabled
             - include_back: Adds an option to return that throws a UICancelException when pressed
         """

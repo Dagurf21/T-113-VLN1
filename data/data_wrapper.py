@@ -40,7 +40,7 @@ class DataWrapper:
         return self.destination_data.update_destination(destination)
         
     def delete_destination(self, destination_id):
-        pass
+        return self.destination_data.delete_destination(destination_id)
 
     def create_plane(self, plane):
         return self.plane_data.create_plane(plane)
@@ -55,7 +55,7 @@ class DataWrapper:
         return self.plane_data.update_plane(plane)
 
     def delete_plane(self, plane_id):
-        pass
+        return self.plane_data.delete_plane(plane_id)
 
     def create_voyage(self, voyage):
         return self.voyage_data.create_voyage(voyage)
@@ -70,7 +70,7 @@ class DataWrapper:
         return self.voyage_data.update_voyage(voyage)
 
     def delete_voyage(self, voyage_id):
-        pass
+        return self.voyage_data.delete_voyage(voyage_id)
 
     def create_flight_route(self, flight_route):
         return self.flight_route_data.create_flight_route(flight_route)
@@ -85,4 +85,4 @@ class DataWrapper:
         return self.flight_route_data.update_flight_route(flight_route)
 
     def delete_flight_route(self, flight_route_id):
-        pass
+        return self.flight_route_data.delete_flight_route(flight_route_id)
