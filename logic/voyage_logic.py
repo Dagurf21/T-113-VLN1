@@ -46,9 +46,25 @@ class VoyageLogic:
                 return False
         return True
 
+    def validate_status(self, status) -> bool:
+        """Validates the status, returns either
+        valid(True) or invalid(False)"""
+        if status is not "Good":
+            return "This is really bad"
+        return "YAHOO!!"
+
 
 # Verify:
 #
-# if country is allowed based on assignment description
+#####################if country is allowed based on assignment description (duh) WE handle it in flight class
+#
+# job positions
+#
+# Date time validation
+#
+# Valid status?
+#
+#
+#
 #
 #
