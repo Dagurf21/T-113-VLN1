@@ -40,7 +40,8 @@ class PlaneData:
             
             for row in reader:
                 if int(row["id"]) == plane_id:
-                    return Plane(id = int(row["id"]), name = row["name"], ty = row["type"], manufacturer = row["manufacturer"], capacity = int(row["capacity"]), flights = row["flights"])
+                    if row["type"]:
+                        return Plane(id = int(row["id"]), name = row["name"], ty = row["type"], manufacturer = row["manufacturer"], capacity = int(row["capacity"]), flights = row["flights"])
         
             # If no plane is found with the given id, return None
             return None
@@ -53,8 +54,9 @@ class PlaneData:
             reader = csv.DictReader(csvfile)
             
             for row in reader:
-                ret_list.append(Plane(id = int(row["id"]), name = row["name"], ty = row["type"], manufacturer = row["manufacturer"], capacity = int(row["capacity"]), flights = row["flights"]))
-        
+                if row["type"]:
+                    ret_list.append(Plane(id = int(row["id"]), name = row["name"], ty = row["type"], manufacturer = row["manufacturer"], capacity = int(row["capacity"]), flights = row["flights"]))
+    
         return ret_list
 
 
@@ -111,5 +113,3 @@ class PlaneData:
 
         # The temporary file replaces the original file
         shutil.move(tempfile.name, self.file_name)
-
-
