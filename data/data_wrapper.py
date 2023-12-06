@@ -1,6 +1,6 @@
 from data.employee_data import EmployeeData
 from data.destination_data import DestinationData
-from data.flight_route_data import FlightRouteData
+from data.flight_data import FlightData
 from data.plane_data import PlaneData
 from data.voyage_data import VoyageData
 
@@ -8,7 +8,7 @@ class DataWrapper:
     def __init__(self):
         self.employee_data = EmployeeData()
         self.destination_data = DestinationData()
-        self.flight_route_data = FlightRouteData()
+        self.flight_data = FlightData()
         self.plane_data = PlaneData()
         self.voyage_data = VoyageData()
 
@@ -75,17 +75,17 @@ class DataWrapper:
     def delete_voyage(self, voyage_id):
         return self.voyage_data.delete_voyage(voyage_id)
 
-    def create_flight_route(self, flight_route):
-        return self.flight_route_data.create_flight_route(flight_route)
+    def create_flight(self, flight):
+        return self.flight_data.create_flight(flight)
 
-    def get_all_flight_routes(self):
-        return self.flight_route_data.get_all_flight_routes()
+    def get_all_flights(self):
+        return self.flight_data.get_all_flights()
     
-    def get_flight_route(self, flight_route_id):
-        return self.flight_route_data.get_flight_route(flight_route_id)
+    def get_flight(self, flight_id):
+        return self.flight_data.get_flight(flight_id)
 
-    def update_flight_route(self, flight_route):
-        return self.flight_route_data.update_flight_route(flight_route)
+    def update_flight(self, flight):
+        return self.flight_data.update_flight(flight)
 
-    def delete_flight_route(self, flight_route_id):
-        return self.flight_route_data.delete_flight_route(flight_route_id)
+    def delete_flight(self, flight_id):
+        return self.flight_data.delete_flight(flight_id)

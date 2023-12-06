@@ -12,8 +12,8 @@ class Voyage:
     plane: Plane
     pilots: list[Pilot] = None
     flight_attendants: list[FlightAttendant] = None
-    departure_flight: int
-    arrival_flight: int
+    departure_flight: int # flight id
+    arrival_flight: int # flight id
     date: datetime
     status: str
     # Status options: Finished, Landed abroad, In the Air, Not started, Cancelled 
