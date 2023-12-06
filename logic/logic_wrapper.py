@@ -71,11 +71,11 @@ class LogicWrapper(object):
         return self.flight_logic.update_flight(id, data)
 
     def delete_flight(self, id) -> None:
-        """Erases an flight route"""
+        """Erases a flight"""
         return self.flight_logic.delete_flight(id)
 
     def assign_pilot(self, id, pilot) -> None:
-        """Assigns pilot to a flight route"""
+        """Assigns pilot to a flight"""
         return self.flight_logic.assign_pilot(id, pilot)
 
     def create_voyage(self, data) -> None:
