@@ -10,12 +10,12 @@ class DestinationLogic:
 
     def list_all_destinations(self) -> list:  # List of Destinations
         """Returns a list of all destinations"""
+        # sorting tomfoolery
         return self.data_wrapper.get_all_destinations()
 
     def list_destination(self, id):  # Destination
         """Returns a destination object with the given id"""
         destination_list = self.data_wrapper.get_destination(id)
-        # sorting tomfoolery
         return destination_list
 
     def update_destination(self, id, destination) -> None:
@@ -26,3 +26,10 @@ class DestinationLogic:
     def delete_destination(self, id) -> None:
         """Deletes a destination object with the given id"""
         self.data_wrapper.delete_destination(id)
+
+#Verify:
+#
+# if country is allowed based on assignment description
+#
+#
+#

@@ -6,8 +6,12 @@ class VoyageLogic:
 
     def create_voyage(self, data) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
-        
-        self.data_wrapper.create_voyage(data)
+        seats_available = data.plane.capacity - data.seats_sold
+
+        if seats_available <= 0:
+            raise ValueError("Plane is FULL (0 available seats)")
+
+        return self.data_wrapper.create_voyage(data)
 
     def list_all_voyages(self) -> list:
         """Returns a list of all voyages"""
@@ -23,4 +27,11 @@ class VoyageLogic:
 
     def delete_voyage(self, id) -> None:
         """Deletes a voyage object with the given id"""
-        self.data_wrapper.delete_voyage(id)
+        return self.data_wrapper.delete_voyage(id)
+
+#Verify:
+#
+# if country is allowed based on assignment description
+#
+#
+#
