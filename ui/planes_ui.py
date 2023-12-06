@@ -45,7 +45,7 @@ class PlaneUI(UIWidget):
                 plane.id,
                 plane.name, 
                 plane.ty,
-                plane.manufacturer,
+                "UNIMPLEMENTED",
                 plane.capacity,
                 plane.flights
             ])
