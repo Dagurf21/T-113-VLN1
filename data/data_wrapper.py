@@ -72,7 +72,7 @@ class DataWrapper:
     def update_voyage(self, voyage):
         return self.voyage_data.update_voyage(voyage)
 
-    def delete_voyage(self, voyage_id):
+    def cancel_voyage(self, voyage_id):
         return self.voyage_data.delete_voyage(voyage_id)
 
     def create_flight(self, flight):
