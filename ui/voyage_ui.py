@@ -6,13 +6,14 @@ from logic.logic_wrapper import LogicWrapper
 class VoyageUI(UIWidget):
     def __init__(self, user: Employee, logic_wrapper: LogicWrapper):
         self.user = user
+        self.logic_wrapper = logic_wrapper
     
     def show(self):
         while True:
             try:
                 option = self._display_selection(
                     [
-                        "List voyages",
+                        "List voyages - Finished not working bc. data layer", # !!! NOTICE !!!
                         "List voyage",
                         "Update voyage",
                         "Cancel voyage",
@@ -45,10 +46,63 @@ class VoyageUI(UIWidget):
                     self._print_header(message="Completed Successfully")
 
     def list_voyages(self):
-        self._print_header(message="List all voyages")
+        voyages = self.logic_wrapper.list_all_voyages()
+        voyage_data = []
+
+        for voyage in voyages:
+            voyage_data.append([
+                voyage.id,
+                voyage.sold_seats,
+                voyage.departure_flight,
+                voyage.arrival_flight,
+                voyage.date
+            ])
+        
+        self._prompt_interactive_datalist(
+            { "id": 3, "From": 4, "DEST": 4, "Seats": 3, "Date": 8 },
+            voyage_data,
+            title="Voyages"
+        )
     
     def list_voyage(self):
-        self._print_header(message="List a voyage")
+        self._print_header(
+            message="List a voyage",
+            add_extra_newline=True)
+        
+        while True:
+            try:
+                voyage_id = self._display_prompt(
+                    "Enter voyage id", 
+                    opt_instruction="Leave empty to cancel",
+                    clear_screen=False
+                )
+            except UICancelException:
+                return
+            
+            try: 
+                voyage_id = int(voyage_id)
+            except ValueError:
+                self._print_header("List voyage", add_extra_newline=True)
+                self._print_centered("ID has to be a number", add_newline_after=True)
+                continue
+        
+            voyage = self.logic_wrapper.list_voyage(voyage_id)
+
+            if voyage == None:
+                self._print_header("List voyage", add_extra_newline=True)
+                self._print_centered(f"Voyage with id {voyage_id} doesn't exist", add_newline_after=True)
+                continue
+
+            self._print_header(f"List Voyage [ID:{voyage_id}]", add_extra_newline=True)
+            self._print_options_list([
+                f"ID:     {voyage.id}",
+                f"Plane:  {voyage.plane}",
+                f"Pilot:  {voyage.pilot}",
+                f"Seats:  {voyage.sold_seats}",
+                f"From:   {voyage.departure_flight}",
+                f"To:     {voyage.arrival_flight}",
+                f"Date:   {voyage.date}",
+            ], add_newline_after=True)
 
     def update_voyage(self):
         self._print_header(message="List all voyages")

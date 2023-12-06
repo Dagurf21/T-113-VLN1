@@ -293,7 +293,7 @@ class EmployeeUI(UIWidget):
                         "Delete"
                     ],
                     header_title=f"Delete {employee.name}?",
-                    opt_instruction="Leave empty to cancel"
+                    allow_cancel=False
                 )
 
                 if should_delete == 0:
