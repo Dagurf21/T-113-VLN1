@@ -9,7 +9,7 @@ class FlightLogic():
         '''Initiates flightlogic through data_wrapper'''
         self.data_wrapper = data_wrapper
 
-    def create_flight(self, data: FlightRoute) -> None:
+    def create_flight(self, data: Flight) -> None:
         '''Creates flight:
                 Checks if ID is valid'''
         
