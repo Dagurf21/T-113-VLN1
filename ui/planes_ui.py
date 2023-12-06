@@ -47,7 +47,7 @@ class PlaneUI(UIWidget):
                 plane.ty,
                 plane.manufacturer,
                 plane.capacity,
-                plane.flight
+                plane.flights
             ])
 
         self._prompt_interactive_datalist(
