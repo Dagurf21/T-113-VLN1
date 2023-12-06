@@ -10,8 +10,8 @@ class Voyage:
     id: int = None
     sold_seats: int
     plane: Plane
-    pilots: list[Pilot]
-    flight_attendants: list[FlightAttendant]
+    pilots: list[Pilot] = None
+    flight_attendants: list[FlightAttendant] = None
     departure_flight: int
     arrival_flight: int
     date: datetime
