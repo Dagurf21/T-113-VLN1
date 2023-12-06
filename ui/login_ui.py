@@ -26,26 +26,32 @@ class LoginUI(UIWidget):
 
     def login(self):
         self._print_header()
+        while True:
+            email = input("Input email: ")
+            employee = self.logic_wrapper.get_employee_by_email(email)
 
-        email = input("Input email: ")
-        # TODO: Validation
-        passwd = input("Input password: ")
-        # TODO: More validation
+            if employee != None:
+                break
 
-        # TODO: Log in as an actual employee
-        user = Employee(
-            name="Chuck Norris",
-            email="chucknorris@nanair.is",
-            ssn="123456789",
-            password="lastdigitsofpi",
-            address="everywhere",
-            home_phone="12345678",
-            mobile_phone="12345678",
-        )
+            self._print_header(message=f"No employee with email: {email}")
+                
+        self._print_header(message=f"Log in as {employee.email}")
 
-        main_menu = MainMenuUI(user, self.logic_wrapper)
+        passwd_attempts_remaining = 3
+        while True:
+            passwd = input("Input password: ")
+
+            if employee.password == passwd:
+                break
+
+            passwd_attempts_remaining -= 1
+            if passwd_attempts_remaining == 0:
+                return
+
+            self._print_header(message=f"Invalid password ({passwd_attempts_remaining} attempts remaining)")
+
+        main_menu = MainMenuUI(employee, self.logic_wrapper)
         main_menu.show()
-
 
     def _print_plane(self):
         print("""\
