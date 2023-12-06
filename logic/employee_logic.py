@@ -17,6 +17,7 @@ class EmployeeLogic:
     def list_employee(self, id):
         """Returns a employee object with the given id"""
         employee = self.data_wrapper.get_employee(id)
+        # Commence sorting!
         return employee
 
     def update_employee(self, employee):
