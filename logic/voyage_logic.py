@@ -43,7 +43,7 @@ class VoyageLogic:
         for pilot in pilot_list:
             try:
                 pilot.liscense
-            except:
+            except AttributeError:
                 return False
         return True
 

@@ -11,18 +11,38 @@
 #         Flight_route_logic
 #         Plane_logic
 
-from model.manager import Manager
+from model.pilot import Pilot
+from model.employee import Employee
 
-managerman = Manager(
-    name="Marteinn",
-    password_hash="1234",
-    address="Hafnarstræti 103",
-    ssn="1234567890",
-    mobile_phone="1234567",
-    email="",
-    home_phone="",
-    work_phone="1234567",
-    id=1,
+pilot1 = Pilot(
+    id=None,
+    name="Manny",
+    password="Mannypassword",
+    ssn="ssn",
+    mobile_phone="12312",
+    email="Dance@gmail.com",
+    address="Home",
+    home_phone="Bigphone",
+    license="to kill",
+    assignments="kill",
+)
+pilot2 = Employee(
+    id=None,
+    name="Manny",
+    password="Mannypassword",
+    ssn="ssn",
+    mobile_phone="12312",
+    email="Dance@gmail.com",
+    address="Home",
+    home_phone="Bigphone",
 )
 
-print(managerman)
+
+pilot_list = [pilot1, pilot2]
+
+for pilot in pilot_list:
+    try:
+        pilot.license
+    except AttributeError:
+        print(False)
+print(True)
