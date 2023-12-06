@@ -9,10 +9,11 @@ class LoginUI(UIWidget):
 
     def show(self):
         while True:
-            self._clear_screen()
             self._print_header()
             self._print_plane()
+
             command = input("> ").lower()
+
             match command:
                 case "q": # Exit the application
                     break
@@ -24,8 +25,8 @@ class LoginUI(UIWidget):
                     pass
 
     def login(self):
-        self._clear_screen()
         self._print_header()
+
         email = input("Input email: ")
         # TODO: Validation
         passwd = input("Input password: ")
