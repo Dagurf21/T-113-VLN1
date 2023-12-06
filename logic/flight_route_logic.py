@@ -9,6 +9,10 @@ class FlightRouteLogic():
         '''Initiates flightroutelogic through data_wrapper'''
         self.data_wrapper = data_wrapper
 
+    def __repr__():
+        ''' '''
+        pass
+
     def create_flight_route(self, data: FlightRoute) -> None:
         '''Creates flight route:
                 Checks if ID is valid'''
