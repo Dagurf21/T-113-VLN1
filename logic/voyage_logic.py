@@ -1,10 +1,6 @@
 from model.voyage import Voyage
 
 
-class InvalidVoyage(Exception):
-    pass
-
-
 class VoyageLogic:
     """This class handles all the logic for the Voyage class."""
 
