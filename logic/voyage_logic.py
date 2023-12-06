@@ -7,12 +7,9 @@ class VoyageLogic:
     def __init__(self, data_connection) -> None:
         self.data_wrapper = data_connection
 
-    def create_voyage(self, voyage) -> None:
+    def create_voyage(self, voyage_data) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
         seats_available = voyage.plane.capacity - voyage.seats_sold
-
-        if seats_available <= 0:
-            raise ValueError("Plane is FULL (0 available seats)")
 
         return self.data_wrapper.create_voyage(voyage)
 
