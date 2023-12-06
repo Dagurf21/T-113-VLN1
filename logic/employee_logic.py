@@ -1,7 +1,3 @@
-class InvalidEmail(Exception):
-    pass
-
-
 class EmployeeLogic:
     """This class is the logic layer for the employee class"""
 
@@ -32,12 +28,9 @@ class EmployeeLogic:
 
     def get_employee_by_email(self, email):
         """Returns a employee object with the given id"""
-        if self.validate_email(email):
-            employee = self.data_wrapper.get_employee_by_email(email)
-            # Commence sorting!
-            return employee
-        else:
-            raise InvalidEmail
+        employee = self.data_wrapper.get_employee_by_email(email)
+        # Commence sorting!
+        return employee
 
     def update_employee(self, employee):
         """Updates a employee object with the given id"""
