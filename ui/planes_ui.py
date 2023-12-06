@@ -9,47 +9,32 @@ class PlaneUI(UIWidget):
         self.logic_wrapper = logic_wrapper
 
     def show(self):
-        self._clear_screen()
-        self._print_header(add_extra_newline=True)
-
         while True:
-            self._print_options_list([
-                "List planes",
-                "List plane",
-                "Register plane", 
-                "Remove plane", 
-                "Back",
-            ], numbered=True)
-
-            option = input("Choose an option: ")
+            try:
+                option = self._display_selection(
+                    [
+                        "List planes",
+                        "List plane",
+                        "Register plane", 
+                        "Remove plane", 
+                    ],
+                    header_title="Planes"
+                )
+            except UICancelException:
+                return
 
             match option:
-                case "1": # List Planes
+                case 0: # List Planes
                     self.display_plane_list()
-                    self._clear_screen()
-                    self._print_header(add_extra_newline=True)
                     
-                case "2": # List a plane
-                    self.display_plane_list()
-                    self._clear_screen()
-                    self._print_header(add_extra_newline=True)
+                case 1: # List a plane
+                    self.display_plane()
 
-                case "3": # Register plane
+                case 2: # Register plane
                     self.register_plane()
-                    self._clear_screen()
-                    self._print_header(add_extra_newline=True)
 
-                case "4": # Remove plane
+                case 3: # Remove plane
                     self.remove_plane()
-                    self._clear_screen()
-                    self._print_header(add_extra_newline=True)
-
-                case "5": # Back
-                    break
-
-                case _: # Unkown option, reprompt
-                    self._clear_screen()
-                    self._print_header(message="Unknown option", add_extra_newline=True)
 
     def display_plane_list(self):
         planes = self.logic_wrapper.list_all_planes()
@@ -75,33 +60,37 @@ class PlaneUI(UIWidget):
         self._print_header("List plane", add_extra_newline=True)
 
         while True:
+            try:
+                plane_id = self._display_prompt(
+                    "Enter plane id",
+                    opt_instruction="Leave empty to cancel",
+                    clear_screen=False
+                )
+            except UICancelException:
+                return
+
             try: 
-                plane_id = self._display_prompt("Enter plane id", opt_instruction="Leave empty to cancel", clear_screen=False)
                 plane_id = int(plane_id)
-
-                plane = self.logic_wrapper.list_plane(plane_id)
-
-                if plane == None:
-                    self._print_header("List Plane", add_extra_newline=True)
-                    self._print_centered(f"Plane with ID {plane_id} does not exist", add_newline_after=True)
-                    continue
-                
-                self._print_header(f"List Plane [id: {plane_id}]", add_extra_newline=True)
-                self._print_options_list([
-                    f"ID:           {plane.id}",
-                    f"Name:         {plane.name}",
-                    f"Type:         {plane.ty}",
-                    f"Manufacturer: {plane.manufacturer}",
-                    f"Capacity:     {plane.flights}"
-                ], add_newline_after=True)
-
-            
             except ValueError:
                 self._print_header("List Plane", add_extra_newline=True)
                 self._print_centered("ID has to be a number", add_newline_after=True)
                 continue
-            except UICancelException:
-                return
+
+            plane = self.logic_wrapper.list_plane(plane_id)
+
+            if plane == None:
+                self._print_header("List Plane", add_extra_newline=True)
+                self._print_centered(f"Plane with ID {plane_id} does not exist", add_newline_after=True)
+                continue
+            
+            self._print_header(f"List Plane [id: {plane_id}]", add_extra_newline=True)
+            self._print_options_list([
+                f"ID:           {plane.id}",
+                f"Name:         {plane.name}",
+                f"Type:         {plane.ty}",
+                f"Manufacturer: {plane.manufacturer}",
+                f"Capacity:     {plane.flights}"
+            ], add_newline_after=True)
 
     def register_plane(self):
         try:
@@ -145,7 +134,13 @@ class PlaneUI(UIWidget):
                     self._print_centered(f"Plane with id {plane_id} doesn't exist", add_newline_after=True)
                     continue
 
-                should_delete = self._display_selection(["Delete"], header_title=f"Delete {plane.name} ID: {plane.id}?", opt_instruction="Leave empty to cancel")
+                should_delete = self._display_selection(
+                    [
+                        "Delete"
+                    ], 
+                    header_title=f"Delete {plane.name} ID: {plane.id}?",
+                    opt_instruction="Leave empty to cancel"
+                )
 
                 if should_delete == 0:
                     self.logic_wrapper.delete_plane(plane_id)
