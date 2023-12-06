@@ -214,7 +214,7 @@ class UIWidget:
             data_row = []
             for i, elem in enumerate(row):
                 column_size = header_sizes[i]
-                elem = elem.ljust(column_size)
+                elem = str(elem).ljust(column_size)
 
                 if len(elem) > column_size:
                     elem = elem[:column_size - 1] + "."
