@@ -36,9 +36,9 @@
 - Logic(Kristján & Marteinn):
   - [x] Setja upp wrapper
   - [x] CRUD Employee
-  - [ ] CRUD Planes
+  - [X] CRUD Planes
   - [ ] CRUD Voyages
-  - [ ] CRUD Destinations
+  - [X] CRUD Destinations
   - [ ] CRUD Flight
   - [ ] Lista alla flugmenn
   - [ ] Lista alla flugþjóna
@@ -46,7 +46,7 @@
   - [ ] Passa að tvö flug geta ekki haft sama brottfarartíma frá íslandi
   - [ ] Lista flugmenn eftir réttindum
   - [ ] Breyta status á voyage byggt á current date og time
-  - [ ] Við skráningu voyage
+  - [ ] Við skráningu voyage að búa til tvö flight objects
 - Storage(Elías):
   - [x] CRUD Employee
   - [x] CRUD Planes
