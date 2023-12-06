@@ -29,7 +29,10 @@ class DestinationLogic:
 
 # Verify:
 #
-# if country is allowed based on assignment description
+# if country is allowed based on assignment description (DING!!)
 #
+# Flighttime?Distance?
+#
+# Emergency number
 #
 #
