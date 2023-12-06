@@ -276,7 +276,7 @@ class EmployeeUI(UIWidget):
                 employee_id = self._display_prompt("Enter employee id", opt_instruction="Leave empty to cancel", clear_screen=False)
                 employee_id = int(employee_id)
             except ValueError:
-                self._print_header("List Employee", add_extra_newline=True)
+                self._print_header("Remove Employee", add_extra_newline=True)
                 self._print_centered("Id has to be a number", add_newline_after=True)
                 continue
                 
@@ -284,7 +284,7 @@ class EmployeeUI(UIWidget):
                 employee = self.logic_wrapper.get_employee(employee_id)
 
                 if employee == None:
-                    self._print_header("List Employee", add_extra_newline=True)
+                    self._print_header("Remove Employee", add_extra_newline=True)
                     self._print_centered(f"Employee with id {employee_id} doesn't exist", add_newline_after=True)
                     continue
 

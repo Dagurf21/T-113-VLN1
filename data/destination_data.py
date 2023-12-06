@@ -11,13 +11,13 @@ class DestinationData:
     def create_destination(self, destination):
         """Writes new destination to storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
-            fieldnames = ["id", "country", "airport", "flight_time", "distance", "representative", "emergency_phone"]
-            
+            fieldnames = ["id", "country", "airport", "flight_time", "distance", "representative", "emergency_number"]
+        
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             id = self.get_new_id()
             
-            writer.writerow({'id': id, 'country': destination.country, 'airport': destination.airport, 'flight_time': destination.flight_time, 'distance': destination.distance, 'representative': destination.representative, 'emergency_phone': destination.emergency_phone})
+            writer.writerow({'id': id, 'country': destination.country, 'airport': destination.airport, 'flight_time': destination.flight_time, 'distance': destination.distance_km, 'representative': destination.representative, 'emergency_number': destination.emergency_number})
 
 
     def get_new_id(self) -> int:
@@ -41,7 +41,7 @@ class DestinationData:
             for row in reader:
                 
                 if int(row["id"]) == destination_id:
-                    return Destination(row["id"], row["country"], row["airport"], row["flight_time"], row["distance"], row["representative"], row["emergency_phone"])
+                    return Destination(id = row["id"], country = row["country"], airport = row["airport"], flight_time = row["flight_time"], distance_km = row["distance"], representative = row["representative"], emergency_number = row["emergency_number"])
             
             # If no destination is found with the given id, return None
             return None
@@ -55,7 +55,7 @@ class DestinationData:
             reader = csv.DictReader(csvfile)
             
             for row in reader:
-                ret_list.append(Destination(row["id"], row["country"], row["airport"], row["flight_time"], row["distance"], row["representative"], row["emergency_phone"]))
+                ret_list.append(Destination(id = row["id"], country = row["country"], airport = row["airport"], flight_time = row["flight_time"], distance_km = row["distance"], representative = row["representative"], emergency_number = row["emergency_number"]))
         
         return ret_list
     
@@ -66,16 +66,16 @@ class DestinationData:
         tempfile = NamedTemporaryFile(mode='w', delete=False)
 
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
-            fieldnames = ["id", "country", "airport", "flight_time", "distance", "representative", "emergency_phone"]
+            fieldnames = ["id", "country", "airport", "flight_time", "distance", "representative", "emergency_number"]
             
             reader = csv.DictReader(csvfile, fieldnames=fieldnames)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
             for row in reader:
                 if int(row["id"]) == destination.id:
-                    writer.writerow({'id': destination.id, 'country': destination.country, 'airport': destination.airport, 'flight_time': destination.flight_time, 'distance': destination.distance, 'representative': destination.representative, 'emergency_phone': destination.emergency_phone})
+                    writer.writerow({'id': destination.id, 'country': destination.country, 'airport': destination.airport, 'flight_time': destination.flight_time, 'distance': destination.distance_km, 'representative': destination.representative, 'emergency_number': destination.emergency_number})
                 else:
-                    writer.writerow({'id': row["id"], 'country': row["country"], 'airport': row["airport"], 'flight_time': row["flight_time"], 'distance': row["distance"], 'representative': row["representative"], 'emergency_phone': row["emergency_phone"]})
+                    writer.writerow({'id': row["id"], 'country': row["country"], 'airport': row["airport"], 'flight_time': row["flight_time"], 'distance': row["distance"], 'representative': row["representative"], 'emergency_number': row["emergency_number"]})
 
         shutil.move(tempfile.name, self.file_name)
     
