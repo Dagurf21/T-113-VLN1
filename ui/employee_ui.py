@@ -76,32 +76,33 @@ class EmployeeUI(UIWidget):
                     opt_instruction="Leave empty to cancel",
                     clear_screen=False
                 )
+            except UICancelException:
+                return
+
+            try:
                 employee_id = int(employee_id)
             except ValueError:
                 self._print_header("List Employee", add_extra_newline=True)
                 self._print_centered("Id has to be a number", add_newline_after=True)
                 continue
                 
-            try:
-                employee = self.logic_wrapper.list_employee(employee_id)
+            employee = self.logic_wrapper.list_employee(employee_id)
 
-                if employee == None:
-                    self._print_header("List Employee", add_extra_newline=True)
-                    self._print_centered(f"Employee with id {employee_id} doesn't exist", add_newline_after=True)
-                    continue
+            if employee == None:
+                self._print_header("List Employee", add_extra_newline=True)
+                self._print_centered(f"Employee with id {employee_id} doesn't exist", add_newline_after=True)
+                continue
 
-                self._print_header(f"List Employee [id:{employee.id}]", add_extra_newline=True)
-                self._print_options_list([
-                    f"Id:     {employee.id}",
-                    f"Name:   {employee.name}",
-                    f"Email:  {employee.email}",
-                    f"SSN:    {employee.ssn}",
-                    f"Mobile: {employee.mobile_phone}",
-                    f"Home:   {employee.home_phone}"
-                ], add_newline_after=True)
+            self._print_header(f"List Employee [id:{employee.id}]", add_extra_newline=True)
+            self._print_options_list([
+                f"Id:     {employee.id}",
+                f"Name:   {employee.name}",
+                f"Email:  {employee.email}",
+                f"SSN:    {employee.ssn}",
+                f"Mobile: {employee.mobile_phone}",
+                f"Home:   {employee.home_phone}"
+            ], add_newline_after=True)
 
-            except UICancelException:
-                return
 
     def register_employee(self):
         try:
