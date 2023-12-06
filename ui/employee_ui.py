@@ -59,7 +59,8 @@ class EmployeeUI(UIWidget):
 
         self._prompt_interactive_datalist(
             { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, 
-            employee_data
+            employee_data,
+            title="Employees",
         )
 
 
