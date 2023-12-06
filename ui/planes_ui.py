@@ -119,14 +119,14 @@ class PlaneUI(UIWidget):
 
         while True:
             try:
-                plane_id = self._display_prompt("Enter plane ID", opt_instruction="Leave empty to cancel", clear_screen=False)
-                plane_id = int(plane_id)
-            except ValueError:
-                self._print_header("Remove Plane", add_extra_newline=True)
-                self._print_centered("ID has to be a number", add_newline_after=True)
-                continue
+                try:
+                    plane_id = self._display_prompt("Enter plane ID", opt_instruction="Leave empty to cancel", clear_screen=False)
+                    plane_id = int(plane_id)
+                except ValueError:
+                    self._print_header("Remove Plane", add_extra_newline=True)
+                    self._print_centered("ID has to be a number", add_newline_after=True)
+                    continue
 
-            try:
                 plane = self.logic_wrapper.list_plane(plane_id)
 
                 if plane == None:
