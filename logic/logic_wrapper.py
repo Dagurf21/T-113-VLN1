@@ -38,9 +38,13 @@ class LogicWrapper(object):
         """For wards list of employees from logic"""
         return self.employee_logic.list_all_employees()
 
-    def list_employee(self, id) -> Employee:
+    def get_employee(self, id) -> Employee:
         """Returns a employee with input ID"""
-        return self.employee_logic.list_employee(id)
+        return self.employee_logic.get_employee(id)
+
+    def get_employee_by_email(self, email) -> Employee:
+        """Fetches a employee with input email"""
+        return self.employee_logic.get_employee_by_email(email)
 
     def update_employee(self, employee) -> None:
         """Updates info about a employee"""
@@ -72,7 +76,7 @@ class LogicWrapper(object):
 
     def assign_pilot(self, id, pilot) -> None:
         """Assigns pilot to a flight route"""
-        return self.flight_route_logic.assign_pilot(id,pilot)
+        return self.flight_route_logic.assign_pilot(id, pilot)
 
     def create_voyage(self, data) -> None:
         """Creates a voyage"""

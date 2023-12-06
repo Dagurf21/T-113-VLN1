@@ -20,6 +20,21 @@ class EmployeeLogic:
         # Commence sorting!
         return employee
 
+    def get_employee(self, id):
+        """Returns a employee object with the given id"""
+        employee = self.data_wrapper.get_employee(id)
+        # Commence sorting!
+        return employee
+
+    def get_employee_by_email(self, email):
+        """Returns a employee object with the given id"""
+        if self.validate_email(email):
+            employee = self.data_wrapper.get_employee_by_email(email)
+            # Commence sorting!
+            return employee
+        else:
+            raise Exception("Email does not inclued @ and .", email)
+
     def update_employee(self, employee):
         """Updates a employee object with the given id"""
         return self.data_wrapper.update_employee(employee)
@@ -27,12 +42,12 @@ class EmployeeLogic:
     def delete_employee(self, id):
         """Deletes a employee object with the given id"""
         return self.data_wrapper.delete_employee(id)
-    
+
     def validate_employee(self, employee):
-        """Validates a given employee and returns 
+        """Validates a given employee and returns
         an validated version of the given employee"""
 
-    def validate_email(self,email):
+    def validate_email(self, email):
         """Checks if the given email is an email"""
         if "@" not in email or "." not in email:
             return False
