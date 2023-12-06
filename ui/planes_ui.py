@@ -17,7 +17,6 @@ class PlaneUI(UIWidget):
                         "List plane",
                         "Register plane", 
                         "Remove plane", 
-                        "Back",
                     ],
                     header_title="Planes"
                 )

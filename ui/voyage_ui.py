@@ -17,7 +17,6 @@ class VoyageUI(UIWidget):
                         "Update voyage",
                         "Cancel voyage",
                         "Duplicate voyage", 
-                        "Back"
                     ],
                     header_title="Voyages"
                 )
