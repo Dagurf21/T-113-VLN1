@@ -49,11 +49,13 @@ class EmployeeLogic:
         if "@" not in email or "." not in email:
             return False
         return True
-    
-    def validate_ssn(self,)
 
-    def validate_phone_number(self, phone_number):
-        pass
+
+# def validate_ssn(self,ssn):
+#    day = ssn[0:1]
+
+# def validate_phone_number(self, phone_number):
+# pass
 
 #
 #
