@@ -11,13 +11,13 @@ class DestinationData:
     def create_destination(self, destination):
         """Writes new destination to storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
-            fieldnames = ["id", "country", "airport", "flight_time", "distance", "representative", "emergency_number"]
+            fieldnames = ["id", "country", "airport", "distance", "flight_time", "representative", "emergency_number"]
         
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             id = self.get_new_id()
             
-            writer.writerow({'id': id, 'country': destination.country, 'airport': destination.airport, 'flight_time': destination.flight_time, 'distance': destination.distance_km, 'representative': destination.representative, 'emergency_number': destination.emergency_number})
+            writer.writerow({'id': id, 'country': destination.country, 'airport': destination.airport, 'distance': destination.distance_km, 'flight_time': destination.flight_time, 'representative': destination.representative, 'emergency_number': destination.emergency_number})
 
 
     def get_new_id(self) -> int:
@@ -73,9 +73,9 @@ class DestinationData:
 
             for row in reader:
                 if int(row["id"]) == destination.id:
-                    writer.writerow({'id': destination.id, 'country': destination.country, 'airport': destination.airport, 'flight_time': destination.flight_time, 'distance': destination.distance_km, 'representative': destination.representative, 'emergency_number': destination.emergency_number})
+                    writer.writerow({'id': destination.id, 'country': destination.country, 'airport': destination.airport, 'distance': destination.distance_km, 'flight_time': destination.flight_time, 'representative': destination.representative, 'emergency_number': destination.emergency_number})
                 else:
-                    writer.writerow({'id': row["id"], 'country': row["country"], 'airport': row["airport"], 'flight_time': row["flight_time"], 'distance': row["distance"], 'representative': row["representative"], 'emergency_number': row["emergency_number"]})
+                    writer.writerow({'id': row["id"], 'country': row["country"], 'airport': row["airport"], 'distance': row["distance"], 'flight_time': row["flight_time"], 'representative': row["representative"], 'emergency_number': row["emergency_number"]})
 
         shutil.move(tempfile.name, self.file_name)
     

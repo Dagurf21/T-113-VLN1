@@ -1,1 +1,1 @@
-id,sold_seats,plane,pilots,attendants,departure_flight,arrival_flight,date
+id,sold_seats,plane,pilots,attendants,departure_flight,arrival_flight,date,status
