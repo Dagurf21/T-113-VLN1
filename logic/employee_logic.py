@@ -44,8 +44,42 @@ class EmployeeLogic:
         return self.data_wrapper.delete_employee(id)
 
     def validate_employee(self, employee):
-        """Validates a given employee and returns
-        an validated version of the given employee"""
+        """Validates a given employee"""
+        is_ssn_valid = self.validate_ssn(employee.ssn)
+        is_mobile_phone_valid = self.validate_phone_number(employee.mobile_phone)
+        is_email_valid = self.validate_email(employee.email)
+        is_home_phone_valid = self.validate_phone_number(employee.home_phone)
+
+    def validate_ssn(self, ssn) -> bool:
+        """Take in a social security number
+        and returns True if it is valid and
+        False if it is not valid.
+
+        A SSN must follow the below conditions:
+            1. It displays a valid date and time in the first numbers
+            2. The last number must either be 9(19 century) or 0(20 century)
+            3. The SSN should only contain numbers"""
+        day, month, year, century = (
+            ssn[0:2],
+            ssn[2:4],
+            ssn[4:6],
+            ssn[-1],
+        )
+        if century == "9":
+            year = "19" + year
+        elif century == "0":
+            year = "20" + year
+        else:
+            year = "INVALID"  # This is done to make the ssn not pass the datetime check
+
+        try:
+            int(ssn)  # Checks if the ssn only contains numbers
+            datetime.date(
+                int(year), int(month), int(day)
+            )  # Check if it is a valid time
+            return True
+        except ValueError:
+            return False
 
     def validate_email(self, email):
         """Checks if the given email is an email"""
@@ -53,15 +87,23 @@ class EmployeeLogic:
             return False
         return True
 
-    def validate_ssn(self, ssn):
-        day, month, year = ssn[0:2], ssn[2:4], ssn[4:6]
+    def validate_phone_number(self, phone_number) -> bool:
+        """Takes in a phonenumber and returns
+        if it is valid(True) or invalid(False)"""
+
         try:
-            datetime.date(day, month, year)
+            compacted_number = phone_number[0:3] + phone_number[4:8]
+            int(compacted_number)
             return True
         except ValueError:
             return False
 
-    def validate_phone_number(self, phone_number):
+    def validate_liscense(self, liscense) -> bool:
+        """uhhhhhh w.I.p"""
+        pass
+
+    def verify_assignments(self, assignments) -> bool:
+        """???"""
         pass
 
 
