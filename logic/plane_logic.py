@@ -24,7 +24,7 @@ class PlaneLogic:
         
         list_all_planes = self.data_wrapper.get_all_planes()
 
-        return list_all_planes
+        return list_all_planes 
 
     def list_plane(self, id) -> Plane:
         """Gets info on a plane witha a specific ID and forwards data"""

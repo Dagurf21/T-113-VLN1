@@ -70,7 +70,7 @@ class UIWidget:
                     add_newline_after=True
                 )
 
-    def _display_selection(self, options: [str], opt_instruction: str = None, header_title: str = "", include_back: bool = True) -> int:
+    def _display_selection(self, options: [str], opt_instruction: str = None, header_title: str = "", include_back: bool = True, allow_cancel: bool = False) -> int:
         """
         Displays an interactive menu to select one of the provided options.
 
@@ -78,6 +78,7 @@ class UIWidget:
             - opt_instruction: Displays an instruction between the selection list and the input prompt
             - header_title: Specifies the title of the header used when clear_screen is enabled
             - include_back: Adds an option to return that throws a UICancelException when pressed
+            - allow_cancel: Allow the user to leave the option empty and throw a UICancelException
         """
 
         if include_back:
@@ -95,7 +96,8 @@ class UIWidget:
 
             option = self._display_prompt("Choose an option",
                 opt_instruction=opt_instruction,
-                clear_screen=False
+                clear_screen=False,
+                enable_cancel=allow_cancel
             )
 
             try:

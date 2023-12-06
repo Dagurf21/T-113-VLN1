@@ -86,7 +86,7 @@ class EmployeeUI(UIWidget):
                 self._print_centered("Id has to be a number", add_newline_after=True)
                 continue
                 
-            employee = self.logic_wrapper.list_employee(employee_id)
+            employee = self.logic_wrapper.get_employee(employee_id)
 
             if employee == None:
                 self._print_header("List Employee", add_extra_newline=True)
@@ -187,7 +187,7 @@ class EmployeeUI(UIWidget):
                 continue
                 
             try:
-                employee = self.logic_wrapper.list_employee(employee_id)
+                employee = self.logic_wrapper.get_employee(employee_id)
 
                 if employee == None:
                     self._print_header("List Employee", add_extra_newline=True)
@@ -280,7 +280,7 @@ class EmployeeUI(UIWidget):
                 continue
                 
             try:
-                employee = self.logic_wrapper.list_employee(employee_id)
+                employee = self.logic_wrapper.get_employee(employee_id)
 
                 if employee == None:
                     self._print_header("List Employee", add_extra_newline=True)
