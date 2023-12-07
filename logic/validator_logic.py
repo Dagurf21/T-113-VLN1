@@ -1,6 +1,27 @@
 import datetime
 
-COUNTRIES = ["Iceland", "Greenland", "Pharaoh Island"]
+COUNTRY_DICT = {
+    "Iceland": (
+        "Reykjavik Airport",
+        "Keflavik International Airport",
+    ),
+    "Greenland": (
+        "Aasiat Airport",
+        "Ilulissat Airport",
+        "Nerlerit Inaat Airport",
+        "Kangerlussaq Airport",
+        "Kulusuk Airport",
+        "Narsarsuaq Airport",
+        "Nuuk Airport",
+        "Paarmiut Airport",
+        "Pituffik Space Base",
+        "Qaanaaq Airport",
+        "Qaarsut Airport",
+        "Sisimiut Airport",
+        "Upernavik Airport",
+    ),
+    "Faroe Island": ("Vágar Airport"),
+}
 
 
 class Validator:
@@ -28,11 +49,25 @@ class Validator:
         valid(True) or Invalid(False)"""
 
     # Destination validations
-    def country(self, country) -> bool:
+    def country_and_airport(self, destination) -> bool:
         """Checks if the country is in the valid COUNTRIES constant"""
-        if country not in COUNTRIES:
-            return True
-        else:
+        try:
+            return destination.airport in COUNTRY_DICT[destination.country]
+        except KeyError:
+            return False
+
+    def distance_km(self, km) -> bool:
+        """"""
+        try:
+            return 0 < int(km)
+        except ValueError:
+            return False
+
+    def flight_time(self, time) -> bool:
+        """"""
+        try:
+            return 0 < int(time)
+        except ValueError:
             return False
 
     # Employee validation
