@@ -34,8 +34,8 @@ class VoyageLogic:
         """Validates a voyage and return a validated
         voyage if possible, else None"""
         are_seats_available = self.validate.seats_available(voyage)
-        are_pilots_pilots = self.validate.job_position(voyage.pilots, "Pilot")
-        are_attendants_attendants = self.validate.job_position(
+        are_pilots_valid = self.validate.job_position(voyage.pilots, "Pilot")
+        are_attendants_valid = self.validate.job_position(
             voyage.flight_attendants, "FlightAttendant"
         )
 
