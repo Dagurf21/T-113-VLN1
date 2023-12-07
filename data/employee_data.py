@@ -21,22 +21,23 @@ class EmployeeData:
             for row in reader:
 
                 # Assigns employees the appropriate employee subclass and append to ret_list
-                if row["job_title"] == "Manager" or row["job_title"] == "Chuck Norris":
-                    ret_list.append(Manager(id = row["id"], name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
+                match row["job_title"]:
+                    case "Manager" | "Chuck Norris":
+                        ret_list.append(Manager(id = row["id"], name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
                 
-                elif row["job_title"] == "Pilot":
-                    assignment_list = row["assignments"].split(".")
-                    ret_list.append(Pilot(id = row["id"], name = row["name"], password = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list))
+                    case "Pilot":
+                        assignment_list = row["assignments"].split(".")
+                        ret_list.append(Pilot(id = row["id"], name = row["name"], password = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list))
                 
-                elif row["job_title"] == "Flight Attendant":
-                    assignment_list = row["assignments"].split(".")
-                    ret_list.append(FlightAttendant(id = row["id"], name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list))
+                    case "Flight Attendant":
+                        assignment_list = row["assignments"].split(".")
+                        ret_list.append(FlightAttendant(id = row["id"], name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list))
                 
-                elif row["job_title"] == "Flight Manager":
-                    ret_list.append(FlightManager(id = row["id"], name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
+                    case "Flight Manager":
+                        ret_list.append(FlightManager(id = row["id"], name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
                 
-                else:
-                    pass
+                    case _:
+                        pass
 
         return ret_list
 
@@ -60,17 +61,13 @@ class EmployeeData:
                 job_title = "Pilot"
                 pilot_license = employee.license
                 work_phone = None
-                assignments = ""
-                for voyage in employee.assignments:
-                    assignments += f"{voyage}."
+                assignments = ".".join(employee.assignments)
 
             elif isinstance(employee, FlightAttendant):
                 job_title = "Flight Attendant"
                 pilot_license = None
                 work_phone = None
-                assignments = ""
-                for voyage in employee.assignments:
-                    assignments += f"{voyage}."
+                assignments = ".".join(employee.assignments)
 
             elif isinstance(employee, FlightManager):
                 job_title = "Flight Manager"
@@ -107,22 +104,23 @@ class EmployeeData:
                 if int(row["id"]) == employee_id:
 
                     # Finds out what employee subclass email is
-                    if row["job_title"] == "Manager" or row["job_title"] == "Chuck Norris":
-                        return Manager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
+                    match row["job_title"]:
+                        case "Manager" | "Chuck Norris":
+                            return Manager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
                     
-                    elif row["job_title"] == "Pilot":
-                        assignment_list = row["assignments"].split(".")
-                        return Pilot(id = int(row["id"]), name = row["name"], password = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list)
+                        case "Pilot":
+                            assignment_list = row["assignments"].split(".")
+                            return Pilot(id = int(row["id"]), name = row["name"], password = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list)
                     
-                    elif row["job_title"] == "Flight Attendant":
-                        assignment_list = row["assignments"].split(".")
-                        return FlightAttendant(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list)
+                        case "Flight Attendant":
+                            assignment_list = row["assignments"].split(".")
+                            return FlightAttendant(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list)
                     
-                    elif row["job_title"] == "Flight Manager":
-                        return FlightManager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
+                        case "Flight Manager":
+                            return FlightManager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
                     
-                    else:
-                        return None
+                        case _:
+                            return None
 
             # If no employee is found with the given id, return None
             return None
@@ -139,22 +137,24 @@ class EmployeeData:
                 if row["email"] == employee_email:
                     
                     # Finds out what employee subclass the employee is
-                    if row["job_title"] == "Manager" or row["job_title"] == "Chuck Norris":
-                        return Manager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
+                    match row["job_title"]:
+                        case "Manager" | "Chuck Norris":
+                            return Manager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
                     
-                    elif row["job_title"] == "Pilot":
-                        assignment_list = row["assignments"].split(".")
-                        return Pilot(id = int(row["id"]), name = row["name"], password = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list)
+                        case "Pilot":
+                            assignment_list = row["assignments"].split(".")
+                            return Pilot(id = int(row["id"]), name = row["name"], password = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list)
                     
-                    elif row["job_title"] == "Flight Attendant":
-                        assignment_list = row["assignments"].split(".")
-                        return FlightAttendant(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list)
+                        case "Flight Attendant":
+                            assignment_list = row["assignments"].split(".")
+                            return FlightAttendant(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list)
                     
-                    elif row["job_title"] == "Flight Manager":
-                        return FlightManager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
-                    
-                    else:
-                        return None
+                        case "Flight Manager":
+                            return FlightManager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
+
+                        # If ID is found but employee has been deleted
+                        case _:
+                            return None
 
             # If no employee is found with the given id, return None
             return None
@@ -179,20 +179,17 @@ class EmployeeData:
 
                 # If the employee is found, the new data is written to the temporary file
                 if int(row["id"]) == employee.id:
-                    if row["job_title"] == "Manager" or row["job_title"] == "Chuck Norris" or row["job_title"] == "Flight Manager":
-                        row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"], row["work_phone"] = employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone, employee.work_phone
+                    match row["job_title"]:
+                        case "Manager" | "Chuck Norris" | "Flight Manager":
+                            row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"], row["work_phone"] = employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone, employee.work_phone
                     
-                    elif row["job_title"] == "Pilot":
-                        assignments = ""
-                        for voyage in employee.assignments:
-                            assignments += f"{voyage}."
-                        row["license"], row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"], row["assignments"]  = employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone, assignments
+                        case "Pilot":
+                            assignments = ".".join(employee.assignments)
+                            row["license"], row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"], row["assignments"]  = employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone, assignments
                     
-                    elif row["job_title"] == "Flight Attendant":
-                        assignments = ""
-                        for voyage in employee.assignments:
-                            assignments += f"{voyage}."
-                        row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"], row["assignments"]  = employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone, assignments
+                        case "Flight Attendant":
+                            assignments = ".".join(employee.assignments)
+                            row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"], row["assignments"]  = employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone, assignments
                 
                 # Each row from the original file is written to the temporary file
                 row = {'id': row["id"], 'name': row["name"], 'job_title': row["job_title"], 'license': row["license"], 'password': row["password"], 'address': row["address"], 'ssn': row["ssn"], 'mobile_phone': row["mobile_phone"], 'email': row["email"], 'home_phone': row["home_phone"], 'work_phone': row["work_phone"]}

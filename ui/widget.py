@@ -1,4 +1,5 @@
 import os
+from collections.abc import Callable
 
 UI_WIDTH = 71
 
@@ -10,7 +11,7 @@ class UIWidget:
         """Clears the screen using the systems clear command"""
         os.system('cls' if os.name == 'nt' else 'clear')
 
-    def _prompt(self, prompt: str, opt_instruction: str = None, clear_screen: bool = True, header_title: str = "", enable_cancel: bool = True):
+    def _prompt(self, prompt: str, opt_instruction: str = None, clear_screen: bool = True, header_title: str = "", enable_cancel: bool = True, validator: Callable[[str], str] = lambda e: None):
         """
         Displays a prompt to input text into.
 
@@ -19,6 +20,9 @@ class UIWidget:
             - opt_instruction: Displays an instruction right above the prompt
             - header_title: Title of the header used when clear_screen is enabled
             - enable_cancel: Throws a UICancelException when the input is blank
+            - validator: Function to validate input. clear_screen must be enabled
+                in  -> string input
+                out <- None if valid, string error message if invalid
         """
 
         if clear_screen:
@@ -27,49 +31,76 @@ class UIWidget:
                 add_extra_newline=True
             )
 
-        if isinstance(opt_instruction, str):
-            self._print_centered(opt_instruction,
-                add_newline_after=True,
-                add_newline_before=False
-            )
+        while True:
+            if isinstance(opt_instruction, str):
+                self._print_centered(opt_instruction,
+                    add_newline_after=True,
+                    add_newline_before=False
+                )
 
-        inp = input(f"{prompt}: ")
+            inp = input(f"{prompt}: ")
 
-        if enable_cancel and inp == "":
-            raise UICancelException
+            if enable_cancel and inp == "":
+                raise UICancelException
+
+            if clear_screen:
+                invalid = validator(inp)
+                if invalid != None:
+                    self._print_header(
+                        message=header_title,
+                        add_extra_newline=True
+                    )
+                    self._print_centered(invalid,
+                        add_newline_after=True,
+                        add_newline_before=False
+                    )
+
+            break
         
         return inp
-    
-    def _prompt_number(self, prompt: str, header_title: str, opt_instruction: str = None, enable_cancel: bool = True): 
+
+    def _prompt_list(self, prompt: str, header_title: str, enable_cancel: bool = True, element_display: Callable[[str], str] = lambda e: str(e), validator: Callable[[str], str] = lambda e: None):
         """
-        Displays a prompt where the input has to be a number
+        Prompts the user for a list of elements
 
         Options:
-            - opt_instruction: Displays an instruction right above the prompt
-            - enable_cancel: Throws a UICancelException when the input is blank
+            - enable_cancel: Allows the user to cancel by inputting 'q' which throws a UICancelException
+            - element_display: Function to convert the user input into another string for element based formatting
+                in  -> element
+                out <- string representation
+            - validator: Function to validate elements before they are added to the list
+                in  -> element
+                out <- None if valid or string with error message if invalid
         """
 
+        elems = []
+        self._print_header(message=header_title, add_extra_newline=True)
         while True:
-            inp = self._prompt(
-                prompt,
-                opt_instruction,
-                header_title,
-                enable_cancel
-            )
-
+            self._print_list([element_display(elem) for elem in elems], add_newline_after=True)
             try:
-                num = int(inp)
-                return num
-            except ValueError:
-                self._print_header(
-                    header_title,
-                    add_extra_newline=True
-                )
-                self._print_centered(
-                    "Input has to be a number",
-                    add_newline_after=True
-                )
+                elem = self._prompt(prompt, clear_screen=False, opt_instruction="Leave empty to finish (b: back)")
+            except UICancelException:
+                break
 
+            if enable_cancel and elem == 'q':
+                raise UICancelException
+
+            if elem == 'b' and len(elems) > 0:
+                elems.pop()
+                self._print_header(message=header_title, add_extra_newline=True)
+                continue
+
+            invalid = validator(elem)
+            if invalid != None:
+                self._print_header(message=header_title, add_extra_newline=True)
+                self._print_centered(invalid, add_newline_after=True)
+                continue
+
+            elems.append(elem)
+            self._print_header(message=header_title, add_extra_newline=True)
+
+        return elems
+    
     def _display_selection(self, options: [str], opt_instruction: str = None, header_title: str = "", include_back: bool = True, allow_cancel: bool = False) -> int:
         """
         Displays an interactive menu to select one of the provided options.
@@ -169,6 +200,12 @@ class UIWidget:
             - numbered: Adds the number of the element before each element
             - add_newline_after: Adds an additional newline after the option list
         """
+
+        if len(lst) == 0:
+            if add_newline_after:
+                print()
+
+            return
 
         # Calculate the padding necessary to center the list
         largest_option = max(map(len, lst))
