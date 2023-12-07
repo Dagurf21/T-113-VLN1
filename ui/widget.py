@@ -1,4 +1,5 @@
 import os
+from collections.abc import Callable
 
 UI_WIDTH = 71
 
@@ -39,6 +40,42 @@ class UIWidget:
             raise UICancelException
         
         return inp
+
+    def _prompt_list(self, prompt: str, header_title: str, enable_cancel: bool = True, element_display: Callable[[str], str] = lambda e: str(e), validator: Callable[[str], str] = lambda e: None):
+        """
+        Prompts the user for a list of elements
+
+        Options:
+            - enable_cancel: Allows the user to cancel by inputting 'q' which throws a UICancelException
+            - element_display: Function to convert the user input into another string for element based formatting
+                in  -> element
+                out <- string representation
+            - validator: Function to validate elements before they are added to the list
+                in  -> element
+                out <- None if valid or string with error message if invalid
+        """
+        elems = []
+        self._print_header(message=header_title, add_extra_newline=True)
+        while True:
+            self._print_list([element_display(elem) for elem in elems], add_newline_after=True)
+            try:
+                elem = self._prompt(prompt, clear_screen=False, opt_instruction="Leave empty to finish")
+            except UICancelException:
+                break
+
+            if enable_cancel and elem == 'q':
+                raise UICancelException
+
+            invalid = validator(elem)
+            if invalid != None:
+                self._print_header(message=header_title, add_extra_newline=True)
+                self._print_centered(invalid)
+                continue
+
+            elems.append(elem)
+            self._print_header(message=header_title, add_extra_newline=True)
+
+        return elems
     
     def _prompt_number(self, prompt: str, header_title: str, opt_instruction: str = None, enable_cancel: bool = True): 
         """
@@ -169,6 +206,12 @@ class UIWidget:
             - numbered: Adds the number of the element before each element
             - add_newline_after: Adds an additional newline after the option list
         """
+
+        if len(lst) == 0:
+            if add_newline_after:
+                print()
+
+            return
 
         # Calculate the padding necessary to center the list
         largest_option = max(map(len, lst))

@@ -155,6 +155,20 @@ class EmployeeUI(UIWidget):
                         work_phone=work_phone
                     )
                 case 1: # Pilot
+                    def validate_num(elem):
+                        try:
+                            int(elem)
+                            return None
+                        except ValueError:
+                            return "ID must be number"
+
+                    assignments = self._prompt_list(
+                        "Enter Assignment",
+                        "Register Employee",
+                        element_display=lambda e: str(self.logic_wrapper.list_voyage(int(e))),
+                        validator=validate_num
+                    )
+                    assignments = list(map(int, assignments))
                     employee = Pilot(
                         name=name,
                         password=password,
@@ -164,7 +178,7 @@ class EmployeeUI(UIWidget):
                         email=email,
                         home_phone=home_phone,
                         license="C750",
-                        assignments=[]
+                        assignments=assignments
                     )
                 case 2: # Flight Attendant
                     employee = FlightAttendant(
