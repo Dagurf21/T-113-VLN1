@@ -143,16 +143,35 @@ class EmployeeUI(UIWidget):
                         work_phone=work_phone
                     )
                 case 1: # Pilot
-                    return # TODO
+                    employee = Pilot(
+                        name=name,
+                        password=password,
+                        address=address,
+                        ssn=ssn,
+                        mobile_phone=mobile_phone,
+                        email=email,
+                        home_phone=home_phone,
+                        license="C750",
+                        assignments=[]
+                    )
                 case 2: # Flight Attendant
-                    return # TODO
+                    employee = FlightAttendant(
+                        name=name,
+                        password=password,
+                        address=address,
+                        ssn=ssn,
+                        mobile_phone=mobile_phone,
+                        email=email,
+                        home_phone=home_phone,
+                        assignments=[]
+                    )
                 case 3: # Flight Manager
                     work_phone   = self._prompt(
                         "Enter work phone",
                         header_title="Register Employee",
                         opt_instruction="Leave empty to cancel"
                     )
-                    employee = Manager(
+                    employee = FlightManager(
                         name=name,
                         password=password,
                         address=address,
