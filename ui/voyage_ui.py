@@ -26,25 +26,66 @@ class VoyageUI(UIWidget):
                 return
 
             match option:
-                case 0: # Listing all voyages
+                case 0: #Creating new voyage
+                    self.create_voyage()
+                    self._print_header(message="completed")
+                case 1: # Listing all voyages
                     self.list_voyages()
                     self._print_header(message="Completed Successfully")
                 
-                case 1: # Listing a single voyage
+                case 2: # Listing a single voyage
                     self.list_voyage()
                     self._print_header(message="Completed Successfully")
 
-                case 2: # Update Voyage
+                case 3: # Update Voyage
                     self.update_voyage()
                     self._print_header(message="Completed Successfully")
 
-                case 3: # Cancel a voyage
+                case 4: # Cancel a voyage
                     self.cancel_voyage()
                     self._print_header(message="Completed Successfully")
                 
-                case 4: # Duplicating voyage
+                case 5: # Duplicating voyage
                     self.duplicate_voyage()
                     self._print_header(message="Completed Successfully")
+
+    def create_voyage(self):
+        try:
+            plane            = self._prompt("Enter plane ID",                 header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            departure_flight = self._prompt("Enter departing flight Number",  header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            arrival_flight   = self._prompt("Enter arrival flight Number",    header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            date             = self._prompt("Enter date of voyage",           header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            status           = self._prompt("Enter status of voyage",         header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            attendants       = self._prompt("Enter attendants ID",            header_title="Create voyage", opt_instruction="Leave empty to cancel (optional: n to skip)")
+            head_pilot       = self._prompt("Enter lead pilot ID's",          header_title="Create voyage", opt_instruction="Leave empty to cancel (optional: n to skip)")        
+            pilot            = self._prompt("Enter pilot ID's",               header_title="Create voyage", opt_instruction="Leave empty to cancel (optional: n to skip)")
+
+            if attendants.lower() == "n":
+                attendants = None
+            
+            if head_pilot.lower() == "n":
+                head_pilot = None
+
+            if pilot.lower() == "n":
+                pilot = None
+
+            voyage = Voyage(
+                plane=plane,
+                departure_flight=departure_flight,
+                arrival_flight=arrival_flight,
+                date=date,
+                status=status,
+                attendants=attendants,
+                head_pilot=head_pilot,
+                pilot=pilot
+            )
+
+            self.logic_wrapper.create_voyage(voyage)
+
+            return # TODO
+
+        except UICancelException:
+            return
 
     def list_voyages(self):
         voyages = self.logic_wrapper.list_all_voyages()
@@ -181,7 +222,10 @@ class VoyageUI(UIWidget):
                             opt_instruction="Leave empty to cancel"
                         )
                     case 7: # Status of voyage
-                        return # TODO
+                        voyage.status = self._prompt(
+                            "Enter new status for voyage",
+                            opt_instruction="Leave empty to cancel (Status options: Finished, Landed abroad, In the Air, Not started, Cancelled )"
+                        )
 
                 self.logic_wrapper.update_voyage(voyage)
 
