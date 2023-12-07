@@ -14,7 +14,7 @@ class EmployeeLogic:
         if error_check:
             return self.data_wrapper.create_employee(employee)
         else:
-            return "Invalid Employee!"
+            raise ValueError
 
     def list_all_employees(self) -> list:
         """Returns a list of all employees"""
@@ -26,39 +26,22 @@ class EmployeeLogic:
         """Returns a employee object with the given id"""
         employee = self.data_wrapper.get_employee(id)
 
-        if employee is None:
-            return employee
-
-        error_check = self.validate_employee(employee)
-        # Commence sorting!
-        if error_check:
-            return employee
-        else:
-            return "INVALID EMPLOYEE!!!!"
+        return employee
 
     def get_employee_by_email(self, email):
         """Returns a employee object with the given id"""
         employee = self.data_wrapper.get_employee_by_email(email)
 
-        if employee is None:
-            return employee
-
-        error_check = self.validate_employee(employee)
-        # Commence sorting!
-        if error_check:
-            return employee
-        else:
-            return "INVALID EMPLOYEE!!!!"
+        return employee
 
     def update_employee(self, employee):
         """Updates a employee object with the given id"""
         error_check = self.validate_employee(employee)
         # Commence sorting!
         if error_check:
-            return employee
+            return self.data_wrapper.update_employee(employee)
         else:
-            return "INVALID EMPLOYEE!!!!"
-        return self.data_wrapper.update_employee(employee)
+            raise ValueError
 
     def delete_employee(self, id):
         """Deletes a employee object with the given id"""
@@ -67,12 +50,12 @@ class EmployeeLogic:
     def validate_employee(self, employee):
         """Validates a given employee"""
         is_ssn_valid = self.validate.ssn(employee.ssn)
-        is_mobile_phone_valid = self.validate.phone_number(employee.mobile_phone)
+        is_phone_valid = self.validate.phone_number(employee.mobile_phone)
         is_email_valid = self.validate.email(employee.email)
-        is_home_phone_valid = self.validate.phone_number(employee.home_phone)
-        return (
-            is_ssn_valid
-            and is_mobile_phone_valid
-            and is_email_valid
-            and is_home_phone_valid
-        )
+        if employee.home_phone is not None:
+            is_phone_valid = is_phone_valid and self.validate.phone_number(
+                employee.home_phone
+            )
+        else:
+            is_phone_valid = True
+        return is_ssn_valid and is_phone_valid and is_email_valid

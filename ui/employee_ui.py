@@ -94,15 +94,27 @@ class EmployeeUI(UIWidget):
                 self._print_centered(f"Employee with id {employee_id} doesn't exist", add_newline_after=True)
                 continue
 
+            table = [
+                f"Id:      {employee.id}",
+                f"Name:    {employee.name}",
+                f"Email:   {employee.email}",
+                f"SSN:     {employee.ssn}",
+                f"Mobile:  {employee.mobile_phone}",
+                f"Home:    {employee.home_phone}"
+            ]
+
+            if isinstance(employee, Manager):
+                table.append(f"Work:    {employee.work_phone}")
+            if isinstance(employee, FlightManager):
+                table.append(f"Work:    {employee.work_phone}")
+            if isinstance(employee, Pilot):
+                table.append(f"Assign:  {', '.join(employee.assignments)}")
+                table.append(f"License: {employee.license}")
+            if isinstance(employee, FlightAttendant):
+                table.append(f"Assign:  {employee.assignments}")
+
             self._print_header(f"List Employee [id:{employee.id}]", add_extra_newline=True)
-            self._print_list([
-                f"Id:     {employee.id}",
-                f"Name:   {employee.name}",
-                f"Email:  {employee.email}",
-                f"SSN:    {employee.ssn}",
-                f"Mobile: {employee.mobile_phone}",
-                f"Home:   {employee.home_phone}"
-            ], add_newline_after=True)
+            self._print_list(table, add_newline_after=True)
 
 
     def register_employee(self):
@@ -143,16 +155,35 @@ class EmployeeUI(UIWidget):
                         work_phone=work_phone
                     )
                 case 1: # Pilot
-                    return # TODO
+                    employee = Pilot(
+                        name=name,
+                        password=password,
+                        address=address,
+                        ssn=ssn,
+                        mobile_phone=mobile_phone,
+                        email=email,
+                        home_phone=home_phone,
+                        license="C750",
+                        assignments=[]
+                    )
                 case 2: # Flight Attendant
-                    return # TODO
+                    employee = FlightAttendant(
+                        name=name,
+                        password=password,
+                        address=address,
+                        ssn=ssn,
+                        mobile_phone=mobile_phone,
+                        email=email,
+                        home_phone=home_phone,
+                        assignments=[]
+                    )
                 case 3: # Flight Manager
                     work_phone   = self._prompt(
                         "Enter work phone",
                         header_title="Register Employee",
                         opt_instruction="Leave empty to cancel"
                     )
-                    employee = Manager(
+                    employee = FlightManager(
                         name=name,
                         password=password,
                         address=address,
