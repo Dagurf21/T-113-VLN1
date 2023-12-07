@@ -39,10 +39,9 @@ class EmployeeLogic:
         error_check = self.validate_employee(employee)
         # Commence sorting!
         if error_check:
-            return employee
+            return self.data_wrapper.update_employee(employee)
         else:
-            return "INVALID EMPLOYEE!!!!"
-        return self.data_wrapper.update_employee(employee)
+            raise ValueError
 
     def delete_employee(self, id):
         """Deletes a employee object with the given id"""
@@ -51,9 +50,12 @@ class EmployeeLogic:
     def validate_employee(self, employee):
         """Validates a given employee"""
         is_ssn_valid = self.validate.ssn(employee.ssn)
-        is_mobile_phone_valid = self.validate.phone_number(employee.mobile_phone)
+        is_phone_valid = self.validate.phone_number(employee.mobile_phone)
         is_email_valid = self.validate.email(employee.email)
-        is_home_phone_valid = self.validate.phone_number(employee.home_phone)
+        if employee.home_phone is not None:
+            is_phone_valid = self.validate.phone_number(employee.home_phone)
+        else:
+            is_phone_valid = True
         return (
             is_ssn_valid
             and is_mobile_phone_valid
