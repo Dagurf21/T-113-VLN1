@@ -76,11 +76,16 @@ class Validator:
 
     # Flight validation
 
-    
     # Destination validations
 
-
     # Voyage Validations
+    def seats_available(self, voyage):
+        """Checks if seats are available
+        in the voyage"""
+        plane_seats = voyage.plane.capacity
+        available_seats = plane_seats - voyage.sold_seats
+        return 1 > available_seats
+
     def job_position(self, employee_list, job_title) -> bool:
         """Goes through a list of employees and verifies
         if all of them are the given job_title"""
