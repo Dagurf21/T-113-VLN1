@@ -139,6 +139,17 @@ class Validator:
                 return False
         return True
 
+    def flight_times(self, voyage) -> True:
+        """Compares the times and check
+        if they make sense"""
+        flight_times = [
+            voyage.departure_flight.departure_time,
+            voyage.departure_flight.arrival_time,
+            voyage.departure_flight.departure_time,
+            voyage.deprature_flight.arrival_time,
+        ]
+        are_flight_times_valid = False  # W.i.P
+
     def status(self, status) -> bool:
         """Validates the status, returns either
         valid(True) or invalid(False)"""
