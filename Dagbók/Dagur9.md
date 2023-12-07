@@ -1,11 +1,12 @@
 ## Fimmtudagur 7. Desember - Dagur 9
 
 ### Verkefni Vikunar
+
 - [x] Fara yfir feedback
 - [x] Laga class diagram
 - [x] Laga hönnunarskjalið
 - [x] Endurraða hönnunarskjalinu
-- [ ] Velja hvaða verkefni þarf að gera
+- [x] Velja hvaða verkefni þarf að gera
 - UI(Axel & Dagur):
   - [x] Log in
   - [x] Create new employee
@@ -19,26 +20,26 @@
   - [x] Get all planes
   - [x] Get plane
   - [x] Delete plane
-  - [X] Create new Destination
-  - [X] Get all Destinations
-  - [X] Get Destination
-  - [X] Update Destination
-  - [X] Delete Destination
-  - [ ] Create new voyage
-  - [ ] Get all voyages
-  - [ ] Get voyage
+  - [x] Create new Destination
+  - [x] Get all Destinations
+  - [x] Get Destination
+  - [x] Update Destination
+  - [x] Delete Destination
+  - [x] Create new voyage
+  - [x] Get all voyages
+  - [x] Get voyage
   - [ ] Staff voyage
-  - [ ] Update voygae
+  - [x] Update voygae
   - [ ] Add employees to voyage
-  - [ ] Cancel voyage
+  - [x] Cancel voyage
   - [ ] Duplicate Voyage
   - [ ] Different privileges for different employee types
 - Logic(Kristján & Marteinn):
   - [x] Setja upp wrapper
   - [x] CRUD Employee
-  - [X] CRUD Planes
-  - [X] CRUD Voyages
-  - [X] CRUD Destinations
+  - [x] CRUD Planes
+  - [x] CRUD Voyages
+  - [x] CRUD Destinations
   - [ ] CRUD Flight
   - [ ] Lista alla flugmenn
   - [ ] Lista alla flugþjóna
@@ -61,7 +62,7 @@
 ### Verkefna skipting
 
 - Axel Snær: Setja upp employee validation,
-- Dagur Freyr: Búa til nýja tölvu..
+- Dagur Freyr: Búa til nýja tölvu. Voyage UI
 - Elías Andri: Pilot og Attendant license og assignment.
 - Kristján Kári: Flight logic,
 - Marteinn Logi: Setja upp employee validation,
@@ -69,10 +70,11 @@
 #### Dagslok skýrsla (Hvað gerði hver og einn í dag) ?
 
 - Axel Snær: Gerði employee validation, og assignments fyrir pilots og flight attendants
-- Dagur Freyr: 
+- Dagur Freyr: Vann að Voyage UI
 - Elías Andri: Dagbók, Pilots og flight attendant assignments, optimisation & bug fixes
 - Kristján Kári: Flight number generation & validation, Flight logic
 - Marteinn Logi: Helling af validation fyrir input
 
 #### TODO á morgun
+
 Klára allt fyrir voyage, skráning starfsmanna og búa til flights
