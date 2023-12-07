@@ -58,7 +58,7 @@ class VoyageUI(UIWidget):
                 voyage.date
             ])
         
-        self._prompt_interactive_datalist(
+        self._display_interactive_datalist(
             { "id": 3, "From": 4, "DEST": 4, "Seats": 3, "Date": 8 },
             voyage_data,
             title="Voyages"
@@ -71,7 +71,7 @@ class VoyageUI(UIWidget):
         
         while True:
             try:
-                voyage_id = self._display_prompt(
+                voyage_id = self._prompt(
                     "Enter voyage id", 
                     opt_instruction="Leave empty to cancel",
                     clear_screen=False
@@ -94,7 +94,7 @@ class VoyageUI(UIWidget):
                 continue
 
             self._print_header(f"List Voyage [ID:{voyage_id}]", add_extra_newline=True)
-            self._print_options_list([
+            self._print_list([
                 f"ID:     {voyage.id}",
                 f"Plane:  {voyage.plane}",
                 f"Pilot:  {voyage.pilot}",

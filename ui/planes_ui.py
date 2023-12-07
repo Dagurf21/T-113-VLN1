@@ -50,7 +50,7 @@ class PlaneUI(UIWidget):
                 plane.flights
             ])
 
-        self._prompt_interactive_datalist(
+        self._display_interactive_datalist(
             { "ID": 3, "name": 12, "Type": 12, "Availability": 12, "Destination": 14, "Flight ID": 10},
             planes_data
         )
@@ -61,7 +61,7 @@ class PlaneUI(UIWidget):
 
         while True:
             try:
-                plane_id = self._display_prompt(
+                plane_id = self._prompt(
                     "Enter plane id",
                     opt_instruction="Leave empty to cancel",
                     clear_screen=False
@@ -84,7 +84,7 @@ class PlaneUI(UIWidget):
                 continue
             
             self._print_header(f"List Plane [id: {plane_id}]", add_extra_newline=True)
-            self._print_options_list([
+            self._print_list([
                 f"ID:           {plane.id}",
                 f"Name:         {plane.name}",
                 f"Type:         {plane.ty}",
@@ -94,10 +94,10 @@ class PlaneUI(UIWidget):
 
     def register_plane(self):
         try:
-            name          = self._display_prompt("Enter name",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
-            plane_type    = self._display_prompt("Enter type",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
-            manufacturer  = self._display_prompt("Enter manufacturer",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
-            capacity      = self._display_prompt("Enter capacity",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
+            name          = self._prompt("Enter name",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
+            plane_type    = self._prompt("Enter type",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
+            manufacturer  = self._prompt("Enter manufacturer",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
+            capacity      = self._prompt("Enter capacity",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
             #flights       = self._display_prompt("Enter ",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
             # Not sure if we add flights now or later
             # O
@@ -120,7 +120,7 @@ class PlaneUI(UIWidget):
         while True:
             try:
                 try:
-                    plane_id = self._display_prompt("Enter plane ID", opt_instruction="Leave empty to cancel", clear_screen=False)
+                    plane_id = self._prompt("Enter plane ID", opt_instruction="Leave empty to cancel", clear_screen=False)
                     plane_id = int(plane_id)
                 except ValueError:
                     self._print_header("Remove Plane", add_extra_newline=True)
