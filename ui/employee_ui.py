@@ -227,6 +227,8 @@ class EmployeeUI(UIWidget):
                     clear_screen=False
                 )
                 employee_id = int(employee_id)
+            except UICancelException:
+                return
             except ValueError:
                 self._print_header("List Employee", add_extra_newline=True)
                 self._print_centered("Id has to be a number", add_newline_after=True)
