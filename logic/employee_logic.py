@@ -6,7 +6,6 @@ VALIDATION_ERRORS = (
     "Invalid Email. ",
     "Invalid Home Number. ",
 )
-EMPTY = ""
 
 
 class EmployeeLogic:
@@ -19,7 +18,7 @@ class EmployeeLogic:
     def create_employee(self, employee):
         """Takes in a employee object and forwards it to the data layer"""
         error_check = self.validate_employee(employee)
-        if error_check is EMPTY:
+        if error_check is "":
             return self.data_wrapper.create_employee(employee)
         else:
             raise ValueError(error_check)
@@ -46,7 +45,7 @@ class EmployeeLogic:
         """Updates a employee object with the given id"""
         error_check = self.validate_employee(employee)
         # Commence sorting!
-        if error_check is EMPTY:
+        if error_check is "":
             return self.data_wrapper.update_employee(employee)
         else:
             raise ValueError(error_check)
