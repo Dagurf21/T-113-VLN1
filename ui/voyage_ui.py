@@ -185,7 +185,7 @@ class VoyageUI(UIWidget):
 
                 field_to_update = self._display_selection(
                     voyage_fields, 
-                    header_title=f"Update voyage [{voyage.name}]"
+                    header_title=f"Update voyage with ID [{voyage.id}]"
                 )
 
                 match field_to_update:
@@ -200,9 +200,15 @@ class VoyageUI(UIWidget):
                             opt_instruction="Leave empty to cancel"
                         )
                     case 2: # Pilots
-                        return # TODO
+                        voyage.pilots = self._prompt(
+                            "Enter ID's of pilots, first ID is head pilot, must enter at least 2",
+                            opt_instruction="Leave empty to cancel - Format is {id}.{id}"
+                        )
                     case 3: # Attendants
-                        return # TODO
+                        voyage.attendants = self._prompt(
+                            "Enter ID's of attendants",
+                            opt_instruction="Leave empty to cancel"
+                        )
                     case 4: # Departure flight
                         voyage.departure_flight = self._prompt(
                             "Enter new flight number for departure flight",
