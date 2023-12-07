@@ -94,15 +94,27 @@ class EmployeeUI(UIWidget):
                 self._print_centered(f"Employee with id {employee_id} doesn't exist", add_newline_after=True)
                 continue
 
+            table = [
+                f"Id:      {employee.id}",
+                f"Name:    {employee.name}",
+                f"Email:   {employee.email}",
+                f"SSN:     {employee.ssn}",
+                f"Mobile:  {employee.mobile_phone}",
+                f"Home:    {employee.home_phone}"
+            ]
+
+            if isinstance(employee, Manager):
+                table.append(f"Work:    {employee.work_phone}")
+            if isinstance(employee, FlightManager):
+                table.append(f"Work:    {employee.work_phone}")
+            if isinstance(employee, Pilot):
+                table.append(f"Assign:  {', '.join(employee.assignments)}")
+                table.append(f"License: {employee.license}")
+            if isinstance(employee, FlightAttendant):
+                table.append(f"Assign:  {employee.assignments}")
+
             self._print_header(f"List Employee [id:{employee.id}]", add_extra_newline=True)
-            self._print_list([
-                f"Id:     {employee.id}",
-                f"Name:   {employee.name}",
-                f"Email:  {employee.email}",
-                f"SSN:    {employee.ssn}",
-                f"Mobile: {employee.mobile_phone}",
-                f"Home:   {employee.home_phone}"
-            ], add_newline_after=True)
+            self._print_list(table, add_newline_after=True)
 
 
     def register_employee(self):
