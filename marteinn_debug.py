@@ -13,8 +13,4 @@
 
 from logic.validator_logic import Validator
 
-if "" == None:
-    print("Hello")
-
-
-print()
+int("Balls")
