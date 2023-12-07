@@ -10,18 +10,39 @@ class FlightLogic():
         self.data_wrapper = data_wrapper
 
     def create_flight(self, data: Flight) -> None:
-        '''Creates flight:
-                Checks if ID is valid'''
+        '''Creates flight: Checks if ID is valid'''    
         
+        available_destinations = self.data_wrapper.get_all_destinations()
+
+        dest = self.data_wrapper.get_destination(data.id)
+
+        destination = data.destination
+        departure = data.destination
         
-
-        destination = self.data_wrapper.get_destination(data.id)
-
-        if destination.id == None:
+        if dest.id == None:
+            #flightnumber_validator(data)
             self.data_wrapper.create_flight(data)
-        
+
         else:
             raise ValueError("Invalid Input")
+    
+    def flight_number_validator(data):
+        '''Validates flight plans and assignes a flight number'''
+        
+        every_voyage = self.data_wrapper.get_all_voyages()
+
+        
+
+        data.flight_number = f"NA0{destination}"
+
+        pass
+
+    def flight_number_spliter(flight_number):
+        '''This splits and adds numbers relating to futer flights'''
+        
+
+
+        pass
 
     def list_all_flight(self) -> list[Flight]:
         '''Gets list of all flight from data_wrapper and forwards list of flight'''
