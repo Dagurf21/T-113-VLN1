@@ -51,23 +51,20 @@ class VoyageUI(UIWidget):
 
     def create_voyage(self):
         try:
-            plane            = self._prompt("Enter plane ID",                 header_title="Create voyage", opt_instruction="Leave empty to cancel")
-            departure_flight = self._prompt("Enter departing flight Number",  header_title="Create voyage", opt_instruction="Leave empty to cancel")
-            arrival_flight   = self._prompt("Enter arrival flight Number",    header_title="Create voyage", opt_instruction="Leave empty to cancel")
-            date             = self._prompt("Enter date of voyage",           header_title="Create voyage", opt_instruction="Leave empty to cancel")
-            status           = self._prompt("Enter status of voyage",         header_title="Create voyage", opt_instruction="Leave empty to cancel")
-            attendants       = self._prompt("Enter attendants ID",            header_title="Create voyage", opt_instruction="Leave empty to cancel (optional: n to skip)")
-            head_pilot       = self._prompt("Enter lead pilot ID's",          header_title="Create voyage", opt_instruction="Leave empty to cancel (optional: n to skip)")        
-            pilot            = self._prompt("Enter pilot ID's",               header_title="Create voyage", opt_instruction="Leave empty to cancel (optional: n to skip)")
+            plane              = self._prompt("Enter plane ID",                 header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            departure_flight   = self._prompt("Enter departing flight Number",  header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            arrival_flight     = self._prompt("Enter arrival flight Number",    header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            date               = self._prompt("Enter date of voyage",           header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            status             = self._prompt("Enter status of voyage",         header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            sold_seats         = self._prompt("Enter the amount of sold seats", header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            flight_attendants  = self._prompt("Enter flight_attendants ID",     header_title="Create voyage", opt_instruction="Leave empty to cancel (optional: n to skip)")
+            pilots             = self._prompt("Enter lead pilot ID's",          header_title="Create voyage", opt_instruction="First ID is head pilot. Leave empty to cancel (optional: n to skip)", )        
 
-            if attendants.lower() == "n":
-                attendants = None
+            if flight_attendants.lower() == "n":
+                flight_attendants = None
             
-            if head_pilot.lower() == "n":
-                head_pilot = None
-
-            if pilot.lower() == "n":
-                pilot = None
+            if pilots.lower() == "n":
+                pilots = None
 
             voyage = Voyage(
                 plane=plane,
@@ -75,9 +72,9 @@ class VoyageUI(UIWidget):
                 arrival_flight=arrival_flight,
                 date=date,
                 status=status,
-                attendants=attendants,
-                head_pilot=head_pilot,
-                pilot=pilot
+                sold_seats=sold_seats,
+                flight_attendants=flight_attendants,
+                pilots=pilots
             )
 
             self.logic_wrapper.create_voyage(voyage)
