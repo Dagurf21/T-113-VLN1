@@ -12,7 +12,7 @@ class VoyageLogic:
     def create_voyage(self, voyage_data) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
 
-        return self.data_wrapper.create_voyage(voyage)
+        return self.data_wrapper.create_voyage(voyage_data)
 
     def list_all_voyages(self) -> list:
         """Returns a list of all voyages"""
