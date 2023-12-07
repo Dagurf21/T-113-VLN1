@@ -6,6 +6,7 @@ class EmployeeLogic:
 
     def __init__(self, data_connection):
         self.data_wrapper = data_connection
+        self.validate = Validator()
 
     def create_employee(self, employee_data):
         """Takes in a employee object and forwards it to the data layer"""
@@ -45,7 +46,7 @@ class EmployeeLogic:
 
     def validate_employee(self, employee):
         """Validates a given employee"""
-        is_ssn_valid = self.validate_ssn(employee.ssn)
-        is_mobile_phone_valid = self.validate_phone_number(employee.mobile_phone)
-        is_email_valid = self.validate_email(employee.email)
-        is_home_phone_valid = self.validate_phone_number(employee.home_phone)
+        is_ssn_valid = self.validate.ssn(employee.ssn)
+        is_mobile_phone_valid = self.validate.phone_number(employee.mobile_phone)
+        is_email_valid = self.validate.email(employee.email)
+        is_home_phone_valid = self.validate.phone_number(employee.home_phone)
