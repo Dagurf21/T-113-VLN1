@@ -241,7 +241,47 @@ class VoyageUI(UIWidget):
             message="Cancel a voyage", 
             add_extra_newline=True
             )
-        
+            
+        while True:
+            try: 
+                voyage_id = self._prompt(
+                    "Enter Voygae ID",
+                    opt_instruction="Leave empty to cancel",
+                    clear_screen=False
+                )
+                voyage_id = int(voyage_id)
+            except UICancelException:
+                return
+            except ValueError:
+                self._print_header("Cancel voyage", add_extra_newline=True)
+                self._print_centered("ID has to be a number", add_newline_after=True)
+                continue
+
+            try:
+                voyage = self.logic_wrapper.list_voyage(voyage_id)
+
+                choices = [
+                    "Yes, cancel voyage",
+                    "No, don't cancel voyage"
+                ]
+                
+                choice = self._display_selection(
+                    choices, 
+                    header_title="Cancel Voyage"
+                )
+
+                match choice:
+                    case 0: # Cancel
+                        voyage.status = "Cancelled"
+                        voyage.pilots = None
+                        voyage.attendants = None
+                        self.logic_wrapper.update_voyage(voyage)
+                        return # TODO 
+                    case 1: # Cancel the cancelling
+                        return 
+
+            except UICancelException:
+                return
     
     def duplicate_voyage(self):
         self._print_header(message="Duplicate Voyage")
