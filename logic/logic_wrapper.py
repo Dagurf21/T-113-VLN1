@@ -32,6 +32,7 @@ class LogicWrapper(object):
         self.plane_logic = PlaneLogic(self.data_wrapper)
         self.validate = Validator()
 
+    # Employee Class
     def create_employee(self, employee) -> None:
         """Takes in a employee object and forwards it to the create_employee function"""
         return self.employee_logic.create_employee(employee)
@@ -56,6 +57,7 @@ class LogicWrapper(object):
         """Erases an employee from the record/ via ID"""
         return self.employee_logic.delete_employee(id)
 
+    # Flight Class
     def create_flight(self, data) -> None:
         """Creates an flight"""
         return self.flight_logic.create_flight(data)
@@ -80,6 +82,7 @@ class LogicWrapper(object):
         """Assigns pilot to a flight"""
         return self.flight_logic.assign_pilot(id, pilot)
 
+    # Voyage Class
     def create_voyage(self, data) -> None:
         """Creates a voyage"""
         return self.voyage_logic.create_voyage(data)
@@ -100,6 +103,7 @@ class LogicWrapper(object):
         """Erases voyage/ via ID"""
         return self.voyage_logic.delete_voyage(id)
 
+    # Destination class
     def create_destination(self, data) -> None:
         """Creates a new destination"""
         return self.destination_logic.create_destination(data)
@@ -120,6 +124,7 @@ class LogicWrapper(object):
         """Erases a destination"""
         return self.destination_logic.delete_destination(id)
 
+    # Plane Class
     def create_plane(self, data) -> None:
         """Creates a plane in the system"""
         return self.plane_logic.create_plane(data)
@@ -140,6 +145,8 @@ class LogicWrapper(object):
         """Erases plane from the data"""
         return self.plane_logic.delete_plane(id)
 
+    # Validator class
+    ## General validation
     def validate_phone_number(self, phone_number):
         """"""
         return self.validate.phone_number(phone_number)
@@ -148,22 +155,27 @@ class LogicWrapper(object):
         """w.i.p"""
         return self.validate.date(date)
 
+    ## Destination Validation
     def validate_country(self, country):
         """"""
         return self.validate.country(country)
 
+    ## Employee Validation
     def validate_ssn(self, ssn):
         return self.validate.ssn(ssn)
 
     def validate_email(self, email):
         return self.validate.email(email)
 
+    ### Pilot Validation
     def validate_liscense(self, liscense):
         return self.validate.liscense(liscense)
 
+    ### Pilot & Flight Attendant Validation
     def validate_assignments(self, assignments):
         return self.validate.assignments(assignments)
 
+    # Voyage Validation
     def seats_available(self, voyage):
         return self.validate.seats_available(voyage)
 
