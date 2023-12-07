@@ -61,7 +61,7 @@ class EmployeeLogic:
         list_of_outcomes.append(self.validate.ssn(employee.ssn))
         list_of_outcomes.append(self.validate.phone_number(employee.mobile_phone))
         list_of_outcomes.append(self.validate.email(employee.email))
-        if employee.home_phone is None:
+        if employee.home_phone is "":
             list_of_outcomes.append(True)
         else:
             list_of_outcomes.append(self.validate.phone_number(employee.home_phone))
