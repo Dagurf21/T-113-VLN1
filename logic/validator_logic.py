@@ -9,6 +9,7 @@ class Validator:
     def __init__(self):
         """Empty init"""
 
+    # General validation
     def phone_number(self, phone_number) -> bool:
         """Takes in a phonenumber and returns
         if it is valid(True) or invalid(False)"""
@@ -20,6 +21,11 @@ class Validator:
         except ValueError:
             return False
 
+    def date(self, date) -> bool:
+        """Takes in a date and returns
+        valid(True) or Invalid(False)"""
+
+    # Employee validation
     def ssn(self, ssn) -> bool:
         """Take in a social security number
         and returns True if it is valid and
@@ -59,6 +65,7 @@ class Validator:
             return False
         return True
 
+    # Pilot and flight attendant validations
     def liscense(self, liscense) -> bool:
         """uhhhhhh w.I.p"""
         pass
@@ -66,3 +73,19 @@ class Validator:
     def assignments(self, assignments) -> bool:
         """???"""
         pass
+
+    # Voyage Validations
+    def job_position(self, employee_list, job_title) -> bool:
+        """Goes through a list of employees and verifies
+        if all of them are the given job_title"""
+        for employee in employee_list:
+            if type(employee).__name__ != job_title:
+                return False
+        return True
+
+    def status(self, status) -> bool:
+        """Validates the status, returns either
+        valid(True) or invalid(False)"""
+        if status is not "Good":
+            return "This is really bad"
+        return "YAHOO!!"
