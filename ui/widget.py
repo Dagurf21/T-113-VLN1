@@ -59,12 +59,17 @@ class UIWidget:
         while True:
             self._print_list([element_display(elem) for elem in elems], add_newline_after=True)
             try:
-                elem = self._prompt(prompt, clear_screen=False, opt_instruction="Leave empty to finish")
+                elem = self._prompt(prompt, clear_screen=False, opt_instruction="Leave empty to finish (b: back)")
             except UICancelException:
                 break
 
             if enable_cancel and elem == 'q':
                 raise UICancelException
+
+            if elem == 'b' and len(elems) > 0:
+                elems.pop()
+                self._print_header(message=header_title, add_extra_newline=True)
+                continue
 
             invalid = validator(elem)
             if invalid != None:
