@@ -74,6 +74,12 @@ class Validator:
         """???"""
         pass
 
+    # Flight validation
+
+    
+    # Destination validations
+
+
     # Voyage Validations
     def job_position(self, employee_list, job_title) -> bool:
         """Goes through a list of employees and verifies
@@ -86,6 +92,4 @@ class Validator:
     def status(self, status) -> bool:
         """Validates the status, returns either
         valid(True) or invalid(False)"""
-        if status is not "Good":
-            return "This is really bad"
-        return "YAHOO!!"
+        return False
