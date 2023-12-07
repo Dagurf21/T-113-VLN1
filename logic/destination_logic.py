@@ -1,3 +1,5 @@
+from logic.validator_logic import Validator
+
 class DestinationLogic:
     """This class is the logic layer for the destination class"""
 
@@ -25,8 +27,10 @@ class DestinationLogic:
     def delete_destination(self, id) -> None:
         """Deletes a destination object with the given id"""
         return self.data_wrapper.delete_destination(id)
-
-
+    
+    def validate_destination(self, destination):
+        
+    
 # Verify:
 #
 # if country is allowed based on assignment description (DING!!)

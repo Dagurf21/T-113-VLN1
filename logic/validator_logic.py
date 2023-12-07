@@ -1,5 +1,7 @@
 import datetime
 
+COUNTRIES = ["Iceland", "Greenland", "Pharaoh Island"]
+
 
 class Validator:
     """Class which handles.
@@ -26,6 +28,12 @@ class Validator:
         valid(True) or Invalid(False)"""
 
     # Destination validations
+    def country(self, country) -> bool:
+        """Checks if the country is in the valid COUNTRIES constant"""
+        if country not in COUNTRIES:
+            return True
+        else:
+            return False
 
     # Employee validation
     def ssn(self, ssn) -> bool:
