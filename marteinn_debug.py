@@ -13,9 +13,8 @@
 
 from logic.validator_logic import Validator
 
-validate = Validator()
-
-print(validate.ssn("0509042310"))
+if "" == None:
+    print("Hello")
 
 
 print()

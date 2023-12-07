@@ -1,5 +1,13 @@
 from logic.validator_logic import Validator
 
+VALIDATION_ERRORS = (
+    "Invalid SSN. ",
+    "Invalid Phone Number. ",
+    "Invalid Email. ",
+    "Invalid Home Number. ",
+)
+EMPTY = ""
+
 
 class EmployeeLogic:
     """This class is the logic layer for the employee class"""
@@ -11,10 +19,10 @@ class EmployeeLogic:
     def create_employee(self, employee):
         """Takes in a employee object and forwards it to the data layer"""
         error_check = self.validate_employee(employee)
-        if error_check:
+        if error_check is EMPTY:
             return self.data_wrapper.create_employee(employee)
         else:
-            raise ValueError
+            raise ValueError(error_check)
 
     def list_all_employees(self) -> list:
         """Returns a list of all employees"""
@@ -38,10 +46,10 @@ class EmployeeLogic:
         """Updates a employee object with the given id"""
         error_check = self.validate_employee(employee)
         # Commence sorting!
-        if error_check:
+        if error_check is EMPTY:
             return self.data_wrapper.update_employee(employee)
         else:
-            raise ValueError
+            raise ValueError(error_check)
 
     def delete_employee(self, id):
         """Deletes a employee object with the given id"""
@@ -49,13 +57,20 @@ class EmployeeLogic:
 
     def validate_employee(self, employee):
         """Validates a given employee"""
-        is_ssn_valid = self.validate.ssn(employee.ssn)
-        is_phone_valid = self.validate.phone_number(employee.mobile_phone)
-        is_email_valid = self.validate.email(employee.email)
-        if employee.home_phone is not None:
-            is_phone_valid = is_phone_valid and self.validate.phone_number(
-                employee.home_phone
-            )
+        list_of_outcomes = []
+
+        list_of_outcomes.append(self.validate.ssn(employee.ssn))
+        list_of_outcomes.append(self.validate.phone_number(employee.mobile_phone))
+        list_of_outcomes.append(self.validate.email(employee.email))
+        if employee.home_phone is None:
+            list_of_outcomes.append(True)
         else:
-            is_phone_valid = True
-        return is_ssn_valid and is_phone_valid and is_email_valid
+            list_of_outcomes.append(self.validate.phone_number(employee.home_phone))
+
+        error_message = ""
+
+        for x in range(4):
+            if list_of_outcomes[x] is False:
+                error_message += VALIDATION_ERRORS[x]
+
+        return error_message
