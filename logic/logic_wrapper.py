@@ -4,6 +4,7 @@ from logic.flight_logic import FlightLogic
 from logic.destination_logic import DestinationLogic
 from logic.voyage_logic import VoyageLogic
 from logic.plane_logic import PlaneLogic
+from logic.validator_logic import Validator
 
 from model.destination import Destination
 from model.employee import Employee
@@ -29,6 +30,7 @@ class LogicWrapper(object):
         self.destination_logic = DestinationLogic(self.data_wrapper)
         self.voyage_logic = VoyageLogic(self.data_wrapper)
         self.plane_logic = PlaneLogic(self.data_wrapper)
+        self.validate = Validator()
 
     def create_employee(self, employee) -> None:
         """Takes in a employee object and forwards it to the create_employee function"""
@@ -137,3 +139,36 @@ class LogicWrapper(object):
     def delete_plane(self, id) -> None:
         """Erases plane from the data"""
         return self.plane_logic.delete_plane(id)
+
+    def validate_phone_number(self, phone_number):
+        """"""
+        return self.validate.phone_number(phone_number)
+
+    def validate_date(self, date):
+        """w.i.p"""
+        return self.validate.date(date)
+
+    def validate_country(self, country):
+        """"""
+        return self.validate.country(country)
+
+    def validate_ssn(self, ssn):
+        return self.validate.ssn(ssn)
+
+    def validate_email(self, email):
+        return self.validate.email(email)
+
+    def validate_liscense(self, liscense):
+        return self.validate.liscense(liscense)
+
+    def validate_assignments(self, assignments):
+        return self.validate.assignments(assignments)
+
+    def seats_available(self, voyage):
+        return self.validate.seats_available(voyage)
+
+    def validate_job_position(self, employee_list, job_title):
+        return self.validate.job_position(employee_list, job_title)
+
+    def validate_status(self, status):
+        return self.validate.status(status)
