@@ -31,16 +31,13 @@ class FlightLogic():
         
         every_voyage = self.data_wrapper.get_all_voyages()
 
-        
+        for voyage in every_voyage:
 
-        data.flight_number = f"NA0{destination}"
+            match data.id:
+                case voyage.id:
+                    voyage_num = 0
 
-        pass
-
-    def flight_number_spliter(flight_number):
-        '''This splits and adds numbers relating to futer flights'''
-        
-
+        data.flight_number = f"NA0{destination}{voyage_num}"
 
         pass
 
