@@ -25,6 +25,8 @@ class Validator:
         """Takes in a date and returns
         valid(True) or Invalid(False)"""
 
+    # Destination validations
+
     # Employee validation
     def ssn(self, ssn) -> bool:
         """Take in a social security number
@@ -76,7 +78,7 @@ class Validator:
 
     # Flight validation
 
-    # Destination validations
+    # Plane validation
 
     # Voyage Validations
     def seats_available(self, voyage):
