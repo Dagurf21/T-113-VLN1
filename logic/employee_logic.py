@@ -53,7 +53,9 @@ class EmployeeLogic:
         is_phone_valid = self.validate.phone_number(employee.mobile_phone)
         is_email_valid = self.validate.email(employee.email)
         if employee.home_phone is not None:
-            is_phone_valid = self.validate.phone_number(employee.home_phone)
+            is_phone_valid = is_phone_valid and self.validate.phone_number(
+                employee.home_phone
+            )
         else:
             is_phone_valid = True
         return is_ssn_valid and is_phone_valid and is_email_valid
