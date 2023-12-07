@@ -57,7 +57,7 @@ class EmployeeUI(UIWidget):
                 employee.email
             ])
 
-        self._prompt_interactive_datalist(
+        self._display_interactive_datalist(
             { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, 
             employee_data,
             title="Employees",
@@ -72,7 +72,7 @@ class EmployeeUI(UIWidget):
 
         while True:
             try:
-                employee_id = self._display_prompt(
+                employee_id = self._prompt(
                     "Enter employee id",
                     opt_instruction="Leave empty to cancel",
                     clear_screen=False
@@ -95,7 +95,7 @@ class EmployeeUI(UIWidget):
                 continue
 
             self._print_header(f"List Employee [id:{employee.id}]", add_extra_newline=True)
-            self._print_options_list([
+            self._print_list([
                 f"Id:     {employee.id}",
                 f"Name:   {employee.name}",
                 f"Email:  {employee.email}",
@@ -114,20 +114,20 @@ class EmployeeUI(UIWidget):
                 "Flight Manager",
             ], header_title="Register Employee")
 
-            name         = self._display_prompt("Enter name",         header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            password     = self._display_prompt("Enter password",     header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            address      = self._display_prompt("Enter address",      header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            ssn          = self._display_prompt("Enter SSN",          header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            mobile_phone = self._display_prompt("Enter mobile phone", header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            email        = self._display_prompt("Enter email",        header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            home_phone   = self._display_prompt("Enter home phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel (optional: n to skip)")
+            name         = self._prompt("Enter name",         header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            password     = self._prompt("Enter password",     header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            address      = self._prompt("Enter address",      header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            ssn          = self._prompt("Enter SSN",          header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            mobile_phone = self._prompt("Enter mobile phone", header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            email        = self._prompt("Enter email",        header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            home_phone   = self._prompt("Enter home phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel (optional: n to skip)")
 
             if home_phone == "n":
                 home_phone = None
 
             match employee_title:
                 case 0: # Manager
-                    work_phone   = self._display_prompt(
+                    work_phone   = self._prompt(
                         "Enter work phone",
                         header_title="Register Employee",
                         opt_instruction="Leave empty to cancel"
@@ -147,7 +147,7 @@ class EmployeeUI(UIWidget):
                 case 2: # Flight Attendant
                     return # TODO
                 case 3: # Flight Manager
-                    work_phone   = self._display_prompt(
+                    work_phone   = self._prompt(
                         "Enter work phone",
                         header_title="Register Employee",
                         opt_instruction="Leave empty to cancel"
@@ -176,7 +176,7 @@ class EmployeeUI(UIWidget):
 
         while True:
             try:
-                employee_id = self._display_prompt(
+                employee_id = self._prompt(
                     "Enter employee id",
                     opt_instruction="Leave empty to cancel",
                     clear_screen=False
@@ -220,27 +220,27 @@ class EmployeeUI(UIWidget):
 
                 match field_to_update:
                     case 0: # Password
-                        employee.password = self._display_prompt(
+                        employee.password = self._prompt(
                             "Enter new password",
                             opt_instruction="Leave empty to cancel"
                         )
                     case 1: # Address
-                        employee.address = self._display_prompt(
+                        employee.address = self._prompt(
                             "Enter new address",
                             opt_instruction="Leave empty to cancel"
                         )
                     case 2: # Mobile Phone
-                        employee.mobile_phone = self._display_prompt(
+                        employee.mobile_phone = self._prompt(
                             "Enter new mobile phone",
                             opt_instruction="Leave empty to cancel"
                         )
                     case 3: # Email
-                        employee.email = self._display_prompt(
+                        employee.email = self._prompt(
                             "Enter new email",
                             opt_instruction="Leave empty to cancel"
                         )
                     case 4: # Home Phone
-                        employee.home_phone = self._display_prompt(
+                        employee.home_phone = self._prompt(
                             "Enter new home phone",
                             opt_instruction="Leave empty to cancel"
                         )
@@ -250,12 +250,12 @@ class EmployeeUI(UIWidget):
                         elif isinstance(employee, FlightAttendant):
                             return # TODO
                         elif isinstance(employee, Manager):
-                            employee.work_phone = self._display_prompt(
+                            employee.work_phone = self._prompt(
                                 "Enter new work phone",
                                 opt_instruction="Leave empty to cancel"
                             )
                         elif isinstance(employee, FlightManager):
-                            employee.work_phone = self._display_prompt(
+                            employee.work_phone = self._prompt(
                                 "Enter new work phone",
                                 opt_instruction="Leave empty to cancel"
                             )
@@ -273,7 +273,7 @@ class EmployeeUI(UIWidget):
 
         while True:
             try:
-                employee_id = self._display_prompt("Enter employee id", opt_instruction="Leave empty to cancel", clear_screen=False)
+                employee_id = self._prompt("Enter employee id", opt_instruction="Leave empty to cancel", clear_screen=False)
                 employee_id = int(employee_id)
             except ValueError:
                 self._print_header("Remove Employee", add_extra_newline=True)
