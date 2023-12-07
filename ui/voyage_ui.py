@@ -13,6 +13,7 @@ class VoyageUI(UIWidget):
             try:
                 option = self._display_selection(
                     [
+                        "Create Voyage",
                         "List voyages - Finished not working bc. data layer", # !!! NOTICE !!!
                         "List voyage",
                         "Update voyage",
@@ -151,19 +152,34 @@ class VoyageUI(UIWidget):
 
                 match field_to_update:
                     case 0: #Seats sold
-                        return # TODO
+                        voyage.sold_seats = self._prompt(
+                            "Enter new amount of sold seats",
+                            opt_instruction="Leave empty to cancel"
+                        )
                     case 1: # Plane
-                        return # TODO
+                        voyage.plane = self._prompt(
+                            "Enter new plane ID",
+                            opt_instruction="Leave empty to cancel"
+                        )
                     case 2: # Pilots
                         return # TODO
                     case 3: # Attendants
                         return # TODO
                     case 4: # Departure flight
-                        return # TODO
+                        voyage.departure_flight = self._prompt(
+                            "Enter new flight number for departure flight",
+                            opt_instruction="Leave empty to cancel"
+                        )
                     case 5: # Arrival flight
-                        return # TODO
+                        voyage.arrival_flight = self._prompt(
+                            "Enter new flight number for arrival flight",
+                            opt_instruction="Leave empty to cancel"
+                        )
                     case 6: # Date of flight
-                        return # TODO
+                        voyage.date = self._prompt(
+                            "Enter new date for voyage",
+                            opt_instruction="Leave empty to cancel"
+                        )
                     case 7: # Status of voyage
                         return # TODO
 
@@ -174,7 +190,11 @@ class VoyageUI(UIWidget):
                 return
                 
     def cancel_voyage(self):
-        self._print_header(message="Cancel a voyage")
+        self._print_header(
+            message="Cancel a voyage", 
+            add_extra_newline=True
+            )
+        
     
     def duplicate_voyage(self):
         self._print_header(message="Duplicate Voyage")
