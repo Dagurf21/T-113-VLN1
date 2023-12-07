@@ -68,10 +68,11 @@
 
 #### Dagslok skýrsla (Hvað gerði hver og einn í dag) ?
 
-- Axel Snær: 
+- Axel Snær: Gerði employee validation, og assignments fyrir pilots og flight attendants
 - Dagur Freyr: 
-- Elías Andri: 
-- Kristján Kári: 
-- Marteinn Logi: 
+- Elías Andri: Dagbók, Pilots og flight attendant assignments, optimisation & bug fixes
+- Kristján Kári: Flight number generation & validation, Flight logic
+- Marteinn Logi: Helling af validation fyrir input
 
 #### TODO á morgun
+Klára allt fyrir voyage, skráning starfsmanna og búa til flights
