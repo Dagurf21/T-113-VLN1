@@ -11,7 +11,7 @@ class UIWidget:
         """Clears the screen using the systems clear command"""
         os.system('cls' if os.name == 'nt' else 'clear')
 
-    def _prompt(self, prompt: str, opt_instruction: str = None, clear_screen: bool = True, header_title: str = "", enable_cancel: bool = True):
+    def _prompt(self, prompt: str, opt_instruction: str = None, clear_screen: bool = True, header_title: str = "", enable_cancel: bool = True, validator: Callable[[str], str] = lambda e: None):
         """
         Displays a prompt to input text into.
 
@@ -20,6 +20,9 @@ class UIWidget:
             - opt_instruction: Displays an instruction right above the prompt
             - header_title: Title of the header used when clear_screen is enabled
             - enable_cancel: Throws a UICancelException when the input is blank
+            - validator: Function to validate input. clear_screen must be enabled
+                in  -> string input
+                out <- None if valid, string error message if invalid
         """
 
         if clear_screen:
@@ -28,16 +31,31 @@ class UIWidget:
                 add_extra_newline=True
             )
 
-        if isinstance(opt_instruction, str):
-            self._print_centered(opt_instruction,
-                add_newline_after=True,
-                add_newline_before=False
-            )
+        while True:
+            if isinstance(opt_instruction, str):
+                self._print_centered(opt_instruction,
+                    add_newline_after=True,
+                    add_newline_before=False
+                )
 
-        inp = input(f"{prompt}: ")
+            inp = input(f"{prompt}: ")
 
-        if enable_cancel and inp == "":
-            raise UICancelException
+            if enable_cancel and inp == "":
+                raise UICancelException
+
+            if clear_screen:
+                invalid = validator(inp)
+                if invalid != None:
+                    self._print_header(
+                        message=header_title,
+                        add_extra_newline=True
+                    )
+                    self._print_centered(invalid,
+                        add_newline_after=True,
+                        add_newline_before=False
+                    )
+
+            break
         
         return inp
 
@@ -54,6 +72,7 @@ class UIWidget:
                 in  -> element
                 out <- None if valid or string with error message if invalid
         """
+
         elems = []
         self._print_header(message=header_title, add_extra_newline=True)
         while True:
@@ -74,7 +93,7 @@ class UIWidget:
             invalid = validator(elem)
             if invalid != None:
                 self._print_header(message=header_title, add_extra_newline=True)
-                self._print_centered(invalid)
+                self._print_centered(invalid, add_newline_after=True)
                 continue
 
             elems.append(elem)
@@ -82,36 +101,6 @@ class UIWidget:
 
         return elems
     
-    def _prompt_number(self, prompt: str, header_title: str, opt_instruction: str = None, enable_cancel: bool = True): 
-        """
-        Displays a prompt where the input has to be a number
-
-        Options:
-            - opt_instruction: Displays an instruction right above the prompt
-            - enable_cancel: Throws a UICancelException when the input is blank
-        """
-
-        while True:
-            inp = self._prompt(
-                prompt,
-                opt_instruction,
-                header_title,
-                enable_cancel
-            )
-
-            try:
-                num = int(inp)
-                return num
-            except ValueError:
-                self._print_header(
-                    header_title,
-                    add_extra_newline=True
-                )
-                self._print_centered(
-                    "Input has to be a number",
-                    add_newline_after=True
-                )
-
     def _display_selection(self, options: [str], opt_instruction: str = None, header_title: str = "", include_back: bool = True, allow_cancel: bool = False) -> int:
         """
         Displays an interactive menu to select one of the provided options.
