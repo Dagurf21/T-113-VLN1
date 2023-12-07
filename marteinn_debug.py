@@ -10,10 +10,12 @@
 # Kristján:
 #         Flight_route_logic
 #         Plane_logic
-import datetime
+
+from logic.validator_logic import Validator
+
+validate = Validator()
+
+print(validate.ssn("0509042310"))
 
 
-phone = "111-2222"
-print(phone)
-phone = phone[0:3] + phone[4:10]
-print(phone)
+print()
