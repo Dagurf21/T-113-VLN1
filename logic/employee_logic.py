@@ -14,7 +14,7 @@ class EmployeeLogic:
         if error_check:
             return self.data_wrapper.create_employee(employee)
         else:
-            return "Invalid Employee!"
+            raise ValueError
 
     def list_all_employees(self) -> list:
         """Returns a list of all employees"""
@@ -26,29 +26,13 @@ class EmployeeLogic:
         """Returns a employee object with the given id"""
         employee = self.data_wrapper.get_employee(id)
 
-        if employee is None:
-            return employee
-
-        error_check = self.validate_employee(employee)
-        # Commence sorting!
-        if error_check:
-            return employee
-        else:
-            return "INVALID EMPLOYEE!!!!"
+        return employee
 
     def get_employee_by_email(self, email):
         """Returns a employee object with the given id"""
         employee = self.data_wrapper.get_employee_by_email(email)
 
-        if employee is None:
-            return employee
-
-        error_check = self.validate_employee(employee)
-        # Commence sorting!
-        if error_check:
-            return employee
-        else:
-            return "INVALID EMPLOYEE!!!!"
+        return employee
 
     def update_employee(self, employee):
         """Updates a employee object with the given id"""
