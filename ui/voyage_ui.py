@@ -105,8 +105,74 @@ class VoyageUI(UIWidget):
             ], add_newline_after=True)
 
     def update_voyage(self):
-        self._print_header(message="List all voyages")
+        self._print_header(
+            "Update Voyage",
+            add_extra_newline=True
+        )
 
+        while True:
+            try: 
+                voyage_id = self._prompt(
+                    "Enter Voygae ID",
+                    opt_instruction="Leave empty to cancel",
+                    clear_screen=False
+                )
+                voyage_id = int(voyage_id)
+            except UICancelException:
+                return
+            except ValueError:
+                self._print_header("List voyage", add_extra_newline=True)
+                self._print_centered("ID has to be a number", add_newline_after=True)
+                continue
+
+            try:
+                voyage = self.logic_wrapper.list_voyage(voyage_id)
+
+                if voyage == None:
+                    self._print_header("List Voyage", add_extra_newline=True)
+                    self._print_centered(f"Voyage with ID {voyage_id} doesn't exist", add_newline_after=True)
+                    continue
+
+                voyage_fields = [
+                    "Seats sold", 
+                    "Plane", 
+                    "Pilots", 
+                    "Attendants",
+                    "Departure Flight",
+                    "Arrival Flight", 
+                    "Date of flight", 
+                    "Status of voyage"
+                ]
+
+                field_to_update = self._display_selection(
+                    voyage_fields, 
+                    header_title=f"Update voyage [{voyage.name}]"
+                )
+
+                match field_to_update:
+                    case 0: #Seats sold
+                        return # TODO
+                    case 1: # Plane
+                        return # TODO
+                    case 2: # Pilots
+                        return # TODO
+                    case 3: # Attendants
+                        return # TODO
+                    case 4: # Departure flight
+                        return # TODO
+                    case 5: # Arrival flight
+                        return # TODO
+                    case 6: # Date of flight
+                        return # TODO
+                    case 7: # Status of voyage
+                        return # TODO
+
+                self.logic_wrapper.update_voyage(voyage)
+
+                return
+            except UICancelException:
+                return
+                
     def cancel_voyage(self):
         self._print_header(message="Cancel a voyage")
     
