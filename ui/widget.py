@@ -10,7 +10,7 @@ class UIWidget:
         """Clears the screen using the systems clear command"""
         os.system('cls' if os.name == 'nt' else 'clear')
 
-    def _display_prompt(self, prompt: str, opt_instruction: str = None, clear_screen: bool = True, header_title: str = "", enable_cancel: bool = True):
+    def _prompt(self, prompt: str, opt_instruction: str = None, clear_screen: bool = True, header_title: str = "", enable_cancel: bool = True):
         """
         Displays a prompt to input text into.
 
@@ -50,7 +50,7 @@ class UIWidget:
         """
 
         while True:
-            inp = self._display_prompt(
+            inp = self._prompt(
                 prompt,
                 opt_instruction,
                 header_title,
@@ -89,12 +89,12 @@ class UIWidget:
                 message=header_title,
                 add_extra_newline=True
             )
-            self._print_options_list(options,
+            self._print_list(options,
                 numbered=True,
                 add_newline_after=True
             )
 
-            option = self._display_prompt("Choose an option",
+            option = self._prompt("Choose an option",
                 opt_instruction=opt_instruction,
                 clear_screen=False,
                 enable_cancel=allow_cancel
@@ -124,8 +124,7 @@ class UIWidget:
 
             return option
 
-
-    def _prompt_interactive_datalist(self, headers: {str: int}, data: [[str]], title: str = "", rows_per_page: int = 10):
+    def _display_interactive_datalist(self, headers: {str: int}, data: [[str]], title: str = "", rows_per_page: int = 10):
         """
         Displays an interactive table of data where the data is divided into pages
         and the user can flip between the pages
@@ -162,14 +161,13 @@ class UIWidget:
                 case _: # Unknown option
                     continue
 
-    def _print_options_list(self, lst: [str], numbered: bool = False, add_newline_after: bool = False):
+    def _print_list(self, lst: [str], numbered: bool = False, add_newline_after: bool = False):
         """
         Prints a list of options centered around the ui width. List can optionally be numbered
 
         Options:
             - numbered: Adds the number of the element before each element
             - add_newline_after: Adds an additional newline after the option list
-            - 
         """
 
         # Calculate the padding necessary to center the list

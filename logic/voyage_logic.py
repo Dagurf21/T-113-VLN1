@@ -1,5 +1,5 @@
 from model.voyage import Voyage
-from validator_logic import Validator
+from logic.validator_logic import Validator
 
 
 class VoyageLogic:
@@ -11,9 +11,8 @@ class VoyageLogic:
 
     def create_voyage(self, voyage_data) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
-        seats_available = voyage.plane.capacity - voyage.seats_sold
 
-        return self.data_wrapper.create_voyage(voyage)
+        return self.data_wrapper.create_voyage(voyage_data)
 
     def list_all_voyages(self) -> list:
         """Returns a list of all voyages"""
@@ -35,8 +34,8 @@ class VoyageLogic:
         """Validates a voyage and return a validated
         voyage if possible, else None"""
         are_seats_available = self.validate.seats_available(voyage)
-        are_pilots_pilots = self.validate.job_position(voyage.pilots, "Pilot")
-        are_attendants_attendants = self.validate.job_position(
+        are_pilots_valid = self.validate.job_position(voyage.pilots, "Pilot")
+        are_attendants_valid = self.validate.job_position(
             voyage.flight_attendants, "FlightAttendant"
         )
 

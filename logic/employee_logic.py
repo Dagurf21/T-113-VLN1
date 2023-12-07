@@ -1,4 +1,4 @@
-from validator_logic import Validator
+from logic.validator_logic import Validator
 
 
 class EmployeeLogic:

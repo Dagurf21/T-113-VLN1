@@ -60,7 +60,7 @@ class DestinationUI(UIWidget):
                 destination.emergency_number,
             ])
 
-        self._prompt_interactive_datalist(
+        self._display_interactive_datalist(
             { "id": 3, "country": 8, "airp.": 5, "dist.": 7, "time": 5, "representetive": 14, "e. phone": 8 }, 
             destination_data,
             title="Destinations",
@@ -74,7 +74,7 @@ class DestinationUI(UIWidget):
 
         while True:
             try:
-                destination_id = self._display_prompt(
+                destination_id = self._prompt(
                     "Enter destination id",
                     opt_instruction="Leave empty to cancel",
                     clear_screen=False
@@ -97,7 +97,7 @@ class DestinationUI(UIWidget):
                 continue
 
             self._print_header(f"List Destination [id:{destination.id}]", add_extra_newline=True)
-            self._print_options_list([
+            self._print_list([
                 f"Id:             {destination.id}",
                 f"Country:        {destination.country}",
                 f"Airport:        {destination.airport}",
@@ -109,12 +109,12 @@ class DestinationUI(UIWidget):
 
     def register_destination(self):
         try:
-            country          = self._display_prompt("Enter country",             header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            airport          = self._display_prompt("Enter airport",             header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            distance_km      = self._display_prompt("Enter distance (km)",       header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            flight_time      = self._display_prompt("Enter flight time (00:00)",  header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            representative   = self._display_prompt("Enter representative name", header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            emergency_number = self._display_prompt("Enter emergency number",    header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            country          = self._prompt("Enter country",             header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            airport          = self._prompt("Enter airport",             header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            distance_km      = self._prompt("Enter distance (km)",       header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            flight_time      = self._prompt("Enter flight time (00:00)",  header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            representative   = self._prompt("Enter representative name", header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            emergency_number = self._prompt("Enter emergency number",    header_title="Register Employee", opt_instruction="Leave empty to cancel")
 
             destination = Destination(
                 country=country,
@@ -138,7 +138,7 @@ class DestinationUI(UIWidget):
 
         while True:
             try:
-                destination_id = self._display_prompt(
+                destination_id = self._prompt(
                     "Enter destination id",
                     opt_instruction="Leave empty to cancel",
                     clear_screen=False
@@ -170,12 +170,12 @@ class DestinationUI(UIWidget):
 
                 match field_to_update:
                     case 0: # Representative
-                        destination.representative = self._display_prompt(
+                        destination.representative = self._prompt(
                             "Enter new representative",
                             opt_instruction="Leave empty to cancel"
                         )
                     case 1: # Emergency Number
-                        destination.emergency_number = self._display_prompt(
+                        destination.emergency_number = self._prompt(
                             "Enter new emergency number",
                             opt_instruction="Leave empty to cancel"
                         )
@@ -191,7 +191,7 @@ class DestinationUI(UIWidget):
 
         while True:
             try:
-                destination_id = self._display_prompt("Enter destination id", opt_instruction="Leave empty to cancel", clear_screen=False)
+                destination_id = self._prompt("Enter destination id", opt_instruction="Leave empty to cancel", clear_screen=False)
                 destination_id = int(destination_id)
             except ValueError:
                 self._print_header("Remove Destination", add_extra_newline=True)
