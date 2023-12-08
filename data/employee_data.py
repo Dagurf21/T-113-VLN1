@@ -78,7 +78,6 @@ class EmployeeData:
             # Writes the employee to the bottom of file
             writer.writerow({'id': id, 'name': employee.name, 'job_title': job_title, 'license': pilot_license, 'password': employee.password, 'address': employee.address, 'ssn': employee.ssn, 'mobile_phone': employee.mobile_phone, 'email': employee.email, 'home_phone': employee.home_phone, 'work_phone': work_phone, 'assignments': assignments})
             
-    
 
     def get_new_id(self) -> int:
         """Returns the id for a new employee"""
@@ -91,73 +90,6 @@ class EmployeeData:
                 id += 1
 
             return id
-    
-
-    def get_employee(self, employee_id):
-        """Returns the requested employee as the correct employee class type.
-        If no employee with the id is found return None
-        """
-        with open(self.file_name, newline='', encoding="utf-8") as csvfile:
-            reader = csv.DictReader(csvfile)
-
-            for row in reader:
-                if int(row["id"]) == employee_id:
-
-                    # Finds out what employee subclass email is
-                    match row["job_title"]:
-                        case "Manager" | "Chuck Norris":
-                            return Manager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
-                    
-                        case "Pilot":
-                            assignment_list = row["assignments"].split(".")
-                            return Pilot(id = int(row["id"]), name = row["name"], password = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list)
-                    
-                        case "Flight Attendant":
-                            assignment_list = row["assignments"].split(".")
-                            return FlightAttendant(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list)
-                    
-                        case "Flight Manager":
-                            return FlightManager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
-                    
-                        case _:
-                            return None
-
-            # If no employee is found with the given id, return None
-            return None
-        
-
-    def get_employee_by_email(self, employee_email):
-        """Returns the requested employee as the correct employee class type.
-        If no employee with the email is found return None
-        """
-        with open(self.file_name, newline='', encoding="utf-8") as csvfile:
-            reader = csv.DictReader(csvfile)
-
-            for row in reader:
-                if row["email"] == employee_email:
-                    
-                    # Finds out what employee subclass the employee is
-                    match row["job_title"]:
-                        case "Manager" | "Chuck Norris":
-                            return Manager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
-                    
-                        case "Pilot":
-                            assignment_list = row["assignments"].split(".")
-                            return Pilot(id = int(row["id"]), name = row["name"], password = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list)
-                    
-                        case "Flight Attendant":
-                            assignment_list = row["assignments"].split(".")
-                            return FlightAttendant(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list)
-                    
-                        case "Flight Manager":
-                            return FlightManager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"])
-
-                        # If ID is found but employee has been deleted
-                        case _:
-                            return None
-
-            # If no employee is found with the given id, return None
-            return None
 
 
     def update_employee(self, employee):

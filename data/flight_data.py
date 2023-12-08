@@ -81,9 +81,3 @@ class FlightData:
 
         # Replaces the main file with the tempfile
         shutil.move(tempfile.name, self.file_name)
-
-
-    def delete_flight(self, flight_id):
-        pass
-
-

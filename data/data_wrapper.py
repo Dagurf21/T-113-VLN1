@@ -18,12 +18,6 @@ class DataWrapper:
     def create_employee(self, employee):
         return self.employee_data.create_employee(employee)
     
-    def get_employee(self, employee_id):
-        return self.employee_data.get_employee(employee_id)
-    
-    def get_employee_by_email(self, employee_email):
-        return self.employee_data.get_employee_by_email(employee_email)
-
     def update_employee(self, employee):
         return self.employee_data.update_employee(employee)
         
@@ -86,6 +80,3 @@ class DataWrapper:
 
     def update_flight(self, flight):
         return self.flight_data.update_flight(flight)
-
-    def delete_flight(self, flight_id):
-        return self.flight_data.delete_flight(flight_id)
