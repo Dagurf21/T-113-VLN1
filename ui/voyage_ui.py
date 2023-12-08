@@ -151,7 +151,7 @@ class VoyageUI(UIWidget):
         while True:
             try: 
                 voyage_id = self._prompt(
-                    "Enter Voygae ID",
+                    "Enter Voyage ID",
                     opt_instruction="Leave empty to cancel",
                     clear_screen=False
                 )
@@ -244,7 +244,7 @@ class VoyageUI(UIWidget):
         while True:
             try: 
                 voyage_id = self._prompt(
-                    "Enter Voygae ID",
+                    "Enter Voyage ID",
                     opt_instruction="Leave empty to cancel",
                     clear_screen=False
                 )
