@@ -11,6 +11,4 @@
 #         Flight_route_logic
 #         Plane_logic
 
-from logic.validator_logic import Validator
-
-int("Balls")
+password = "123password"
