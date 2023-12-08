@@ -41,7 +41,8 @@ class DestinationData:
             for row in reader:
                 
                 if int(row["id"]) == destination_id:
-                    return Destination(id = row["id"], country = row["country"], airport = row["airport"], flight_time = row["flight_time"], distance_km = row["distance"], representative = row["representative"], emergency_number = row["emergency_number"])
+                    if row["airport"]:
+                        return Destination(id = row["id"], country = row["country"], airport = row["airport"], flight_time = row["flight_time"], distance_km = row["distance"], representative = row["representative"], emergency_number = row["emergency_number"])
             
             # If no destination is found with the given id, return None
             return None
@@ -55,7 +56,8 @@ class DestinationData:
             reader = csv.DictReader(csvfile)
             
             for row in reader:
-                ret_list.append(Destination(id = row["id"], country = row["country"], airport = row["airport"], flight_time = row["flight_time"], distance_km = row["distance"], representative = row["representative"], emergency_number = row["emergency_number"]))
+                if row["airport"]:
+                    ret_list.append(Destination(id = row["id"], country = row["country"], airport = row["airport"], flight_time = row["flight_time"], distance_km = row["distance"], representative = row["representative"], emergency_number = row["emergency_number"]))
         
         return ret_list
     
@@ -81,4 +83,31 @@ class DestinationData:
     
 
     def delete_destination(self, destination_id):
-        pass
+        """Deletes the plane with the given id"""
+        # Makes temporary file to not overwrite the original file
+        tempfile = NamedTemporaryFile(mode='w', delete=False)
+
+        with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
+            fieldnames = ["id", "country", "airport", "distance", "flight_time", "representative", "emergency_number"]
+            
+            reader = csv.DictReader(csvfile)
+            writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
+            
+            # Writes the header to the tempfile
+            writer.writeheader()
+
+            # Looks for the plane to delete
+            for row in reader:
+
+                # If the plane is found, Everything except the id and name is erased
+                if int(row["id"]) == destination_id:
+                    row = {'id': row["id"], 'country': row["country"], 'airport': None, 'distance': None, 'flight_time': None, 'representative': row["representative"], 'emergency_number': row["emergency_number"]}
+
+                # Each row from the original file is written to the temporary file
+                else:
+                    row = {'id': row["id"], 'country': row["country"], 'airport': row["airport"], 'distance': row["distance"], 'flight_time': row["flight_time"], 'representative': row["representative"], 'emergency_number': row["emergency_number"]}
+
+                writer.writerow(row)
+
+        # The temporary file replaces the original file
+        shutil.move(tempfile.name, self.file_name)
