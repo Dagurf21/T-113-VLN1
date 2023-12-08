@@ -2,6 +2,8 @@ from logic import LogicWrapper
 from ui import UIWidget
 from ui import MainMenuUI
 from colorama import Fore, Style
+import getchlib
+import cursor
 
 class LoginUI(UIWidget):
     def __init__(self, logic_wrapper: LogicWrapper):
@@ -12,7 +14,8 @@ class LoginUI(UIWidget):
             self._print_header()
             self._print_plane()
 
-            command = self._prompt("Enter command", clear_screen=False, enable_cancel=False)
+            with cursor.HiddenCursor():
+                command = getchlib.getkey()
 
             match command.lower():
                 case "q": # Exit the application
