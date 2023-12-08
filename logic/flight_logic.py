@@ -31,11 +31,11 @@ class FlightLogic:
         else:
             raise ValueError("Invalid Input")
 
-    def list_all_flight(self) -> list[Flight]:
+    def get_all_flight(self) -> list[Flight]:
         """Gets list of all flight from data_wrapper and forwards list of flight"""
         return self.data_wrapper.get_all_flight
 
-    def list_flight(self, id):  # Flight
+    def get_flight(self, id):  # Flight
         """Gets a specific flight route with a specific ID"""
         return self.data_wrapper.get_flight(id)
 
