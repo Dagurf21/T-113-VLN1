@@ -11,19 +11,13 @@ class VoyageLogic:
 
     def create_voyage(self, data) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
-        
 
-
-        flight_data = 
+        flight_data = Fligt
         create_flight(flight_data)
 
         plane = get_plane(data.id)
         ticket_amount = ticket_validator(plane)
-
-
-
         
-        data.flight_attendants
 
     def list_all_voyages(self) -> list:
         """Returns a list of all voyages"""
