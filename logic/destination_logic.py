@@ -17,11 +17,7 @@ class DestinationLogic:
 
     def create_destination(self, destination):
         """Takes in a destination object and forwards it to the data layer"""
-        error_check = self.validate_destination(destination)
-        if error_check is "":
-            return self.data_wrapper.create_destination(destination)
-        else:
-            raise ValueError(error_check)
+        return self.data_wrapper.create_destination(destination)
 
     def list_all_destinations(self) -> list:  # List of Destinations
         """Returns a list of all destinations"""
@@ -35,32 +31,11 @@ class DestinationLogic:
 
     def update_destination(self, destination) -> None:
         """Updates a destination object with the given id"""
-        error_check = self.validate_destination(destination)
-        if error_check is "":
-            return self.data_wrapper.update_destination(destination)
-        else:
-            raise ValueError(error_check)
+        return self.data_wrapper.update_destination(destination)
 
     def delete_destination(self, id) -> None:
         """Deletes a destination object with the given id"""
         return self.data_wrapper.delete_destination(id)
-
-    def validate_destination(self, destination):
-        """Validates"""
-        list_of_outcomes = []
-        list_of_outcomes.append(self.validate.country_and_airport(destination))
-        list_of_outcomes.append(self.validate.distance_km(destination.distance_km))
-        list_of_outcomes.append(self.validate.flight_time(destination.flight_time))
-        list_of_outcomes.append(
-            self.validate.phone_number(destination.emergency_number)
-        )
-        error_message = ""
-
-        for x in range(4):
-            if list_of_outcomes[x] is False:
-                error_message += VALIDATION_ERRORS[x]
-
-        return error_message
 
 
 # Verify:
