@@ -17,19 +17,10 @@ class FlightLogic:
     def create_flight(self, data: Flight) -> None:
         """Creates flight: Checks if ID is valid"""
 
-        available_destinations = self.data_wrapper.get_all_destinations()
+        self.validator.validate_destination(data)
+        
 
-        dest = self.data_wrapper.get_destination(data.id)
-
-        destination = data.destination
-        departure = data.destination
-
-        if dest.id == None:
-            # flightnumber_validator(data)
-            self.data_wrapper.create_flight(data)
-
-        else:
-            raise ValueError("Invalid Input")
+        pass
 
     def get_all_flight(self) -> list[Flight]:
         """Gets list of all flight from data_wrapper and forwards list of flight"""
