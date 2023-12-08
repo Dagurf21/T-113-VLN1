@@ -260,26 +260,23 @@ class VoyageUI(UIWidget):
             try:
                 voyage = self.logic_wrapper.list_voyage(voyage_id)
 
-                choices = [
-                    "Yes, cancel voyage",
-                    "No, don't cancel voyage"
-                ]
-                
-                choice = self._display_selection(
-                    choices, 
-                    header_title="Cancel Voyage"
+                if voyage == None:
+                    self._print_header("Remove voyage", add_extra_newline=True)
+                    self._print_centered(f"voyage with id {voyage_id} doesn't exist", add_newline_after=True)
+                    continue
+
+                should_delete = self._display_selection(
+                    [
+                        "Delete"
+                    ],
+                    header_title=f"Delete voyage {voyage.id} on {voyage.date}?",
+                    allow_cancel=False
                 )
 
-                match choice:
-                    case 0: # Cancel
-                        voyage.status = "Cancelled"
-                        voyage.pilots = [] # Should this be [], "" or None ?
-                        voyage.attendants = [] # Should this be [], "" or None ?
-                        self.logic_wrapper.update_voyage(voyage)
-                        return # TODO 
-                    case 1: # Cancel the cancelling
-                        return 
+                if should_delete == 0:
+                    self.logic_wrapper.delete_voyage(voyage_id)
 
+                return
             except UICancelException:
                 return
     
