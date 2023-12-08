@@ -9,10 +9,17 @@ class VoyageLogic:
         self.data_wrapper = data_connection
         self.validate = Validator()
 
-    def create_voyage(self, voyage_data) -> None:
+    def create_voyage(self, data) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
 
-        return self.data_wrapper.create_voyage(voyage_data)
+        
+
+        plane = get_plane(data.id)
+        amount_tickets = ticket_validator(plane)
+
+        flight_attendant
+        
+        data.flight_attendants
 
     def list_all_voyages(self) -> list:
         """Returns a list of all voyages"""
