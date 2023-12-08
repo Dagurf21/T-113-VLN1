@@ -19,7 +19,7 @@ class DestinationLogic:
 
     def get_destination(self, search_id):  # Destination
         """Returns a destination object with the given id"""
-        destination_list = self.data_wrapper.get_destination(id)
+        destination_list = self.get_all_destinations()
 
         for destination in destination_list:
             if destination.id == search_id:
