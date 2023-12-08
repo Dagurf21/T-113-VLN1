@@ -42,7 +42,7 @@ class DestinationData:
             
             for row in reader:
                 if row["airport"]:
-                    ret_list.append(Destination(id = row["id"], country = row["country"], airport = row["airport"], flight_time = row["flight_time"], distance_km = row["distance"], representative = row["representative"], emergency_number = row["emergency_number"]))
+                    ret_list.append(Destination(id = int(row["id"]), country = row["country"], airport = row["airport"], flight_time = row["flight_time"], distance_km = row["distance"], representative = row["representative"], emergency_number = row["emergency_number"]))
         
         return ret_list
     
