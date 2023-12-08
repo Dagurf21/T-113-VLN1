@@ -12,7 +12,6 @@ class VoyageLogic:
     def create_voyage(self, data) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
 
-
         flight_data = Flight(date=data.date,destination=data.destination)
         create_flight(flight_data)
 
