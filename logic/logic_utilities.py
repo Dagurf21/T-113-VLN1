@@ -165,7 +165,29 @@ class Validator:
 
         else:
             return True
+    
+    def flight_number_validator(data):
+        """Validates flight plans and assignes a flight number"""
 
+        every_voyage = self.data_wrapper.get_all_voyages()
+        every_flight = self.data_wrapper.get_all_flights()
+
+        if data.arrival_flight.day == every_flight[-1].arrival_flight.day:
+            voyage_num += 1
+
+        else:
+            voyage_num = 0
+
+        data.flight_number = f"NA0{destination}{voyage_num}"
+
+    def validate_voyage(self, voyage) -> Voyage:
+        """Validates a voyage and return a validated
+        voyage if possible, else None"""
+        are_seats_available = self.validate.seats_available(voyage)
+        are_pilots_valid = self.validate.job_position(voyage.pilots, "Pilot")
+        are_attendants_valid = self.validate.job_position(
+            voyage.flight_attendants, "FlightAttendant"
+        )
 
 class Utilities:
     """A class which contains
