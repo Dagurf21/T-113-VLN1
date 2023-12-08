@@ -1,9 +1,14 @@
+import colorama
 from ui.login_ui import LoginUI
 from logic.logic_wrapper import LogicWrapper
 
+colorama.init()
+
+logic_wrapper = LogicWrapper()
+
 try:
-    login_ui = LoginUI()
-    login_ui.show()
+    ui = LoginUI(logic_wrapper)
+    ui.show()
 except KeyboardInterrupt:
     print()
     print("Stopping...")

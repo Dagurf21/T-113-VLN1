@@ -1,5 +1,6 @@
 import os
 from collections.abc import Callable
+from colorama import Fore, Back, Style, ansi
 
 UI_WIDTH = 71
 
@@ -38,7 +39,7 @@ class UIWidget:
                     add_newline_before=False
                 )
 
-            inp = input(f"{prompt}: ")
+            inp = input(f"{Fore.RED}{prompt}: {Style.RESET_ALL}")
 
             if enable_cancel and inp == "":
                 raise UICancelException
@@ -52,7 +53,8 @@ class UIWidget:
                     )
                     self._print_centered(invalid,
                         add_newline_after=True,
-                        add_newline_before=False
+                        add_newline_before=False,
+                        color=Fore.RED
                     )
                     continue
 
@@ -94,7 +96,7 @@ class UIWidget:
             invalid = validator(elem)
             if invalid != None:
                 self._print_header(message=header_title, add_extra_newline=True)
-                self._print_centered(invalid, add_newline_after=True)
+                self._print_centered(invalid, add_newline_after=True, color=Fore.RED)
                 continue
 
             elems.append(elem)
@@ -175,11 +177,11 @@ class UIWidget:
 
             self._print_header(message=f"{title} [{current_page+1}/{page_count+1}]", add_extra_newline=True)
             self._print_datalist(headers, data[current_page * rows_per_page:current_page*rows_per_page+rows_per_page])
-            self._print_centered("q: return - n: next page - p: prev page", add_newline_after=True, add_newline_before=True)
+            self._print_centered(f"{Fore.BLACK}q: return - n: next page - p: prev page{Style.RESET_ALL}", add_newline_after=True, add_newline_before=True)
 
             # TODO: Page data
 
-            opt = input("Choose an option: ")
+            opt = self._prompt("Choose an option", clear_screen=False, enable_cancel=False)
             match opt:
                 case "q": # Return
                     break
@@ -223,19 +225,20 @@ class UIWidget:
         if add_newline_after:
             print()
 
-    def _print_centered(self, text: str, add_newline_before: bool = False, add_newline_after: bool = False):
+    def _print_centered(self, text: str, add_newline_before: bool = False, add_newline_after: bool = False, color: ansi.AnsiCodes = Style.RESET_ALL):
         """
         Prints the provided text centered horizontally in the ui
         
         Options:
             - add_newline_before: Adds an additional newline before the text
             - add_newline_after: Adds an additional newline after the text
+            - color: Color of the text
         """
 
         if add_newline_before:
             print()
 
-        print(text.center(UI_WIDTH))
+        print(f"{color}{text.center(UI_WIDTH)}{Style.RESET_ALL}")
 
         if add_newline_after:
             print()
@@ -249,7 +252,7 @@ class UIWidget:
 
         # Print headers
         header_labels = [header.ljust(headers[header]) for header in headers]
-        print(" | ".join(header_labels).center(UI_WIDTH))
+        print(Fore.BLACK + " | ".join(header_labels).center(UI_WIDTH) + Style.RESET_ALL)
 
         # Print rows
         header_sizes = [headers[header] for header in headers]
@@ -286,7 +289,7 @@ class UIWidget:
 -----------------------------------------------------------------------""")
 
         if isinstance(message, str):
-            self._print_centered(message)
+            self._print_centered(message, color=Fore.LIGHTYELLOW_EX)
 
         if add_extra_newline:
             print()
