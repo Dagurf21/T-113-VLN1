@@ -1,12 +1,5 @@
 from logic.logic_utilities import Validator
 
-VALIDATION_ERRORS = (
-    "Invalid Destination or Airport. ",
-    "Invalid Distance. ",
-    "Invalid Flight Time. ",
-    "Invalid Emergency Number. ",
-)
-
 
 class DestinationLogic:
     """This class is the logic layer for the destination class"""
