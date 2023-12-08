@@ -40,7 +40,7 @@ class LogicWrapper(object):
 
     def get_all_employees(self) -> list[Employee]:
         """For wards list of employees from logic"""
-        return self.employee_logic.list_all_employees()
+        return self.employee_logic.get_all_employees()
 
     def get_employee(self, id) -> Employee:
         """Returns a employee with input ID"""
@@ -49,6 +49,10 @@ class LogicWrapper(object):
     def get_employee_by_email(self, email) -> Employee:
         """Fetches a employee with input email"""
         return self.employee_logic.get_employee_by_email(email)
+
+    def get_employees_by_job(self, job) -> list:
+        """Fetches a list of employees that fit the job title"""
+        return self.employee_logic.get_employees_by_job(job)
 
     def update_employee(self, employee) -> None:
         """Updates info about a employee"""

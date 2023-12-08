@@ -19,7 +19,7 @@ class EmployeeLogic:
         """Takes in a employee object and forwards it to the data layer"""
         return self.data_wrapper.create_employee(employee)
 
-    def list_all_employees(self) -> list:
+    def get_all_employees(self) -> list:
         """Returns a list of all employees"""
         employee_list = self.data_wrapper.get_all_employees()
         return employee_list
@@ -36,7 +36,7 @@ class EmployeeLogic:
 
     def get_employee_by_email(self, search_email):
         """Returns a employee object with the given id"""
-        employee_list = self.list_all_employees()
+        employee_list = self.get_all_employees()
 
         for employee in employee_list:
             if employee.email == search_email:
@@ -44,7 +44,7 @@ class EmployeeLogic:
 
     def get_employees_by_job(self, job_title):
         """Returns a employee object with the given id"""
-        employee_list = self.list_all_employees()
+        employee_list = self.get_all_employees()
 
         employees_with_the_job = []
 
