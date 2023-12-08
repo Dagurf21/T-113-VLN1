@@ -148,40 +148,40 @@ class LogicWrapper(object):
 
     # Validator class
     ## General validation
-    def validate_phone_number(self, phone_number):
+    def validate_phone_number(self, phone_nr_data):
         """"""
-        return self.validate.phone_number(phone_number)
+        return self.validate.phone_number(phone_nr_data)
 
-    def validate_date(self, date):
+    def validate_date(self, date_data):
         """w.i.p"""
-        return self.validate.date(date)
+        return self.validate.date(date_data)
 
     ## Destination Validation
-    def validate_country_and_airport(self, country):
+    def validate_country_and_airport(self, country_data):
         """"""
-        return self.validate.country_and_airport(country)
+        return self.validate.country_and_airport(country_data)
 
     ## Employee Validation
-    def validate_ssn(self, ssn):
-        return self.validate.ssn(ssn)
+    def validate_ssn(self, ssn_data):
+        return self.validate.ssn(ssn_data)
 
-    def validate_email(self, email):
-        return self.validate.email(email)
+    def validate_email(self, email_data):
+        return self.validate.email(email_data)
 
     ### Pilot Validation
-    def validate_liscense(self, liscense):
-        return self.validate.liscense(liscense)
+    def validate_liscense(self, liscense_data):
+        return self.validate.liscense(liscense_data)
 
     ### Pilot & Flight Attendant Validation
-    def validate_assignments(self, assignments):
-        return self.validate.assignments(assignments)
+    def validate_assignments(self, assignments_data):
+        return self.validate.assignments(assignments_data)
 
     # Voyage Validation
-    def seats_available(self, voyage):
-        return self.validate.seats_available(voyage)
+    def seats_available(self, voyage_data):
+        return self.validate.seats_available(voyage_data)
 
     def validate_job_position(self, employee_list, job_title):
         return self.validate.job_position(employee_list, job_title)
 
-    def validate_status(self, status):
-        return self.validate.status(status)
+    def validate_status(self, status_data):
+        return self.validate.status(status_data)
