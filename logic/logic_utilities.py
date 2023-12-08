@@ -155,11 +155,11 @@ class Validator:
         valid(True) or invalid(False)"""
         return False
 
-    def pilot_validator(self,data):
-        '''Validates that there aren't to many pilots'''
+    def pilot_validator(self, data):
+        """Validates that there aren't to many pilots"""
 
         if len(self.data_wrapper.get_all_flights.pilots) == 2:
             return False
-        
+
         else:
             return True
