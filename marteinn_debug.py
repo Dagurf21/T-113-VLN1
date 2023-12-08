@@ -11,4 +11,7 @@
 #         Flight_route_logic
 #         Plane_logic
 
-password = "123password"
+password = "pass@.is"
+password = password.split("@")
+password[1] = password[1].split(".")
+print("" in password[1])

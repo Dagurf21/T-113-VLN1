@@ -38,7 +38,7 @@ class Validator:
             compacted_number = phone_number[0:3] + phone_number[4:8]
             int(compacted_number)
             return True
-        except ValueError:
+        except (ValueError, IndexError):
             return False
 
     def date(self, date) -> bool:
