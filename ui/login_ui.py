@@ -1,6 +1,6 @@
-from logic.logic_wrapper import LogicWrapper
-from ui.widget import UIWidget
-from ui.mainmenu_ui import MainMenuUI
+from logic import LogicWrapper
+from ui import UIWidget
+from ui import MainMenuUI
 from colorama import Fore, Style
 
 class LoginUI(UIWidget):
