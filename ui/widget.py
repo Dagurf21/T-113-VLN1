@@ -1,6 +1,8 @@
 import os
 from collections.abc import Callable
 from colorama import Fore, Back, Style, ansi
+import getchlib
+import cursor
 
 UI_WIDTH = 71
 
@@ -128,11 +130,8 @@ class UIWidget:
                 add_newline_after=True
             )
 
-            option = self._prompt("Choose an option",
-                opt_instruction=opt_instruction,
-                clear_screen=False,
-                enable_cancel=allow_cancel
-            )
+            with cursor.HiddenCursor():
+                option = getchlib.getkey()
 
             try:
                 option = int(option) - 1
@@ -179,7 +178,9 @@ class UIWidget:
             self._print_datalist(headers, data[current_page * rows_per_page:current_page*rows_per_page+rows_per_page])
             self._print_centered(f"{Fore.BLACK}q: return - n: next page - p: prev page{Style.RESET_ALL}", add_newline_after=True, add_newline_before=True)
 
-            opt = self._prompt("Choose an option", clear_screen=False, enable_cancel=False)
+            with cursor.HiddenCursor():
+                opt = getchlib.getkey()
+
             match opt:
                 case "q": # Return
                     break
