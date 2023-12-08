@@ -8,6 +8,7 @@ from model.flight_attendant import FlightAttendant
 @dataclass(kw_only=True)
 class Voyage:
     id: int = None
+    destination: int
     sold_seats: int
     plane: Plane
     pilots: list[Pilot] = None
