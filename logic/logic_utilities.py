@@ -16,6 +16,7 @@ class Validator:
             compacted_number = phone_number[0:3] + phone_number[4:8]
             int(compacted_number)
             return True
+        
         except (ValueError, IndexError):
             return False
 
@@ -85,11 +86,14 @@ class Validator:
     def email(self, email):
         """Checks if the given email is an email"""
         email = email.split("@")
+        
         try:
             email[1] = email[1].split(".")
+            
             if "" in email or "" in email[1]:
                 raise Exception("One of the email fields is empty")
             return True
+        
         except (IndexError, Exception):
             return False
 
@@ -123,6 +127,7 @@ class Validator:
         for employee in employee_list:
             if type(employee).__name__ != job_title:
                 return False
+        
         return True
 
     
@@ -154,19 +159,19 @@ class Validator:
             return True
     
     
-    def flight_number_validator(self,data):
+    def flight_number_validator(self, data):
         """Validates flight plans and assignes a flight number"""
 
-        every_voyage = self.data_wrapper.get_all_voyages()
-        every_flight = self.data_wrapper.get_all_flights()
+        voyages_list = self.data_wrapper.get_all_voyages()
+        flights_list = self.data_wrapper.get_all_flights()
 
-        if data.arrival_flight.day == every_flight[-1].arrival_flight.day:
+        if data.arrival_flight.day == flights_list[-1].arrival_flight.day:
             voyage_num += 1
 
         else:
             voyage_num = 0
 
-        data.flight_number = f"NA0{destination}{voyage_num}"
+        data.flight_number = f"NA0{data.destination}{voyage_num}"
 
     
     def validate_voyage(self, voyage) -> Voyage:
@@ -186,5 +191,6 @@ class Utilities:
     def password_encoder(self, password):
         """Takes in a password and encodes it"""
 
+    
     def password_decoder(self, password):
         """Takes in a password and decodes it"""
