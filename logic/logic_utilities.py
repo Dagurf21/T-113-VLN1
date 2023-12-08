@@ -162,14 +162,12 @@ class Validator:
             return True
 
 
-class utilities:
+class Utilities:
     """A class which contains
     a bunch of logic utilities"""
 
     def password_encoder(self, password):
         """Takes in a password and encodes it"""
-        
-    
+
     def password_decoder(self, password):
         """Takes in a password and decodes it"""
-
