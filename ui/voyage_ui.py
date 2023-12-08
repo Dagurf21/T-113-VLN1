@@ -18,7 +18,8 @@ class VoyageUI(UIWidget):
                         "List voyage",
                         "Update voyage",
                         "Cancel voyage",
-                        "Duplicate voyage", 
+                        "Duplicate voyage",
+                        "Staff voyage" 
                     ],
                     header_title="Voyages"
                 )
@@ -312,10 +313,18 @@ class VoyageUI(UIWidget):
                 ], header_title="Staff voyage")
 
                 if pilots_or_attendants == 0: # Insert pilots
-                    return #TODO
+                    voyage.pilots = self._prompt(
+                        "Enter ID's of pilots", 
+                        header_title="Staff voyage", 
+                        opt_instruction="Leave empty to cancel. (First ID is head pilot - Format is {id}.{id})")
+                    self.logic_wrapper.update_voyage(voyage)
                 
                 elif pilots_or_attendants == 1: # Instert flight attendants
-                    return # TODO
+                    voyage.attendants = self._prompt(
+                        "Enter ID's of flight attendants", 
+                        header_title="Staff voyage", 
+                        opt_instruction="Leave empty to cancel. (Format is {id}.{id})")
+                    self.logic_wrapper.update_voyage(voyage)
                 
                 return
             except UICancelException:
