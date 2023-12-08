@@ -8,11 +8,11 @@ from tempfile import NamedTemporaryFile
 import shutil
 
 class EmployeeData:
-    def __init__(self):
+    def __init__(self) -> None:
         self.file_name = "files/employees.csv"
 
 
-    def get_all_employees(self):
+    def get_all_employees(self) -> list["Employee"]:
         """Returns a list of all employees"""
         ret_list = []
         
@@ -23,18 +23,18 @@ class EmployeeData:
                 # Assigns employees the appropriate employee subclass and append to ret_list
                 match row["job_title"]:
                     case "Manager" | "Chuck Norris":
-                        ret_list.append(Manager(id = row["id"], name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
+                        ret_list.append(Manager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
                 
                     case "Pilot":
                         assignment_list = row["assignments"].split(".")
-                        ret_list.append(Pilot(id = row["id"], name = row["name"], password = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list))
+                        ret_list.append(Pilot(id = int(row["id"]), name = row["name"], password = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list))
                 
                     case "Flight Attendant":
                         assignment_list = row["assignments"].split(".")
-                        ret_list.append(FlightAttendant(id = row["id"], name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list))
+                        ret_list.append(FlightAttendant(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list))
                 
                     case "Flight Manager":
-                        ret_list.append(FlightManager(id = row["id"], name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
+                        ret_list.append(FlightManager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
                 
                     case _:
                         pass
@@ -42,7 +42,7 @@ class EmployeeData:
         return ret_list
 
 
-    def create_employee(self, employee):
+    def create_employee(self, employee) -> None:
         """Writes new employee into the storage file"""
         with open(self.file_name, 'a', encoding="utf-8") as csvfile:
             fieldnames = ["id", "name", "job_title", "license", "password", "address", "ssn", "mobile_phone", "email", "home_phone", "work_phone", "assignments"]
@@ -92,7 +92,7 @@ class EmployeeData:
             return id
 
 
-    def update_employee(self, employee):
+    def update_employee(self, employee) -> None:
         """Updates the employee with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
@@ -131,7 +131,7 @@ class EmployeeData:
         shutil.move(tempfile.name, self.file_name)
     
 
-    def delete_employee(self, employee_id):
+    def delete_employee(self, employee_id) -> None:
         """Deletes the employee with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)

@@ -8,7 +8,7 @@ class PlaneData:
         self.file_name = "files/planes.csv"
     
 
-    def create_plane(self, plane):
+    def create_plane(self, plane) -> None:
         """Writes the new plane into the storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
             fieldnames = ["id", "name", "type", "manufacturer", "capacity", "flights"]
@@ -33,21 +33,7 @@ class PlaneData:
             return id
 
 
-    def get_plane(self, plane_id):
-        """Returns the requested plane, if no plane is found returns None"""
-        with open(self.file_name, newline='', encoding="utf-8") as csvfile:
-            reader = csv.DictReader(csvfile)
-            
-            for row in reader:
-                if int(row["id"]) == plane_id:
-                    if row["type"]:
-                        return Plane(id = int(row["id"]), name = row["name"], ty = row["type"], manufacturer = row["manufacturer"], capacity = int(row["capacity"]), flights = row["flights"])
-        
-            # If no plane is found with the given id, return None
-            return None
-
-
-    def get_all_planes(self):
+    def get_all_planes(self) -> list["Plane"]:
         """Returns a list of all planes"""
         ret_list = []
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
@@ -60,7 +46,7 @@ class PlaneData:
         return ret_list
 
 
-    def update_plane(self, plane):
+    def update_plane(self, plane) -> None:
         """Updates the plane with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
@@ -84,7 +70,7 @@ class PlaneData:
         shutil.move(tempfile.name, self.file_name)
 
 
-    def delete_plane(self, plane_id):
+    def delete_plane(self, plane_id) -> None:
         """Deletes the plane with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
