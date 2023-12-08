@@ -28,9 +28,9 @@
   - [x] Create new voyage
   - [x] Get all voyages
   - [x] Get voyage
-  - [ ] Staff voyage
+  - [X] Staff voyage
   - [x] Update voygae
-  - [ ] Add employees to voyage
+  - [X] Add employees to voyage
   - [x] Cancel voyage
   - [ ] Duplicate Voyage
   - [ ] Different privileges for different employee types
@@ -41,8 +41,8 @@
   - [x] CRUD Voyages
   - [x] CRUD Destinations
   - [X] CRUD Flight
-  - [ ] Lista alla flugmenn
-  - [ ] Lista alla flugþjóna
+  - [X] Lista alla flugmenn
+  - [X] Lista alla flugþjóna
   - [ ] Passa að það sé ekki hægt að skrá flugmann á voyage án þess að hafa réttindi á flugvélina
   - [ ] Passa að tvö flug geta ekki haft sama brottfarartíma frá íslandi
   - [ ] Lista flugmenn eftir réttindum
@@ -55,10 +55,10 @@
   - [x] CRUD Voyages
   - [x] CRUD Destinations
   - [x] CRUD Flight
-  - [ ] Bæta assignment á pilots og flight attendants
+  - [X] Bæta assignment á pilots og flight attendants
   - [ ] Bæta crew á planes
-  - [ ] Skrá pilots á voyage
-  - [ ] Skrá flight attendants á voyage
+  - [X] Skrá pilots á voyage
+  - [X] Skrá flight attendants á voyage
 
 ### Verkefna skipting
 - Axel Snær: Halda afram með misc UI
@@ -69,10 +69,12 @@
 
 #### Dagslok skýrsla (Hvað gerði hver og einn í dag) ?
 
-- Axel Snær: 
+- Axel Snær: Input validation, uppfæra/fínpússa UI
 - Dagur Freyr: 
-- Elías Andri: 
-- Kristján Kári: 
-- Marteinn Logi: 
+- Elías Andri: Dagbók, Kláraði allt í data for now, cleanup í data og logic, voyage og flight logic
+- Kristján Kári: Flight og voyage logic, Init skjal, cleanup í logic, 
+- Marteinn Logi: Validation, convertaði get functions úr data yfir í logic, misc í Logic
 
 #### TODO á morgun
+Muna jafningjamat
+Njóta helgarinnar
