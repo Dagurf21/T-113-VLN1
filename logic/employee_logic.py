@@ -35,63 +35,63 @@ class EmployeeLogic:
         If no employee with the id is found return None"""
         employee_list = self.list_all_employees()
 
-        for row in employee_list:
-            if int(row["id"]) == employee_id:
+        for employee in employee_list:
+            if int(employee["id"]) == employee_id:
                 # Finds out what employee subclass email is
-                match row["job_title"]:
+                match employee["job_title"]:
                     case "Manager" | "Chuck Norris":
                         return Manager(
-                            id=int(row["id"]),
-                            name=row["name"],
-                            password=row["password"],
-                            address=row["address"],
-                            ssn=row["ssn"],
-                            mobile_phone=row["mobile_phone"],
-                            email=row["email"],
-                            home_phone=row["home_phone"],
-                            work_phone=row["work_phone"],
+                            id=int(employee["id"]),
+                            name=employee["name"],
+                            password=employee["password"],
+                            address=employee["address"],
+                            ssn=employee["ssn"],
+                            mobile_phone=employee["mobile_phone"],
+                            email=employee["email"],
+                            home_phone=employee["home_phone"],
+                            work_phone=employee["work_phone"],
                         )
 
                     case "Pilot":
-                        assignment_list = row["assignments"].split(".")
+                        assignment_list = employee["assignments"].split(".")
                         return Pilot(
-                            id=int(row["id"]),
-                            name=row["name"],
-                            password=row["password"],
-                            license=row["license"],
-                            address=row["address"],
-                            ssn=row["ssn"],
-                            mobile_phone=row["mobile_phone"],
-                            email=row["email"],
-                            home_phone=row["home_phone"],
+                            id=int(employee["id"]),
+                            name=employee["name"],
+                            password=employee["password"],
+                            license=employee["license"],
+                            address=employee["address"],
+                            ssn=employee["ssn"],
+                            mobile_phone=employee["mobile_phone"],
+                            email=employee["email"],
+                            home_phone=employee["home_phone"],
                             assignments=assignment_list,
                         )
 
                     case "Flight Attendant":
-                        assignment_list = row["assignments"].split(".")
+                        assignment_list = employee["assignments"].split(".")
                         return FlightAttendant(
-                            id=int(row["id"]),
-                            name=row["name"],
-                            password=row["password"],
-                            address=row["address"],
-                            ssn=row["ssn"],
-                            mobile_phone=row["mobile_phone"],
-                            email=row["email"],
-                            home_phone=row["home_phone"],
+                            id=int(employee["id"]),
+                            name=employee["name"],
+                            password=employee["password"],
+                            address=employee["address"],
+                            ssn=employee["ssn"],
+                            mobile_phone=employee["mobile_phone"],
+                            email=employee["email"],
+                            home_phone=employee["home_phone"],
                             assignments=assignment_list,
                         )
 
                     case "Flight Manager":
                         return FlightManager(
-                            id=int(row["id"]),
-                            name=row["name"],
-                            password=row["password"],
-                            address=row["address"],
-                            ssn=row["ssn"],
-                            mobile_phone=row["mobile_phone"],
-                            email=row["email"],
-                            home_phone=row["home_phone"],
-                            work_phone=row["work_phone"],
+                            id=int(employee["id"]),
+                            name=employee["name"],
+                            password=employee["password"],
+                            address=employee["address"],
+                            ssn=employee["ssn"],
+                            mobile_phone=employee["mobile_phone"],
+                            email=employee["email"],
+                            home_phone=employee["home_phone"],
+                            work_phone=employee["work_phone"],
                         )
 
                     case _:
@@ -103,63 +103,63 @@ class EmployeeLogic:
         """Returns a employee object with the given id"""
         employee_list = self.data_wrapper.get_employee_by_email(employee_email)
 
-        for row in employee_list:
-            if row["email"] == employee_email:
+        for employee in employee_list:
+            if employee["email"] == employee_email:
                 # Finds out what employee subclass the employee is
-                match row["job_title"]:
+                match employee["job_title"]:
                     case "Manager" | "Chuck Norris":
                         return Manager(
-                            id=int(row["id"]),
-                            name=row["name"],
-                            password=row["password"],
-                            address=row["address"],
-                            ssn=row["ssn"],
-                            mobile_phone=row["mobile_phone"],
-                            email=row["email"],
-                            home_phone=row["home_phone"],
-                            work_phone=row["work_phone"],
+                            id=int(employee["id"]),
+                            name=employee["name"],
+                            password=employee["password"],
+                            address=employee["address"],
+                            ssn=employee["ssn"],
+                            mobile_phone=employee["mobile_phone"],
+                            email=employee["email"],
+                            home_phone=employee["home_phone"],
+                            work_phone=employee["work_phone"],
                         )
 
                     case "Pilot":
-                        assignment_list = row["assignments"].split(".")
+                        assignment_list = employee["assignments"].split(".")
                         return Pilot(
-                            id=int(row["id"]),
-                            name=row["name"],
-                            password=row["password"],
-                            license=row["license"],
-                            address=row["address"],
-                            ssn=row["ssn"],
-                            mobile_phone=row["mobile_phone"],
-                            email=row["email"],
-                            home_phone=row["home_phone"],
+                            id=int(employee["id"]),
+                            name=employee["name"],
+                            password=employee["password"],
+                            license=employee["license"],
+                            address=employee["address"],
+                            ssn=employee["ssn"],
+                            mobile_phone=employee["mobile_phone"],
+                            email=employee["email"],
+                            home_phone=employee["home_phone"],
                             assignments=assignment_list,
                         )
 
                     case "Flight Attendant":
-                        assignment_list = row["assignments"].split(".")
+                        assignment_list = employee["assignments"].split(".")
                         return FlightAttendant(
-                            id=int(row["id"]),
-                            name=row["name"],
-                            password=row["password"],
-                            address=row["address"],
-                            ssn=row["ssn"],
-                            mobile_phone=row["mobile_phone"],
-                            email=row["email"],
-                            home_phone=row["home_phone"],
+                            id=int(employee["id"]),
+                            name=employee["name"],
+                            password=employee["password"],
+                            address=employee["address"],
+                            ssn=employee["ssn"],
+                            mobile_phone=employee["mobile_phone"],
+                            email=employee["email"],
+                            home_phone=employee["home_phone"],
                             assignments=assignment_list,
                         )
 
                     case "Flight Manager":
                         return FlightManager(
-                            id=int(row["id"]),
-                            name=row["name"],
-                            password=row["password"],
-                            address=row["address"],
-                            ssn=row["ssn"],
-                            mobile_phone=row["mobile_phone"],
-                            email=row["email"],
-                            home_phone=row["home_phone"],
-                            work_phone=row["work_phone"],
+                            id=int(employee["id"]),
+                            name=employee["name"],
+                            password=employee["password"],
+                            address=employee["address"],
+                            ssn=employee["ssn"],
+                            mobile_phone=employee["mobile_phone"],
+                            email=employee["email"],
+                            home_phone=employee["home_phone"],
+                            work_phone=employee["work_phone"],
                         )
 
                     # If ID is found but employee has been deleted
