@@ -11,13 +11,17 @@ class VoyageLogic:
 
     def create_voyage(self, data) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
-
         
 
-        plane = get_plane(data.id)
-        amount_tickets = ticket_validator(plane)
 
-        flight_attendant
+        flight_data = 
+        create_flight(flight_data)
+
+        plane = get_plane(data.id)
+        ticket_amount = ticket_validator(plane)
+
+
+
         
         data.flight_attendants
 
@@ -36,15 +40,6 @@ class VoyageLogic:
     def delete_voyage(self, id) -> None:
         """Deletes a voyage object with the given id"""
         return self.data_wrapper.delete_voyage(id)
-
-    def validate_voyage(self, voyage) -> Voyage:
-        """Validates a voyage and return a validated
-        voyage if possible, else None"""
-        are_seats_available = self.validate.seats_available(voyage)
-        are_pilots_valid = self.validate.job_position(voyage.pilots, "Pilot")
-        are_attendants_valid = self.validate.job_position(
-            voyage.flight_attendants, "FlightAttendant"
-        )
 
 
 # Verify:

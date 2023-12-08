@@ -41,7 +41,7 @@ class EmployeeUI(UIWidget):
                     self.remove_employee()
 
     def display_employee_list(self):
-        employees = self.logic_wrapper.list_all_employees()
+        employees = self.logic_wrapper.get_all_employees()
         employee_data = []
 
         for employee in employees:
@@ -122,13 +122,13 @@ class EmployeeUI(UIWidget):
                 "Flight Manager",
             ], header_title="Register Employee")
 
-            name         = self._prompt("Enter name",         header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            name         = self._prompt("Enter name",         header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_name)
             password     = self._prompt("Enter password",     header_title="Register Employee", opt_instruction="Leave empty to cancel")
             address      = self._prompt("Enter address",      header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            ssn          = self._prompt("Enter SSN",          header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            mobile_phone = self._prompt("Enter mobile phone", header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            email        = self._prompt("Enter email",        header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            home_phone   = self._prompt("Enter home phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel (optional: n to skip)")
+            ssn          = self._prompt("Enter SSN",          header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_ssn)
+            mobile_phone = self._prompt("Enter mobile phone", header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_phone_number)
+            email        = self._prompt("Enter email",        header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_email)
+            home_phone   = self._prompt("Enter home phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel (optional: n to skip)", validator=self._validate_phone_number)
 
             if home_phone == "n":
                 home_phone = None
@@ -138,7 +138,8 @@ class EmployeeUI(UIWidget):
                     work_phone   = self._prompt(
                         "Enter work phone",
                         header_title="Register Employee",
-                        opt_instruction="Leave empty to cancel"
+                        opt_instruction="Leave empty to cancel",
+                        validator=self._validate_phone_number
                     )
                     employee = Manager(
                         name=name,
@@ -151,27 +152,13 @@ class EmployeeUI(UIWidget):
                         work_phone=work_phone
                     )
                 case 1: # Pilot
-                    def validate_num(elem):
-                        try:
-                            int(elem)
-                            return None
-                        except ValueError:
-                            return "ID must be number"
-
-                    def format_voyage(elem):
-                        voyage: Voyage = self.logic_wrapper.list_voyage(elem)
-                        departure: Flight = self.logic_wrapper.list_flight(voyage.departure_flight)
-                        departure_location: Destination = self.logic_wrapper.get_destination(departure.departure)
-                        destination_location: Destination = self.logic_wrapper.get_destination(departure.destination)
-                        return f"{departure_location.country} ({departure_location.airport}) -> {destination_location.country} ({destination_location.airport})"
-
-                    assignments = self._prompt_list(
-                        "Enter Assignment",
-                        "Register Employee",
-                        element_display=format_voyage,
-                        validator=validate_num
+                    assignments = self._prompt_assignments("Register Employee")
+                    license = self._prompt(
+                        "Enter license",
+                        header_title="Register Employee",
+                        opt_instruction="Leave empty to cancel",
+                        validator=self._validate_license
                     )
-                    assignments = list(map(int, assignments))
                     employee = Pilot(
                         name=name,
                         password=password,
@@ -180,10 +167,11 @@ class EmployeeUI(UIWidget):
                         mobile_phone=mobile_phone,
                         email=email,
                         home_phone=home_phone,
-                        license="C750",
+                        license=license,
                         assignments=assignments
                     )
                 case 2: # Flight Attendant
+                    assignments = self._prompt_assignments("Register Employee")
                     employee = FlightAttendant(
                         name=name,
                         password=password,
@@ -192,7 +180,7 @@ class EmployeeUI(UIWidget):
                         mobile_phone=mobile_phone,
                         email=email,
                         home_phone=home_phone,
-                        assignments=[]
+                        assignments=assignments
                     )
                 case 3: # Flight Manager
                     work_phone   = self._prompt(
@@ -255,9 +243,10 @@ class EmployeeUI(UIWidget):
 
                 # Add options depending on the employee type
                 if isinstance(employee, Pilot):
-                    pass # TODO
+                    employee_fields.append("Assignments")
+                    employee_fields.append("License")
                 elif isinstance(employee, FlightAttendant):
-                    pass # TODO
+                    employee_fields.append("Assignments")
                 elif isinstance(employee, Manager):
                     employee_fields.append("Work Phone")
                 elif isinstance(employee, FlightManager):
@@ -296,9 +285,9 @@ class EmployeeUI(UIWidget):
                         )
                     case 5: # Field 5 [Manager, FlightManager, Pilot, FlightAttendant]
                         if isinstance(employee, Pilot):
-                            return # TODO
+                            employee.assignments = self._prompt_assignments("Update employee")
                         elif isinstance(employee, FlightAttendant):
-                            return # TODO
+                            employee.assignments = self._prompt_assignments("Update employee")
                         elif isinstance(employee, Manager):
                             employee.work_phone = self._prompt(
                                 "Enter new work phone",
@@ -310,7 +299,10 @@ class EmployeeUI(UIWidget):
                                 opt_instruction="Leave empty to cancel"
                             )
                     case 6: # Field 6 [Pilot]
-                        return # Todo
+                        employee.license = self._prompt(
+                            "Enter new license",
+                            opt_instruction="Leave empty to cancel"
+                        )
 
                 self.logic_wrapper.update_employee(employee)
 
@@ -353,3 +345,55 @@ class EmployeeUI(UIWidget):
             except UICancelException:
                 return
 
+    def _prompt_assignments(self, title):
+        def format_voyage(elem):
+            voyage: Voyage = self.logic_wrapper.get_voyage(elem)
+            departure: Flight = self.logic_wrapper.get_flight(voyage.departure_flight)
+            departure_location: Destination = self.logic_wrapper.get_destination(departure.departure)
+            destination_location: Destination = self.logic_wrapper.get_destination(departure.destination)
+            return f"{departure_location.country} ({departure_location.airport}) -> {destination_location.country} ({destination_location.airport})"
+
+        assignments = self._prompt_list(
+            title,
+            "Register Employee",
+            element_display=format_voyage,
+            validator=self.validate_num
+        )
+        return list(map(int, assignments))
+
+    def _validate_license(self, license):
+        if self.logic_wrapper.validate_liscense(license):
+            return None
+        
+        return "Invalid license"
+    
+    def _validate_name(self, name):
+        return None
+
+    def _validate_ssn(self, ssn):
+        if self.logic_wrapper.validate_ssn(ssn):
+            return None
+        
+        return "Invalid ssn format"
+
+    def _validate_email(self, email):
+        if self.logic_wrapper.validate_email(email):
+            return None
+        
+        return "Invalid email format"
+    
+    def _validate_phone_number(self, number):
+        if self.logic_wrapper.validate_phone_number(number):
+            return None
+        
+        return "Invalid phone number format"
+
+    def _validate_assignment(self, assignment_id):
+        try:
+            assignment_id = int(assignment_id)
+            assignment = self.logic_wrapper.get_voyage(assignment_id)
+            if assignment == None:
+                return f"Assignment with id {assignment_id} doesn't exist"
+            return None
+        except ValueError:
+            return "ID must be number"
