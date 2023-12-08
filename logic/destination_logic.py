@@ -10,7 +10,7 @@ class DestinationLogic:
 
     def create_destination(self, destination_data):
         """Takes in a destination object and forwards it to the data layer"""
-        return self.data_wrapper.create_destination(destination)
+        return self.data_wrapper.create_destination(destination_data)
 
     def list_all_destinations(self) -> list:  # List of Destinations
         """Returns a list of all destinations"""
