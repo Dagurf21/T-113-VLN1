@@ -11,7 +11,9 @@
 #         Flight_route_logic
 #         Plane_logic
 
-password = "pass@.is"
-password = password.split("@")
-password[1] = password[1].split(".")
-print("" in password[1])
+listi = ["Baba"]
+
+if listi:
+    print("True")
+else:
+    print("boop")
