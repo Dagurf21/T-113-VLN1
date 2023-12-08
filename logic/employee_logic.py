@@ -46,13 +46,16 @@ class EmployeeLogic:
         """Returns a employee object with the given id"""
         employee_list = self.list_all_employees()
 
-        return_employee_list = []
+        employees_with_the_job = []
 
         for employee in employee_list:
             if type(employee).__name__ == job_title:
-                return_employee_list.append(employee)
+                employees_with_the_job.append(employee)
 
-        return employee_list
+        if employees_with_the_job is True:
+            return employee_list
+        else:
+            return None
 
     def update_employee(self, employee):
         """Updates a employee object with the given id"""
