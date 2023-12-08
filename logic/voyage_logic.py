@@ -1,5 +1,7 @@
 from model import Voyage
 from logic import Validator
+from logic import flight_logic
+from model import Flight
 
 
 class VoyageLogic:
@@ -11,10 +13,13 @@ class VoyageLogic:
 
     def create_voyage(self, data) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
+        #flight_data = Flight(date=data.date,destination=data.destination)
+        #create_flight(flight_data)
+        departure_flight = flight_logic.create_flight(0, data.destination, data)
+        arrival_flight = flight_logic.create_flight(data.destination, 0, data)
+        # TODO return date
+        self.data_wrapper.create_voyage(Voyage(destination = data.destination, sold_seats = 0, plane = data.plane, departure_flight = departure_flight, arrival_flight = arrival_flight, date = data.date, return_date = return_date ,status = "Not started"))
 
-
-        flight_data = Flight(date=data.date,destination=data.destination)
-        create_flight(flight_data)
 
     def get_all_voyages(self) -> list:
         """Returns a list of all voyages"""
