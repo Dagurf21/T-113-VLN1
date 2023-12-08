@@ -1,4 +1,4 @@
-from logic.validator_logic import Validator
+from logic.logic_utilities import Validator
 
 VALIDATION_ERRORS = (
     "Invalid SSN. ",

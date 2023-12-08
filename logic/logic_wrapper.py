@@ -4,7 +4,7 @@ from logic.flight_logic import FlightLogic
 from logic.destination_logic import DestinationLogic
 from logic.voyage_logic import VoyageLogic
 from logic.plane_logic import PlaneLogic
-from logic.validator_logic import Validator
+from logic.logic_utilities import Validator
 
 from model.destination import Destination
 from model.employee import Employee

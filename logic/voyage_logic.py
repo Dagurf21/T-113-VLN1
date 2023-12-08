@@ -1,5 +1,5 @@
 from model.voyage import Voyage
-from logic.validator_logic import Validator
+from logic.logic_utilities import Validator
 
 
 class VoyageLogic:
