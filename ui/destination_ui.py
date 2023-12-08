@@ -195,6 +195,8 @@ class DestinationUI(UIWidget):
             try:
                 destination_id = self._prompt("Enter destination id", opt_instruction="Leave empty to cancel", clear_screen=False)
                 destination_id = int(destination_id)
+            except UICancelException:
+                return
             except ValueError:
                 self._print_header("Remove Destination", add_extra_newline=True)
                 self._print_centered("Id has to be a number", add_newline_after=True)
