@@ -12,7 +12,7 @@ class DestinationLogic:
         """Takes in a destination object and forwards it to the data layer"""
         return self.data_wrapper.create_destination(destination_data)
 
-    def list_all_destinations(self) -> list:  # List of Destinations
+    def get_all_destinations(self) -> list:  # List of Destinations
         """Returns a list of all destinations"""
         # sorting tomfoolery
         return self.data_wrapper.get_all_destinations()
