@@ -1,5 +1,6 @@
 from logic.logic_utilities import Validator
 
+
 class DestinationLogic:
     """This class is the logic layer for the destination class"""
 
