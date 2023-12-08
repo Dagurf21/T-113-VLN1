@@ -37,7 +37,7 @@ class LogicWrapper(object):
         """Takes in a employee object and forwards it to the create_employee function"""
         return self.employee_logic.create_employee(employee)
 
-    def list_all_employees(self) -> list[Employee]:
+    def get_all_employees(self) -> list[Employee]:
         """For wards list of employees from logic"""
         return self.employee_logic.list_all_employees()
 
@@ -62,11 +62,11 @@ class LogicWrapper(object):
         """Creates an flight"""
         return self.flight_logic.create_flight(data)
 
-    def list_all_flight(self) -> list[Flight]:  # Flight route
+    def get_all_flight(self) -> list[Flight]:  # Flight route
         """Returns a list of all flight routes"""
         return self.flight_logic.list_all_flights()
 
-    def list_flight(self, id) -> Flight:  # Flight route
+    def get_flight(self, id) -> Flight:  # Flight route
         """Returns a specific flight route/ via ID"""
         return self.flight_logic.list_flight(id)
 
@@ -87,11 +87,11 @@ class LogicWrapper(object):
         """Creates a voyage"""
         return self.voyage_logic.create_voyage(data)
 
-    def list_all_voyages(self) -> list:
+    def get_all_voyages(self) -> list:
         """Returns a list of all current voyages"""
         return self.voyage_logic.list_all_voyages()
 
-    def list_voyage(self, id) -> list[Destination]:
+    def get_voyage(self, id) -> list[Destination]:
         """Returns a voyage/ via ID"""
         return self.voyage_logic.list_voyage(id)
 
@@ -108,7 +108,7 @@ class LogicWrapper(object):
         """Creates a new destination"""
         return self.destination_logic.create_destination(data)
 
-    def list_all_destinations(self) -> list[Destination]:
+    def get_all_destinations(self) -> list[Destination]:
         """Returns a list of all destinations"""
         return self.destination_logic.list_all_destinations()
 
@@ -129,11 +129,11 @@ class LogicWrapper(object):
         """Creates a plane in the system"""
         return self.plane_logic.create_plane(data)
 
-    def list_all_planes(self) -> list[Plane]:
+    def get_all_planes(self) -> list[Plane]:
         """Returns a list of all planes"""
         return self.plane_logic.list_all_planes()
 
-    def list_plane(self, id) -> Plane:
+    def get_plane(self, id) -> Plane:
         """Returns a plane/ via ID"""
         return self.plane_logic.list_plane(id)
 
