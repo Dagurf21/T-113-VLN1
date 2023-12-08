@@ -1,5 +1,8 @@
 import datetime
 
+from model import Voyage
+
+
 COUNTRY_DICT = {
     "Iceland": (
         "Reykjavik Airport",
@@ -166,7 +169,7 @@ class Validator:
         else:
             return True
     
-    def flight_number_validator(data):
+    def flight_number_validator(self,data):
         """Validates flight plans and assignes a flight number"""
 
         every_voyage = self.data_wrapper.get_all_voyages()
