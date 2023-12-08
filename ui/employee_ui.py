@@ -186,7 +186,8 @@ class EmployeeUI(UIWidget):
                     work_phone   = self._prompt(
                         "Enter work phone",
                         header_title="Register Employee",
-                        opt_instruction="Leave empty to cancel"
+                        opt_instruction="Leave empty to cancel",
+                        validator=self._validate_phone_number
                     )
                     employee = FlightManager(
                         name=name,
@@ -271,17 +272,20 @@ class EmployeeUI(UIWidget):
                     case 2: # Mobile Phone
                         employee.mobile_phone = self._prompt(
                             "Enter new mobile phone",
-                            opt_instruction="Leave empty to cancel"
+                            opt_instruction="Leave empty to cancel",
+                            validator=self._validate_phone_number
                         )
                     case 3: # Email
                         employee.email = self._prompt(
                             "Enter new email",
-                            opt_instruction="Leave empty to cancel"
+                            opt_instruction="Leave empty to cancel",
+                            validator=self._validate_email
                         )
                     case 4: # Home Phone
                         employee.home_phone = self._prompt(
                             "Enter new home phone",
-                            opt_instruction="Leave empty to cancel"
+                            opt_instruction="Leave empty to cancel",
+                            validator=self._validate_phone_number
                         )
                     case 5: # Field 5 [Manager, FlightManager, Pilot, FlightAttendant]
                         if isinstance(employee, Pilot):
@@ -291,17 +295,20 @@ class EmployeeUI(UIWidget):
                         elif isinstance(employee, Manager):
                             employee.work_phone = self._prompt(
                                 "Enter new work phone",
-                                opt_instruction="Leave empty to cancel"
+                                opt_instruction="Leave empty to cancel",
+                                validator=self._validate_phone_number
                             )
                         elif isinstance(employee, FlightManager):
                             employee.work_phone = self._prompt(
                                 "Enter new work phone",
-                                opt_instruction="Leave empty to cancel"
+                                opt_instruction="Leave empty to cancel",
+                                validator=self._validate_phone_number
                             )
                     case 6: # Field 6 [Pilot]
                         employee.license = self._prompt(
                             "Enter new license",
-                            opt_instruction="Leave empty to cancel"
+                            opt_instruction="Leave empty to cancel",
+                            validator=self._validate_license
                         )
 
                 self.logic_wrapper.update_employee(employee)

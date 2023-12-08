@@ -69,7 +69,7 @@ class LogicWrapper(object):
 
     def get_all_flight(self) -> list[Flight]:  # Flight route
         """Returns a list of all flight routes"""
-        return self.flight_logic.list_all_flights()
+        return self.flight_logic.get_all_flights()
 
     def get_flight(self, id) -> Flight:  # Flight route
         """Returns a specific flight route/ via ID"""
@@ -115,7 +115,7 @@ class LogicWrapper(object):
 
     def get_all_destinations(self) -> list[Destination]:
         """Returns a list of all destinations"""
-        return self.destination_logic.list_all_destinations()
+        return self.destination_logic.get_all_destinations()
 
     def get_destination(self, id) -> list[Destination]:
         """Returns a Destination/ via ID"""
@@ -136,11 +136,11 @@ class LogicWrapper(object):
 
     def get_all_planes(self) -> list[Plane]:
         """Returns a list of all planes"""
-        return self.plane_logic.list_all_planes()
+        return self.plane_logic.get_all_planes()
 
     def get_plane(self, id) -> Plane:
         """Returns a plane/ via ID"""
-        return self.plane_logic.list_plane(id)
+        return self.plane_logic.get_plane(id)
 
     def update_plane(self, id) -> None:
         """updates information on plane"""
