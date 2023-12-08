@@ -31,20 +31,6 @@ class FlightLogic:
         else:
             raise ValueError("Invalid Input")
 
-    def flight_number_validator(data):
-        """Validates flight plans and assignes a flight number"""
-
-        every_voyage = self.data_wrapper.get_all_voyages()
-        every_flight = self.data_wrapper.get_all_flights()
-
-        if data.arrival_flight.day == every_flight[-1].arrival_flight.day:
-            voyage_num += 1
-
-        else:
-            voyage_num = 0
-
-        data.flight_number = f"NA0{destination}{voyage_num}"
-
     def list_all_flight(self) -> list[Flight]:
         """Gets list of all flight from data_wrapper and forwards list of flight"""
         return self.data_wrapper.get_all_flight
