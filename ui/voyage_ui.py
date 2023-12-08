@@ -28,26 +28,25 @@ class VoyageUI(UIWidget):
             match option:
                 case 0: #Creating new voyage
                     self.create_voyage()
-                    self._print_header(message="completed")
+
                 case 1: # Listing all voyages
                     self.list_voyages()
-                    self._print_header(message="Completed Successfully")
                 
                 case 2: # Listing a single voyage
                     self.list_voyage()
-                    self._print_header(message="Completed Successfully")
 
                 case 3: # Update Voyage
                     self.update_voyage()
-                    self._print_header(message="Completed Successfully")
 
                 case 4: # Cancel a voyage
                     self.cancel_voyage()
-                    self._print_header(message="Completed Successfully")
                 
                 case 5: # Duplicating voyage
                     self.duplicate_voyage()
-                    self._print_header(message="Completed Successfully")
+
+                case 6: # Staff voyage
+                    self.staff_voyage()
+                    
 
     def create_voyage(self):
         try:
@@ -260,29 +259,64 @@ class VoyageUI(UIWidget):
             try:
                 voyage = self.logic_wrapper.list_voyage(voyage_id)
 
-                choices = [
-                    "Yes, cancel voyage",
-                    "No, don't cancel voyage"
-                ]
-                
-                choice = self._display_selection(
-                    choices, 
-                    header_title="Cancel Voyage"
+                if voyage == None:
+                    self._print_header("Remove voyage", add_extra_newline=True)
+                    self._print_centered(f"voyage with id {voyage_id} doesn't exist", add_newline_after=True)
+                    continue
+
+                should_delete = self._display_selection(
+                    [
+                        "Delete"
+                    ],
+                    header_title=f"Delete voyage {voyage.id} on {voyage.date}?",
+                    allow_cancel=False
                 )
 
-                match choice:
-                    case 0: # Cancel
-                        voyage.status = "Cancelled"
-                        voyage.pilots = None
-                        voyage.attendants = None
-                        self.logic_wrapper.update_voyage(voyage)
-                        return # TODO 
-                    case 1: # Cancel the cancelling
-                        return 
+                if should_delete == 0:
+                    self.logic_wrapper.delete_voyage(voyage_id)
 
+                return
             except UICancelException:
                 return
     
     def duplicate_voyage(self):
         self._print_header(message="Duplicate Voyage")
 
+    def staff_voyage(self):
+        self._print_header(
+            message="Staff Voyage",
+            add_extra_newline=True
+            )
+        
+        while True:
+            try: 
+                voyage_id = self._prompt(
+                    "Enter Voygae ID",
+                    opt_instruction="Leave empty to cancel",
+                    clear_screen=False
+                )
+                voyage_id = int(voyage_id)
+            except UICancelException:
+                return
+            except ValueError:
+                self._print_header("Cancel voyage", add_extra_newline=True)
+                self._print_centered("ID has to be a number", add_newline_after=True)
+                continue
+
+            try: 
+                voyage = self.logic_wrapper.list_voyage(voyage_id)
+
+                pilots_or_attendants = self._display_selection([
+                    "Pilots",
+                    "Flight attendant"
+                ], header_title="Staff voyage")
+
+                if pilots_or_attendants == 0: # Insert pilots
+                    return #TODO
+                
+                elif pilots_or_attendants == 1: # Instert flight attendants
+                    return # TODO
+                
+                return
+            except UICancelException:
+                return
