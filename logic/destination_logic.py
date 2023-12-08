@@ -17,10 +17,14 @@ class DestinationLogic:
         # sorting tomfoolery
         return self.data_wrapper.get_all_destinations()
 
-    def get_destination(self, id):  # Destination
+    def get_destination(self, search_id):  # Destination
         """Returns a destination object with the given id"""
-        destination = self.data_wrapper.get_destination(id)
-        return destination
+        destination_list = self.data_wrapper.get_destination(id)
+
+        for destination in destination_list:
+            if destination.id == search_id:
+                return destination
+        return None
 
     def update_destination(self, destination) -> None:
         """Updates a destination object with the given id"""
