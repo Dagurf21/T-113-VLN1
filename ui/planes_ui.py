@@ -37,7 +37,7 @@ class PlaneUI(UIWidget):
                     self.remove_plane()
 
     def display_plane_list(self):
-        planes = self.logic_wrapper.list_all_planes()
+        planes = self.logic_wrapper.get_all_planes()
         planes_data = []
 
         for plane in planes:
@@ -76,7 +76,7 @@ class PlaneUI(UIWidget):
                 self._print_centered("ID has to be a number", add_newline_after=True)
                 continue
 
-            plane = self.logic_wrapper.list_plane(plane_id)
+            plane = self.logic_wrapper.get_plane(plane_id)
 
             if plane == None:
                 self._print_header("List Plane", add_extra_newline=True)
@@ -127,7 +127,7 @@ class PlaneUI(UIWidget):
                     self._print_centered("ID has to be a number", add_newline_after=True)
                     continue
 
-                plane = self.logic_wrapper.list_plane(plane_id)
+                plane = self.logic_wrapper.get_plane(plane_id)
 
                 if plane == None:
                     self._print_header("Remove Plane", add_extra_newline=True)

@@ -54,6 +54,7 @@ class UIWidget:
                         add_newline_after=True,
                         add_newline_before=False
                     )
+                    continue
 
             break
         

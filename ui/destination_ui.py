@@ -46,7 +46,7 @@ class DestinationUI(UIWidget):
                     self._print_header(message="Completed Successfully") # Not sure, may change
 
     def list_destinations(self):
-        destinations = self.logic_wrapper.list_all_destinations()
+        destinations = self.logic_wrapper.get_all_destinations()
         destination_data = []
 
         for destination in destinations:
@@ -89,7 +89,7 @@ class DestinationUI(UIWidget):
                 self._print_centered("Id has to be a number", add_newline_after=True)
                 continue
                 
-            destination = self.logic_wrapper.list_destination(destination_id)
+            destination = self.logic_wrapper.get_destination(destination_id)
 
             if destination == None:
                 self._print_header("List Destination", add_extra_newline=True)
@@ -152,7 +152,7 @@ class DestinationUI(UIWidget):
                 continue
                 
             try:
-                destination = self.logic_wrapper.list_destination(destination_id)
+                destination = self.logic_wrapper.get_destination(destination_id)
 
                 if destination == None:
                     self._print_header("List Destination", add_extra_newline=True)
@@ -201,7 +201,7 @@ class DestinationUI(UIWidget):
                 continue
                 
             try:
-                destination = self.logic_wrapper.list_destination(destination_id)
+                destination = self.logic_wrapper.get_destination(destination_id)
 
                 if destination == None:
                     self._print_header("Remove Destination", add_extra_newline=True)
