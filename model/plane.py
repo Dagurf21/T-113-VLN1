@@ -8,4 +8,3 @@ class Plane:
     manufacturer: str
     capacity: int
     flights: list[int] = field(default_factory=lambda: [])
-
