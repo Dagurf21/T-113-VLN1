@@ -14,13 +14,27 @@ class FlightLogic:
         self.data_wrapper = data_wrapper
         self.validator = Validator()
 
-    def create_flight(self, data: Flight) -> None:
-        """Creates flight: Checks if ID is valid"""
 
-        complete_data = self.validator.validate_destination(data)
+    def create_flight(self, departure, destination, data) -> str:
+        """Creates flight, returns flight number"""
+        #self.validator.validate_destination(data)
+        flight_nr = self.create_flight_nr(destination)
+        arrival_time = self.calculate_arrival_time(data.departure_time, destination)
+        self.data_wrapper.create_flight(Flight(flight_number = flight_nr, departure = departure, destination = destination, date = data.date, departure_time = data.departure_time, arrival_time = arrival_time))
+        return flight_nr
+    
+
+    def create_flight_nr(self, destination_id) -> str:
+        """Creates a flight number and returns it"""
+        flight_nr = f"NA0{destination_id}"
+        # TODO finna út seinustu töluna fyrir nr
 
 
-        pass
+    def calculate_arrival_time(self, departure, destination_id) -> datetime:
+        """Calculates the arrival time of a flight
+        by adding the travel time from Destination to the departure time"""
+        # TODO
+
 
     def get_all_flight(self) -> list[Flight]:
         """Gets list of all flight from data_wrapper and forwards list of flight"""
