@@ -12,7 +12,7 @@ class FlightLogic:
     def __init__(self, data_wrapper):
         """Initiates flightlogic through data_wrapper"""
         self.data_wrapper = data_wrapper
-        self.validator = Validator
+        self.validator = Validator()
 
     def create_flight(self, data: Flight) -> None:
         """Creates flight: Checks if ID is valid"""
@@ -71,7 +71,7 @@ class FlightLogic:
     def assign_pilot(self, pilot, flight) -> None:
         """Assigns a pilot to a specific flight"""
 
-        if self.validator.pilot_validator(pilot):
+        if self.validator.pilot_validator(self.data_wrapper):
             self.data_wrapper.assign_pilot(pilot)
 
         else:
