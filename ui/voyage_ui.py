@@ -85,7 +85,7 @@ class VoyageUI(UIWidget):
             return
 
     def list_voyages(self):
-        voyages = self.logic_wrapper.list_all_voyages()
+        voyages = self.logic_wrapper.get_all_voyages()
         voyage_data = []
 
         for voyage in voyages:
@@ -125,7 +125,7 @@ class VoyageUI(UIWidget):
                 self._print_centered("ID has to be a number", add_newline_after=True)
                 continue
         
-            voyage = self.logic_wrapper.list_voyage(voyage_id)
+            voyage = self.logic_wrapper.get_voyage(voyage_id)
 
             if voyage == None:
                 self._print_header("List voyage", add_extra_newline=True)
@@ -134,13 +134,13 @@ class VoyageUI(UIWidget):
 
             self._print_header(f"List Voyage [ID:{voyage_id}]", add_extra_newline=True)
             self._print_list([
-                f"ID:     {voyage.id}",
-                f"Plane:  {voyage.plane}",
-                f"Pilot:  {voyage.pilot}",
-                f"Seats:  {voyage.sold_seats}",
-                f"From:   {voyage.departure_flight}",
-                f"To:     {voyage.arrival_flight}",
-                f"Date:   {voyage.date}",
+                f"ID:          {voyage.id}",
+                f"Plane:       {voyage.plane}",
+                f"Pilot:       {voyage.pilots}",
+                f"Sold Seats:  {voyage.sold_seats}",
+                f"From:        {voyage.departure_flight}",
+                f"To:          {voyage.arrival_flight}",
+                f"Date:        {voyage.date}",
             ], add_newline_after=True)
 
     def update_voyage(self):
@@ -165,7 +165,7 @@ class VoyageUI(UIWidget):
                 continue
 
             try:
-                voyage = self.logic_wrapper.list_voyage(voyage_id)
+                voyage = self.logic_wrapper.get_voyage(voyage_id)
 
                 if voyage == None:
                     self._print_header("List Voyage", add_extra_newline=True)
@@ -258,7 +258,7 @@ class VoyageUI(UIWidget):
                 continue
 
             try:
-                voyage = self.logic_wrapper.list_voyage(voyage_id)
+                voyage = self.logic_wrapper.get_voyage(voyage_id)
 
                 if voyage == None:
                     self._print_header("Remove voyage", add_extra_newline=True)
@@ -305,7 +305,7 @@ class VoyageUI(UIWidget):
                 continue
 
             try: 
-                voyage = self.logic_wrapper.list_voyage(voyage_id)
+                voyage = self.logic_wrapper.get_voyage(voyage_id)
 
                 pilots_or_attendants = self._display_selection([
                     "Pilots",
