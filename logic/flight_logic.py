@@ -17,8 +17,8 @@ class FlightLogic:
     def create_flight(self, data: Flight) -> None:
         """Creates flight: Checks if ID is valid"""
 
-        self.validator.validate_destination(data)
-        
+        complete_data = self.validator.validate_destination(data)
+
 
         pass
 
