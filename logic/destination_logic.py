@@ -8,7 +8,7 @@ class DestinationLogic:
         self.data_wrapper = data_connection
         self.validate = Validator()
 
-    def create_destination(self, destination):
+    def create_destination(self, destination_data):
         """Takes in a destination object and forwards it to the data layer"""
         return self.data_wrapper.create_destination(destination)
 
@@ -26,13 +26,13 @@ class DestinationLogic:
                 return destination
         return None
 
-    def update_destination(self, destination) -> None:
+    def update_destination(self, destination_data) -> None:
         """Updates a destination object with the given id"""
-        return self.data_wrapper.update_destination(destination)
+        return self.data_wrapper.update_destination(destination_data)
 
-    def delete_destination(self, id) -> None:
+    def delete_destination(self, destination_id) -> None:
         """Deletes a destination object with the given id"""
-        return self.data_wrapper.delete_destination(id)
+        return self.data_wrapper.delete_destination(destination_id)
 
 
 # Verify:
