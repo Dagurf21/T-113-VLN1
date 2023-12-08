@@ -117,7 +117,7 @@ class LogicWrapper(object):
         """Returns a list of all destinations"""
         return self.destination_logic.get_all_destinations()
 
-    def get_destination(self, id) -> list[Destination]:
+    def get_destination(self, id) -> Destination:
         """Returns a Destination/ via ID"""
         return self.destination_logic.get_destination(id)
 
