@@ -13,7 +13,5 @@
 
 listi = ["Baba"]
 
-if listi:
-    print("True")
-else:
-    print("boop")
+if [] is None:
+    print("yes")
