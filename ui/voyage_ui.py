@@ -273,8 +273,8 @@ class VoyageUI(UIWidget):
                 match choice:
                     case 0: # Cancel
                         voyage.status = "Cancelled"
-                        voyage.pilots = None
-                        voyage.attendants = None
+                        voyage.pilots = [] # Should this be [], "" or None ?
+                        voyage.attendants = [] # Should this be [], "" or None ?
                         self.logic_wrapper.update_voyage(voyage)
                         return # TODO 
                     case 1: # Cancel the cancelling
