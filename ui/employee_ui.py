@@ -1,6 +1,6 @@
-from ui.widget import UIWidget, UICancelException
+from ui import UIWidget, UICancelException
 from model import Employee, Pilot, Manager, FlightAttendant, FlightManager, Voyage, Destination, Flight
-from logic.logic_wrapper import LogicWrapper
+from logic import LogicWrapper
 
 class EmployeeUI(UIWidget):
     def __init__(self, user: Employee, logic_wrapper: LogicWrapper):

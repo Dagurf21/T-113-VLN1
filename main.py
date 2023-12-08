@@ -1,6 +1,6 @@
 import colorama
-from ui.login_ui import LoginUI
-from logic.logic_wrapper import LogicWrapper
+from ui import LoginUI
+from logic import LogicWrapper
 
 colorama.init()
 

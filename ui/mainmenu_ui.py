@@ -1,10 +1,6 @@
-from ui.widget import UIWidget
-from ui.employee_ui import EmployeeUI
-from ui.planes_ui import PlaneUI
-from ui.voyage_ui import VoyageUI
-from ui.destination_ui import DestinationUI
-from model.employee import Employee
-from logic.logic_wrapper import LogicWrapper
+from ui import UIWidget, EmployeeUI, PlaneUI, VoyageUI, DestinationUI
+from model import Employee
+from logic import LogicWrapper
 
 class MainMenuUI(UIWidget):
     def __init__(self, user: Employee, logic_wrapper: LogicWrapper):
