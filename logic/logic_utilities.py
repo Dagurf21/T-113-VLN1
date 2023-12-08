@@ -29,9 +29,6 @@ class Validator:
     validation and return either
     true or false, or a valid version"""
 
-    def __init__(self):
-        """Empty init"""
-
     # General validation
     def phone_number(self, phone_number) -> bool:
         """Takes in a phonenumber and returns
@@ -163,3 +160,11 @@ class Validator:
 
         else:
             return True
+
+
+class utilities:
+    """A class which contains
+    a bunch of logic utilities"""
+
+    def password_encoder(self, password):
+        """Takes in a password and encodes it"""
