@@ -28,26 +28,25 @@ class VoyageUI(UIWidget):
             match option:
                 case 0: #Creating new voyage
                     self.create_voyage()
-                    self._print_header(message="completed")
+
                 case 1: # Listing all voyages
                     self.list_voyages()
-                    self._print_header(message="Completed Successfully")
                 
                 case 2: # Listing a single voyage
                     self.list_voyage()
-                    self._print_header(message="Completed Successfully")
 
                 case 3: # Update Voyage
                     self.update_voyage()
-                    self._print_header(message="Completed Successfully")
 
                 case 4: # Cancel a voyage
                     self.cancel_voyage()
-                    self._print_header(message="Completed Successfully")
                 
                 case 5: # Duplicating voyage
                     self.duplicate_voyage()
-                    self._print_header(message="Completed Successfully")
+
+                case 6: # Staff voyage
+                    self.staff_voyage()
+                    
 
     def create_voyage(self):
         try:
@@ -283,3 +282,5 @@ class VoyageUI(UIWidget):
     def duplicate_voyage(self):
         self._print_header(message="Duplicate Voyage")
 
+    def staff_voyage(self):
+        self._print_header(message="Staff Voyage")
