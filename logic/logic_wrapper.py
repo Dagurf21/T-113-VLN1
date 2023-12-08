@@ -156,9 +156,9 @@ class LogicWrapper(object):
         return self.validate.date(date)
 
     ## Destination Validation
-    def validate_country(self, country):
+    def validate_country_and_airport(self, country):
         """"""
-        return self.validate.country(country)
+        return self.validate.country_and_airport(country)
 
     ## Employee Validation
     def validate_ssn(self, ssn):
