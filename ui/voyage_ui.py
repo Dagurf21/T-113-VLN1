@@ -283,4 +283,40 @@ class VoyageUI(UIWidget):
         self._print_header(message="Duplicate Voyage")
 
     def staff_voyage(self):
-        self._print_header(message="Staff Voyage")
+        self._print_header(
+            message="Staff Voyage",
+            add_extra_newline=True
+            )
+        
+        while True:
+            try: 
+                voyage_id = self._prompt(
+                    "Enter Voygae ID",
+                    opt_instruction="Leave empty to cancel",
+                    clear_screen=False
+                )
+                voyage_id = int(voyage_id)
+            except UICancelException:
+                return
+            except ValueError:
+                self._print_header("Cancel voyage", add_extra_newline=True)
+                self._print_centered("ID has to be a number", add_newline_after=True)
+                continue
+
+            try: 
+                voyage = self.logic_wrapper.list_voyage(voyage_id)
+
+                pilots_or_attendants = self._display_selection([
+                    "Pilots",
+                    "Flight attendant"
+                ], header_title="Staff voyage")
+
+                if pilots_or_attendants == 0: # Insert pilots
+                    return #TODO
+                
+                elif pilots_or_attendants == 1: # Instert flight attendants
+                    return # TODO
+                
+                return
+            except UICancelException:
+                return
