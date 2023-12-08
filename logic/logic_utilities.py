@@ -1,4 +1,5 @@
 import datetime
+import bcrypt
 
 from model import Voyage
 
@@ -190,6 +191,7 @@ class Utilities:
 
     def password_encoder(self, password):
         """Takes in a password and encodes it"""
+        bcrypt.hashpw(password, bcrypt.gensalt( 12 ))
 
     
     def password_decoder(self, password):
