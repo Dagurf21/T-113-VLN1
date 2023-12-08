@@ -168,3 +168,8 @@ class utilities:
 
     def password_encoder(self, password):
         """Takes in a password and encodes it"""
+        
+    
+    def password_decoder(self, password):
+        """Takes in a password and decodes it"""
+
