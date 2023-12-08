@@ -39,7 +39,7 @@ class VoyageData:
             
             for row in reader:
                 if int(row["id"]) == voyage_id:
-                    return Voyage(id = int(row["id"]), sold_seats = int(row["sold_seats"]), plane = int(row["plane"]), pilots = row["pilots"], flight_attendants = row["attendants"], departure_flight = int(row["departure_flight"]),arrival_flight = int(row["arrival_flight"]), date = row["date"], status = row["status"])
+                    return Voyage(id = int(row["id"]), sold_seats = int(row["sold_seats"]), plane = int(row["plane"]), pilots = row["pilots"], flight_attendants = row["attendants"], departure_flight = row["departure_flight"],arrival_flight = row["arrival_flight"], date = row["date"], status = row["status"])
 
             # If no voyage is found with the given id, return None
             return None
@@ -53,7 +53,7 @@ class VoyageData:
             reader = csv.DictReader(csvfile)
             
             for row in reader:
-                ret_list.append(Voyage(id = int(row["id"]), sold_seats = int(row["sold_seats"]), plane = int(row["plane"]), pilots = row["pilots"], flight_attendants = row["attendants"], departure_flight = int(row["departure_flight"]),arrival_flight = int(row["arrival_flight"]), date = row["date"], status = row["status"]))
+                ret_list.append(Voyage(id = int(row["id"]), sold_seats = int(row["sold_seats"]), plane = int(row["plane"]), pilots = row["pilots"], flight_attendants = row["attendants"], departure_flight = row["departure_flight"],arrival_flight = row["arrival_flight"], date = row["date"], status = row["status"]))
         
         return ret_list
 
