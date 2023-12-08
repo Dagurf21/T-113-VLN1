@@ -8,7 +8,7 @@ class DestinationData:
         self.file_name = "files/destinations.csv"
 
     
-    def create_destination(self, destination):
+    def create_destination(self, destination) -> None:
         """Writes new destination to storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
             fieldnames = ["id", "country", "airport", "distance", "flight_time", "representative", "emergency_number"]
@@ -33,21 +33,6 @@ class DestinationData:
             return id
     
 
-    def get_destination(self, destination_id) -> "Destination":
-        """Returns the requested destination, if no destination is found return None"""
-        with open(self.file_name, newline='', encoding="utf-8") as csvfile:
-            reader = csv.DictReader(csvfile)
-            
-            for row in reader:
-                
-                if int(row["id"]) == destination_id:
-                    if row["airport"]:
-                        return Destination(id = row["id"], country = row["country"], airport = row["airport"], flight_time = row["flight_time"], distance_km = row["distance"], representative = row["representative"], emergency_number = row["emergency_number"])
-            
-            # If no destination is found with the given id, return None
-            return None
-    
-
     def get_all_destinations(self) -> list["Destination"]:
         """Returns a list of all destinations"""
         ret_list = []
@@ -62,7 +47,7 @@ class DestinationData:
         return ret_list
     
 
-    def update_destination(self, destination):
+    def update_destination(self, destination) -> None:
         """Updates the destination with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
@@ -82,7 +67,7 @@ class DestinationData:
         shutil.move(tempfile.name, self.file_name)
     
 
-    def delete_destination(self, destination_id):
+    def delete_destination(self, destination_id) -> None:
         """Deletes the plane with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)

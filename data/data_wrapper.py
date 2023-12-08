@@ -30,9 +30,6 @@ class DataWrapper:
     def get_all_destinations(self):
         return self.destination_data.get_all_destinations()
 
-    def get_destination(self, destination_id):
-        return self.destination_data.get_destination(destination_id)
-
     def update_destination(self, destination):
         return self.destination_data.update_destination(destination)
         
@@ -44,9 +41,6 @@ class DataWrapper:
 
     def get_all_planes(self):
         return self.plane_data.get_all_planes()
-
-    def get_plane(self, plane_id):
-        return self.plane_data.get_plane(plane_id)
 
     def update_plane(self, plane):
         return self.plane_data.update_plane(plane)
@@ -60,9 +54,6 @@ class DataWrapper:
     def get_all_voyages(self):
         return self.voyage_data.get_all_voyages()
 
-    def get_voyage(self, voyage_id):
-        return self.voyage_data.get_voyage(voyage_id)
-
     def update_voyage(self, voyage):
         return self.voyage_data.update_voyage(voyage)
 
@@ -74,9 +65,6 @@ class DataWrapper:
 
     def get_all_flights(self):
         return self.flight_data.get_all_flights()
-    
-    def get_flight(self, flight_id):
-        return self.flight_data.get_flight(flight_id)
 
     def update_flight(self, flight):
         return self.flight_data.update_flight(flight)

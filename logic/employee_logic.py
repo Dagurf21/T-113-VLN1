@@ -21,7 +21,7 @@ class EmployeeLogic:
     def get_employee(self, employee_id) -> "Employee":
         """Returns the requested employee as the correct employee class type.
         If no employee with the id is found return None"""
-        employee_list = self.list_all_employees()
+        employee_list = self.get_all_employees()
 
         for employee in employee_list:
             if employee.id == employee_id:

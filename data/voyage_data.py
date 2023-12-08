@@ -8,7 +8,7 @@ class VoyageData:
         self.file_name = "files/voyages.csv"
     
 
-    def create_voyage(self, voyage):
+    def create_voyage(self, voyage) -> None:
         """Writes new voyage into the storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
             fieldnames = ["id", "destination", "sold_seats", "plane","pilots", "attendants", "departure_flight", "arrival_flight", "date", "status"]
@@ -32,20 +32,7 @@ class VoyageData:
             return id
 
 
-    def get_voyage(self, voyage_id):
-        """Returns the requested voyage, if no voyage is found returns None"""
-        with open(self.file_name, newline='', encoding="utf-8") as csvfile:
-            reader = csv.DictReader(csvfile)
-            
-            for row in reader:
-                if int(row["id"]) == voyage_id:
-                    return Voyage(id = int(row["id"]),destination = int(row["destination"]), sold_seats = int(row["sold_seats"]), plane = int(row["plane"]), pilots = row["pilots"], flight_attendants = row["attendants"], departure_flight = row["departure_flight"],arrival_flight = row["arrival_flight"], date = row["date"], status = row["status"])
-
-            # If no voyage is found with the given id, return None
-            return None
-
-
-    def get_all_voyages(self):
+    def get_all_voyages(self) -> list["Voyage"]:
         """Returns a list of all voyages"""
         ret_list = []
         
@@ -58,7 +45,7 @@ class VoyageData:
         return ret_list
 
 
-    def update_voyage(self, voyage):
+    def update_voyage(self, voyage) -> None:
         """Updates the voyage with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
@@ -84,7 +71,8 @@ class VoyageData:
             # Replaces the main file with the tempfile
             shutil.move(tempfile.name, self.file_name)
 
-    def cancel_voyage(self, voyage_id):
+
+    def cancel_voyage(self, voyage_id) -> None:
         """Cancels the voyage with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
