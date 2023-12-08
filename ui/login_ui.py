@@ -33,7 +33,7 @@ class LoginUI(UIWidget):
         main_menu.show()
     
     def _validate_email(self, email):
-        # FOR DEBUG PURPOSES ONLY -- REMOVE IN PROD.
+        # TODO: FOR DEBUG PURPOSES ONLY -- REMOVE IN PROD.
         if email == "":
             return None
 

@@ -179,8 +179,6 @@ class UIWidget:
             self._print_datalist(headers, data[current_page * rows_per_page:current_page*rows_per_page+rows_per_page])
             self._print_centered(f"{Fore.BLACK}q: return - n: next page - p: prev page{Style.RESET_ALL}", add_newline_after=True, add_newline_before=True)
 
-            # TODO: Page data
-
             opt = self._prompt("Choose an option", clear_screen=False, enable_cancel=False)
             match opt:
                 case "q": # Return
