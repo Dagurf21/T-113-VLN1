@@ -20,7 +20,7 @@ COUNTRY_DICT = {
         "Sisimiut Airport",
         "Upernavik Airport",
     ),
-    "Faroe Island": ("Vágar Airport"),
+    "Faroe Islands": ("Vágar Airport"),
 }
 
 
@@ -103,9 +103,14 @@ class Validator:
 
     def email(self, email):
         """Checks if the given email is an email"""
-        if "@" not in email or "." not in email:
+        email = email.split("@")
+        try:
+            email[1] = email[1].split(".")
+            if "" in email or "" in email[1]:
+                raise Exception("One of the email fields is empty")
+            return True
+        except (IndexError, Exception):
             return False
-        return True
 
     # Pilot and flight attendant validations
     def liscense(self, liscense) -> bool:
@@ -162,14 +167,12 @@ class Validator:
             return True
 
 
-class utilities:
+class Utilities:
     """A class which contains
     a bunch of logic utilities"""
 
     def password_encoder(self, password):
         """Takes in a password and encodes it"""
-        
-    
+
     def password_decoder(self, password):
         """Takes in a password and decodes it"""
-

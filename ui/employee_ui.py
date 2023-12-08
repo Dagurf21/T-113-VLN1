@@ -1,9 +1,5 @@
 from ui.widget import UIWidget, UICancelException
-from model.employee import Employee
-from model.pilot import Pilot
-from model.manager import Manager
-from model.flight_attendant import FlightAttendant
-from model.flight_manager import FlightManager
+from model import Employee, Pilot, Manager, FlightAttendant, FlightManager, Voyage, Destination, Flight
 from logic.logic_wrapper import LogicWrapper
 
 class EmployeeUI(UIWidget):
@@ -162,10 +158,17 @@ class EmployeeUI(UIWidget):
                         except ValueError:
                             return "ID must be number"
 
+                    def format_voyage(elem):
+                        voyage: Voyage = self.logic_wrapper.list_voyage(elem)
+                        departure: Flight = self.logic_wrapper.list_flight(voyage.departure_flight)
+                        departure_location: Destination = self.logic_wrapper.get_destination(departure.departure)
+                        destination_location: Destination = self.logic_wrapper.get_destination(departure.destination)
+                        return f"{departure_location.country} ({departure_location.airport}) -> {destination_location.country} ({destination_location.airport})"
+
                     assignments = self._prompt_list(
                         "Enter Assignment",
                         "Register Employee",
-                        element_display=lambda e: str(self.logic_wrapper.list_voyage(int(e))),
+                        element_display=format_voyage,
                         validator=validate_num
                     )
                     assignments = list(map(int, assignments))

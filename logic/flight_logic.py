@@ -30,16 +30,9 @@ class FlightLogic:
 
         else:
             raise ValueError("Invalid Input")
-<<<<<<< HEAD
 
     def flight_number_validator(data):
         """Validates flight plans and assignes a flight number"""
-=======
-    
-    def flight_number_validator(self,data):
-        '''Validates flight plans and assignes a flight number'''
-        
->>>>>>> eb4c904 (fix flight validator)
 
         every_voyage = self.data_wrapper.get_all_voyages()
         every_flight = self.data_wrapper.get_all_flights()
@@ -52,11 +45,6 @@ class FlightLogic:
 
         data.flight_number = f"NA0{destination}{voyage_num}"
 
-<<<<<<< HEAD
-=======
-        return #?
-
->>>>>>> eb4c904 (fix flight validator)
     def list_all_flight(self) -> list[Flight]:
         """Gets list of all flight from data_wrapper and forwards list of flight"""
         return self.data_wrapper.get_all_flight
