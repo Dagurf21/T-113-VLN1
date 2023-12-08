@@ -2,8 +2,8 @@
 import datetime
 
 from data.data_wrapper import DataWrapper
-from model.flight import Flight
-from logic.logic_utilities import Validator
+from model import Flight
+from logic import Validator
 
 
 class FlightLogic:

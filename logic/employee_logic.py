@@ -1,5 +1,5 @@
-from logic.logic_utilities import Validator
-from model.employee import Employee
+from logic import Validator
+from model import Employee
 
 class EmployeeLogic:
     """This class is the logic layer for the employee class"""
