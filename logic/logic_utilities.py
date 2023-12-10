@@ -25,6 +25,8 @@ class Validator:
     def date(self, date) -> bool:
         """Takes in a date and returns
         valid(True) or Invalid(False)"""
+        
+        # Think that Datetime module has this as a feature
 
 
     def distance_km(self, km) -> bool:
@@ -110,6 +112,8 @@ class Validator:
         pass
 
     # Flight validation
+
+    
 
     # Plane validation
 
