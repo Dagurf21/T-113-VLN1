@@ -26,17 +26,24 @@ class FlightLogic:
 
     def create_flight_nr(self, destination_id) -> str:
         """Creates a flight number and returns it"""
-
-
-
         flight_nr = f"NA0{destination_id}{nr_flight}"
         # TODO finna út seinustu töluna fyrir nr
 
-    def flights_in_day(self,):
-        '''finds flights that day'''
+    def flights_going_to(self, destination, flights=self.data_wrapper.get_all_flights):
+        ''' '''
+        
+        flights_dest = [flight for flight in flights if flight.flight_nr[2:-1] == str(destination)]
 
-        return # list of flights with given date
+        return flights_dest
 
+    def flights_within(self,start_day,end_day,day) -> list[Flight]:
+        '''finds flights between start_day and end_day'''
+        
+        all_flights = self.data_wrapper.get_all_destinations
+            
+        flights_within = [flight for flight in all_flights if day < end_day and day > start_day]
+
+        return flights_within
 
     def calculate_arrival_time(self, departure, destination_id) -> datetime:
         """Calculates the arrival time of a flight
