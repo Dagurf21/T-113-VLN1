@@ -26,17 +26,22 @@ class FlightLogic:
 
     def create_flight_nr(self, destination_id) -> str:
         """Creates a flight number and returns it"""
+
+        flights_today = flights_within() # TODO put start of day and end of day into function
+        flights_today_to_destination = flighths_going_to(destination_id, flights_today) # maybe add ability to put flights of othere date
+
+
         flight_nr = f"NA0{destination_id}{nr_flight}"
         # TODO finna út seinustu töluna fyrir nr
 
-    def flights_going_to(self, destination, flights=self.data_wrapper.get_all_flights):
-        ''' '''
+    def flights_going_to(self, destination, flights) -> list[Flight]: # With specific destination
+        '''Finds all flights with a specific destination'''
         
         flights_dest = [flight for flight in flights if flight.flight_nr[2:-1] == str(destination)]
 
         return flights_dest
 
-    def flights_within(self,start_day,end_day,day) -> list[Flight]:
+    def flights_within(self,start_day,end_day) -> list[Flight]:
         '''finds flights between start_day and end_day'''
         
         all_flights = self.data_wrapper.get_all_destinations
@@ -55,6 +60,12 @@ class FlightLogic:
 
         return arrival_time
 
+    def add_staff_to_flights():
+        '''Alows you to add staff to a flight after creating it'''
+
+        # TODO Implement function
+
+        pass
 
     def get_all_flight(self) -> list[Flight]:
         """Gets list of all flight from data_wrapper and forwards list of flight"""
