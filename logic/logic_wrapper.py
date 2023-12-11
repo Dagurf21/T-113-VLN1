@@ -32,7 +32,7 @@ class LogicWrapper(object):
         self.voyage_logic = VoyageLogic(self.data_wrapper)
         self.plane_logic = PlaneLogic(self.data_wrapper)
         self.validate = Validator()
-        self.utility = Utilities()
+        self.utility = Utilities(self.data_wrapper)
 
     # Employee Class
     def create_employee(self, employee) -> None:
@@ -209,5 +209,6 @@ class LogicWrapper(object):
     def password_encoder(self, password):
         return self.utility.password_encoder(password)
 
-    def check_password(self, hashed_password, given_password):
-        return self.utility.check_password(hashed_password, given_password)
+    def check_password(self, email, given_password):
+        employee = self.employee_logic.get_employee_by_email(email)
+        return self.utility.check_password(employee, given_password)

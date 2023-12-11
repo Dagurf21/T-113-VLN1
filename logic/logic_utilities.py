@@ -187,6 +187,9 @@ class Utilities:
     """A class which contains
     a bunch of logic utilities"""
 
+    def __init__(self, data_connection) -> None:
+        self.data_wrapper = data_connection
+
     def password_encoder(self, password):
         """Takes in a password and encodes it"""
         encoded_password = password.encode("utf-8")
@@ -194,8 +197,8 @@ class Utilities:
         hashed_password = bcrypt.hashpw(encoded_password, salt)
         return hashed_password
 
-    def check_password(self, hashed_password, given_password):
+    def check_password(self, employee, given_password):
         """Takes in a password check if it is the password."""
         inputted_password = given_password.encode("utf-8")
-        result = bcrypt.checkpw(inputted_password, hashed_password)
+        result = bcrypt.checkpw(inputted_password, employee.password)
         return result
