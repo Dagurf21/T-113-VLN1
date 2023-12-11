@@ -52,6 +52,12 @@ class EmployeeLogic:
 
         return employees_with_the_job
 
+    def get_all_pilots(self, job) -> list["Employee"]:
+        """Returns a sorted list of pilots"""
+        pilot_list = self.get_employees_by_job("Pilot")
+        pilot_list.sort()
+        return pilot_list
+
     def update_employee(self, employee) -> None:
         """Updates a employee object with the given id"""
         return self.data_wrapper.update_employee(employee)
