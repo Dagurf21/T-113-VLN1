@@ -71,6 +71,10 @@ class LogicWrapper(object):
         """Erases an employee from the record/ via ID"""
         return self.employee_logic.delete_employee(id)
 
+    def is_employee_manager(self, employee):
+        """Checks if the given employee is a manager"""
+        return self.employee_logic.is_employee_manager(employee)
+
     # Flight Class
     def create_flight(self, data) -> None:
         """Creates an flight"""

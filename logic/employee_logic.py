@@ -59,3 +59,10 @@ class EmployeeLogic:
     def delete_employee(self, employee_id) -> None:
         """Deletes a employee object with the given id"""
         return self.data_wrapper.delete_employee(employee_id)
+
+    def is_employee_manager(self, employee) -> None:
+        """Checks if the given employee is manager"""
+        manager_list = self.get_employees_by_job("Manager")
+        if employee in manager_list:
+            return True
+        return False
