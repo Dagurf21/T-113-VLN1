@@ -66,3 +66,10 @@ class EmployeeLogic:
         if employee in manager_list:
             return True
         return False
+
+    def is_employee_flight_manager(self, employee) -> None:
+        """Checks if the given employee is manager"""
+        flight_manager_list = self.get_employees_by_job("FlightManager")
+        if employee in flight_manager_list:
+            return True
+        return False

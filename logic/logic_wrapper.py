@@ -75,6 +75,10 @@ class LogicWrapper(object):
         """Checks if the given employee is a manager"""
         return self.employee_logic.is_employee_manager(employee)
 
+    def is_employee_flight_manager(self, employee):
+        """Check if a given employee is a flight manager"""
+        return self.employee_logic.is_employee_flight_manager(employee)
+
     # Flight Class
     def create_flight(self, data) -> None:
         """Creates an flight"""
