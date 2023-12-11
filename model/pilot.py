@@ -8,4 +8,6 @@ class Pilot(Employee):
     assignments: list[int]
 
     def __lt__(self, other_pilot):
+        """This makes it so that the logic layer can
+        sort by liscense"""
         return self.license < other_pilot.liscense
