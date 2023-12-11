@@ -22,22 +22,22 @@ class MainMenuUI(UIWidget):
             )
 
             match option:
-                case 0: # Employees
+                case "Employees":
                     employee_ui = EmployeeUI(self.user, self.logic_wrapper)
                     employee_ui.show()
 
-                case 1: # Planes
+                case "Planes":
                     planes_ui = PlaneUI(self.user, self.logic_wrapper)
                     planes_ui.show()
 
-                case 2: # Voyage
+                case "Voyages":
                     voyage_ui = VoyageUI(self.user, self.logic_wrapper)
                     voyage_ui.show()
 
-                case 3: # Planes
+                case "Destinations":
                     destination_ui = DestinationUI(self.user, self.logic_wrapper)
                     destination_ui.show()
                     
-                case 4: # Log out
+                case "Log out":
                     return
 

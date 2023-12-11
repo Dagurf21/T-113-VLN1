@@ -26,25 +26,25 @@ class VoyageUI(UIWidget):
                 return
 
             match option:
-                case 0: #Creating new voyage
+                case "Create Voyage":
                     self.create_voyage()
 
-                case 1: # Listing all voyages
+                case "List voyages - Finished not working bc. data layer":
                     self.list_voyages()
                 
-                case 2: # Listing a single voyage
+                case "List voyage":
                     self.list_voyage()
 
-                case 3: # Update Voyage
+                case "Update voyage":
                     self.update_voyage()
 
-                case 4: # Cancel a voyage
+                case "Cancel voyage":
                     self.cancel_voyage()
                 
-                case 5: # Duplicating voyage
+                case "Duplicate voyage":
                     self.duplicate_voyage()
 
-                case 6: # Staff voyage
+                case "Staff voyage":
                     self.staff_voyage()
                     
 
@@ -188,42 +188,42 @@ class VoyageUI(UIWidget):
                 )
 
                 match field_to_update:
-                    case 0: #Seats sold
+                    case "Seats sold":
                         voyage.sold_seats = self._prompt(
                             "Enter new amount of sold seats",
                             opt_instruction="Leave empty to cancel"
                         )
-                    case 1: # Plane
+                    case "Plane":
                         voyage.plane = self._prompt(
                             "Enter new plane ID",
                             opt_instruction="Leave empty to cancel"
                         )
-                    case 2: # Pilots
+                    case "Pilots":
                         voyage.pilots = self._prompt(
                             "Enter ID's of pilots, first ID is head pilot, must enter at least 2",
                             opt_instruction="Leave empty to cancel - Format is {id}.{id}"
                         )
-                    case 3: # Attendants
+                    case "Attendants":
                         voyage.attendants = self._prompt(
                             "Enter ID's of attendants",
                             opt_instruction="Leave empty to cancel"
                         )
-                    case 4: # Departure flight
+                    case "Departure Flight":
                         voyage.departure_flight = self._prompt(
                             "Enter new flight number for departure flight",
                             opt_instruction="Leave empty to cancel"
                         )
-                    case 5: # Arrival flight
+                    case "Arrival Flight":
                         voyage.arrival_flight = self._prompt(
                             "Enter new flight number for arrival flight",
                             opt_instruction="Leave empty to cancel"
                         )
-                    case 6: # Date of flight
+                    case "Date of flight":
                         voyage.date = self._prompt(
                             "Enter new date for voyage",
                             opt_instruction="Leave empty to cancel"
                         )
-                    case 7: # Status of voyage
+                    case "Status of voyage":
                         voyage.status = self._prompt(
                             "Enter new status for voyage",
                             opt_instruction="Leave empty to cancel (Status options: Finished, Landed abroad, In the Air, Not started, Cancelled )"
@@ -272,7 +272,7 @@ class VoyageUI(UIWidget):
                     allow_cancel=False
                 )
 
-                if should_delete == 0:
+                if should_delete == "Delete":
                     self.logic_wrapper.delete_voyage(voyage_id)
 
                 return
@@ -332,14 +332,14 @@ class VoyageUI(UIWidget):
                     "Flight attendant"
                 ], header_title="Staff voyage")
 
-                if pilots_or_attendants == 0: # Insert pilots
+                if pilots_or_attendants == "Pilots": # Insert pilots
                     voyage.pilots = self._prompt(
                         "Enter ID's of pilots", 
                         header_title="Staff voyage", 
                         opt_instruction="Leave empty to cancel. (First ID is head pilot - Format is {id}.{id})")
                     self.logic_wrapper.update_voyage(voyage)
                 
-                elif pilots_or_attendants == 1: # Instert flight attendants
+                elif pilots_or_attendants == "Flight attendant": # Instert flight attendants
                     voyage.attendants = self._prompt(
                         "Enter ID's of flight attendants", 
                         header_title="Staff voyage", 

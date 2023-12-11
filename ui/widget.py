@@ -1,8 +1,8 @@
 import os
 from collections.abc import Callable
 from colorama import Fore, Back, Style, ansi
-import getchlib
 import cursor
+import getch
 
 UI_WIDTH = 71
 
@@ -106,7 +106,7 @@ class UIWidget:
 
         return elems
     
-    def _display_selection(self, options: [str], opt_instruction: str = None, header_title: str = "", include_back: bool = True, allow_cancel: bool = False) -> int:
+    def _display_selection(self, options: [str], opt_instruction: str = None, header_title: str = "", include_back: bool = True, allow_cancel: bool = False) -> str:
         """
         Displays an interactive menu to select one of the provided options.
 
@@ -131,7 +131,7 @@ class UIWidget:
             )
 
             with cursor.HiddenCursor():
-                option = getchlib.getkey()
+                option = getkey()
 
             try:
                 option = int(option) - 1
@@ -155,7 +155,7 @@ class UIWidget:
             if include_back and option == option_count - 1:
                 raise UICancelException
 
-            return option
+            return options[option]
 
     def _display_interactive_datalist(self, headers: {str: int}, data: [[str]], title: str = "", rows_per_page: int = 10):
         """
@@ -179,7 +179,7 @@ class UIWidget:
             self._print_centered(f"{Fore.BLACK}q: return - n: next page - p: prev page{Style.RESET_ALL}", add_newline_after=True, add_newline_before=True)
 
             with cursor.HiddenCursor():
-                opt = getchlib.getkey()
+                opt = getkey()
 
             match opt:
                 case "q": # Return
@@ -292,4 +292,24 @@ class UIWidget:
 
         if add_extra_newline:
             print()
+
+def getkey() -> str:
+    c = getch.getch()
+
+    if isinstance(c, bytes): # Windows
+        if c == b'\x08':
+            raise KeyboardInterrupt
+
+        if c == b'\x0d':
+            return ''
+
+        return c.decode('utf-8')
+    else: # *nix
+        if ord(c) == 3:
+            raise KeyboardInterrupt
+
+        if ord(c) == 13:
+            return ''
+        
+        return c
 

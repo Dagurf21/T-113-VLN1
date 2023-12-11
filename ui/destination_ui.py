@@ -24,23 +24,23 @@ class DestinationUI(UIWidget):
                 return
 
             match option:
-                case 0: # List Destinations
+                case "List destinations":
                     self.list_destinations()
                     self._print_header(message="Completed Successfully") # Not sure, may change
 
-                case 1: # List a Destination
+                case "List destination":
                     self.list_destination()
                     self._print_header(message="Completed Successfully") # Not sure, may change
                 
-                case 2: # Register Destination
+                case "Register destination":
                     self.register_destination()
                     self._print_header(message="Completed Successfully") # Not sure, may change
                 
-                case 3: # Update Destination
+                case "Update destination":
                     self.update_destination()
                     self._print_header(message="Completed Successfully") # Not sure, may change
                 
-                case 4: # Remove destination
+                case "Remove destination": # Remove destination
                     self.remove_destination()
                     self._print_header(message="Completed Successfully") # Not sure, may change
 
@@ -217,7 +217,7 @@ class DestinationUI(UIWidget):
                     allow_cancel=False
                 )
 
-                if should_delete == 0:
+                if should_delete == "Delete":
                     self.logic_wrapper.delete_destination(destination_id)
     
                 return

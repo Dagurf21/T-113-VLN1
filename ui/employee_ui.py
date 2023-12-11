@@ -25,19 +25,19 @@ class EmployeeUI(UIWidget):
                 return
 
             match option:
-                case 0: # List employees
+                case "List employees":
                     self.display_employee_list()
 
-                case 1: # List employee
+                case "List employee":
                     self.display_employee()
 
-                case 2: # Register employee
+                case "Register employee":
                     self.register_employee()
 
-                case 3: # Update employee
+                case "Update employee":
                     self.update_employee()
 
-                case 4: # Remove employee
+                case "Remove employee":
                     self.remove_employee()
 
     def display_employee_list(self):
@@ -134,7 +134,7 @@ class EmployeeUI(UIWidget):
                 home_phone = None
 
             match employee_title:
-                case 0: # Manager
+                case "Manager":
                     work_phone   = self._prompt(
                         "Enter work phone",
                         header_title="Register Employee",
@@ -151,7 +151,7 @@ class EmployeeUI(UIWidget):
                         home_phone=home_phone,
                         work_phone=work_phone
                     )
-                case 1: # Pilot
+                case "Pilot":
                     assignments = self._prompt_assignments("Register Employee")
                     license = self._prompt(
                         "Enter license",
@@ -170,7 +170,7 @@ class EmployeeUI(UIWidget):
                         license=license,
                         assignments=assignments
                     )
-                case 2: # Flight Attendant
+                case "Flight attendant":
                     assignments = self._prompt_assignments("Register Employee")
                     employee = FlightAttendant(
                         name=name,
@@ -182,7 +182,7 @@ class EmployeeUI(UIWidget):
                         home_phone=home_phone,
                         assignments=assignments
                     )
-                case 3: # Flight Manager
+                case "Flight manager":
                     work_phone   = self._prompt(
                         "Enter work phone",
                         header_title="Register Employee",
@@ -259,52 +259,43 @@ class EmployeeUI(UIWidget):
                 )
 
                 match field_to_update:
-                    case 0: # Password
+                    case "Password":
                         employee.password = self._prompt(
                             "Enter new password",
                             opt_instruction="Leave empty to cancel"
                         )
-                    case 1: # Address
+                    case "Address":
                         employee.address = self._prompt(
                             "Enter new address",
                             opt_instruction="Leave empty to cancel"
                         )
-                    case 2: # Mobile Phone
+                    case "Mobile Phone":
                         employee.mobile_phone = self._prompt(
                             "Enter new mobile phone",
                             opt_instruction="Leave empty to cancel",
                             validator=self._validate_phone_number
                         )
-                    case 3: # Email
+                    case "Email":
                         employee.email = self._prompt(
                             "Enter new email",
                             opt_instruction="Leave empty to cancel",
                             validator=self._validate_email
                         )
-                    case 4: # Home Phone
+                    case "Home Phone":
                         employee.home_phone = self._prompt(
                             "Enter new home phone",
                             opt_instruction="Leave empty to cancel",
                             validator=self._validate_phone_number
                         )
-                    case 5: # Field 5 [Manager, FlightManager, Pilot, FlightAttendant]
-                        if isinstance(employee, Pilot):
-                            employee.assignments = self._prompt_assignments("Update employee")
-                        elif isinstance(employee, FlightAttendant):
-                            employee.assignments = self._prompt_assignments("Update employee")
-                        elif isinstance(employee, Manager):
-                            employee.work_phone = self._prompt(
-                                "Enter new work phone",
-                                opt_instruction="Leave empty to cancel",
-                                validator=self._validate_phone_number
-                            )
-                        elif isinstance(employee, FlightManager):
-                            employee.work_phone = self._prompt(
-                                "Enter new work phone",
-                                opt_instruction="Leave empty to cancel",
-                                validator=self._validate_phone_number
-                            )
-                    case 6: # Field 6 [Pilot]
+                    case "Assignments": # Field 5 [Manager, FlightManager, Pilot, FlightAttendant]
+                        employee.assignments = self._prompt_assignments("Update employee")
+                    case "Work Phone":
+                        employee.work_phone = self._prompt(
+                            "Enter new work phone",
+                            opt_instruction="Leave empty to cancel",
+                            validator=self._validate_phone_number
+                        )
+                    case "License":
                         employee.license = self._prompt(
                             "Enter new license",
                             opt_instruction="Leave empty to cancel",
@@ -345,7 +336,7 @@ class EmployeeUI(UIWidget):
                     allow_cancel=False
                 )
 
-                if should_delete == 0:
+                if should_delete == "Delete":
                     self.logic_wrapper.delete_employee(employee_id)
     
                 return

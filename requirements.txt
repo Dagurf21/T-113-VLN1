@@ -1,4 +1,4 @@
 bcrypt
 colorama
-getchlib
+py-getch
 cursor

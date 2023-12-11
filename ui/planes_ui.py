@@ -23,16 +23,16 @@ class PlaneUI(UIWidget):
                 return
 
             match option:
-                case 0: # List Planes
+                case "List planes":
                     self.display_plane_list()
                     
-                case 1: # List a plane
+                case "List plane":
                     self.display_plane()
 
-                case 2: # Register plane
+                case "Register plane":
                     self.register_plane()
 
-                case 3: # Remove plane
+                case "Remove plane":
                     self.remove_plane()
 
     def display_plane_list(self):
@@ -141,7 +141,7 @@ class PlaneUI(UIWidget):
                     allow_cancel=False
                 )
 
-                if should_delete == 0:
+                if should_delete == "Delete":
                     self.logic_wrapper.delete_plane(plane_id)
                     
                 return
