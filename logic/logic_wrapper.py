@@ -59,6 +59,10 @@ class LogicWrapper(object):
         """Fetches all pilots and returns them in a list"""
         return self.get_all_pilots()
 
+    def get_pilots_by_liscense(self, liscense) -> list:
+        """Retrieves a list of pilots which have the given liscense"""
+        return self.get_pilots_by_liscense(liscense)
+
     def get_all_flight_attendants(self) -> list:
         """Fetches all pilots and returns them in a list"""
         return self.get_employees_by_job("FlightAttendants")
@@ -90,7 +94,7 @@ class LogicWrapper(object):
 
     def get_flight(self, id) -> Flight:  # Flight route
         """Returns a specific flight route/ via ID"""
-        return self.flight_logic.list_flight(id)
+        return self.flight_logic.get_flight(id)
 
     def update_flight(self, id, data) -> None:
         """Updates info on flight routes"""
@@ -111,11 +115,11 @@ class LogicWrapper(object):
 
     def get_all_voyages(self) -> list:
         """Returns a list of all current voyages"""
-        return self.voyage_logic.list_all_voyages()
+        return self.voyage_logic.get_all_voyages()
 
     def get_voyage(self, id) -> list[Destination]:
         """Returns a voyage/ via ID"""
-        return self.voyage_logic.list_voyage(id)
+        return self.voyage_logic.get_voyage(id)
 
     def update_voyage(self, voyage) -> None:
         """Updates info on voyage"""
@@ -209,5 +213,6 @@ class LogicWrapper(object):
     def password_encoder(self, password):
         return self.utility.password_encoder(password)
 
-    def check_password(self, hashed_password, given_password):
-        return self.utility.check_password(hashed_password, given_password)
+    def check_password(self, email, given_password):
+        employee = self.employee_logic.get_employee_by_email(email)
+        return self.utility.check_password(employee, given_password)

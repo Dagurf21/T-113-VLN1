@@ -58,6 +58,18 @@ class EmployeeLogic:
         pilot_list.sort()
         return pilot_list
 
+    def get_pilots_by_liscense(self, liscense) -> list["Pilot"]:
+        """Returns a list of pilots with the given liscense"""
+        pilot_list = self.get_all_pilots()
+
+        pilots_with_the_liscense = []
+
+        for pilot in pilot_list:
+            if type(pilot).__name__ == liscense:
+                pilots_with_the_liscense.append(pilot)
+
+        return pilots_with_the_liscense
+
     def update_employee(self, employee) -> None:
         """Updates a employee object with the given id"""
         return self.data_wrapper.update_employee(employee)

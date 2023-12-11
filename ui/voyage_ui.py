@@ -51,13 +51,10 @@ class VoyageUI(UIWidget):
     def create_voyage(self):
         try:
             plane              = self._prompt("Enter plane ID",                 header_title="Create voyage", opt_instruction="Leave empty to cancel")
-            departure_flight   = self._prompt("Enter departing flight Number",  header_title="Create voyage", opt_instruction="Leave empty to cancel")
-            arrival_flight     = self._prompt("Enter arrival flight Number",    header_title="Create voyage", opt_instruction="Leave empty to cancel")
             date               = self._prompt("Enter date of voyage",           header_title="Create voyage", opt_instruction="Leave empty to cancel")
-            status             = self._prompt("Enter status of voyage",         header_title="Create voyage", opt_instruction="Leave empty to cancel")
             sold_seats         = self._prompt("Enter the amount of sold seats", header_title="Create voyage", opt_instruction="Leave empty to cancel")
-            flight_attendants  = self._prompt("Enter flight_attendants ID",     header_title="Create voyage", opt_instruction="Leave empty to cancel (optional: n to skip)")
-            pilots             = self._prompt("Enter lead pilot ID's",          header_title="Create voyage", opt_instruction="First ID is head pilot. Leave empty to cancel (optional: n to skip)", )        
+            flight_attendants  = self._prompt("Enter flight_attendants ID",     header_title="Create voyage", opt_instruction="Minimum 1 flight attendant. Leave empty to cancel (optional: n to skip)")
+            pilots             = self._prompt("Enter lead pilot ID's",          header_title="Create voyage", opt_instruction="First ID is head pilot (Minimum 2 pilots). Leave empty to cancel (optional: n to skip)", )        
 
             if flight_attendants.lower() == "n":
                 flight_attendants = None
@@ -67,10 +64,7 @@ class VoyageUI(UIWidget):
 
             voyage = Voyage(
                 plane=plane,
-                departure_flight=departure_flight,
-                arrival_flight=arrival_flight,
                 date=date,
-                status=status,
                 sold_seats=sold_seats,
                 flight_attendants=flight_attendants,
                 pilots=pilots
