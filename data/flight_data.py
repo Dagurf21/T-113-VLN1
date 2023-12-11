@@ -11,25 +11,11 @@ class FlightData:
     def create_flight(self, flight) -> None:
         """Writes a new flight to the storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
-            fieldnames = ["id", "flight_nr", "departure", "destination", "departure_time", "arrival_time"]
-            
+            fieldnames = ["flight_nr", "departure", "destination", "date", "departure_time", "arrival_time"]
+
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-
-            id = self.get_new_id()
             
-            writer.writerow({'id': id, 'flight_nr': flight.flight_nr, 'departure': flight.departure, 'destination': flight.destination, 'departure_time': flight.departure_time, 'arrival_time': flight.arrival_time})
-
-    
-    def get_new_id(self) -> int:
-        """Returns a new id"""
-        id = 0
-        with open(self.file_name, newline='', encoding="utf-8") as csvfile:
-            reader = csv.DictReader(csvfile)
-            
-            for row in reader:
-                id += 1
-
-            return id
+            writer.writerow({'flight_nr': flight.flight_number, 'departure': flight.departure, 'destination': flight.destination, 'date': flight.date, 'departure_time': flight.departure_time, 'arrival_time': flight.arrival_time})
 
 
     def get_all_flights(self) -> list["Flight"]:
@@ -40,7 +26,7 @@ class FlightData:
             reader = csv.DictReader(csvfile)
             
             for row in reader:
-                ret_list.append(Flight(id = row["id"], flight_number = row["flight_nr"], departure = row["departure"], destination = row["destination"], departure_time = row["departure_time"], arrival_time = row["arrival_time"]))
+                ret_list.append(Flight(flight_number = row["flight_nr"], departure = row["departure"], destination = row["destination"], date = row["date"], departure_time = row["departure_time"], arrival_time = row["arrival_time"]))
         
         return ret_list
 
@@ -51,7 +37,7 @@ class FlightData:
         tempfile = NamedTemporaryFile(mode='w', delete=False)
         
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
-            fieldnames = ["id", "flight_nr", "departure", "destination", "departure_time", "arrival_time"]
+            fieldnames = ["flight_nr", "departure", "destination", "date", "departure_time", "arrival_time"]
             
             reader = csv.DictReader(csvfile)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
@@ -59,12 +45,12 @@ class FlightData:
             writer.writeheader()
             for row in reader:
                 # Writes the flight with the new data into the temp file
-                if int(row["id"]) == flight.id:
-                    writer.writerow({'id': flight.id, 'flight_nr': flight.flight_nr, 'departure': flight.departure, 'destination': flight.destination, 'departure_time': flight.departure_time, 'arrival_time': flight.arrival_time})
+                if row["flight_nr"] == flight.flight_number:
+                    writer.writerow({'flight_nr': flight.flight_number, 'departure': flight.departure, 'destination': flight.destination, 'departure_time': flight.departure_time, 'arrival_time': flight.arrival_time})
                 
                 # Writes the other flights unchanged 
                 else:
-                    writer.writerow({'id': row["id"], 'flight_nr': row["flight_nr"], 'departure': row["departure"], 'destination': row["destination"], 'departure_time': row["departure_time"], 'arrival_time': row["arrival_time"]})
+                    writer.writerow({'flight_nr': row["flight_nr"], 'departure': row["departure"], 'destination': row["destination"], 'departure_time': row["departure_time"], 'arrival_time': row["arrival_time"]})
 
         # Replaces the main file with the tempfile
         shutil.move(tempfile.name, self.file_name)
