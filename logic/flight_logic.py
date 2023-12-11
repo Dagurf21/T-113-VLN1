@@ -85,7 +85,7 @@ class FlightLogic:
 
     def get_all_flight(self) -> list[Flight]:
         """Gets list of all flight from data_wrapper and forwards list of flight"""
-        return self.data_wrapper.get_all_flight
+        return self.data_wrapper.get_all_flight()
 
     def get_flight(self, flight_id):  # Flight
         """Gets a specific flight route with a specific ID"""
