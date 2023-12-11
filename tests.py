@@ -1,6 +1,7 @@
 import unittest
-from tests import *
+import test
 
 if __name__ == '__main__':
-    unittest.main()
+    suite = unittest.TestLoader().loadTestsFromModule(test)
+    unittest.TextTestRunner(verbosity=3).run(suite)
 
