@@ -84,14 +84,15 @@ class VoyageUI(UIWidget):
         for voyage in voyages:
             voyage_data.append([
                 voyage.id,
-                voyage.sold_seats,
                 voyage.departure_flight,
                 voyage.arrival_flight,
-                voyage.date
+                voyage.sold_seats,
+                voyage.date,
+                voyage.return_date
             ])
         
         self._display_interactive_datalist(
-            { "id": 3, "From": 4, "DEST": 4, "Seats": 3, "Date": 8 },
+            { "id": 3, "From": 6, "DEST": 6, "Seats": 5, "Date": 8, "Return date":11 },
             voyage_data,
             title="Voyages"
         )
@@ -134,6 +135,7 @@ class VoyageUI(UIWidget):
                 f"From:        {voyage.departure_flight}",
                 f"To:          {voyage.arrival_flight}",
                 f"Date:        {voyage.date}",
+                f"Return Date: {voyage.return_date}"
             ], add_newline_after=True)
 
     def update_voyage(self):

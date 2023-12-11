@@ -1,2 +1,1 @@
 id,destination,sold_seats,plane,pilots,attendants,departure_flight,arrival_flight,date,return_date,status
-0,2,100,0,1.2,3.4.5,NA020,NA021,1/1/2023,1/1/2023,Finished
