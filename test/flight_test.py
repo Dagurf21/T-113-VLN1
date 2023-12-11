@@ -24,7 +24,7 @@ class TestFlight(unittest.TestCase):
         ),
     ]
 
-    def test_create_valid_flight(self):
+    def test_create_flight_valid(self):
         data = MockDataWrapper()
         flight_logic = FlightLogic(data)
 
@@ -43,7 +43,43 @@ class TestFlight(unittest.TestCase):
             departure_time="01:00",
             arrival_time="04:20",
         ))
-        
+
+    def test_create_flight_invalid_departure(self):
+        data = MockDataWrapper()
+        flight_logic = FlightLogic(data)
+
+        data.create_destination(self.MOCK_DESTINATIONS[0])
+        data.create_destination(self.MOCK_DESTINATIONS[1])
+
+        date = datetime.now()
+        flight_logic.create_flight(9, 1, date, "01:00")
+
+        self.assertIsNone(data.get_flight(0))
+
+    def test_create_flight_invalid_arrival(self):
+        data = MockDataWrapper()
+        flight_logic = FlightLogic(data)
+
+        data.create_destination(self.MOCK_DESTINATIONS[0])
+        data.create_destination(self.MOCK_DESTINATIONS[1])
+
+        date = datetime.now()
+        flight_logic.create_flight(0, -1, date, "01:00")
+
+        self.assertIsNone(data.get_flight(0))
+
+    def test_create_flight_invalid_time(self):
+        data = MockDataWrapper()
+        flight_logic = FlightLogic(data)
+
+        data.create_destination(self.MOCK_DESTINATIONS[0])
+        data.create_destination(self.MOCK_DESTINATIONS[1])
+
+        date = datetime.now()
+        flight_logic.create_flight(0, 1, date, "0:-01")
+
+        self.assertIsNone(data.get_flight(0))
+
     def test_create_multiple_valid_flights(self):
         data = MockDataWrapper()
         flight_logic = FlightLogic(data)
