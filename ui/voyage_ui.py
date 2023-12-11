@@ -51,7 +51,9 @@ class VoyageUI(UIWidget):
     def create_voyage(self):
         try:
             plane              = self._prompt("Enter plane ID",                 header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            destination        = self._prompt("Enter destination of voyage",    header_title="Create voyage", opt_instruction="Leave empty to cancel")
             date               = self._prompt("Enter date of voyage",           header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            return_date        = self._prompt("Enter Return date of voyage",    header_title="Create voyage", opt_instruction="Leave empty to cancel")
             sold_seats         = self._prompt("Enter the amount of sold seats", header_title="Create voyage", opt_instruction="Leave empty to cancel")
             flight_attendants  = self._prompt("Enter flight_attendants ID",     header_title="Create voyage", opt_instruction="Minimum 1 flight attendant. Leave empty to cancel (optional: n to skip)")
             pilots             = self._prompt("Enter lead pilot ID's",          header_title="Create voyage", opt_instruction="First ID is head pilot (Minimum 2 pilots). Leave empty to cancel (optional: n to skip)", )        
@@ -64,7 +66,9 @@ class VoyageUI(UIWidget):
 
             voyage = Voyage(
                 plane=plane,
+                destination=destination,
                 date=date,
+                return_date=return_date,
                 sold_seats=sold_seats,
                 flight_attendants=flight_attendants,
                 pilots=pilots
@@ -84,14 +88,15 @@ class VoyageUI(UIWidget):
         for voyage in voyages:
             voyage_data.append([
                 voyage.id,
-                voyage.sold_seats,
                 voyage.departure_flight,
                 voyage.arrival_flight,
-                voyage.date
+                voyage.sold_seats,
+                voyage.date,
+                voyage.return_date
             ])
         
         self._display_interactive_datalist(
-            { "id": 3, "From": 4, "DEST": 4, "Seats": 3, "Date": 8 },
+            { "id": 3, "From": 6, "DEST": 6, "Seats": 5, "Date": 8, "Return date":11 },
             voyage_data,
             title="Voyages"
         )
@@ -134,6 +139,7 @@ class VoyageUI(UIWidget):
                 f"From:        {voyage.departure_flight}",
                 f"To:          {voyage.arrival_flight}",
                 f"Date:        {voyage.date}",
+                f"Return Date: {voyage.return_date}"
             ], add_newline_after=True)
 
     def update_voyage(self):

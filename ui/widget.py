@@ -297,7 +297,7 @@ def getkey() -> str:
     c = getch.getch()
 
     if isinstance(c, bytes): # Windows
-        if c == b'\x08':
+        if c == b'\x03':
             raise KeyboardInterrupt
 
         if c == b'\x0d':

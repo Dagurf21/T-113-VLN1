@@ -90,7 +90,10 @@ class Validator:
 
             if "" in email or "" in email[1]:
                 raise Exception("One of the email fields is empty")
-            return True
+            if len(email) != 2 and len(email[1]) != 2:
+                raise Exception("@ and . not in the correct space")
+            else:
+                return True
 
         except (IndexError, Exception):
             return False
@@ -98,7 +101,7 @@ class Validator:
     # Pilot and flight attendant validations
     def liscense(self, liscense) -> bool:
         """Verifies if the liscense is valid"""
-        pass
+        return True
 
     def assignments(self, assignments) -> bool:
         """Validates the assignments
@@ -197,5 +200,6 @@ class Utilities:
     def check_password(self, employee, given_password):
         """Takes in a password check if it is the password."""
         inputted_password = given_password.encode("utf-8")
-        result = bcrypt.checkpw(inputted_password, employee.password)
+        encoded_employee_password = employee.password.encode("utf-8")
+        result = bcrypt.checkpw(inputted_password, encoded_employee_password)
         return result
