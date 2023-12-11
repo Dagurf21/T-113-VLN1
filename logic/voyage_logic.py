@@ -13,21 +13,37 @@ class VoyageLogic:
 
     def create_voyage(self, data) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
-        #flight_data = Flight(date=data.date,destination=data.destination)
-        #create_flight(flight_data)
+        # flight_data = Flight(date=data.date,destination=data.destination)
+        # create_flight(flight_data)
         departure_flight = flight_logic.create_flight(0, data.destination, data)
         arrival_flight = flight_logic.create_flight(data.destination, 0, data)
         # TODO return date
-        self.data_wrapper.create_voyage(Voyage(destination = data.destination, sold_seats = 0, plane = data.plane, departure_flight = departure_flight, arrival_flight = arrival_flight, date = data.date, return_date = return_date ,status = "Not started"))
-
+        self.data_wrapper.create_voyage(
+            Voyage(
+                destination=data.destination,
+                sold_seats=0,
+                plane=data.plane,
+                departure_flight=departure_flight,
+                arrival_flight=arrival_flight,
+                date=data.date,
+                return_date=return_date,
+                status="Not started",
+            )
+        )
 
     def get_all_voyages(self) -> list:
         """Returns a list of all voyages"""
         return self.data_wrapper.get_all_voyages()
 
-    def get_voyage(self, id):
+    def get_voyage(self, voyage_id):
         """Returns a voyage object with the given id"""
-        return self.data_wrapper.get_voyage(id)
+        voyage_list = self.get_all_voyages()
+
+        for voyage in voyage_list:
+            if voyage.id == voyage_id:
+                return voyage
+
+        return None
 
     def update_voyage(self, voyage) -> None:
         """Updates a voyage object with the given id"""
