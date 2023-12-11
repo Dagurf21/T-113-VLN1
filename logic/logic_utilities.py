@@ -97,11 +97,12 @@ class Validator:
 
     # Pilot and flight attendant validations
     def liscense(self, liscense) -> bool:
-        """uhhhhhh w.I.p"""
+        """Verifies if the liscense is valid"""
         pass
 
     def assignments(self, assignments) -> bool:
-        """???"""
+        """Validates the assignments
+        for example, if the same assignment comes up twice"""
         pass
 
     # Flight validation
