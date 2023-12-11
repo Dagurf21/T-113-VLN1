@@ -59,6 +59,10 @@ class LogicWrapper(object):
         """Fetches all pilots and returns them in a list"""
         return self.get_all_pilots()
 
+    def get_pilots_by_liscense(self, liscense) -> list:
+        """Retrieves a list of pilots which have the given liscense"""
+        return self.get_pilots_by_liscense(liscense)
+
     def get_all_flight_attendants(self) -> list:
         """Fetches all pilots and returns them in a list"""
         return self.get_employees_by_job("FlightAttendants")
