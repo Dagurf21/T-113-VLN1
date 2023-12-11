@@ -55,6 +55,14 @@ class LogicWrapper(object):
         """Fetches a list of employees that fit the job title"""
         return self.employee_logic.get_employees_by_job(job)
 
+    def get_all_pilots(self) -> list:
+        """Fetches all pilots and returns them in a list"""
+        return self.get_employees_by_job("Pilots")
+
+    def get_all_flight_attendants(self) -> list:
+        """Fetches all pilots and returns them in a list"""
+        return self.get_employees_by_job("FlightAttendants")
+
     def update_employee(self, employee) -> None:
         """Updates info about a employee"""
         return self.employee_logic.update_employee(employee)
@@ -62,6 +70,14 @@ class LogicWrapper(object):
     def delete_employee(self, id) -> None:
         """Erases an employee from the record/ via ID"""
         return self.employee_logic.delete_employee(id)
+
+    def is_employee_manager(self, employee):
+        """Checks if the given employee is a manager"""
+        return self.employee_logic.is_employee_manager(employee)
+
+    def is_employee_flight_manager(self, employee):
+        """Check if a given employee is a flight manager"""
+        return self.employee_logic.is_employee_flight_manager(employee)
 
     # Flight Class
     def create_flight(self, data) -> None:
