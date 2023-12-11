@@ -1,5 +1,5 @@
 from ui import UIWidget, EmployeeUI, PlaneUI, VoyageUI, DestinationUI
-from model import Employee
+from model import Employee, Manager, FlightManager, FlightAttendant, Pilot
 from logic import LogicWrapper
 
 class MainMenuUI(UIWidget):
@@ -9,14 +9,23 @@ class MainMenuUI(UIWidget):
 
     def show(self):
         while True:
+            options = []
+            if isinstance(self.user, Manager):
+                options.append("Employees")
+            if isinstance(self.user, FlightManager):
+                options.append("Employees")
+                options.append("Voyages")
+                options.append("Destinations")
+            if isinstance(self.user, Pilot):
+                pass
+            if isinstance(self.user, FlightAttendant):
+                pass
+
+            options.append("My Profile")
+            options.append("Log out")
+
             option = self._display_selection(
-                [
-                    "Employees",
-                    "Planes",
-                    "Voyages",
-                    "Destinations",
-                    "Log out",
-                ],
+                options,
                 header_title=f"Welcome {self.user.name}!",
                 include_back=False,
             )
@@ -37,6 +46,9 @@ class MainMenuUI(UIWidget):
                 case "Destinations":
                     destination_ui = DestinationUI(self.user, self.logic_wrapper)
                     destination_ui.show()
+
+                case "My Profile":
+                    pass
                     
                 case "Log out":
                     return
