@@ -101,7 +101,7 @@ class Validator:
     # Pilot and flight attendant validations
     def liscense(self, liscense) -> bool:
         """Verifies if the liscense is valid"""
-        pass
+        return True
 
     def assignments(self, assignments) -> bool:
         """Validates the assignments
