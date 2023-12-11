@@ -230,7 +230,7 @@ class EmployeeUI(UIWidget):
                         license=license,
                         assignments=assignments
                     )
-                case "Flight attendant":
+                case "Flight Attendant":
                     assignments = self._prompt_assignments("Register Employee")
                     employee = FlightAttendant(
                         name=name,
@@ -242,7 +242,7 @@ class EmployeeUI(UIWidget):
                         home_phone=home_phone,
                         assignments=assignments
                     )
-                case "Flight manager":
+                case "Flight Manager":
                     work_phone   = self._prompt(
                         "Enter work phone",
                         header_title="Register Employee",
