@@ -90,7 +90,10 @@ class Validator:
 
             if "" in email or "" in email[1]:
                 raise Exception("One of the email fields is empty")
-            return True
+            if len(email) != 2 and len(email[1]) != 2:
+                raise Exception("@ and . not in the correct space")
+            else:
+                return True
 
         except (IndexError, Exception):
             return False
