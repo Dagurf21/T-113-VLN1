@@ -1,5 +1,5 @@
 from model import *
-from copy import copy
+from copy import deepcopy
 
 class MockDataWrapper:
     def __init__(self):
@@ -19,7 +19,7 @@ class MockDataWrapper:
         return self.employees[:]
 
     def create_employee(self, employee: Employee) -> None:
-        employee = copy(employee)
+        employee = deepcopy(employee)
         employee.id = self.employee_id_mark
         self.employee_id_mark += 1
         self.employees.append(employee)
@@ -27,7 +27,7 @@ class MockDataWrapper:
     def update_employee(self, employee: Employee) -> None:
         try:
             idx = self.employees.index(employee)
-            self.employees[idx] = copy(employee)
+            self.employees[idx] = deepcopy(employee)
         except ValueError:
             pass
 
@@ -38,7 +38,7 @@ class MockDataWrapper:
                 self.employees.remove(employee)
 
     def create_destination(self, destination: Destination) -> None:
-        destination = copy(destination)
+        destination = deepcopy(destination)
         destination.id = self.employee_id_mark
         self.employee_id_mark += 1
         self.destinations.append(destination)
@@ -49,7 +49,7 @@ class MockDataWrapper:
     def update_destination(self, destination: Destination) -> None:
         try:
             idx = self.destinations.index(destination)
-            self.destinations[idx] = copy(destination)
+            self.destinations[idx] = deepcopy(destination)
         except ValueError:
             pass
         
@@ -60,7 +60,7 @@ class MockDataWrapper:
                 self.destinations.remove(destination)
 
     def create_plane(self, plane: Plane) -> None:
-        plane = copy(plane)
+        plane = deepcopy(plane)
         plane.id = self.plane_id_mark
         self.plane_id_mark += 1
         self.planes.append(plane)
@@ -71,7 +71,7 @@ class MockDataWrapper:
     def update_plane(self, plane: Plane) -> None:
         try:
             idx = self.planes.index(plane)
-            self.planes[idx] = copy(plane)
+            self.planes[idx] = deepcopy(plane)
         except ValueError:
             pass
 
@@ -82,7 +82,7 @@ class MockDataWrapper:
                 self.planes.remove(plane)
 
     def create_voyage(self, voyage: Voyage) -> None:
-        voyage = copy(voyage)
+        voyage = deepcopy(voyage)
         voyage.id = self.voyage_id_mark
         self.voyage_id_mark += 1
         self.voyages.append(voyage)
@@ -93,7 +93,7 @@ class MockDataWrapper:
     def update_voyage(self, voyage: Voyage) -> None:
         try:
             idx = self.voyages.index(voyage)
-            self.voyages[idx] = copy(voyage)
+            self.voyages[idx] = deepcopy(voyage)
         except ValueError:
             pass
 
@@ -104,7 +104,7 @@ class MockDataWrapper:
                 self.voyages.remove(voyage)
     
     def create_flight(self, flight: Flight) -> None:
-        flight = copy(flight)
+        flight = deepcopy(flight)
         flight.id = self.flight_id_mark
         self.flight_id_mark += 1
         self.flights.append(flight)
@@ -115,7 +115,7 @@ class MockDataWrapper:
     def update_flight(self, flight: Flight) -> None:
         try:
             idx = self.flights.index(flight)
-            self.flights[idx] = copy(flight)
+            self.flights[idx] = deepcopy(flight)
         except ValueError:
             pass
     

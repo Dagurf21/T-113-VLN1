@@ -21,3 +21,5 @@ class Voyage:
     return_date: datetime
     status: str
     # Status options: Finished, Landed abroad, In the Air, Not started, Cancelled 
+
+# TODO: Swap status for enum?

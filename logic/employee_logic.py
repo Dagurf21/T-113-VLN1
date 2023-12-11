@@ -1,5 +1,5 @@
 from logic import Validator, Utilities
-from model import Employee
+from model import Employee, Pilot
 
 
 class EmployeeLogic:
