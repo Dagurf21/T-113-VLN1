@@ -26,7 +26,7 @@ class EmployeeUI(UIWidget):
 
             match option:
                 case "List employees":
-                    self.display_employee_list()
+                    self.list_employees()
 
                 case "List employee":
                     self.display_employee()
@@ -40,7 +40,30 @@ class EmployeeUI(UIWidget):
                 case "Remove employee":
                     self.remove_employee()
 
-    def display_employee_list(self):
+    def list_employees(self):
+        while True:
+            try:
+                option = self._display_selection(
+                    [
+                        "List all employees",
+                        "List all pilots",
+                        "List all flight attendants",
+                    ],
+                    header_title="Employees",
+                    include_back=True
+                )
+            except UICancelException:
+                return
+
+            match option:
+                case "List all employees":
+                    self.list_all_employees()
+                case "List all pilots":
+                    self.list_all_pilots()
+                case "List all flight attendants":
+                    self.list_all_flight_attendants()
+
+    def list_all_employees(self):
         employees = self.logic_wrapper.get_all_employees()
         employee_data = []
 
@@ -59,6 +82,43 @@ class EmployeeUI(UIWidget):
             title="Employees",
         )
 
+    def list_all_pilots(self):
+        employees = self.logic_wrapper.get_employees_by_job("Pilot")
+        employee_data = []
+
+        for employee in employees:
+            employee_data.append([
+                employee.id,
+                employee.name,
+                employee.address,
+                employee.mobile_phone,
+                employee.email
+            ])
+
+        self._display_interactive_datalist(
+            { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, 
+            employee_data,
+            title="Employees",
+        )
+
+    def list_all_flight_attendants(self):
+        employees = self.logic_wrapper.get_employees_by_job("FlightAttendant")
+        employee_data = []
+
+        for employee in employees:
+            employee_data.append([
+                employee.id,
+                employee.name,
+                employee.address,
+                employee.mobile_phone,
+                employee.email
+            ])
+
+        self._display_interactive_datalist(
+            { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, 
+            employee_data,
+            title="Employees",
+        )
 
     def display_employee(self):
         self._print_header(
@@ -128,7 +188,7 @@ class EmployeeUI(UIWidget):
             ssn          = self._prompt("Enter SSN",          header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_ssn)
             mobile_phone = self._prompt("Enter mobile phone", header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_phone_number)
             email        = self._prompt("Enter email",        header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_email)
-            home_phone   = self._prompt("Enter home phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel (optional: n to skip)", validator=self._validate_phone_number)
+            home_phone   = self._prompt("Enter home phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel (optional: n to skip)", validator=self._validate_optional_phone_number)
 
             if home_phone == "n":
                 home_phone = None
@@ -352,10 +412,10 @@ class EmployeeUI(UIWidget):
             return f"{departure_location.country} ({departure_location.airport}) -> {destination_location.country} ({destination_location.airport})"
 
         assignments = self._prompt_list(
+            "Enter assignment id",
             title,
-            "Register Employee",
             element_display=format_voyage,
-            validator=self.validate_num
+            validator=self._validate_assignment
         )
         return list(map(int, assignments))
 
@@ -386,6 +446,12 @@ class EmployeeUI(UIWidget):
         
         return "Invalid phone number format"
 
+    def _validate_optional_phone_number(self, number):
+        if number == "n" or self.logic_wrapper.validate_phone_number(number):
+            return None
+        
+        return "Invalid phone number format"
+
     def _validate_assignment(self, assignment_id):
         try:
             assignment_id = int(assignment_id)
@@ -395,3 +461,4 @@ class EmployeeUI(UIWidget):
             return None
         except ValueError:
             return "ID must be number"
+
