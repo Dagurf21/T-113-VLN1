@@ -25,6 +25,12 @@ salt = bcrypt.gensalt()
 # Hashing the password
 hash = bcrypt.hashpw(bbytes, salt)
 
+print(hash)
+decoded = hash.decode("utf-8")
+print(decoded)
+encoded = decoded.encode("utf-8")
+print(encoded)
+
 # Taking user entered password
 userPassword = "123"
 
@@ -32,6 +38,6 @@ userPassword = "123"
 userBytes = userPassword.encode("utf-8")
 
 # checking password
-result = bcrypt.checkpw(userPassword, hash)
+result = bcrypt.checkpw(userBytes, decoded)
 
 print(result)
