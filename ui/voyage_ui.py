@@ -66,16 +66,8 @@ class VoyageUI(UIWidget):
             if pilots.lower() == "n":
                 pilots = None
 
-            data = [plane,
-                    destination,
-                    date, 
-                    return_date, 
-                    departure_time,
-                    arrival_departure_time,
-                    sold_seats, 
-                    flight_attendants, 
-                    pilots
-            ]
+            data =  f"{plane},{destination},{date},{return_date},{departure_time},{arrival_departure_time},{sold_seats},{flight_attendants},{pilots}"
+            
 
             self.logic_wrapper.create_voyage(data)
 
