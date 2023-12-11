@@ -12,23 +12,7 @@
 #         Plane_logic
 
 
-class bobs:
-    def __init__(self, liscense) -> None:
-        self.bob_liscense = liscense
+liste = ["a", "b", "c"]
+lista = ["b", "c", "a"]
 
-    def __str__(self) -> str:
-        return "Bob" + self.bob_liscense
-
-    def __lt__(self, enemy_bob) -> bool:
-        return self.bob_liscense < enemy_bob.bob_liscense
-
-
-bob_list = [bobs("Gogo"), bobs("Gege"), bobs("Gaga")]
-
-sort_list = sorted(bob_list)
-
-for x in bob_list:
-    print(x)
-
-for x in sort_list:
-    print(x)
+print(liste == lista)

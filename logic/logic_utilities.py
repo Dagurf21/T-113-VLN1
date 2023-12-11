@@ -103,7 +103,15 @@ class Validator:
     def assignments(self, assignments) -> bool:
         """Validates the assignments
         for example, if the same assignment comes up twice"""
-        pass
+        cleaned_assignments = []
+        for assignment in assignments:
+            if assignment not in cleaned_assignments:
+                cleaned_assignments.append(assignment)
+        assignments.sort()
+        cleaned_assignments.sort()
+
+        is_same_assignment_twice = cleaned_assignments == assignments
+        return is_same_assignment_twice
 
     # Flight validation
 
