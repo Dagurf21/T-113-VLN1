@@ -48,7 +48,7 @@ class LoginUI(UIWidget):
         return None
 
     def _validate_password(self, user, password):
-        if user.password == password:
+        if self.logic_wrapper.check_password(user.password, password):
             return None
         
         return "Invalid password"
