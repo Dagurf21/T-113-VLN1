@@ -51,7 +51,7 @@ class VoyageUI(UIWidget):
     def create_voyage(self):
         try:
             plane              = self._prompt("Enter plane ID",                 header_title="Create voyage", opt_instruction="Leave empty to cancel")
-            destination        = self._prompt("Enter destination of voyage",    header_title="Create voyage", opt_instruction="Leave empty to cancel")
+            destination        = self._prompt("Enter destination ID of voyage", header_title="Create voyage", opt_instruction="Leave empty to cancel")
             date               = self._prompt("Enter date of voyage",           header_title="Create voyage", opt_instruction="Leave empty to cancel")
             return_date        = self._prompt("Enter Return date of voyage",    header_title="Create voyage", opt_instruction="Leave empty to cancel")
             sold_seats         = self._prompt("Enter the amount of sold seats", header_title="Create voyage", opt_instruction="Leave empty to cancel")
@@ -64,17 +64,16 @@ class VoyageUI(UIWidget):
             if pilots.lower() == "n":
                 pilots = None
 
-            voyage = Voyage(
-                plane=plane,
-                destination=destination,
-                date=date,
-                return_date=return_date,
-                sold_seats=sold_seats,
-                flight_attendants=flight_attendants,
-                pilots=pilots
+            data = (plane,
+                    destination,
+                    date, 
+                    return_date, 
+                    sold_seats, 
+                    flight_attendants, 
+                    pilots
             )
 
-            self.logic_wrapper.create_voyage(voyage)
+            self.logic_wrapper.create_voyage(data)
 
             return # TODO
 
