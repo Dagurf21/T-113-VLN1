@@ -19,7 +19,7 @@ class TestDestinations(unittest.TestCase):
             emergency_number="123-1234",
         ))
 
-        result = data.get_all_employees()
+        result = data.get_all_destinations()
         self.assertTrue(len(result) > 0)
 
         result = result[0]
@@ -47,7 +47,7 @@ class TestDestinations(unittest.TestCase):
             emergency_number="123-1234",
         ))
 
-        result = data.get_all_employees()
+        result = data.get_all_destinations()
         self.assertTrue(len(result) == 0)
 
     def test_create_destination_invalid_flight_time(self):
@@ -64,7 +64,7 @@ class TestDestinations(unittest.TestCase):
             emergency_number="123-1234",
         ))
 
-        result = data.get_all_employees()
+        result = data.get_all_destinations()
         self.assertTrue(len(result) == 0)
 
     def test_create_destination_invalid_number(self):
@@ -81,5 +81,5 @@ class TestDestinations(unittest.TestCase):
             emergency_number="12-1234",
         ))
 
-        result = data.get_all_employees()
+        result = data.get_all_destinations()
         self.assertTrue(len(result) == 0)
