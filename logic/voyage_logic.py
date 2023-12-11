@@ -26,7 +26,7 @@ class VoyageLogic:
                 departure_flight=departure_flight,
                 arrival_flight=arrival_flight,
                 date=data.date,
-                return_date=return_date,
+                return_date=data.return_date,
                 status="Not started",
             )
         )
