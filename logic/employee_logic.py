@@ -52,7 +52,7 @@ class EmployeeLogic:
 
         return employees_with_the_job
 
-    def get_all_pilots(self, job) -> list["Employee"]:
+    def get_all_pilots(self) -> list["Employee"]:
         """Returns a sorted list of pilots"""
         pilot_list = self.get_employees_by_job("Pilot")
         pilot_list.sort()
