@@ -13,7 +13,9 @@ class Voyage:
     plane: Plane
     pilots: list[Pilot] = None
     flight_attendants: list[FlightAttendant] = None
+    departure_time: datetime
     departure_flight: int # flight id
+    arrival_departure_time: datetime
     arrival_flight: int # flight id
     date: datetime
     return_date: datetime

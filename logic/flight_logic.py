@@ -1,9 +1,9 @@
 # import os
 import datetime
-
 from data.data_wrapper import DataWrapper
 from model import Flight
 from logic import Validator
+from logic import DestinationLogic
 
 
 class FlightLogic:
@@ -12,49 +12,50 @@ class FlightLogic:
         """Initiates flightlogic through data_wrapper"""
         self.data_wrapper = data_wrapper
         self.validator = Validator()
+        self.destination_logic = DestinationLogic(data_wrapper)
 
 
-    def create_flight(self, departure, destination, data) -> str:
+    def create_flight(self, departure, destination, date, departure_time) -> str:
         """Creates flight, returns flight number"""
         # self.validator.validate_destination(data)
-        flight_nr = self.create_flight_nr(destination)
-        arrival_time = self.calculate_arrival_time(data.departure_time, destination)
+        flight_nr = self.create_flight_nr(destination, departure, date)
+        arrival_time = self.calculate_arrival_time(departure_time, destination)
 
         self.data_wrapper.create_flight(
             Flight(
-                flight_number=flight_nr,
-                departure=departure,
-                destination=destination,
-                date=data.date,
-                departure_time=data.departure_time,
-                arrival_time=arrival_time,
+                flight_number = flight_nr,
+                departure = departure,
+                destination = destination,
+                date = date,
+                departure_time = departure_time,
+                arrival_time = arrival_time,
             )
         )
         
         return flight_nr
 
 
-    def create_flight_nr(self, flight_data: "Flight") -> str:
+    def create_flight_nr(self, destination, departure, date) -> str:
         """Creates a flight number and returns it"""
         # If destination is rvk
-        if flight_data.destination == 0:
-            destination_id = flight_data.departure
+        if destination == 0:
+            destination_id = departure
         else:
-            destination_id = flight_data.destination
+            destination_id = destination
 
-        flight_nr = f"NA0{destination_id}{self.get_same_date_flights(destination_id, flight_data)}"
+        flight_nr = f"NA0{destination_id}{self.get_same_date_flights(destination_id, date)}"
 
         return flight_nr
 
 
-    def get_same_date_flights(self, destination_id, flight_data: "Flight") -> int:
+    def get_same_date_flights(self, destination_id, date) -> int:
         """Returns the amount of flights with the same date and destination"""
-        all_flights = self.data_wrapper.get_all_flights
+        all_flights = self.get_all_flight()
 
         flights_within = 0
         for flight in all_flights:
             # If flights are same destination and date
-            if flight.destination == destination_id and flight.date == flight_data.date:
+            if flight.destination == destination_id and flight.date == date:
                 flights_within += 1
 
         return flights_within
@@ -71,13 +72,13 @@ class FlightLogic:
         return flights_dest
     
     
-    def calculate_arrival_time(self, departure, destination_id) -> datetime:
+    def calculate_arrival_time(self, departure_time, destination_id) -> datetime:
         """Calculates the arrival time of a flight
         by adding the travel time from Destination to the departure time"""
 
-        destination = self.data_wrapper.get_destination(destination_id)
-
-        arrival_time = departure.deltatime(destination.time)
+        destination = self.destination_logic.get_destination(destination_id)
+        hours, minutes, seconds = f"{departure_time}".split(":")
+        arrival_time = datetime.timedelta(hours = int(hours), minutes = int(minutes)) + datetime.timedelta(minutes = destination.flight_time)
 
         return arrival_time
 
@@ -92,7 +93,7 @@ class FlightLogic:
 
     def get_all_flight(self) -> list[Flight]:
         """Gets list of all flight from data_wrapper and forwards list of flight"""
-        return self.data_wrapper.get_all_flight()
+        return self.data_wrapper.get_all_flights()
 
 
     def get_flight(self, flight_id):  # Flight
