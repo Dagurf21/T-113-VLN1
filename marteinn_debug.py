@@ -12,27 +12,23 @@
 #         Plane_logic
 
 
-import bcrypt
+class bobs:
+    def __init__(self, liscense) -> None:
+        self.bob_liscense = liscense
 
-# example password
-password = "passwordabc"
+    def __str__(self) -> str:
+        return "Bob" + self.bob_liscense
 
-# converting password to array of bytes
-bytes = password.encode("utf-8")
+    def __lt__(self, enemy_bob) -> bool:
+        return self.bob_liscense < enemy_bob.bob_liscense
 
-# generating the salt
-salt = bcrypt.gensalt()
 
-# Hashing the password
-hash = bcrypt.hashpw(bytes, salt)
+bob_list = [bobs("Gogo"), bobs("Gege"), bobs("Gaga")]
 
-# Taking user entered password
-userPassword = "passwordabc"
+sort_list = sorted(bob_list)
 
-# encoding user password
-userBytes = userPassword.encode("utf-8")
+for x in bob_list:
+    print(x)
 
-# checking password
-result = bcrypt.checkpw(userBytes, hash)
-
-print(result)
+for x in sort_list:
+    print(x)
