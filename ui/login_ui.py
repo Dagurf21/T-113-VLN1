@@ -1,8 +1,7 @@
 from logic import LogicWrapper
-from ui import UIWidget
+from ui import UIWidget, getkey
 from ui import MainMenuUI
 from colorama import Fore, Style
-import getchlib
 import cursor
 
 class LoginUI(UIWidget):
@@ -15,7 +14,7 @@ class LoginUI(UIWidget):
             self._print_plane()
 
             with cursor.HiddenCursor():
-                command = getchlib.getkey()
+                command = getkey()
 
             match command.lower():
                 case "q": # Exit the application
