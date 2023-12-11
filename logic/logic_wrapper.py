@@ -76,7 +76,7 @@ class LogicWrapper(object):
         return self.employee_logic.delete_employee(id)
 
     def is_employee_manager(self, employee):
-        """Checks if the given employee is a manager"""
+        """Checks if the given employee is a manager"""Aqisseqarajooq, Nuuk 3905, Greenland
         return self.employee_logic.is_employee_manager(employee)
 
     def is_employee_flight_manager(self, employee):
@@ -115,11 +115,11 @@ class LogicWrapper(object):
 
     def get_all_voyages(self) -> list:
         """Returns a list of all current voyages"""
-        return self.voyage_logic.list_all_voyages()
+        return self.voyage_logic.get_all_voyages()
 
     def get_voyage(self, id) -> list[Destination]:
         """Returns a voyage/ via ID"""
-        return self.voyage_logic.list_voyage(id)
+        return self.voyage_logic.get_voyage(id)
 
     def update_voyage(self, voyage) -> None:
         """Updates info on voyage"""
