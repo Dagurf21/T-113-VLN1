@@ -8,17 +8,18 @@ from logic import Validator
 
 class FlightLogic:
     """This is the logic class for flight"""
-
     def __init__(self, data_wrapper):
         """Initiates flightlogic through data_wrapper"""
         self.data_wrapper = data_wrapper
         self.validator = Validator()
+
 
     def create_flight(self, departure, destination, data) -> str:
         """Creates flight, returns flight number"""
         # self.validator.validate_destination(data)
         flight_nr = self.create_flight_nr(destination)
         arrival_time = self.calculate_arrival_time(data.departure_time, destination)
+
         self.data_wrapper.create_flight(
             Flight(
                 flight_number=flight_nr,
@@ -31,46 +32,44 @@ class FlightLogic:
         )
         return flight_nr
 
-    def create_flight_nr(self, destination_id) -> str:
+
+    def create_flight_nr(self, flight_data: "Flight") -> str:
         """Creates a flight number and returns it"""
+        # If destination is rvk
+        if flight_data.destination == 0:
+            destination_id = flight_data.departure
+        else:
+            destination_id = flight_data.destination
 
-        start_day = Flight.date.datetime()
+        flight_nr = f"NA0{destination_id}{self.get_same_date_flights(destination_id, flight_data)}"
 
-        end_day = Flight.date
+        return flight_nr
 
-        flights_date = (
-            flights_within()
-        )  # TODO put start of day and end of day into function
 
-        flights_date_to_destination = flights_going_to(
-            destination_id, flights_date
-        )  # maybe add ability to put flights of othere date
+    def get_same_date_flights(self, destination_id, flight_data: "Flight") -> int:
+        """Returns the amount of flights with the same date and destination"""
+        all_flights = self.data_wrapper.get_all_flights
 
-        flight_nr = f"NA0{destination_id}{nr_flight}"
-        # TODO finna út seinustu töluna fyrir nr
-
-    def flights_going_to(
-        self, destination, flights
-    ) -> list[Flight]:  # With specific destination
-        """Finds all flights with a specific destination"""
-
-        flights_dest = [
-            flight for flight in flights if flight.flight_nr[2:-1] == str(destination)
-        ]
-
-        return flights_dest
-
-    def flights_within(self, start_day, end_day) -> list[Flight]:
-        """finds flights between start_day and end_day"""
-
-        all_flights = self.data_wrapper.get_all_destinations
-
-        flights_within = [
-            flight for flight in all_flights if day < end_day and day > start_day
-        ]
+        flights_within = 0
+        for flight in all_flights:
+            # If flights are same destination and date
+            if flight.destination == destination_id and flight.date == flight_data.date:
+                flights_within += 1
 
         return flights_within
 
+
+    def flights_going_to(self, destination) -> list[Flight]:  # With specific destination
+        """Finds all flights with a specific destination"""
+        all_flights = self.data_wrapper.get_all_flights
+
+        flights_dest = [
+            flight for flight in all_flights if flight.flight_nr[2:-1] == str(destination)
+        ]
+
+        return flights_dest
+    
+    
     def calculate_arrival_time(self, departure, destination_id) -> datetime:
         """Calculates the arrival time of a flight
         by adding the travel time from Destination to the departure time"""
@@ -81,6 +80,7 @@ class FlightLogic:
 
         return arrival_time
 
+
     def add_staff_to_flights():
         """Alows you to add staff to a flight after creating it"""
 
@@ -88,9 +88,11 @@ class FlightLogic:
 
         pass
 
+
     def get_all_flight(self) -> list[Flight]:
         """Gets list of all flight from data_wrapper and forwards list of flight"""
         return self.data_wrapper.get_all_flight()
+
 
     def get_flight(self, flight_id):  # Flight
         """Gets a specific flight route with a specific ID"""
@@ -101,11 +103,13 @@ class FlightLogic:
                 return flight
         return None
 
+
     def update_flight(self, id, flight) -> None:
         """Updates flight through data_wrapper"""
         flight.id = id
 
         self.data_wrapper.update_flight(flight)
+
 
     def delete_flight(self, id, flight) -> None:
         """Deletes flight through data_wrapper"""
@@ -115,6 +119,7 @@ class FlightLogic:
 
         else:
             raise ValueError("404 invalid ID")
+
 
     def assign_pilot(self, pilot, flight) -> None:
         """Assigns a pilot to a specific flight"""
