@@ -86,9 +86,7 @@ class FlightLogic:
     def add_staff_to_flights():
         """Alows you to add staff to a flight after creating it"""
 
-        # TODO Implement function
-
-        pass
+        raise NotImplementedError()
 
 
     def get_all_flight(self) -> list[Flight]:

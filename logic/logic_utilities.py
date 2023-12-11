@@ -1,5 +1,6 @@
 import datetime
 import bcrypt
+import re
 
 from model import Voyage
 
@@ -83,6 +84,15 @@ class Validator:
 
     def email(self, email):
         """Checks if the given email is an email"""
+
+        # Regex email validation
+        #  [^@]+    Anything but @ symbol
+        #  @        @ symbol
+        #  [^@]+    Anything but @ synbol
+        #  \.       . symbol
+        #  [^@]+    Anything but @ symbol
+        return re.match("[^@]+@[^@]+\.[^@]+", email)
+
         email = email.split("@")
 
         try:
