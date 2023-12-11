@@ -29,7 +29,7 @@ class LoginUI(UIWidget):
     def login(self):
         email = self._prompt("Input email", validator=self._validate_email, enable_cancel=False)
         employee = self.logic_wrapper.get_employee_by_email(email)
-        password = self._prompt("Input email", header_title=f"Log in as {employee.email}", enable_cancel=False, validator=lambda e: self._validate_password(employee, e))
+        password = self._prompt("Input password", header_title=f"Log in as {employee.email}", enable_cancel=False, validator=lambda e: self._validate_password(employee, e))
 
         main_menu = MainMenuUI(employee, self.logic_wrapper)
         main_menu.show()
