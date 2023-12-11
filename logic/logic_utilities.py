@@ -187,9 +187,6 @@ class Utilities:
     """A class which contains
     a bunch of logic utilities"""
 
-    def __init__(self, data_connection) -> None:
-        self.data_wrapper = data_connection
-
     def password_encoder(self, password):
         """Takes in a password and encodes it"""
         encoded_password = password.encode("utf-8")

@@ -32,7 +32,7 @@ class LogicWrapper(object):
         self.voyage_logic = VoyageLogic(self.data_wrapper)
         self.plane_logic = PlaneLogic(self.data_wrapper)
         self.validate = Validator()
-        self.utility = Utilities(self.data_wrapper)
+        self.utility = Utilities()
 
     # Employee Class
     def create_employee(self, employee) -> None:
