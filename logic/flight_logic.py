@@ -70,7 +70,7 @@ class FlightLogic:
         """Calculates the arrival time of a flight
         by adding the travel time from Destination to the departure time"""
 
-        detination = self.data_wrapper.get_destination(destination_id)
+        destination = self.data_wrapper.get_destination(destination_id)
 
         arrival_time = departure.deltatime(destination.time)
 
@@ -89,7 +89,7 @@ class FlightLogic:
 
     def get_flight(self, flight_id):  # Flight
         """Gets a specific flight route with a specific ID"""
-        flight_list = self.get_all_flight
+        flight_list = self.get_all_flight()
 
         for flight in flight_list:
             if flight.id == flight_id:
