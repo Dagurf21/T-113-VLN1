@@ -11,6 +11,7 @@
 #         Flight_route_logic
 #         Plane_logic
 
+
 import bcrypt
 
 # example password
@@ -26,7 +27,7 @@ salt = bcrypt.gensalt()
 hash = bcrypt.hashpw(bytes, salt)
 
 # Taking user entered password
-userPassword = "password000"
+userPassword = "passwordabc"
 
 # encoding user password
 userBytes = userPassword.encode("utf-8")
@@ -34,10 +35,4 @@ userBytes = userPassword.encode("utf-8")
 # checking password
 result = bcrypt.checkpw(userBytes, hash)
 
-print(password)
-print(bytes)
-print(salt)
-print(hash)
-print(userPassword)
-print(userBytes)
 print(result)

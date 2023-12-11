@@ -3,6 +3,7 @@ import bcrypt
 
 from model import Voyage
 
+
 class Validator:
     """Class which handles.
     validation and return either
@@ -17,35 +18,31 @@ class Validator:
             compacted_number = phone_number[0:3] + phone_number[4:8]
             int(compacted_number)
             return True
-        
+
         except (ValueError, IndexError):
             return False
-
 
     def date(self, date) -> bool:
         """Takes in a date and returns
         valid(True) or Invalid(False)"""
-        
-        # Think that Datetime module has this as a feature
 
+        # Think that Datetime module has this as a feature
 
     def distance_km(self, km) -> bool:
         """"""
         try:
             return int(km) > 0
-        
+
         except ValueError:
             return False
-
 
     def flight_time(self, time) -> bool:
         """"""
         try:
             return int(time) > 0
-        
+
         except ValueError:
             return False
-
 
     # Employee validation
     def ssn(self, ssn) -> bool:
@@ -67,53 +64,47 @@ class Validator:
 
         if century == "9":
             year = "19" + year
-        
+
         elif century == "0":
             year = "20" + year
-        
+
         else:
             year = "INVALID"  # This is done to make the ssn not pass the datetime check
 
-        
         try:
             int(ssn)  # Checks if the ssn only contains numbers
             datetime.date(
                 int(year), int(month), int(day)
             )  # Check if it is a valid time
             return True
-        
+
         except ValueError:
             return False
 
-    
     def email(self, email):
         """Checks if the given email is an email"""
         email = email.split("@")
-        
+
         try:
             email[1] = email[1].split(".")
-            
+
             if "" in email or "" in email[1]:
                 raise Exception("One of the email fields is empty")
             return True
-        
+
         except (IndexError, Exception):
             return False
 
-    
     # Pilot and flight attendant validations
     def liscense(self, liscense) -> bool:
         """uhhhhhh w.I.p"""
         pass
 
-    
     def assignments(self, assignments) -> bool:
         """???"""
         pass
 
     # Flight validation
-
-    
 
     # Plane validation
 
@@ -125,17 +116,15 @@ class Validator:
         available_seats = plane_seats - voyage.sold_seats
         return 1 > available_seats
 
-    
     def job_position(self, employee_list, job_title) -> bool:
         """Goes through a list of employees and verifies
         if all of them are the given job_title"""
         for employee in employee_list:
             if type(employee).__name__ != job_title:
                 return False
-        
+
         return True
 
-    
     def flight_times(self, voyage) -> bool:
         """Compares the times and check
         if they do not cause conflicts"""
@@ -147,13 +136,11 @@ class Validator:
         ]
         are_flight_times_valid = False  # W.i.P
 
-    
     def status(self, status) -> bool:
         """Validates the status, returns either
         valid(True) or invalid(False)"""
         return False
 
-    
     def pilot_validator(self, data):
         """Validates that there aren't to many pilots"""
 
@@ -162,8 +149,7 @@ class Validator:
 
         else:
             return True
-    
-    
+
     def flight_number_validator(self, data):
         """Validates flight plans and assignes a flight number"""
 
@@ -178,7 +164,6 @@ class Validator:
 
         data.flight_number = f"NA0{data.destination}{voyage_num}"
 
-    
     def validate_voyage(self, voyage) -> Voyage:
         """Validates a voyage and return a validated
         voyage if possible, else None"""
@@ -195,8 +180,13 @@ class Utilities:
 
     def password_encoder(self, password):
         """Takes in a password and encodes it"""
-        bcrypt.hashpw(password, bcrypt.gensalt( 12 ))
+        encoded_password = password.encode("utf-8")
+        salt = bcrypt.gensalt()
+        hashed_password = bcrypt.hashpw(encoded_password, salt)
+        return hashed_password
 
-    
-    def password_decoder(self, password):
-        """Takes in a password and decodes it"""
+    def check_password(self, hashed_password, given_password):
+        """Takes in a password check if it is the password."""
+        inputted_password = given_password.encode("utf-8")
+        result = bcrypt.checkpw(inputted_password, hashed_password)
+        return result
