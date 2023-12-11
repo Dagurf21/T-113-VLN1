@@ -33,13 +33,17 @@ class FlightLogic:
 
     def create_flight_nr(self, destination_id) -> str:
         """Creates a flight number and returns it"""
-        
-        flights_today = (
+
+        start_day = Flight.date.datetime()
+
+        end_day = Flight.date
+
+        flights_date = (
             flights_within()
         )  # TODO put start of day and end of day into function
 
-        flights_today_to_destination = flights_going_to(
-            destination_id, flights_today
+        flights_date_to_destination = flights_going_to(
+            destination_id, flights_date
         )  # maybe add ability to put flights of othere date
 
         flight_nr = f"NA0{destination_id}{nr_flight}"
