@@ -20,20 +20,37 @@ class VoyageLogic:
         # TODO return date
         self.data_wrapper.create_voyage(
             Voyage(
-                destination=data.destination,
-                sold_seats=0,
-                plane=data.plane,
-                departure_flight=departure_flight,
-                arrival_flight=arrival_flight,
-                date=data.date,
-                return_date=data.return_date,
-                status="Not started",
+                destination = data.destination,
+                sold_seats = 0,
+                plane = data.plane,
+                departure_flight = departure_flight,
+                arrival_flight = arrival_flight,
+                date = data.date,
+                return_date = data.return_date,
+                status = "Not started",
             )
         )
 
     def get_all_voyages(self) -> list:
         """Returns a list of all voyages"""
-        return self.data_wrapper.get_all_voyages()
+
+        all_voyages = self.data_wrapper.get_all_voyages()
+        now = datetime.datetime.now
+
+        for Voyage in all_voyages:
+            
+            if Voyage.date == now:
+                Voyage.status = "IN AIR"
+            
+            elif Voyage.date > now:
+                Voyage.status = ""
+            
+            else:
+                Voyage.status = ""
+            
+
+        return all_voyages
+
 
     def get_voyage(self, voyage_id):
         """Returns a voyage object with the given id"""

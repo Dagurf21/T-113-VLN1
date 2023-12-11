@@ -11,7 +11,7 @@ class VoyageData:
     def create_voyage(self, voyage) -> None:
         """Writes new voyage into the storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
-            fieldnames = ["id", "destination", "sold_seats", "plane","pilots", "attendants", "departure_flight", "arrival_flight", "date", "return_date", "status"]
+            fieldnames = ["id", "destination", "sold_seats", "plane", "pilots", "attendants", "departure_flight", "arrival_flight", "date", "return_date", "status"]
             
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
@@ -54,7 +54,7 @@ class VoyageData:
             fieldnames = ["id", "destination", "sold_seats", "plane", "pilots", "attendants", "departure_flight", "arrival_flight", "date", "return_date", "status"]
             
             reader = csv.DictReader(csvfile)
-            writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
+            writer = csv.DictWriter(tempfile, fieldnames = fieldnames)
 
             # Writes the csv header into the tempfile
             writer.writeheader()
