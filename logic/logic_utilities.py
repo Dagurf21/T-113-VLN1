@@ -192,7 +192,7 @@ class Utilities:
         encoded_password = password.encode("utf-8")
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(encoded_password, salt)
-        return hashed_password
+        return hashed_password.decode("utf-8")
 
     def check_password(self, employee, given_password):
         """Takes in a password check if it is the password."""
