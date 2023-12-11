@@ -12,10 +12,10 @@ class MainMenuUI(UIWidget):
             options = []
             if isinstance(self.user, Manager):
                 options.append("Employees")
-            if isinstance(self.user, FlightManager):
-                options.append("Employees")
                 options.append("Voyages")
                 options.append("Destinations")
+            if isinstance(self.user, FlightManager):
+                options.append("Voyages")
             if isinstance(self.user, Pilot):
                 pass
             if isinstance(self.user, FlightAttendant):
