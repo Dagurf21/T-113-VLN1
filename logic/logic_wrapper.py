@@ -55,6 +55,14 @@ class LogicWrapper(object):
         """Fetches a list of employees that fit the job title"""
         return self.employee_logic.get_employees_by_job(job)
 
+    def get_all_pilots(self) -> list:
+        """Fetches all pilots and returns them in a list"""
+        return self.get_employees_by_job("Pilots")
+
+    def get_all_flight_attendants(self) -> list:
+        """Fetches all pilots and returns them in a list"""
+        return self.get_employees_by_job("FlightAttendants")
+
     def update_employee(self, employee) -> None:
         """Updates info about a employee"""
         return self.employee_logic.update_employee(employee)
