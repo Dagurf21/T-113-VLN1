@@ -33,10 +33,11 @@ class FlightLogic:
 
     def create_flight_nr(self, destination_id) -> str:
         """Creates a flight number and returns it"""
-
+        
         flights_today = (
             flights_within()
         )  # TODO put start of day and end of day into function
+
         flights_today_to_destination = flights_going_to(
             destination_id, flights_today
         )  # maybe add ability to put flights of othere date
