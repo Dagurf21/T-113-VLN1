@@ -10,7 +10,6 @@ class VoyageLogic:
         self.data_wrapper = data_connection
         self.validate = Validator()
         self.flight_logic = FlightLogic(data_connection)
-        
 
     def create_voyage(self, plane_id: int, destination_id: int, date: datetime, return_departure_date: datetime, departure_time: datetime, return_departure_time: datetime, sold_seats: int, flight_attendants: list[int], pilots: list[int]) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
@@ -40,7 +39,7 @@ class VoyageLogic:
         """Returns a list of all voyages"""
 
         all_voyages = self.data_wrapper.get_all_voyages()
-        now = datetime.datetime.now()
+        now = datetime.now()
         current_time = datetime.time(hour = now.hour, minute = now.minute, second = now.second)
         now = datetime.date(year = now.year, month = now.month, day = now.day)
 
