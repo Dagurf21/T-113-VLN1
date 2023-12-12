@@ -17,7 +17,9 @@ class FlightLogic:
 
     def create_flight(self, departure, destination, date, departure_time) -> str:
         """Creates flight, returns flight number"""
-        # self.validator.validate_destination(data)
+        if self.destination_logic.get_destination(departure) is None or self.destination_logic.get_destination(destination) is None:
+            return
+
         flight_nr = self.create_flight_nr(destination, departure, date)
 
         if destination == 0:
@@ -69,18 +71,21 @@ class FlightLogic:
         return flights_within
 
 
-    def flights_going_to(self, destination) -> list[Flight]:  # With specific destination
+    def flights_going_to(self, destination_id: int) -> list[Flight]:  # With specific destination
         """Finds all flights with a specific destination"""
-        all_flights = self.data_wrapper.get_all_flights
+        
+        if self.destination_logic.get_destination(destination_id) is None:
+            return []
 
-        flights_dest = [
-            flight for flight in all_flights if flight.flight_nr[2:-1] == str(destination)
-        ]
+        flights = []
+        for flight in self.get_all_flight():
+            if flight.departure == destination_id or flight.destination == destination_id:
+                flights.append(flight)
 
-        return flights_dest
+        return flights
     
     
-    def calculate_arrival_time(self, departure_date: datetime.date, departure_time: datetime.time, destination_id: int) -> datetime:
+    def calculate_arrival_time(self, departure_date: datetime.date, departure_time: datetime.time, destination_id: int) -> datetime.datetime:
         """Calculates the arrival time of a flight
         by adding the travel time from Destination to the departure time"""
 
@@ -132,6 +137,3 @@ class FlightLogic:
 
         if self.validator.pilot_validator(self.data_wrapper):
             self.data_wrapper.assign_pilot(pilot)
-
-        else:
-            return  # raise Error eða none?

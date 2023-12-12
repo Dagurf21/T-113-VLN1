@@ -10,38 +10,32 @@ class MockDataWrapper:
         self.voyages: list[Voyage] = []
         self.planes: list[Plane] = []
 
-        self.employee_id_mark = 0
-        self.flight_id_mark = 0
-        self.destination_id_mark = 0
-        self.voyage_id_mark = 0
-        self.plane_id_mark = 0
-
     def get_all_employees(self) -> list[Employee]:
         return deepcopy(self.employees)
 
     def create_employee(self, employee: Employee) -> None:
         employee = deepcopy(employee)
-        employee.id = self.employee_id_mark
-        self.employee_id_mark += 1
+        employee.id = len(self.employees) - 1
         self.employees.append(employee)
 
     def update_employee(self, employee: Employee) -> None:
         try:
-            idx = employee.id
+            idx = self.get_employee_index(employee.id)
+            if idx is None:
+                return None
             self.employees[idx] = deepcopy(employee)
         except ValueError:
             pass
 
     def delete_employee(self, id: int) -> None:
         employees = self.get_all_employees()
-        for employee in employees:
+        for i, employee in enumerate(employees):
             if employee.id == id:
-                self.employees.remove(employee)
+                self.employees[i] = None
 
     def create_destination(self, destination: Destination) -> None:
         destination = deepcopy(destination)
-        destination.id = self.employee_id_mark
-        self.employee_id_mark += 1
+        destination.id = len(self.destinations) - 1
         self.destinations.append(destination)
 
     def get_all_destinations(self) -> list[Destination]:
@@ -49,21 +43,22 @@ class MockDataWrapper:
 
     def update_destination(self, destination: Destination) -> None:
         try:
-            idx = destination.id
+            idx = self.get_destination_index(destination.id)
+            if idx is None:
+                return None
             self.destinations[idx] = deepcopy(destination)
         except ValueError:
             pass
 
     def delete_destination(self, destination_id: int) -> None:
         destinations = self.get_all_destinations()
-        for destination in destinations:
+        for i, destination in enumerate(destinations):
             if destination.id == destination_id:
-                self.destinations.remove(destination)
+                self.destinations[i] = None
 
     def create_plane(self, plane: Plane) -> None:
         plane = deepcopy(plane)
-        plane.id = self.plane_id_mark
-        self.plane_id_mark += 1
+        plane.id = len(self.planes) - 1
         self.planes.append(plane)
 
     def get_all_planes(self: Plane) -> list[Plane]:
@@ -72,20 +67,21 @@ class MockDataWrapper:
     def update_plane(self, plane: Plane) -> None:
         try:
             idx = plane.id
+            if idx is None:
+                return
             self.planes[idx] = deepcopy(plane)
         except ValueError:
             pass
 
     def delete_plane(self, plane_id: int) -> None:
         planes = self.get_all_planes()
-        for plane in planes:
+        for i, plane in enumerate(planes):
             if plane.id == plane_id:
-                self.planes.remove(plane)
+                self.planes[i] = None
 
     def create_voyage(self, voyage: Voyage) -> None:
         voyage = deepcopy(voyage)
-        voyage.id = self.voyage_id_mark
-        self.voyage_id_mark += 1
+        voyage.id = len(self.voyages) - 1
         self.voyages.append(voyage)
 
     def get_all_voyages(self) -> list[Voyage]:
@@ -94,20 +90,21 @@ class MockDataWrapper:
     def update_voyage(self, voyage: Voyage) -> None:
         try:
             idx = self.get_voyage_index(voyage.id)
+            if idx is None:
+                return
             self.voyages[idx] = deepcopy(voyage)
         except ValueError:
             pass
 
     def cancel_voyage(self, voyage_id: int) -> None:
         voyages = self.get_all_voyages()
-        for voyage in voyages:
+        for i, voyage in enumerate(voyages):
             if voyage.id == voyage_id:
-                self.voyages.remove(voyage)
+                self.voyages[i] = None
 
     def create_flight(self, flight: Flight) -> None:
         flight = deepcopy(flight)
-        flight.id = self.flight_id_mark
-        self.flight_id_mark += 1
+        flight.id = len(self.flights) - 1
         self.flights.append(flight)
 
     def get_all_flights(self) -> list[Flight]:
@@ -116,6 +113,8 @@ class MockDataWrapper:
     def update_flight(self, flight: Flight) -> None:
         try:
             idx = self.get_flight_index(flight)
+            if idx is None:
+                return
             self.flights[idx] = deepcopy(flight)
         except ValueError:
             pass

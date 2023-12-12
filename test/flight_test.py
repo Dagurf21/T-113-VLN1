@@ -32,7 +32,7 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
         date = datetime.datetime.now()
-        flight_logic.create_flight(0, 1, date, "01:00:00")
+        flight_logic.create_flight(0, 1, date, datetime.time(1, 00))
 
         self.assertIsNotNone(data.get_flight(0))
         self.assertEqual(data.get_flight(0), Flight(
@@ -194,17 +194,20 @@ class TestFlight(unittest.TestCase):
                 arrival_time=datetime.time(22, 00),
             ),
         ]
+        for flight in flights:
+            data.create_flight(flight)
+
         data.create_flight(Flight(
             flight_number="NA010",
-            departure=1,
-            destination=0,
+            departure=0,
+            destination=2,
             date=datetime.date(2023, 12, 6),
             departure_time=datetime.time(13, 00),
             arrival_time=datetime.time(16, 00),
         ))
 
-        res = flight_logic.flights_going_to()
-        raise NotImplementedError()
+        res = flight_logic.flights_going_to(1)
+        self.assertEqual(len(flights), len(res))
     
     def test_calculate_arrival_time(self):
         data = MockDataWrapper()
@@ -213,9 +216,10 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[0])
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
-        # TODO: Should this take datetime in instead
-        #self.assertEqual(flight_logic.calculate_arrival_time("03:20", 1), timedelta(hours=))
-        raise NotImplementedError()
+        departure = datetime.datetime(2023, 10, 25, 0, 0)
+        arrival = flight_logic.calculate_arrival_time(departure.date(), departure.time(), 1)
+
+        self.assertEqual(arrival, datetime.datetime(2023, 10, 25, 3, 20))
     
     def test_add_staff_to_flights(self):
         raise NotImplementedError()
@@ -313,25 +317,6 @@ class TestFlight(unittest.TestCase):
         self.assertNotEqual(data.get_first_flight().date, datetime.date(1, 1, 1))
         self.assertEqual(data.get_first_flight().departure_time, datetime.time(1, 1))
         self.assertEqual(data.get_first_flight().arrival_time, datetime.time(1, 1))
-
-    def test_delete_flight(self):
-        data = MockDataWrapper()
-        flight_logic = FlightLogic(data)
-
-        data.create_destination(self.MOCK_DESTINATIONS[0])
-        data.create_destination(self.MOCK_DESTINATIONS[1])
-
-        data.create_flight(Flight(
-            flight_number="NA010",
-            departure=0,
-            destination=1,
-            date=datetime.date(2023, 12, 4),
-            departure_time=datetime.time(15, 00),
-            arrival_time=datetime.time(17, 00),
-        ))
-
-        flight_logic.delete_flight("NA010", "what...?")
-        raise NotImplementedError
     
     def test_assign_pilot(self):
         data = MockDataWrapper()
