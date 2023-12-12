@@ -134,7 +134,7 @@ class VoyageUI(UIWidget):
                 "From": 6,
                 "DEST": 6,
                 "Seats": 5,
-                "Date": 8,
+                "Date": 10,
                 "Return date": 11,
                 "Status": 15,
             },
