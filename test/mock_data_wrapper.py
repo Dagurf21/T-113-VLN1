@@ -71,7 +71,7 @@ class MockDataWrapper:
 
     def update_plane(self, plane: Plane) -> None:
         try:
-            idx = self.planes.index(plane)
+            idx = plane.id
             self.planes[idx] = deepcopy(plane)
         except ValueError:
             pass
@@ -93,7 +93,7 @@ class MockDataWrapper:
 
     def update_voyage(self, voyage: Voyage) -> None:
         try:
-            idx = self.voyages.index(voyage)
+            idx = voyage.id
             self.voyages[idx] = deepcopy(voyage)
         except ValueError:
             pass
