@@ -11,33 +11,12 @@
 #         Flight_route_logic
 #         Plane_logic
 
-import bcrypt
 
-# example password
-password = "123"
+class Baba:
+    def __init__(self) -> None:
+        print("Boom")
 
-# converting password to array of bytes
-bbytes = password.encode("utf-8")
 
-# generating the salt
-salt = bcrypt.gensalt()
+Baba()
 
-# Hashing the password
-hash = bcrypt.hashpw(bbytes, salt)
-
-print(hash)
-decoded = hash.decode("utf-8")
-print(decoded)
-encoded = decoded.encode("utf-8")
-print(encoded)
-
-# Taking user entered password
-userPassword = "123"
-
-# encoding user password
-userBytes = userPassword.encode("utf-8")
-
-# checking password
-result = bcrypt.checkpw(userBytes, decoded)
-
-print(result)
+Baba.explode()

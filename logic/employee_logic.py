@@ -78,3 +78,26 @@ class EmployeeLogic:
         """Deletes a employee object with the given id"""
         return self.data_wrapper.delete_employee(employee_id)
 
+    def validate_employee(self, employee) -> bool:
+        """Validates an employee and returns a
+        valid(True) or invalid(False)"""
+
+    def validate_employee(self, employee):
+        """Validates a given employee"""
+        employee_job_title = type(employee).__name__
+
+        is_ssn_valid = self.validate.ssn(employee.ssn)
+        is_mobile_phone_valid = self.validate.phone_number(employee.mobile_phone)
+        is_phone_valid = self.validate.phone_number(employee.mobile_phone)
+        is_email_valid = self.validate.email(employee.email)
+        if employee.home_phone is not None:
+            is_phone_valid = is_phone_valid and self.validate.phone_number(
+                employee.home_phone
+            )
+        
+        if employee_job_title == "Pilot" or employee_job_title =="FlightAttendant":
+            self.
+
+        return (
+            is_ssn_valid and is_mobile_phone_valid and is_email_valid and is_phone_valid
+        )
