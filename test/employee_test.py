@@ -121,110 +121,110 @@ class TestEmployee(unittest.TestCase):
         self.MOCK_EMPLOYEES.extend(self.MOCK_FLIGHT_ATTENDANTS)
 
     def test_create_employee_invalid_ssn(self):
-        pass
+        raise NotImplementedError
 
     def test_create_employee_invalid_mobile_phone(self):
-        pass
+        raise NotImplementedError
 
     def test_create_employee_invalid_email(self):
-        pass
+        raise NotImplementedError
 
     def test_create_employee_invalid_home_phone(self):
-        pass
+        raise NotImplementedError
 
     def test_create_employee_manager_valid(self):
-        pass
+        raise NotImplementedError
 
     def test_create_employee_manager_invalid_work_phone(self):
-        pass
+        raise NotImplementedError
 
     def test_create_employee_flight_manager_valid(self):
-        pass
+        raise NotImplementedError
 
     def test_create_employee_flight_manager_invalid_work_phone(self):
-        pass
+        raise NotImplementedError
 
     def test_create_employee_flight_attendant_valid(self):
-        pass
+        raise NotImplementedError
 
     def test_create_employee_flight_attendant_invalid_assignments(self):
-        pass
+        raise NotImplementedError
 
     def test_create_employee_pilot_valid(self):
-        pass
+        raise NotImplementedError
 
     def test_create_employee_pilot_invalid_assignments(self):
-        pass
+        raise NotImplementedError
 
     def test_create_employee_pilot_invalid_license(self):
-        pass
+        raise NotImplementedError
 
     def test_get_all_employees(self):
-        pass
+        raise NotImplementedError
 
     def test_get_employee(self):
-        pass
+        raise NotImplementedError
 
     def test_get_employee_by_email(self):
-        pass
+        raise NotImplementedError
 
     def test_get_employee_by_job(self):
-        pass
+        raise NotImplementedError
 
     def test_get_all_pilots(self):
-        pass
+        raise NotImplementedError
 
     def test_get_pilots_by_license(self):
-        pass
+        raise NotImplementedError
 
     def test_update_employee_valid(self):
-        pass
+        raise NotImplementedError
     
     def test_update_employee_invalid_ssn(self):
-        pass
+        raise NotImplementedError
     
     def test_update_employee_invalid_mobile_phone(self):
-        pass
+        raise NotImplementedError
 
     def test_update_employee_invalid_email(self):
-        pass
+        raise NotImplementedError
 
     def test_update_employee_invalid_home_phone(self):
-        pass
+        raise NotImplementedError
 
     def test_update_employee_invalid_job(self):
-        pass
+        raise NotImplementedError
 
     def test_update_manager_valid(self):
-        pass
+        raise NotImplementedError
 
     def test_update_manager_invalid_work_phone(self):
-        pass
+        raise NotImplementedError
 
     def test_update_flight_manager_valid(self):
-        pass
+        raise NotImplementedError
 
     def test_update_flight_manager_invalid_work_phone(self):
-        pass
+        raise NotImplementedError
 
     def test_update_pilot_invalid_assignments(self):
-        pass
+        raise NotImplementedError
 
     def test_update_pilot_invalid_license(self):
-        pass
+        raise NotImplementedError
 
     def test_update_flight_attendant_valid(self):
-        pass
+        raise NotImplementedError
 
     def test_update_flight_attendant_invalid_assignments(self):
-        pass
+        raise NotImplementedError
 
     def test_delete_employee(self):
-        pass
+        raise NotImplementedError
 
     def test_is_employee_manager(self):
-        pass
+        raise NotImplementedError
 
     def test_is_employee_flight_manager(self):
-        pass
+        raise NotImplementedError
 
