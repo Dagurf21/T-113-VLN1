@@ -1,4 +1,4 @@
-from logic import Validator, Utilities, Plane
+from logic import Validator, Utilities, PlaneLogic
 from model import Employee, Pilot
 
 
@@ -7,7 +7,7 @@ class EmployeeLogic:
 
     def __init__(self, data_connection) -> None:
         self.data_wrapper = data_connection
-        self.plane = Plane(data_connection)
+        self.plane = PlaneLogic(data_connection)
         self.validate = Validator()
         self.utility = Utilities()
 
