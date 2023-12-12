@@ -54,10 +54,10 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[0])
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
-        date = datetime.datetime.now()
+        date = datetime.date.today()
         flight_logic.create_flight(9, 1, date, datetime.time(1, 00))
 
-        self.assertIsNone(data.get_flight(0))
+        self.assertIsNone(data.get_flight("NA010", date))
 
     def test_create_flight_invalid_arrival(self):
         data = MockDataWrapper()
@@ -66,10 +66,10 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[0])
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
-        date = datetime.datetime.now()
+        date = datetime.date.today()
         flight_logic.create_flight(0, -1, date, datetime.time(1, 00))
 
-        self.assertIsNone(data.get_flight(0))
+        self.assertIsNone(data.get_flight("NA010", date))
 
     def test_create_multiple_valid_flights(self):
         data = MockDataWrapper()
@@ -78,14 +78,15 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[0])
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
-        date = datetime.datetime.now()
+        date = datetime.date.today()
 
         flight_logic.create_flight(0, 1, date, datetime.time(1, 00))
         flight_logic.create_flight(1, 0, date, datetime.time(1, 30))
         flight_logic.create_flight(0, 1, date, datetime.time(2, 00))
 
-        self.assertIsNotNone(data.get_flight(0))
-        self.assertEqual(data.get_flight(0), Flight(
+        flight1 = data.get_flight("NA010", date)
+        self.assertIsNotNone(flight1)
+        self.assertEqual(flight1, Flight(
             flight_number="NA010",
             departure=0,
             destination=1,
@@ -94,18 +95,20 @@ class TestFlight(unittest.TestCase):
             arrival_time=datetime.time(4, 20),
         ))
         
-        self.assertIsNotNone(data.get_flight(1))
-        self.assertEqual(data.get_flight(1), Flight(
+        flight2 = data.get_flight("NA011", date)
+        self.assertIsNotNone(flight2)
+        self.assertEqual(flight2, Flight(
             flight_number="NA011",
-            departure=0,
-            destination=1,
+            departure=1,
+            destination=0,
             date=date,
             departure_time=datetime.time(1, 30),
             arrival_time=datetime.time(4, 50),
         ))
 
-        self.assertIsNotNone(data.get_flight(2))
-        self.assertEqual(data.get_flight(2), Flight(
+        flight3 = data.get_flight("NA012", date)
+        self.assertIsNotNone(flight3)
+        self.assertEqual(flight3, Flight(
             flight_number="NA012",
             departure=0,
             destination=1,
