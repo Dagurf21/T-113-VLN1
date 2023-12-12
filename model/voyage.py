@@ -5,6 +5,13 @@ from model.pilot import Pilot
 from model.flight_attendant import FlightAttendant
 import enum
 
+class VoyageStatus(enum.Enum):
+    Cancelled = 0,
+    NotStarted = 1,
+    InTheAir = 2,
+    LandedAbroad = 3,
+    Finished = 4,
+
 @dataclass(kw_only=True)
 class Voyage:
     id: int = None
@@ -21,12 +28,5 @@ class Voyage:
     return_date: datetime.datetime
     status: VoyageStatus
     # Status options: Finished, Landed abroad, In the Air, Not started, Cancelled 
-
-class VoyageStatus(enum.Enum):
-    Cancelled,
-    NotStarted,
-    InTheAir,
-    LandedAbroad,
-    Finished,
 
 # TODO: Swap status for enum?

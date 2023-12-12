@@ -1,4 +1,4 @@
-from model import Voyage
+from model import Voyage, VoyageStatus
 from logic import Validator, FlightLogic
 import datetime
 
@@ -31,7 +31,7 @@ class VoyageLogic:
                 arrival_flight = arrival_flight,
                 date = date,
                 return_date = return_departure_date,
-                status = "Not started",
+                status = VoyageStatus.NotStarted,
             )
         )
 
@@ -48,12 +48,12 @@ class VoyageLogic:
             departure_flight = self.flight_logic.get_flight(Voyage.departure_flight)
             arrival_flight = self.flight_logic.get_flight(Voyage.arrival_flight)
             
-            if Voyage.status == "Cancelled":
+            if Voyage.status == VoyageStatus.Cancelled:
                 pass
             
             # If the flight date has not been reached yet
             elif Voyage.date < now:
-                Voyage.status = "Not started"
+                Voyage.status = VoyageStatus.NotStarted
             
             # If the flight is today
             elif Voyage.date == now:
@@ -63,26 +63,26 @@ class VoyageLogic:
                     
                     # If the flight has not arrived at it's destination
                     if current_time < departure_flight.arrival_time:
-                        Voyage.status = "In the Air"
+                        Voyage.status = VoyageStatus.InTheAir
                     
                     # If the time is past the arrival time abroad
                     # and not reached the return flights departure time
                     elif departure_flight.arrival_time <= current_time < arrival_flight.departure_time:
-                        Voyage.status = "Landed abroad"
+                        Voyage.status = VoyageStatus.LandedAbroad
                     
                     # If the time is past the return flight departure time
                     # and not past its arrival time
                     elif arrival_flight.departure_time <= current_time < arrival_flight.arrival_time:
-                        Voyage.status = "In the Air"
+                        Voyage.status = VoyageStatus.InTheAir
                     
                     else:
-                        Voyage.status = "Finished"
+                        Voyage.status = VoyageStatus.Finished
                 
                 else: 
-                    Voyage.status = "Not started"
+                    Voyage.status = VoyageStatus.NotStarted
             
             else:
-                Voyage.status = "Finished"
+                Voyage.status = VoyageStatus.Finished
             
         return all_voyages
 
