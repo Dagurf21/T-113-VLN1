@@ -263,7 +263,12 @@ class TestEmployee(unittest.TestCase):
         for employee in self.MOCK_EMPLOYEES:
             data.create_employee(employee)
 
-        self.assertListEqual(self.MOCK_EMPLOYEES, employee_logic.get_all_employees())
+        employee_list = []
+        for employee in employee_logic.get_all_employees():
+            employee.id = None
+            employee_list.append(employee)
+
+        self.assertListEqual(self.MOCK_EMPLOYEES, employee_list)
 
     def test_get_employee(self):
         data = MockDataWrapper()
@@ -272,7 +277,10 @@ class TestEmployee(unittest.TestCase):
         for employee in self.MOCK_EMPLOYEES:
             data.create_employee(employee)
 
-        self.assertEqual(self.MOCK_EMPLOYEES[5], employee_logic.get_employee(5))
+        gotten_employee = employee_logic.get_employee(5)
+        gotten_employee.id = None
+
+        self.assertEqual(self.MOCK_EMPLOYEES[5], gotten_employee)
 
     def test_get_employee_by_email(self):
         data = MockDataWrapper()
@@ -282,7 +290,10 @@ class TestEmployee(unittest.TestCase):
             data.create_employee(employee)
 
         expect = self.MOCK_EMPLOYEES[5]
-        self.assertEqual(expect, employee_logic.get_employee_by_email(expect.email))
+        gotten_employee = employee_logic.get_employee_by_email(expect.email)
+        gotten_employee.id = None
+
+        self.assertEqual(expect, gotten_employee)
 
     def test_get_employee_by_job(self):
         data = MockDataWrapper()
@@ -291,9 +302,13 @@ class TestEmployee(unittest.TestCase):
         for employee in self.MOCK_EMPLOYEES:
             data.create_employee(employee)
 
-        self.assertListEqual(
-            self.MOCK_PILOTS, employee_logic.get_employees_by_job("Pilot")
-        )
+        pilot_list = []
+        gotten_pilots = employee_logic.get_employees_by_job("Pilot")
+        for pilot in gotten_pilots:
+            pilot.id = None
+            pilot_list.append(pilot)
+
+        self.assertListEqual(self.MOCK_PILOTS, pilot_list)
 
     def test_get_all_pilots(self):
         data = MockDataWrapper()
