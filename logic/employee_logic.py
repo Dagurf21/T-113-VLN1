@@ -12,8 +12,11 @@ class EmployeeLogic:
 
     def create_employee(self, employee) -> None:
         """Takes in a employee object and forwards it to the data layer"""
-        employee.password = self.utility.password_encoder(employee.password)
-        return self.data_wrapper.create_employee(employee)
+        if self.validate_employee(employee):
+            employee.password = self.utility.password_encoder(employee.password)
+            return self.data_wrapper.create_employee(employee)
+        else:
+            return None
 
     def get_all_employees(self) -> list["Employee"]:
         """Returns a list of all employees"""
@@ -58,17 +61,17 @@ class EmployeeLogic:
         pilot_list.sort()
         return pilot_list
 
-    def get_pilots_by_liscense(self, liscense) -> list["Pilot"]:
-        """Returns a list of pilots with the given liscense"""
+    def get_pilots_by_license(self, license) -> list["Pilot"]:
+        """Returns a list of pilots with the given license"""
         pilot_list = self.get_all_pilots()
 
-        pilots_with_the_liscense = []
+        pilots_with_the_license = []
 
         for pilot in pilot_list:
-            if type(pilot).__name__ == liscense:
-                pilots_with_the_liscense.append(pilot)
+            if type(pilot).__name__ == license:
+                pilots_with_the_license.append(pilot)
 
-        return pilots_with_the_liscense
+        return pilots_with_the_license
 
     def update_employee(self, employee) -> None:
         """Updates a employee object with the given id"""
@@ -78,3 +81,33 @@ class EmployeeLogic:
         """Deletes a employee object with the given id"""
         return self.data_wrapper.delete_employee(employee_id)
 
+    def validate_employee(self, employee):
+        """Validates a given employee"""
+        employee_job_title = type(employee).__name__
+
+        is_employee_valid = True
+        is_ssn_valid = self.validate.ssn(employee.ssn)
+        is_mobile_phone_valid = self.validate.phone_number(employee.mobile_phone)
+        is_phone_valid = self.validate.phone_number(employee.mobile_phone)
+        is_email_valid = self.validate.email(employee.email)
+        if employee.home_phone is not None:
+            is_phone_valid = is_phone_valid and self.validate.phone_number(
+                employee.home_phone
+            )
+
+        if employee_job_title == "Pilot" or employee_job_title == "FlightAttendant":
+            try:
+                is_liscense_valid = self.validate.licenses(employee.liscense)
+                is_employee_valid = is_employee_valid and is_liscense_valid
+                raise Exception("Pilot verify over")
+            except AttributeError:
+                is_assignments_valid = self.validate.assignments(employee.assignments)
+                is_employee_valid = is_employee_valid and is_assignments_valid
+
+        return (
+            is_employee_valid
+            and is_ssn_valid
+            and is_mobile_phone_valid
+            and is_email_valid
+            and is_phone_valid
+        )

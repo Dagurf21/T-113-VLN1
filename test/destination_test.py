@@ -7,7 +7,6 @@ from model import Destination
 class TestDestinations(unittest.TestCase):
     MOCK_DESTINATIONS = [
         Destination(
-            id=0,
             country="Test",
             airport="BIRK",
             distance_km=0,
@@ -16,7 +15,6 @@ class TestDestinations(unittest.TestCase):
             emergency_number="581-2345",
         ),
         Destination(
-            id=1,
             country="Greenland",
             airport="BGGH",
             distance_km=1427,
