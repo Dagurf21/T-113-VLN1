@@ -1,8 +1,8 @@
-from ui import UIWidget, EmployeeUI, PlaneUI, VoyageUI, DestinationUI
+from ui import UIElement, EmployeeUI, PlaneUI, VoyageUI, DestinationUI
 from model import Employee, Manager, FlightManager, FlightAttendant, Pilot
 from logic import LogicWrapper
 
-class MainMenuUI(UIWidget):
+class MainMenuUI(UIElement):
     def __init__(self, user: Employee, logic_wrapper: LogicWrapper):
         self.user = user
         self.logic_wrapper = logic_wrapper
