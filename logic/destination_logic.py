@@ -32,7 +32,10 @@ class DestinationLogic:
 
     def update_destination(self, destination_data) -> None:
         """Updates a destination object with the given id"""
-        return self.data_wrapper.update_destination(destination_data)
+        if self.validate_destination(destination_data):
+            return self.data_wrapper.update_destination(destination_data)
+        else:
+            raise Exception("invalid destination info")
 
     def delete_destination(self, destination_id) -> None:
         """Deletes a destination object with the given id"""
