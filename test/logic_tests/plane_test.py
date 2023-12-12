@@ -1,6 +1,6 @@
 import unittest
 from logic.plane_logic import *
-from test.mock_data_wrapper import MockDataWrapper
+from .mock_data_wrapper import MockDataWrapper
 from model import *
 from copy import copy
 

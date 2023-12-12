@@ -1,7 +1,7 @@
 import unittest
 
 from logic.destination_logic import DestinationLogic
-from test.mock_data_wrapper import MockDataWrapper
+from .mock_data_wrapper import MockDataWrapper
 from model import Destination
 
 

@@ -1,6 +1,6 @@
 import unittest
 from logic.voyage_logic import *
-from test.mock_data_wrapper import MockDataWrapper
+from .mock_data_wrapper import MockDataWrapper
 import datetime
 from model import *
 

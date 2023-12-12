@@ -1,7 +1,7 @@
 import unittest
 import datetime
 from logic.employee_logic import *
-from test.mock_data_wrapper import MockDataWrapper
+from .mock_data_wrapper import MockDataWrapper
 from model import *
 from copy import deepcopy
 
