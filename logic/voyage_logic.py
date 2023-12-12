@@ -12,12 +12,12 @@ class VoyageLogic:
         self.flight_logic = FlightLogic(data_connection)
         
 
-    def create_voyage(self, plane_id: int, destination_id: int, date: datetime, return_date: datetime, departure_time: datetime, return_time: datetime, sold_seats: int, flight_attendants: list[int], pilots: list[int]) -> None:
+    def create_voyage(self, plane_id: int, destination_id: int, date: datetime, return_departure_date: datetime, departure_time: datetime, return_departure_time: datetime, sold_seats: int, flight_attendants: list[int], pilots: list[int]) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
         # flight_data = Flight(date=data.date,destination=data.destination)
         # create_flight(flight_data)
         departure_flight = self.flight_logic.create_flight(0, destination_id, date, departure_time)
-        arrival_flight = self.flight_logic.create_flight(destination_id, 0, return_date, return_date, return_time)
+        arrival_flight = self.flight_logic.create_flight(destination_id, 0, return_departure_date, return_departure_time)
         # TODO return date
         self.data_wrapper.create_voyage(
             Voyage(
@@ -28,10 +28,10 @@ class VoyageLogic:
                 flight_attendants = flight_attendants,
                 departure_time = departure_time,
                 departure_flight = departure_flight,
-                arrival_departure_time = return_time,
+                arrival_departure_time = return_departure_time,
                 arrival_flight = arrival_flight,
                 date = date,
-                return_date = return_date,
+                return_date = return_departure_date,
                 status = "Not started",
             )
         )
