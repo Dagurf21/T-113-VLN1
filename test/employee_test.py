@@ -4,10 +4,10 @@ from test.mock_data_wrapper import MockDataWrapper
 from model import *
 from copy import deepcopy
 
-class TestEmployee(unittest.TestCase):
 
+class TestEmployee(unittest.TestCase):
     MOCK_MANAGERS = [
-       Manager(
+        Manager(
             name="Bob",
             password="123bobistheman",
             address="bobstreet",
@@ -22,14 +22,14 @@ class TestEmployee(unittest.TestCase):
             password="1234",
             address="45 John St.",
             ssn="1112233219",
-            mobile_phone="919-",
+            mobile_phone="919-2934",
             email="jonn@nanair.is",
             home_phone=None,
             work_phone="912-3213",
-        )
+        ),
     ]
     MOCK_FLIGHT_MANAGERS = [
-       FlightManager(
+        FlightManager(
             name="Steve",
             password="abc",
             address="99 St. St.",
@@ -48,20 +48,9 @@ class TestEmployee(unittest.TestCase):
             email="peter@nanair.is",
             home_phone="623-1346",
             work_phone="919-9191",
-        )
+        ),
     ]
     MOCK_PILOTS = [
-       Pilot(
-            name="George",
-            password="securityexpert",
-            address="12 George Av.",
-            ssn="1112232569",
-            mobile_phone="612-6342",
-            email="george@nanair.is",
-            home_phone="916-2345",
-            assignments=[],
-            license="C750",
-        ),
         Pilot(
             name="Tom",
             password="AAAAAAA",
@@ -72,10 +61,21 @@ class TestEmployee(unittest.TestCase):
             home_phone=None,
             assignments=[],
             license="C150",
-        )
+        ),
+        Pilot(
+            name="George",
+            password="securityexpert",
+            address="12 George Av.",
+            ssn="1112232569",
+            mobile_phone="612-6342",
+            email="george@nanair.is",
+            home_phone="916-2345",
+            assignments=[],
+            license="C750",
+        ),
     ]
     MOCK_FLIGHT_ATTENDANTS = [
-       FlightAttendant(
+        FlightAttendant(
             name="Geoff",
             password="creativitydeclining",
             address="1 Geoff Park",
@@ -94,7 +94,7 @@ class TestEmployee(unittest.TestCase):
             email="lois@nanair.is",
             home_phone="421-6423",
             assignments=[],
-        )
+        ),
     ]
 
     VOYAGE_TEMPLATE = Voyage(
@@ -109,11 +109,11 @@ class TestEmployee(unittest.TestCase):
         arrival_flight=0,
         date=datetime(1, 1, 1),
         return_date=datetime(1, 1, 1),
-        status=""
+        status="",
     )
-    
+
     MOCK_EMPLOYEES = []
-    
+
     def setUp(self):
         self.MOCK_EMPLOYEES.clear()
         self.MOCK_EMPLOYEES.extend(self.MOCK_MANAGERS)
@@ -127,7 +127,7 @@ class TestEmployee(unittest.TestCase):
 
         employee = deepcopy(self.MOCK_EMPLOYEES[1])
         employee.ssn = "asa124839"
-    
+
         employee_logic.create_employee(employee)
         self.assertIsNone(data.get_first_employee())
 
@@ -137,7 +137,7 @@ class TestEmployee(unittest.TestCase):
 
         employee = deepcopy(self.MOCK_EMPLOYEES[1])
         employee.mobile_phone = "asd-1234"
-    
+
         employee_logic.create_employee(employee)
         self.assertIsNone(data.get_first_employee())
 
@@ -147,7 +147,7 @@ class TestEmployee(unittest.TestCase):
 
         employee = deepcopy(self.MOCK_EMPLOYEES[1])
         employee.email = "asd1234.@asd"
-    
+
         employee_logic.create_employee(employee)
         self.assertIsNone(data.get_first_employee())
 
@@ -157,7 +157,7 @@ class TestEmployee(unittest.TestCase):
 
         employee = deepcopy(self.MOCK_EMPLOYEES[1])
         employee.home_phone = "asd-1234"
-    
+
         employee_logic.create_employee(employee)
         self.assertIsNone(data.get_first_employee())
 
@@ -174,14 +174,14 @@ class TestEmployee(unittest.TestCase):
 
         employee = deepcopy(self.MOCK_MANAGERS[0])
         employee.work_phone = "asd-1234"
-    
+
         employee_logic.create_employee(employee)
         self.assertIsNone(data.get_first_employee())
 
     def test_create_employee_flight_manager_valid(self):
         data = MockDataWrapper()
         employee_logic = EmployeeLogic(data)
-    
+
         employee_logic.create_employee(self.MOCK_FLIGHT_MANAGERS[0])
         self.assertIsNotNone(data.get_first_employee())
 
@@ -191,14 +191,14 @@ class TestEmployee(unittest.TestCase):
 
         employee = deepcopy(self.MOCK_FLIGHT_MANAGERS[0])
         employee.work_phone = "asd-1234"
-    
+
         employee_logic.create_employee(employee)
         self.assertIsNone(data.get_first_employee())
 
     def test_create_employee_flight_attendant_valid(self):
         data = MockDataWrapper()
         employee_logic = EmployeeLogic(data)
-    
+
         employee_logic.create_employee(self.MOCK_FLIGHT_ATTENDANTS[0])
         self.assertIsNotNone(data.get_first_employee())
 
@@ -208,7 +208,7 @@ class TestEmployee(unittest.TestCase):
 
         employee = deepcopy(self.MOCK_FLIGHT_ATTENDANTS[0])
         employee.assignments = [9, 2, 2]
-    
+
         employee_logic.create_employee(employee)
         self.assertIsNone(data.get_first_employee())
 
@@ -216,19 +216,23 @@ class TestEmployee(unittest.TestCase):
         data = MockDataWrapper()
         employee_logic = EmployeeLogic(data)
 
-        data.create_plane(Plane(
-            name="",
-            ty="C750",
-            manufacturer="",
-            capacity=0,
-        ))
-        data.create_plane(Plane(
-            name="",
-            ty="C150",
-            manufacturer="",
-            capacity=0,
-        ))
-    
+        data.create_plane(
+            Plane(
+                name="",
+                ty="C750",
+                manufacturer="",
+                capacity=0,
+            )
+        )
+        data.create_plane(
+            Plane(
+                name="",
+                ty="C150",
+                manufacturer="",
+                capacity=0,
+            )
+        )
+
         employee_logic.create_employee(self.MOCK_PILOTS[0])
         self.assertIsNotNone(data.get_first_employee())
 
@@ -238,7 +242,7 @@ class TestEmployee(unittest.TestCase):
 
         employee = deepcopy(self.MOCK_PILOTS[0])
         employee.assignments = [9, 2, 3, 2]
-    
+
         employee_logic.create_employee(employee)
         self.assertIsNone(data.get_first_employee())
 
@@ -247,78 +251,107 @@ class TestEmployee(unittest.TestCase):
         employee_logic = EmployeeLogic(data)
 
         employee = deepcopy(self.MOCK_PILOTS[0])
-        employee.assignments = "C128"
-    
+        employee.license = "C128"
+
         employee_logic.create_employee(employee)
         self.assertIsNone(data.get_first_employee())
 
     def test_get_all_employees(self):
         data = MockDataWrapper()
         employee_logic = EmployeeLogic(data)
-        
+
         for employee in self.MOCK_EMPLOYEES:
             data.create_employee(employee)
 
-        self.assertListEqual(self.MOCK_EMPLOYEES, employee_logic.get_all_employees())
+        employee_list = []
+        for employee in employee_logic.get_all_employees():
+            employee.id = None
+            employee_list.append(employee)
+
+        self.assertListEqual(self.MOCK_EMPLOYEES, employee_list)
 
     def test_get_employee(self):
         data = MockDataWrapper()
         employee_logic = EmployeeLogic(data)
-        
+
         for employee in self.MOCK_EMPLOYEES:
             data.create_employee(employee)
 
-        self.assertEqual(self.MOCK_EMPLOYEES[5], employee_logic.get_employee(5))
+        gotten_employee = employee_logic.get_employee(5)
+        gotten_employee.id = None
+
+        self.assertEqual(self.MOCK_EMPLOYEES[5], gotten_employee)
 
     def test_get_employee_by_email(self):
         data = MockDataWrapper()
         employee_logic = EmployeeLogic(data)
-        
+
         for employee in self.MOCK_EMPLOYEES:
             data.create_employee(employee)
 
         expect = self.MOCK_EMPLOYEES[5]
-        self.assertEqual(expect, employee_logic.get_employee_by_email(expect.email))
+        gotten_employee = employee_logic.get_employee_by_email(expect.email)
+        gotten_employee.id = None
+
+        self.assertEqual(expect, gotten_employee)
 
     def test_get_employee_by_job(self):
         data = MockDataWrapper()
         employee_logic = EmployeeLogic(data)
-        
+
         for employee in self.MOCK_EMPLOYEES:
             data.create_employee(employee)
 
-        self.assertListEqual(self.MOCK_PILOTS, employee_logic.get_employees_by_job("Pilot"))
+        pilot_list = []
+        gotten_pilots = employee_logic.get_employees_by_job("Pilot")
+        for pilot in gotten_pilots:
+            pilot.id = None
+            pilot_list.append(pilot)
+
+        self.assertListEqual(self.MOCK_PILOTS, pilot_list)
 
     def test_get_all_pilots(self):
         data = MockDataWrapper()
         employee_logic = EmployeeLogic(data)
-        
+
         for employee in self.MOCK_EMPLOYEES:
             data.create_employee(employee)
 
-        self.assertListEqual(self.MOCK_PILOTS, employee_logic.get_all_pilots())
+        pilot_list = []
+        for pilot in employee_logic.get_all_pilots():
+            pilot.id = None
+            pilot_list.append(pilot)
+
+        self.assertListEqual(self.MOCK_PILOTS, pilot_list)
 
     def test_get_pilots_by_license(self):
         data = MockDataWrapper()
         employee_logic = EmployeeLogic(data)
 
-        data.create_plane(Plane(
-            name="",
-            ty="C750",
-            manufacturer="",
-            capacity=0,
-        ))
-        data.create_plane(Plane(
-            name="",
-            ty="C150",
-            manufacturer="",
-            capacity=0,
-        ))
+        data.create_plane(
+            Plane(
+                name="",
+                ty="C750",
+                manufacturer="",
+                capacity=0,
+            )
+        )
+        data.create_plane(
+            Plane(
+                name="",
+                ty="C150",
+                manufacturer="",
+                capacity=0,
+            )
+        )
 
         data.create_employee(self.MOCK_PILOTS[0])
         data.create_employee(self.MOCK_PILOTS[1])
 
-        self.assertListEqual([self.MOCK_PILOTS[0]], employee_logic.get_pilots_by_liscense("C750"))
+        gotten_pilot = employee_logic.get_pilots_by_license("C750")
+        gotten_pilot[0].id = None
+
+        self.assertListEqual([self.MOCK_PILOTS[1]], gotten_pilot)
 
     def test_update_employee_valid(self):
         data = MockDataWrapper()
@@ -329,6 +362,7 @@ class TestEmployee(unittest.TestCase):
 
         prev_pw = employee.password
 
+        employee.id = 0
         employee.address = "TEST"
         employee.password = "54321"
         employee.mobile_phone = "123-1234"
@@ -354,7 +388,7 @@ class TestEmployee(unittest.TestCase):
         employee_logic.update_employee(employee)
 
         self.assertNotEqual(data.get_first_employee().address, "TEST")
-    
+
     def test_update_employee_invalid_mobile_phone(self):
         data = MockDataWrapper()
         employee_logic = EmployeeLogic(data)
@@ -449,18 +483,22 @@ class TestEmployee(unittest.TestCase):
         voyage = deepcopy(self.VOYAGE_TEMPLATE)
         data.create_voyage(voyage)
 
-        data.create_plane(Plane(
-            name="",
-            ty="C750",
-            manufacturer="",
-            capacity=0,
-        ))
-        data.create_plane(Plane(
-            name="",
-            ty="C150",
-            manufacturer="",
-            capacity=0,
-        ))
+        data.create_plane(
+            Plane(
+                name="",
+                ty="C750",
+                manufacturer="",
+                capacity=0,
+            )
+        )
+        data.create_plane(
+            Plane(
+                name="",
+                ty="C150",
+                manufacturer="",
+                capacity=0,
+            )
+        )
 
         employee.assignments = [0]
         employee.license = "C150"
@@ -529,6 +567,7 @@ class TestEmployee(unittest.TestCase):
 
         id_to_delete = 2
         employee_logic.delete_employee(id_to_delete)
-        expect = [employee for employee in self.MOCK_EMPLOYEES if employee.id != id_to_delete]
+        expect = [
+            employee for employee in self.MOCK_EMPLOYEES if employee.id != id_to_delete
+        ]
         self.assertListEqual(expect, data.get_all_employees())
-
