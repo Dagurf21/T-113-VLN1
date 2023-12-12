@@ -83,20 +83,51 @@ class VoyageLogic:
         """Returns a list of all voyages"""
 
         all_voyages = self.data_wrapper.get_all_voyages()
-        now = datetime.datetime.now
+        now = datetime.datetime.now()
+        current_time = datetime.time(hour = now.hour, minute = now.minute, second = now.second)
+        now = datetime.date(year = now.year, month = now.month, day = now.day)
 
         for Voyage in all_voyages:
+            # Status options: Finished, Landed abroad, In the Air, Not started, Cancelled
+            departure_flight = self.flight_logic.get_flight(Voyage.departure_flight)
+            arrival_flight = self.flight_logic.get_flight(Voyage.arrival_flight)
             
-            if Voyage.date == now:
-                Voyage.status = "IN AIR"
+            if Voyage.status == "Cancelled":
+                pass
             
-            elif Voyage.date > now:
-                Voyage.status = ""
+            # If the flight date has not been reached yet
+            elif Voyage.date < now:
+                Voyage.status = "Not started"
+            
+            # If the flight is today
+            elif Voyage.date == now:
+                
+                # If the departure time has been reached
+                if Voyage.departure_time <= current_time:
+                    
+                    # If the flight has not arrived at it's destination
+                    if current_time < departure_flight.arrival_time:
+                        Voyage.status = "In the Air"
+                    
+                    # If the time is past the arrival time abroad
+                    # and not reached the return flights departure time
+                    elif departure_flight.arrival_time <= current_time < arrival_flight.departure_time:
+                        Voyage.status = "Landed abroad"
+                    
+                    # If the time is past the return flight departure time
+                    # and not past its arrival time
+                    elif arrival_flight.departure_time <= current_time < arrival_flight.arrival_time:
+                        Voyage.status = "In the Air"
+                    
+                    else:
+                        Voyage.status = "Finished"
+                
+                else: 
+                    Voyage.status = "Not started"
             
             else:
-                Voyage.status = ""
+                Voyage.status = "Finished"
             
-
         return all_voyages
 
 
