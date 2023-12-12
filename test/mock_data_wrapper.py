@@ -11,11 +11,11 @@ class MockDataWrapper:
         self.planes: list[Plane] = []
 
     def get_all_employees(self) -> list[Employee]:
-        return deepcopy(self.employees)
+        return deepcopy([employee for employee in self.employees if employee is not None])
 
     def create_employee(self, employee: Employee) -> None:
         employee = deepcopy(employee)
-        employee.id = len(self.employees) - 1
+        employee.id = len(self.employees)
         self.employees.append(employee)
 
     def update_employee(self, employee: Employee) -> None:
@@ -38,11 +38,11 @@ class MockDataWrapper:
 
     def create_destination(self, destination: Destination) -> None:
         destination = deepcopy(destination)
-        destination.id = len(self.destinations) - 1
+        destination.id = len(self.destinations)
         self.destinations.append(destination)
 
     def get_all_destinations(self) -> list[Destination]:
-        return deepcopy(self.destinations)
+        return deepcopy([destination for destination in self.destinations if destination is not None])
 
     def update_destination(self, destination: Destination) -> None:
         try:
@@ -64,11 +64,11 @@ class MockDataWrapper:
 
     def create_plane(self, plane: Plane) -> None:
         plane = deepcopy(plane)
-        plane.id = len(self.planes) - 1
+        plane.id = len(self.planes)
         self.planes.append(plane)
 
     def get_all_planes(self: Plane) -> list[Plane]:
-        return deepcopy(self.planes)
+        return deepcopy([plane for plane in self.planes if plane is not None])
 
     def update_plane(self, plane: Plane) -> None:
         try:
@@ -90,11 +90,11 @@ class MockDataWrapper:
 
     def create_voyage(self, voyage: Voyage) -> None:
         voyage = deepcopy(voyage)
-        voyage.id = len(self.voyages) - 1
+        voyage.id = len(self.voyages)
         self.voyages.append(voyage)
 
     def get_all_voyages(self) -> list[Voyage]:
-        return deepcopy(self.voyages)
+        return deepcopy([voyage for voyage in self.voyages if voyage is not None])
 
     def update_voyage(self, voyage: Voyage) -> None:
         try:
@@ -116,11 +116,11 @@ class MockDataWrapper:
 
     def create_flight(self, flight: Flight) -> None:
         flight = deepcopy(flight)
-        flight.id = len(self.flights) - 1
+        flight.id = len(self.flights)
         self.flights.append(flight)
 
     def get_all_flights(self) -> list[Flight]:
-        return deepcopy(self.flights)
+        return deepcopy([flight for flight in self.flights if flight is not None])
 
     def update_flight(self, flight: Flight) -> None:
         try:
