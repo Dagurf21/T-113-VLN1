@@ -2,6 +2,7 @@ from model.voyage import Voyage
 import csv
 from tempfile import NamedTemporaryFile
 import shutil
+import datetime
 
 class VoyageData:
     def __init__(self) -> None:
@@ -40,10 +41,44 @@ class VoyageData:
             reader = csv.DictReader(csvfile)
 
             for row in reader:
-                ret_list.append(Voyage(id = int(row["id"]), destination = int(row["destination"]), sold_seats = int(row["sold_seats"]), plane = int(row["plane"]), pilots = row["pilots"], flight_attendants = row["attendants"], departure_time = row["departure_time"], departure_flight = row["departure_flight"], arrival_departure_time = row["arrival_departure_time"], arrival_flight = row["arrival_flight"], date = row["date"], return_date = row["return_date"], status = row["status"]))
+                dep_year, dep_month, dep_day = self.split_date(row["date"])
+                ret_year, ret_month, ret_day = self.split_date(row["return_date"])
+
+                dep_hour, dep_minute = self.split_time(row["departure_time"])
+                ret_hour, ret_minute = self.split_time(row["arrival_departure_time"])
+
+                ret_list.append(
+                    Voyage(
+                        id = int(row["id"]), 
+                        destination = int(row["destination"]), 
+                        sold_seats = int(row["sold_seats"]), 
+                        plane = int(row["plane"]), 
+                        pilots = row["pilots"], 
+                        flight_attendants = row["attendants"], 
+                        departure_time = datetime.time(hour = dep_hour, minute = dep_minute), 
+                        departure_flight = row["departure_flight"], 
+                        arrival_departure_time = datetime.time(hour = ret_hour, minute = ret_minute), 
+                        arrival_flight = row["arrival_flight"], 
+                        date = datetime.date(year = dep_year, month = dep_month, day = dep_day), 
+                        return_date = datetime.date(year = ret_year, month = ret_month, day = ret_day), 
+                        status = row["status"])
+                    )
         
         return ret_list
 
+
+    def split_date(self, date: str):
+        """"""
+        year, month, day = date.split("-")
+
+        return int(year), int(month), int(day)
+
+
+    def split_time(self, time):
+        """"""
+        hour, minute, second = time.split(":")
+
+        return int(hour), int(minute)
 
     def update_voyage(self, voyage) -> None:
         """Updates the voyage with the given id"""
