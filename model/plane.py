@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 class Plane:
     id: int = None
     name: str
-    ty: str
+    ty: str # type
     manufacturer: str
     capacity: int
     flights: list[int] = field(default_factory=lambda: [])

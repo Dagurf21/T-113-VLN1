@@ -19,7 +19,7 @@ class FlightLogic:
         """Creates flight, returns flight number"""
         # self.validator.validate_destination(data)
         flight_nr = self.create_flight_nr(destination, departure, date)
-        
+
         if destination == 0:
             arrival_time = self.calculate_arrival_time(departure_time, departure)
         else:
@@ -106,13 +106,14 @@ class FlightLogic:
         return self.data_wrapper.get_all_flights()
 
 
-    def get_flight(self, flight_id):  # Flight
+    def get_flight(self, flight_nr):  # Flight
         """Gets a specific flight route with a specific ID"""
         flight_list = self.get_all_flight()
 
         for flight in flight_list:
-            if flight.id == flight_id:
+            if flight.flight_number == flight_nr:
                 return flight
+        
         return None
 
 
