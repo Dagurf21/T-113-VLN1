@@ -13,7 +13,7 @@ class TestEmployee(unittest.TestCase):
             ssn="1112231239",
             mobile_phone="123-1234",
             email="bobtm@nanair.is",
-            home_phone=None,
+            home_phone="464-4213",
             work_phone="321-3213",
         ),
         Manager(
@@ -27,9 +27,74 @@ class TestEmployee(unittest.TestCase):
             work_phone="912-3213",
         )
     ]
-    MOCK_FLIGHT_MANAGERS = []
-    MOCK_PILOTS = []
-    MOCK_FLIGHT_ATTENDANTS = []
+    MOCK_FLIGHT_MANAGERS = [
+       FlightManager(
+            name="Steve",
+            password="abc",
+            address="99 St. St.",
+            ssn="1112237829",
+            mobile_phone="712-6342",
+            email="steve@nanair.is",
+            home_phone=None,
+            work_phone="444-4444",
+        ),
+        FlightManager(
+            name="Peter",
+            password="4321",
+            address="22 Pete St.",
+            ssn="1112238889",
+            mobile_phone="765-4321",
+            email="peter@nanair.is",
+            home_phone="623-1346",
+            work_phone="919-9191",
+        )
+    ]
+    MOCK_PILOTS = [
+       Pilot(
+            name="George",
+            password="securityexpert",
+            address="12 George Av.",
+            ssn="1112232569",
+            mobile_phone="612-6342",
+            email="george@nanair.is",
+            home_phone="916-2345",
+            assignments=[],
+            license="C750",
+        ),
+        Pilot(
+            name="Tom",
+            password="AAAAAAA",
+            address="8 Tom Blvd.",
+            ssn="1112237779",
+            mobile_phone="765-4321",
+            email="tom@nanair.is",
+            home_phone=None,
+            assignments=[],
+            license="C150",
+        )
+    ]
+    MOCK_FLIGHT_ATTENDANTS = [
+       FlightAttendant(
+            name="Geoff",
+            password="creativitydeclining",
+            address="1 Geoff Park",
+            ssn="1112231119",
+            mobile_phone="211-2111",
+            email="geoff@nanair.is",
+            home_phone=None,
+            assignments=[],
+        ),
+        FlightAttendant(
+            name="Lois",
+            password="BBBBBBB",
+            address="8 Lois Blvd.",
+            ssn="1112236549",
+            mobile_phone="853-2135",
+            email="lois@nanair.is",
+            home_phone="421-6423",
+            assignments=[],
+        )
+    ]
 
     VOYAGE_TEMPLATE = Voyage(
         destination=0,
@@ -46,6 +111,26 @@ class TestEmployee(unittest.TestCase):
         status=""
     )
     
+    MOCK_EMPLOYEES = []
+    
+    def setUp(self):
+        self.MOCK_EMPLOYEES.clear()
+        self.MOCK_EMPLOYEES.extend(self.MOCK_MANAGERS)
+        self.MOCK_EMPLOYEES.extend(self.MOCK_FLIGHT_MANAGERS)
+        self.MOCK_EMPLOYEES.extend(self.MOCK_PILOTS)
+        self.MOCK_EMPLOYEES.extend(self.MOCK_FLIGHT_ATTENDANTS)
+
+    def test_create_employee_invalid_ssn(self):
+        pass
+
+    def test_create_employee_invalid_mobile_phone(self):
+        pass
+
+    def test_create_employee_invalid_email(self):
+        pass
+
+    def test_create_employee_invalid_home_phone(self):
+        pass
 
     def test_create_employee_manager_valid(self):
         pass
@@ -73,3 +158,73 @@ class TestEmployee(unittest.TestCase):
 
     def test_create_employee_pilot_invalid_license(self):
         pass
+
+    def test_get_all_employees(self):
+        pass
+
+    def test_get_employee(self):
+        pass
+
+    def test_get_employee_by_email(self):
+        pass
+
+    def test_get_employee_by_job(self):
+        pass
+
+    def test_get_all_pilots(self):
+        pass
+
+    def test_get_pilots_by_license(self):
+        pass
+
+    def test_update_employee_valid(self):
+        pass
+    
+    def test_update_employee_invalid_ssn(self):
+        pass
+    
+    def test_update_employee_invalid_mobile_phone(self):
+        pass
+
+    def test_update_employee_invalid_email(self):
+        pass
+
+    def test_update_employee_invalid_home_phone(self):
+        pass
+
+    def test_update_employee_invalid_job(self):
+        pass
+
+    def test_update_manager_valid(self):
+        pass
+
+    def test_update_manager_invalid_work_phone(self):
+        pass
+
+    def test_update_flight_manager_valid(self):
+        pass
+
+    def test_update_flight_manager_invalid_work_phone(self):
+        pass
+
+    def test_update_pilot_invalid_assignments(self):
+        pass
+
+    def test_update_pilot_invalid_license(self):
+        pass
+
+    def test_update_flight_attendant_valid(self):
+        pass
+
+    def test_update_flight_attendant_invalid_assignments(self):
+        pass
+
+    def test_delete_employee(self):
+        pass
+
+    def test_is_employee_manager(self):
+        pass
+
+    def test_is_employee_flight_manager(self):
+        pass
+
