@@ -147,7 +147,7 @@ class VoyageLogic:
 
     def delete_voyage(self, id) -> None:
         """Deletes a voyage object with the given id"""
-        return self.data_wrapper.delete_voyage(id)
+        return self.data_wrapper.cancel_voyage(id)
 
 
 # Verify:
