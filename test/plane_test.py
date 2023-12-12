@@ -47,6 +47,17 @@ class TestPlane(unittest.TestCase):
         plane_logic.create_plane(plane)
 
         self.assertIsNone(data.get_first_plane())
+
+    def test_create_plane_invalid_flights(self):
+        data = MockDataWrapper()
+        plane_logic = PlaneLogic(data)
+
+        plane = copy(self.MOCK_PLANES[0])
+        plane.flights = ["NA011"]
+
+        plane_logic.create_plane(plane)
+
+        self.assertIsNone(data.get_first_plane())
     
     def test_get_all_planes(self):
         data = MockDataWrapper()
@@ -79,17 +90,22 @@ class TestPlane(unittest.TestCase):
         data = MockDataWrapper()
         plane_logic = PlaneLogic(data)
 
+        data.create_flight(Flight(
+            flight_number="NA010"
+        ))
+
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
         
         for plane in self.MOCK_PLANES:
             plane = copy(plane)
             plane.capacity = 5
-            plane.flights = [5, 2]
-            #plane.
+            # TODO: How do we want to connect planes to flights if the flight
+            # is identified by both the number and date?
+            plane.flights = ["NA010"]
 
-            # Needs flights to be fixed
-            raise NotImplementedError
+        raise NotImplementedError
+        
 
     def test_delete_plane(self):
         data = MockDataWrapper()
@@ -100,11 +116,12 @@ class TestPlane(unittest.TestCase):
         
         id_to_remove = 0
         plane_logic.delete_plane(id_to_remove)
-        expect = [plane for plane in self.MOCK_PLANES if plane.id != id_to_remove]
 
         planes = data.get_all_planes()
         for plane in planes:
             self.assertIsNotNone(plane.id)
             plane.id = None
+
+        expect = [plane for plane in planes if plane.id != id_to_remove]
 
         self.assertListEqual(expect, planes)

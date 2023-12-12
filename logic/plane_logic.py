@@ -12,6 +12,11 @@ class PlaneLogic:
 
     def create_plane(self, plane) -> None:
         """Takes in plane data checks if ID is valid and forwards it to data layer"""
+        if plane.capacity < 0:
+            return
+        
+        # TODO: Validate flights
+
         if plane.id is None:
             self.data_wrapper.create_plane(plane)
 
