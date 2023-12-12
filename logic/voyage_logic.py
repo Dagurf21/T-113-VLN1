@@ -14,24 +14,23 @@ class VoyageLogic:
         self.flight_logic = FlightLogic(data_connection)
         
 
-    def create_voyage(self, data: str) -> None:
+    def create_voyage(self, plane_id: int, destination_id: int, date: datetime, return_date: datetime, departure_time: datetime, return_time: datetime, sold_seats: int, flight_attendants: list[int], pilots: list[int]) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
         # flight_data = Flight(date=data.date,destination=data.destination)
         # create_flight(flight_data)
-        plane, destination, date, return_date, departure_time, arrival_departure_time, sold_seats, flight_attendants, pilots = self.cleanup_data(data)
-        departure_flight = self.flight_logic.create_flight(departure = 0,destination = destination, date = date, departure_time = departure_time)
-        arrival_flight = self.flight_logic.create_flight(departure = destination, destination = 0, date = return_date, departure_time = arrival_departure_time)
+        departure_flight = self.flight_logic.create_flight(0, destination_id, date, departure_time)
+        arrival_flight = self.flight_logic.create_flight(destination_id, 0, return_date, return_date, return_time)
         # TODO return date
         self.data_wrapper.create_voyage(
             Voyage(
-                destination = destination,
+                destination = destination_id,
                 sold_seats = sold_seats,
-                plane = plane,
+                plane = plane_id,
                 pilots = pilots,
                 flight_attendants = flight_attendants,
                 departure_time = departure_time,
                 departure_flight = departure_flight,
-                arrival_departure_time = arrival_departure_time,
+                arrival_departure_time = return_time,
                 arrival_flight = arrival_flight,
                 date = date,
                 return_date = return_date,
