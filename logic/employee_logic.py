@@ -95,6 +95,11 @@ class EmployeeLogic:
                 employee.home_phone
             )
 
+        if employee_job_title == "Manager" or employee_job_title == "FlightManager":
+            is_phone_valid = is_phone_valid and self.validate.phone_number(
+                employee.work_phone
+            )
+
         if employee_job_title == "Pilot" or employee_job_title == "FlightAttendant":
             try:
                 is_liscense_valid = self.validate.licenses(employee.liscense)
