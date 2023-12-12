@@ -17,7 +17,7 @@ class Voyage:
     arrival_departure_time: datetime.time
     arrival_flight: int # flight id
     date: datetime.date
-    return_date: date
+    return_date: datetime.date
     status: str
     # Status options: Finished, Landed abroad, In the Air, Not started, Cancelled 
 
