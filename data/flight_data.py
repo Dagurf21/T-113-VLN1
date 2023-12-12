@@ -26,7 +26,7 @@ class FlightData:
             reader = csv.DictReader(csvfile)
             
             for row in reader:
-                ret_list.append(Flight(flight_number = row["flight_nr"], departure = row["departure"], destination = row["destination"], date = row["date"], departure_time = row["departure_time"], arrival_time = row["arrival_time"]))
+                ret_list.append(Flight(flight_number = row["flight_nr"], departure = int(row["departure"]), destination = int(row["destination"]), date = row["date"], departure_time = row["departure_time"], arrival_time = row["arrival_time"]))
         
         return ret_list
 

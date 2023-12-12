@@ -19,7 +19,11 @@ class FlightLogic:
         """Creates flight, returns flight number"""
         # self.validator.validate_destination(data)
         flight_nr = self.create_flight_nr(destination, departure, date)
-        arrival_time = self.calculate_arrival_time(departure_time, destination)
+        
+        if destination == 0:
+            arrival_time = self.calculate_arrival_time(departure_time, departure)
+        else:
+            arrival_time = self.calculate_arrival_time(departure_time, destination)
 
         self.data_wrapper.create_flight(
             Flight(
@@ -53,10 +57,18 @@ class FlightLogic:
         all_flights = self.get_all_flight()
 
         flights_within = 0
+
+        date = f"{date}"
+        
         for flight in all_flights:
             # If flights are same destination and date
-            if flight.destination == destination_id and flight.date.day == date.day:
-                flights_within += 1
+            print(type(flight.date))
+            if flight.destination == 0:
+                if flight.departure == destination_id and flight.date == date:
+                    flights_within += 1
+            else:
+                if flight.destination == destination_id and flight.date == date:
+                    flights_within += 1
 
         return flights_within
 
