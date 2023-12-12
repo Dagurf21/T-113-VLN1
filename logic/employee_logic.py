@@ -68,7 +68,7 @@ class EmployeeLogic:
         pilots_with_the_license = []
 
         for pilot in pilot_list:
-            if planelicense == pilot.liscense:
+            if planelicense == pilot.license:
                 pilots_with_the_license.append(pilot)
 
         return pilots_with_the_license
