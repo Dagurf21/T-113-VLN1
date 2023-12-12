@@ -1,4 +1,4 @@
-from logic import Validator, Utilities, PlaneLogic
+from logic import Validator, Utilities
 from model import Employee, Pilot
 
 
@@ -82,6 +82,14 @@ class EmployeeLogic:
         """Deletes a employee object with the given id"""
         return self.data_wrapper.delete_employee(employee_id)
 
+    def get_plane_licenses(self) -> list:
+        """Returns a list of plane types"""
+        plane_list = self.data_wrapper.get_all_planes()
+
+        for plane in plane_list:
+            plane_list.append(plane.type)
+        return plane_list
+
     def validate_employee(self, employee):
         """Validates a given employee"""
         employee_job_title = type(employee).__name__
@@ -104,7 +112,7 @@ class EmployeeLogic:
         if employee_job_title == "Pilot" or employee_job_title == "FlightAttendant":
             try:
                 is_liscense_valid = self.validate.licenses(
-                    employee.liscense, self.plane.get_plane_types
+                    employee.liscense, self.get_plane_licenses
                 )
                 is_employee_valid = is_employee_valid and is_liscense_valid
                 raise Exception("Pilot verify over")
