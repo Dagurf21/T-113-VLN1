@@ -17,7 +17,13 @@ class DestinationData:
 
             id = self.get_new_id()
             
-            writer.writerow({'id': id, 'country': destination.country, 'airport': destination.airport, 'distance': destination.distance_km, 'flight_time': destination.flight_time, 'representative': destination.representative, 'emergency_number': destination.emergency_number})
+            writer.writerow({'id': id, 
+                             'country': destination.country, 
+                             'airport': destination.airport, 
+                             'distance': destination.distance_km, 
+                             'flight_time': destination.flight_time, 
+                             'representative': destination.representative, 
+                             'emergency_number': destination.emergency_number})
 
 
     def get_new_id(self) -> int:
@@ -42,7 +48,14 @@ class DestinationData:
             
             for row in reader:
                 if row["airport"]:
-                    ret_list.append(Destination(id = int(row["id"]), country = row["country"], airport = row["airport"], flight_time = int(row["flight_time"]), distance_km = int(row["distance"]), representative = row["representative"], emergency_number = row["emergency_number"]))
+                    ret_list.append(Destination(
+                        id = int(row["id"]), 
+                        country = row["country"], 
+                        airport = row["airport"], 
+                        flight_time = int(row["flight_time"]), 
+                        distance_km = int(row["distance"]), 
+                        representative = row["representative"], 
+                        emergency_number = row["emergency_number"]))
         
         return ret_list
     
@@ -60,9 +73,21 @@ class DestinationData:
 
             for row in reader:
                 if int(row["id"]) == destination.id:
-                    writer.writerow({'id': row["id"], 'country': destination.country, 'airport': destination.airport, 'distance': destination.distance_km, 'flight_time': destination.flight_time, 'representative': destination.representative, 'emergency_number': destination.emergency_number})
+                    writer.writerow({'id': row["id"], 
+                                     'country': destination.country, 
+                                     'airport': destination.airport, 
+                                     'distance': destination.distance_km, 
+                                     'flight_time': destination.flight_time, 
+                                     'representative': destination.representative, 
+                                     'emergency_number': destination.emergency_number})
                 else:
-                    writer.writerow({'id': row["id"], 'country': row["country"], 'airport': row["airport"], 'distance': row["distance"], 'flight_time': row["flight_time"], 'representative': row["representative"], 'emergency_number': row["emergency_number"]})
+                    writer.writerow({'id': row["id"], 
+                                     'country': row["country"], 
+                                     'airport': row["airport"], 
+                                     'distance': row["distance"], 
+                                     'flight_time': row["flight_time"], 
+                                     'representative': row["representative"], 
+                                     'emergency_number': row["emergency_number"]})
 
         shutil.move(tempfile.name, self.file_name)
     
@@ -86,11 +111,23 @@ class DestinationData:
 
                 # If the plane is found, Everything except the id and name is erased
                 if int(row["id"]) == destination_id:
-                    row = {'id': row["id"], 'country': row["country"], 'airport': None, 'distance': None, 'flight_time': None, 'representative': row["representative"], 'emergency_number': row["emergency_number"]}
+                    row = {'id': row["id"], 
+                           'country': row["country"], 
+                           'airport': None, 
+                           'distance': None, 
+                           'flight_time': None, 
+                           'representative': row["representative"], 
+                           'emergency_number': row["emergency_number"]}
 
                 # Each row from the original file is written to the temporary file
                 else:
-                    row = {'id': row["id"], 'country': row["country"], 'airport': row["airport"], 'distance': row["distance"], 'flight_time': row["flight_time"], 'representative': row["representative"], 'emergency_number': row["emergency_number"]}
+                    row = {'id': row["id"], 
+                           'country': row["country"], 
+                           'airport': row["airport"], 
+                           'distance': row["distance"], 
+                           'flight_time': row["flight_time"], 
+                           'representative': row["representative"], 
+                           'emergency_number': row["emergency_number"]}
 
                 writer.writerow(row)
 
