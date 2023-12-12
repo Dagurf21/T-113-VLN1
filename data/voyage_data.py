@@ -62,7 +62,7 @@ class VoyageData:
             for row in reader:
                 # Writes the plane with the new data into the temp file
                 if int(row["id"]) == voyage.id:
-                    writer.writerow({'id': voyage.id, 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': voyage.pilots, 'attendants': voyage.flight_attendants, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.arrival_departure_time, 'arrival_flight': voyage.arrival_flight, 'date': voyage.date, 'return_date': voyage.return_date, 'status': voyage.status})
+                    writer.writerow({'id': row["id"], 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': voyage.pilots, 'attendants': voyage.flight_attendants, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.arrival_departure_time, 'arrival_flight': voyage.arrival_flight, 'date': voyage.date, 'return_date': voyage.return_date, 'status': voyage.status})
                 
                 # Writes the other planes unchanged 
                 else:
