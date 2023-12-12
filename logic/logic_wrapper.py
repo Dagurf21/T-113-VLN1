@@ -1,20 +1,6 @@
 # import os
-from logic.employee_logic import EmployeeLogic
-from logic.flight_logic import FlightLogic
-from logic.destination_logic import DestinationLogic
-from logic.voyage_logic import VoyageLogic
-from logic.plane_logic import PlaneLogic
-from logic.logic_utilities import Validator
-from logic.logic_utilities import Utilities
-
-from model import Destination, Employee, Flight, FlightAttendant
-
-from model.flight_manager import FlightManager
-from model.manager import Manager
-from model.pilot import Pilot
-from model.plane import Plane
-from model.voyage import Voyage
-
+from logic import Validator, Utilities, PlaneLogic, VoyageLogic, DestinationLogic, FlightLogic, EmployeeLogic
+from model import Destination, Employee, Flight, FlightAttendant, FlightManager, Manager, Pilot, Plane, Voyage
 from data.data_wrapper import DataWrapper
 
 
