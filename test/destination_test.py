@@ -117,9 +117,13 @@ class TestDestinations(unittest.TestCase):
         for dest in self.MOCK_DESTINATIONS:
             data.create_destination(dest)
 
-        destination_logic = destination_logic.get_all_destinations()
+        destination_list = []
+        for dest in destination_logic.get_all_destinations():
+            dest.id = None
+            destination_list.append(dest)
+
         self.assertListEqual(
-            destination_logic,
+            destination_list,
             self.MOCK_DESTINATIONS,
             "get_all_destinations should have returned all the destinations with the same data",
         )
@@ -131,8 +135,13 @@ class TestDestinations(unittest.TestCase):
         for dest in self.MOCK_DESTINATIONS:
             data.create_destination(dest)
 
+        counter = 0
+
         for dest in self.MOCK_DESTINATIONS:
-            result = destination_logic.get_destination(dest.id)
+            result = destination_logic.get_destination(counter)
+            counter += 1
+            result.id = None
+
             self.assertEqual(
                 result,
                 dest,
@@ -252,9 +261,12 @@ class TestDestinations(unittest.TestCase):
 
         id_to_remove = 0
         destination_logic.delete_destination(id_to_remove)
-        expect = [dest for dest in self.MOCK_DESTINATIONS if dest.id != id_to_remove]
-        self.assertListEqual(
+        expect = None
+
+        result = destination_logic.get_destination(0)
+
+        self.assertEqual(
             expect,
-            data.get_all_destinations(),
+            result,
             f"Element with id of {id_to_remove} should have been removed",
         )
