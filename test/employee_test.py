@@ -5,13 +5,28 @@ from model import *
 
 class TestEmployee(unittest.TestCase):
 
-    # MOCK_MANAGERS = [
-    #    Manager(
-    #         name="Bob",
-    #         password="",
-    #         # TODO: Incomplete
-    #     )
-    # ]
+    MOCK_MANAGERS = [
+       Manager(
+            name="Bob",
+            password="123bobistheman",
+            address="bobstreet",
+            ssn="1112231239",
+            mobile_phone="123-1234",
+            email="bobtm@nanair.is",
+            home_phone=None,
+            work_phone="321-3213",
+        ),
+        Manager(
+            name="John",
+            password="1234",
+            address="45 John St.",
+            ssn="1112233219",
+            mobile_phone="919-",
+            email="jonn@nanair.is",
+            home_phone=None,
+            work_phone="912-3213",
+        )
+    ]
     MOCK_FLIGHT_MANAGERS = []
     MOCK_PILOTS = []
     MOCK_FLIGHT_ATTENDANTS = []
