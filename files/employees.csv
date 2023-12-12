@@ -5,3 +5,5 @@ id,name,job_title,license,password,address,ssn,mobile_phone,email,home_phone,wor
 3,Marteinn,Manager,,$2b$12$NriTlbdfgy9wBtqYNDwvJej5Hd4N1Q26MU2oG54LQj1i93AtLeCji,marteinn home,0509041230,663-7270,Marteinnlogi@gmail.com,,123-1234,
 4,flight person,Flight Attendant,,$2b$12$DHVivbQBzMZulN6mdhAa5uB4AkMp/O1RuydWRWhQDCQU4Ra0RegTu,123,0101011230,12301230,phone@my.cell,,,
 
+5,Dagur Freyr,Flight Manager,,$2b$12$ZZLV1MD3KBYa8SUDVtBX2uDOXhD.0IVLlWiOU.wIR708NENYoaING,reynivellir 1,2110000000,123-4567,dagur@gmail.com,,1234321,
+

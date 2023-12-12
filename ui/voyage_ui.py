@@ -87,11 +87,12 @@ class VoyageUI(UIWidget):
                 voyage.arrival_flight,
                 voyage.sold_seats,
                 voyage.date,
-                voyage.return_date
+                voyage.return_date,
+                voyage.status
             ])
         
         self._display_interactive_datalist(
-            { "id": 3, "From": 6, "DEST": 6, "Seats": 5, "Date": 8, "Return date":11 },
+            { "id": 3, "From": 6, "DEST": 6, "Seats": 5, "Date": 8, "Return date":11, "Status":15 },
             voyage_data,
             title="Voyages"
         )
@@ -134,7 +135,8 @@ class VoyageUI(UIWidget):
                 f"From:        {voyage.departure_flight}",
                 f"To:          {voyage.arrival_flight}",
                 f"Date:        {voyage.date}",
-                f"Return Date: {voyage.return_date}"
+                f"Return Date: {voyage.return_date}",
+                f"Status:      {voyage.status}"
             ], add_newline_after=True)
 
     def update_voyage(self):
