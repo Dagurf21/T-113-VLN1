@@ -70,9 +70,9 @@ class TestVoyage(unittest.TestCase):
         self.assertEqual(voyage.sold_seats, 150)
         self.assertEqual(voyage.departure_time, datetime.time(15, 00))
         self.assertEqual(voyage.departure_flight, "NA010")
-        self.assertEqual(voyage.arrival_departure_time, datetime.time(12, 00))
-        self.assertEqual(voyage.arrival_flight, "NA010")
-        self.assertEqual(voyage.date, datetime.date(2023, 2, 15))
+        self.assertEqual(voyage.return_departure_time, datetime.time(12, 00))
+        self.assertEqual(voyage.return_flight, "NA010")
+        self.assertEqual(voyage.departure_date, datetime.date(2023, 2, 15))
         self.assertEqual(voyage.return_date, datetime.date(2023, 2, 16))
         self.assertEqual(voyage.status, VoyageStatus.NotStarted)
 
@@ -101,8 +101,190 @@ class TestVoyage(unittest.TestCase):
         self.assertEqual(voyage.sold_seats, 150)
         self.assertEqual(voyage.departure_time, datetime.time(15, 00))
         self.assertEqual(voyage.departure_flight, "NA010")
-        self.assertEqual(voyage.arrival_departure_time, datetime.time(17, 00))
-        self.assertEqual(voyage.arrival_flight, "NA011")
-        self.assertEqual(voyage.date, datetime.date(2023, 2, 15))
+        self.assertEqual(voyage.return_departure_time, datetime.time(17, 00))
+        self.assertEqual(voyage.return_flight, "NA011")
+        self.assertEqual(voyage.departure_date, datetime.date(2023, 2, 15))
         self.assertEqual(voyage.return_date, datetime.date(2023, 2, 15))
         self.assertEqual(voyage.status, VoyageStatus.NotStarted)
+    
+    def test_get_all_voyages(self):
+        data = MockDataWrapper()
+        voyage_logic = VoyageLogic(data)
+
+        data.create_plane(self.MOCK_PLANES[0])
+        data.create_destination(self.MOCK_DESTINATIONS[0])
+        data.create_destination(self.MOCK_DESTINATIONS[1])
+
+        voyages = [
+            Voyage(
+                id=0,
+                destination=1,
+                sold_seats=100,
+                plane=0,
+                departure_time=datetime.time(1, 20),
+                departure_flight="FA010",
+                departure_date=datetime.date(2023, 10, 5),
+                return_departure_time=datetime.time(1, 20),
+                return_flight="FA010",
+                return_date=datetime.date(2023, 10, 8),
+                status=VoyageStatus.Finished,
+            ),
+            Voyage(
+                id=1,
+                destination=1,
+                sold_seats=228,
+                plane=0,
+                departure_time=datetime.time(9, 50),
+                departure_flight="FA010",
+                departure_date=datetime.date(2023, 11, 15),
+                return_departure_time=datetime.time(1, 20),
+                return_flight="FA010",
+                return_date=datetime.date(2023, 11, 19),
+                status=VoyageStatus.Finished,
+            )
+        ]
+
+        data.create_voyage(voyages[0])
+        data.create_voyage(voyages[1])
+
+        res = voyage_logic.get_all_voyages()
+        self.assertListEqual(voyages, res)
+
+
+    def test_get_voyage(self):
+        data = MockDataWrapper()
+        voyage_logic = VoyageLogic(data)
+
+        data.create_plane(self.MOCK_PLANES[0])
+        data.create_destination(self.MOCK_DESTINATIONS[0])
+        data.create_destination(self.MOCK_DESTINATIONS[1])
+
+        voyages = [
+            Voyage(
+                id=0,
+                destination=1,
+                sold_seats=100,
+                plane=0,
+                departure_time=datetime.time(1, 20),
+                departure_flight="FA010",
+                departure_date=datetime.date(2023, 10, 5),
+                return_departure_time=datetime.time(1, 20),
+                return_flight="FA010",
+                return_date=datetime.date(2023, 10, 8),
+                status=VoyageStatus.Finished,
+            ),
+            Voyage(
+                id=1,
+                destination=1,
+                sold_seats=228,
+                plane=0,
+                departure_time=datetime.time(9, 50),
+                departure_flight="FA010",
+                departure_date=datetime.date(2023, 11, 15),
+                return_departure_time=datetime.time(1, 20),
+                return_flight="FA010",
+                return_date=datetime.date(2023, 11, 19),
+                status=VoyageStatus.Finished,
+            )
+        ]
+
+        data.create_voyage(voyages[0])
+        data.create_voyage(voyages[1])
+
+        voyage = voyage_logic.get_voyage(1)
+        self.assertEqual(voyage, voyages[1])
+
+    def test_update_voyage(self):
+        data = MockDataWrapper()
+        voyage_logic = VoyageLogic(data)
+
+        data.create_plane(self.MOCK_PLANES[0])
+        data.create_destination(self.MOCK_DESTINATIONS[0])
+        data.create_destination(self.MOCK_DESTINATIONS[1])
+
+        voyage = Voyage(
+            id=0,
+            destination=1,
+            sold_seats=100,
+            plane=0,
+            departure_time=datetime.time(1, 20),
+            departure_flight="FA010",
+            departure_date=datetime.date(2023, 10, 5),
+            return_departure_time=datetime.time(1, 20),
+            return_flight="FA010",
+            return_date=datetime.date(2023, 10, 8),
+            status=VoyageStatus.Finished,
+        )
+
+        data.create_voyage(voyage)
+
+        voyage.destination = 9
+        voyage.sold_seats = 150
+        voyage.plane = 5
+        voyage.departure_time = datetime.time(3, 40)
+        voyage.departure_flight = "FA011"
+        voyage.departure_date = datetime.date(2023, 10, 8)
+        voyage.return_departure_time = datetime.time(9, 20)
+        voyage.return_flight = "FA011"
+        voyage.return_date = datetime.date(2023, 10, 10)
+        voyage.status = VoyageStatus.LandedAbroad
+
+        voyage_logic.update_voyage(voyage)
+
+        result = data.get_first_voyage()
+        self.assertNotEqual(result.destination, 1)
+        self.assertNotEqual(result.sold_seats, 150)
+        self.assertNotEqual(result.plane, 5)
+        self.assertEqual(result.departure_time, datetime.time(3, 40))
+        self.assertNotEqual(result.departure_flight, "FA011")
+        self.assertEqual(result.departure_date, datetime.date(2023, 10, 8))
+        self.assertEqual(result.return_departure_time, datetime.time(9, 20))
+        self.assertNotEqual(result.return_flight, "FA011")
+        self.assertEqual(result.return_date, datetime.date(2023, 10, 10))
+        self.assertNotEqual(result.status, VoyageStatus.LandedAbroad)
+
+    def test_delete_voyage(self):
+        data = MockDataWrapper()
+        voyage_logic = VoyageLogic(data)
+
+        data.create_plane(self.MOCK_PLANES[0])
+        data.create_destination(self.MOCK_DESTINATIONS[0])
+        data.create_destination(self.MOCK_DESTINATIONS[1])
+
+        voyages = [
+            Voyage(
+                id=0,
+                destination=1,
+                sold_seats=100,
+                plane=0,
+                departure_time=datetime.time(1, 20),
+                departure_flight="FA010",
+                departure_date=datetime.date(2023, 10, 5),
+                return_departure_time=datetime.time(1, 20),
+                return_flight="FA010",
+                return_date=datetime.date(2023, 10, 8),
+                status=VoyageStatus.Finished,
+            ),
+            Voyage(
+                id=1,
+                destination=1,
+                sold_seats=228,
+                plane=0,
+                departure_time=datetime.time(9, 50),
+                departure_flight="FA010",
+                departure_date=datetime.date(2023, 11, 15),
+                return_departure_time=datetime.time(1, 20),
+                return_flight="FA010",
+                return_date=datetime.date(2023, 11, 19),
+                status=VoyageStatus.Finished,
+            )
+        ]
+
+        data.create_voyage(voyages[0])
+        data.create_voyage(voyages[1])
+
+        voyage_logic.delete_voyage(0)
+
+        voyages.remove(voyages[0])
+
+        self.assertListEqual(voyages, data.get_all_voyages())

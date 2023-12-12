@@ -41,9 +41,9 @@ class VoyageLogic:
                 flight_attendants=flight_attendants,
                 departure_time=departure_time,
                 departure_flight=departure_flight,
-                arrival_departure_time=return_departure_time,
-                arrival_flight=arrival_flight,
-                date=date,
+                return_departure_time=return_departure_time,
+                return_flight=arrival_flight,
+                departure_date=date,
                 return_date=return_departure_date,
                 status=VoyageStatus.NotStarted,
             )
@@ -57,20 +57,20 @@ class VoyageLogic:
 
         for voyage in all_voyages:
             # Status options: Finished, Landed abroad, In the Air, Not started, Cancelled
-            departure_flight = self.flight_logic.get_flight(voyage.departure_flight, voyage.date)
-            arrival_flight = self.flight_logic.get_flight(voyage.arrival_flight, voyage.date)
+            departure_flight = self.flight_logic.get_flight(voyage.departure_flight, voyage.departure_date)
+            arrival_flight = self.flight_logic.get_flight(voyage.return_flight, voyage.departure_date)
 
             if voyage.status == VoyageStatus.Cancelled:
                 pass
 
             # If the flight date has not been reached yet
-            elif voyage.date < now.date():
+            elif voyage.departure_date > now.date():
                 voyage.status = VoyageStatus.NotStarted
 
             # If the flight is today
-            elif voyage.date == now.date():
+            elif voyage.departure_date == now.date():
                 # If the departure time has been reached
-                if voyage.departure_time <= now:
+                if voyage.departure_time >= now:
                     # If the flight has not arrived at it's destination
                     if now.time() < departure_flight.arrival_time:
                         voyage.status = VoyageStatus.InTheAir

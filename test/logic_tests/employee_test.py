@@ -106,9 +106,9 @@ class TestEmployee(unittest.TestCase):
         flight_attendants=[],
         departure_time=datetime.time(1, 1, 1),
         departure_flight=0,
-        arrival_departure_time=datetime.time(1, 1, 1),
-        arrival_flight=0,
-        date=datetime.date(1, 1, 1),
+        return_departure_time=datetime.time(1, 1, 1),
+        return_flight=0,
+        departure_date=datetime.date(1, 1, 1),
         return_date=datetime.date(1, 1, 1),
         status="",
     )

@@ -22,11 +22,8 @@ class Voyage:
     flight_attendants: list[FlightAttendant] = None
     departure_time: datetime.time
     departure_flight: str # flight id
-    arrival_departure_time: datetime.time
-    arrival_flight: str # flight id
-    date: datetime.date
+    departure_date: datetime.date
+    return_departure_time: datetime.time
+    return_flight: str # flight id
     return_date: datetime.date
     status: VoyageStatus
-    # Status options: Finished, Landed abroad, In the Air, Not started, Cancelled 
-
-# TODO: Swap status for enum?

@@ -120,9 +120,9 @@ class VoyageUI(UIWidget):
                 [
                     voyage.id,
                     voyage.departure_flight,
-                    voyage.arrival_flight,
+                    voyage.return_flight,
                     voyage.sold_seats,
-                    voyage.date,
+                    voyage.departure_date,
                     voyage.return_date,
                     voyage.status,
                 ]
@@ -179,8 +179,8 @@ class VoyageUI(UIWidget):
                     f"Pilot:       {voyage.pilots}",
                     f"Sold Seats:  {voyage.sold_seats}",
                     f"From:        {voyage.departure_flight}",
-                    f"To:          {voyage.arrival_flight}",
-                    f"Date:        {voyage.date}",
+                    f"To:          {voyage.return_flight}",
+                    f"Date:        {voyage.departure_date}",
                     f"Return Date: {voyage.return_date}",
                     f"Status:      {voyage.status}",
                 ],
@@ -258,12 +258,12 @@ class VoyageUI(UIWidget):
                             opt_instruction="Leave empty to cancel",
                         )
                     case "Arrival Flight":
-                        voyage.arrival_flight = self._prompt(
+                        voyage.return_flight = self._prompt(
                             "Enter new flight number for arrival flight",
                             opt_instruction="Leave empty to cancel",
                         )
                     case "Date of flight":
-                        voyage.date = self._prompt(
+                        voyage.departure_date = self._prompt(
                             "Enter new date for voyage",
                             opt_instruction="Leave empty to cancel",
                         )
@@ -310,7 +310,7 @@ class VoyageUI(UIWidget):
 
                 should_delete = self._display_selection(
                     ["Delete"],
-                    header_title=f"Delete voyage {voyage.id} on {voyage.date}?",
+                    header_title=f"Delete voyage {voyage.id} on {voyage.departure_date}?",
                     allow_cancel=False,
                 )
 

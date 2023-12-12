@@ -18,7 +18,7 @@ class VoyageData:
 
             id = self.get_new_id()
             
-            writer.writerow({'id': id, 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': voyage.pilots, 'attendants': voyage.flight_attendants, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.arrival_departure_time, 'arrival_flight': voyage.arrival_flight, 'date': voyage.date, 'return_date': voyage.return_date, 'status': voyage.status})
+            writer.writerow({'id': id, 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': voyage.pilots, 'attendants': voyage.flight_attendants, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.return_departure_time, 'arrival_flight': voyage.return_flight, 'date': voyage.departure_date, 'return_date': voyage.return_date, 'status': voyage.status})
 
 
     def get_new_id(self) -> int:
@@ -57,9 +57,9 @@ class VoyageData:
                         flight_attendants = row["attendants"], 
                         departure_time = datetime.time(hour = dep_hour, minute = dep_minute), 
                         departure_flight = row["departure_flight"], 
-                        arrival_departure_time = datetime.time(hour = ret_hour, minute = ret_minute), 
-                        arrival_flight = row["arrival_flight"], 
-                        date = datetime.date(year = dep_year, month = dep_month, day = dep_day), 
+                        return_departure_time = datetime.time(hour = ret_hour, minute = ret_minute), 
+                        return_flight = row["arrival_flight"], 
+                        departure_date = datetime.date(year = dep_year, month = dep_month, day = dep_day), 
                         return_date = datetime.date(year = ret_year, month = ret_month, day = ret_day), 
                         status = row["status"])
                     )
@@ -99,7 +99,7 @@ class VoyageData:
             for row in reader:
                 # Writes the plane with the new data into the temp file
                 if int(row["id"]) == voyage.id:
-                    row = {'id': row["id"], 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': voyage.pilots, 'attendants': voyage.flight_attendants, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.arrival_departure_time, 'arrival_flight': voyage.arrival_flight, 'date': voyage.date, 'return_date': voyage.return_date, 'status': voyage.status}
+                    row = {'id': row["id"], 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': voyage.pilots, 'attendants': voyage.flight_attendants, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.return_departure_time, 'arrival_flight': voyage.return_flight, 'date': voyage.departure_date, 'return_date': voyage.return_date, 'status': voyage.status}
                 # Writes the other planes unchanged 
                 else:
                     row = {'id': row["id"], 'destination': row["destination"], 'sold_seats': row["sold_seats"], 'plane': row["plane"], 'pilots': row["pilots"], 'attendants': row["attendants"], 'departure_time': row["departure_time"], 'departure_flight': row["departure_flight"], 'arrival_departure_time': row["arrival_departure_time"], 'arrival_flight': row["arrival_flight"], 'date': row["date"], 'return_date': row["return_date"], 'status': row["status"]}
