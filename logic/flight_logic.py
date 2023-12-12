@@ -124,16 +124,6 @@ class FlightLogic:
         self.data_wrapper.update_flight(flight)
 
 
-    def delete_flight(self, id, flight) -> None:
-        """Deletes flight through data_wrapper"""
-
-        if id == self.data_wrapper.get_flight(id):
-            self.data_wrapper.delete_flight(id)
-
-        else:
-            raise ValueError("404 invalid ID")
-
-
     def assign_pilot(self, pilot, flight) -> None:
         """Assigns a pilot to a specific flight"""
 
