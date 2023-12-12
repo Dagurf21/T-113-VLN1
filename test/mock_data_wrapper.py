@@ -27,7 +27,7 @@ class MockDataWrapper:
 
     def update_employee(self, employee: Employee) -> None:
         try:
-            idx = self.employees.index(employee)
+            idx = employee.id
             self.employees[idx] = deepcopy(employee)
         except ValueError:
             pass
@@ -115,7 +115,7 @@ class MockDataWrapper:
 
     def update_flight(self, flight: Flight) -> None:
         try:
-            idx = self.flights.index(flight)
+            idx = flight.id
             self.flights[idx] = deepcopy(flight)
         except ValueError:
             pass
