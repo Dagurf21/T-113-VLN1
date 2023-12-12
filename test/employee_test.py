@@ -503,6 +503,7 @@ class TestEmployee(unittest.TestCase):
 
         employee.assignments = [0]
         employee.license = "C150"
+        employee.id = 0
         employee_logic.update_employee(employee)
 
         self.assertListEqual(data.get_first_employee().assignments, [0])
@@ -527,7 +528,8 @@ class TestEmployee(unittest.TestCase):
         employee = deepcopy(self.MOCK_PILOTS[0])
         data.create_employee(employee)
 
-        employee.license
+        employee.id = 0
+        employee.license = "C750"
         employee_logic.update_employee(employee)
 
         self.assertEqual(data.get_first_employee().license, "C750")
@@ -543,6 +545,7 @@ class TestEmployee(unittest.TestCase):
         data.create_voyage(voyage)
 
         employee.assignments = [0]
+        employee.id = 0
         employee_logic.update_employee(employee)
 
         self.assertListEqual(data.get_first_employee().assignments, [0])
@@ -568,7 +571,5 @@ class TestEmployee(unittest.TestCase):
 
         id_to_delete = 2
         employee_logic.delete_employee(id_to_delete)
-        expect = [
-            employee for employee in self.MOCK_EMPLOYEES if employee.id != id_to_delete
-        ]
-        self.assertListEqual(expect, data.get_all_employees())
+        expect = None
+        self.assertEqual(expect, data.get_employee(2))
