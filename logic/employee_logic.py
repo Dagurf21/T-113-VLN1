@@ -110,10 +110,10 @@ class EmployeeLogic:
 
         if employee_job_title == "Pilot" or employee_job_title == "FlightAttendant":
             try:
-                is_liscense_valid = self.validate.licenses(
-                    employee.liscense, self.get_plane_licenses
+                is_license_valid = self.validate.licenses(
+                    employee.license, self.get_plane_licenses
                 )
-                is_employee_valid = is_employee_valid and is_liscense_valid
+                is_employee_valid = is_employee_valid and is_license_valid
                 raise Exception("Pilot verify over")
             except AttributeError:
                 is_assignments_valid = self.validate.assignments(employee.assignments)
