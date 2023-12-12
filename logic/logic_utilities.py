@@ -96,8 +96,8 @@ class Validator:
     # Pilot and flight attendant validations
     def licenses(self, licenses, planetypes) -> bool:
         """Verifies if the list of licenses is valid"""
-        for license in licenses:
-            if license not in planetypes:
+        for planelicense in licenses:
+            if planelicense not in planetypes:
                 return False
         return True
 
