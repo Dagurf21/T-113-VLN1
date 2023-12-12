@@ -74,5 +74,5 @@ class TestVoyage(unittest.TestCase):
         self.assertEqual(voyage.arrival_flight, "NA010")
         self.assertEqual(voyage.date, datetime.datetime(2023, 2, 15))
         self.assertEqual(voyage.return_date, datetime.datetime(2023, 2, 16))
-        self.assertEqual(voyage.status, "Not started")
+        self.assertEqual(voyage.status, VoyageStatus.NotStarted)
 
