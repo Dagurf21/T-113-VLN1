@@ -12,8 +12,11 @@ class EmployeeLogic:
 
     def create_employee(self, employee) -> None:
         """Takes in a employee object and forwards it to the data layer"""
-        employee.password = self.utility.password_encoder(employee.password)
-        return self.data_wrapper.create_employee(employee)
+        if self.validate_employee(employee):
+            employee.password = self.utility.password_encoder(employee.password)
+            return self.data_wrapper.create_employee(employee)
+        else:
+            return None
 
     def get_all_employees(self) -> list["Employee"]:
         """Returns a list of all employees"""
@@ -78,14 +81,11 @@ class EmployeeLogic:
         """Deletes a employee object with the given id"""
         return self.data_wrapper.delete_employee(employee_id)
 
-    def validate_employee(self, employee) -> bool:
-        """Validates an employee and returns a
-        valid(True) or invalid(False)"""
-
     def validate_employee(self, employee):
         """Validates a given employee"""
         employee_job_title = type(employee).__name__
 
+        is_employee_valid = True
         is_ssn_valid = self.validate.ssn(employee.ssn)
         is_mobile_phone_valid = self.validate.phone_number(employee.mobile_phone)
         is_phone_valid = self.validate.phone_number(employee.mobile_phone)
@@ -94,10 +94,20 @@ class EmployeeLogic:
             is_phone_valid = is_phone_valid and self.validate.phone_number(
                 employee.home_phone
             )
-        
-        if employee_job_title == "Pilot" or employee_job_title =="FlightAttendant":
-            self.
+
+        if employee_job_title == "Pilot" or employee_job_title == "FlightAttendant":
+            try:
+                is_liscense_valid = self.validate.licenses(employee.liscense)
+                is_employee_valid = is_employee_valid and is_liscense_valid
+                raise Exception("Pilot verify over")
+            except AttributeError:
+                is_assignments_valid = self.validate.assignments(employee.assignments)
+                is_employee_valid = is_employee_valid and is_assignments_valid
 
         return (
-            is_ssn_valid and is_mobile_phone_valid and is_email_valid and is_phone_valid
+            is_employee_valid
+            and is_ssn_valid
+            and is_mobile_phone_valid
+            and is_email_valid
+            and is_phone_valid
         )
