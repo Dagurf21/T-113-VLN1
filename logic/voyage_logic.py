@@ -1,7 +1,5 @@
 from model import Voyage
-from logic import Validator
-from logic import FlightLogic
-from model import Flight
+from logic import Validator, FlightLogic
 import datetime
 
 
@@ -37,46 +35,6 @@ class VoyageLogic:
                 status = "Not started",
             )
         )
-
-
-    def cleanup_data(self, data):
-        """"""
-        plane, destination, date, return_date, departure_time, arrival_departure_time, sold_seats, flight_attendants, pilots = data.split(";")
-        plane = int(plane)
-        destination = int(destination)
-        
-        year, month, day = self.split_date(date)
-        date = datetime.date(year = year, month = month, day = day)
-
-        year, month, day = self.split_date(return_date)
-        return_date = datetime.date(year = year, month = month, day = day)
-
-        hour, minutes = self.split_time(departure_time)
-        departure_time = datetime.time(hour = hour, minute = minutes)
-
-        hour, minutes = self.split_time(arrival_departure_time)
-        arrival_departure_time = datetime.time(hour = hour, minute = minutes)
-
-        sold_seats = int(sold_seats)
-        flight_attendants_list = flight_attendants.split()
-        pilots_list = pilots.split()
-
-        return plane, destination, date, return_date, departure_time, arrival_departure_time, sold_seats, flight_attendants_list, pilots_list
-
-
-    def split_date(self, date):
-        """"""
-        year, month, day = date.split("-")
-
-        return int(year), int(month), int(day)
-
-
-    def split_time(self, time):
-        """"""
-        hour, minutes = time.split(":")
-
-        return int(hour), int(minutes)
-
 
     def get_all_voyages(self) -> list:
         """Returns a list of all voyages"""
