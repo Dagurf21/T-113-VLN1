@@ -1,5 +1,5 @@
 import unittest
-from datetime import timedelta, datetime
+import datetime
 from logic.flight_logic import *
 from test.mock_data_wrapper import MockDataWrapper
 from model import *
@@ -31,7 +31,7 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[0])
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
-        date = datetime.now()
+        date = datetime.datetime.now()
         flight_logic.create_flight(0, 1, date, "01:00:00")
 
         self.assertIsNotNone(data.get_flight(0))
@@ -51,7 +51,7 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[0])
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
-        date = datetime.now()
+        date = datetime.datetime.now()
         flight_logic.create_flight(9, 1, date, "01:00:00")
 
         self.assertIsNone(data.get_flight(0))
@@ -63,7 +63,7 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[0])
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
-        date = datetime.now()
+        date = datetime.datetime.now()
         flight_logic.create_flight(0, -1, date, "01:00:00")
 
         self.assertIsNone(data.get_flight(0))
@@ -75,7 +75,7 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[0])
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
-        date = datetime.now()
+        date = datetime.datetime.now()
         flight_logic.create_flight(0, 1, date, "0:-01")
 
         self.assertIsNone(data.get_flight(0))
@@ -87,7 +87,7 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[0])
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
-        date = datetime.now()
+        date = datetime.datetime.now()
 
         flight_logic.create_flight(0, 1, date, "01:00:00")
         flight_logic.create_flight(1, 0, date, "01:30:00")
@@ -130,7 +130,7 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[0])
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
-        date = datetime.now()
+        date = datetime.datetime.now()
 
         for i in range(20):
             loc_id = i % 2
@@ -157,7 +157,7 @@ class TestFlight(unittest.TestCase):
             flight_number="NA010",
             departure=0,
             destination=1,
-            date=datetime(2023, 12, 4, 15, 00),
+            date=datetime.date(2023, 12, 4, 15, 00),
             departure_time="",
             arrival_time="",
         ))
@@ -165,7 +165,7 @@ class TestFlight(unittest.TestCase):
             flight_number="NA011",
             departure=0,
             destination=1,
-            date=datetime(2023, 12, 4, 19, 00),
+            date=datetime.date(2023, 12, 4, 19, 00),
             departure_time="",
             arrival_time="",
         ))
@@ -173,12 +173,12 @@ class TestFlight(unittest.TestCase):
             flight_number="NA010",
             departure=0,
             destination=1,
-            date=datetime(2023, 12, 6, 13, 00),
+            date=datetime.date(2023, 12, 6, 13, 00),
             departure_time="",
             arrival_time="",
         ))
 
-        res = flight_logic.get_same_date_flights(1, datetime(2023, 12, 4))
+        res = flight_logic.get_same_date_flights(1, datetime.date(2023, 12, 4))
         self.assertEqual(res, 2)
     
     def test_flights_going_to(self):
@@ -193,7 +193,7 @@ class TestFlight(unittest.TestCase):
                 flight_number="NA010",
                 departure=0,
                 destination=1,
-                date=datetime(2023, 12, 4, 15, 00),
+                date=datetime.date(2023, 12, 4, 15, 00),
                 departure_time="",
                 arrival_time="",
             ),
@@ -201,7 +201,7 @@ class TestFlight(unittest.TestCase):
                 flight_number="NA011",
                 departure=0,
                 destination=1,
-                date=datetime(2023, 12, 4, 19, 00),
+                date=datetime.date(2023, 12, 4, 19, 00),
                 departure_time="",
                 arrival_time="",
             ),
@@ -210,7 +210,7 @@ class TestFlight(unittest.TestCase):
             flight_number="NA010",
             departure=1,
             destination=0,
-            date=datetime(2023, 12, 6, 13, 00),
+            date=datetime.date(2023, 12, 6, 13, 00),
             departure_time="",
             arrival_time="",
         ))
@@ -244,7 +244,7 @@ class TestFlight(unittest.TestCase):
                 flight_number="NA010",
                 departure=0,
                 destination=1,
-                date=datetime(2023, 12, 4, 15, 00),
+                date=datetime.date(2023, 12, 4, 15, 00),
                 departure_time="",
                 arrival_time="",
             ),
@@ -252,7 +252,7 @@ class TestFlight(unittest.TestCase):
                 flight_number="NA011",
                 departure=0,
                 destination=1,
-                date=datetime(2023, 12, 4, 19, 00),
+                date=datetime.date(2023, 12, 4, 19, 00),
                 departure_time="",
                 arrival_time="",
             ),
@@ -275,7 +275,7 @@ class TestFlight(unittest.TestCase):
                 flight_number="NA010",
                 departure=0,
                 destination=1,
-                date=datetime(2023, 12, 4, 15, 00),
+                date=datetime.date(2023, 12, 4, 15, 00),
                 departure_time="",
                 arrival_time="",
             ),
@@ -283,7 +283,7 @@ class TestFlight(unittest.TestCase):
                 flight_number="NA011",
                 departure=0,
                 destination=1,
-                date=datetime(2023, 12, 4, 19, 00),
+                date=datetime.date(2023, 12, 4, 19, 00),
                 departure_time="",
                 arrival_time="",
             ),
@@ -305,7 +305,7 @@ class TestFlight(unittest.TestCase):
             flight_number="NA010",
             departure=0,
             destination=1,
-            date=datetime(2023, 12, 4, 15, 00),
+            date=datetime.date(2023, 12, 4, 15, 00),
             departure_time="",
             arrival_time="",
         )
@@ -313,7 +313,7 @@ class TestFlight(unittest.TestCase):
         data.create_flight(flight)
         flight.departure = -1
         flight.destination = -1
-        flight.date = datetime(1, 1, 1)
+        flight.date = datetime.date(1, 1, 1)
         flight.departure_time="TEST"
         flight.arrival_time="TEST"
 
@@ -322,7 +322,7 @@ class TestFlight(unittest.TestCase):
         flight_logic.update_flight("NA010", flight)
         self.assertNotEqual(data.get_first_flight().departure, -1)
         self.assertNotEqual(data.get_first_flight().destination, -1)
-        self.assertNotEqual(data.get_first_flight().date, datetime(1, 1, 1))
+        self.assertNotEqual(data.get_first_flight().date, datetime.date(1, 1, 1))
         self.assertEqual(data.get_first_flight().departure_time, "TEST")
         self.assertEqual(data.get_first_flight().arrival_time, "TEST")
 
@@ -337,7 +337,7 @@ class TestFlight(unittest.TestCase):
             flight_number="NA010",
             departure=0,
             destination=1,
-            date=datetime(2023, 12, 4, 15, 00),
+            date=datetime.date(2023, 12, 4, 15, 00),
             departure_time="",
             arrival_time="",
         ))
@@ -381,7 +381,7 @@ class TestFlight(unittest.TestCase):
             flight_number="NA010",
             departure=0,
             destination=1,
-            date=datetime(2023, 12, 4, 15, 00),
+            date=datetime.date(2023, 12, 4, 15, 00),
             departure_time="",
             arrival_time="",
         )

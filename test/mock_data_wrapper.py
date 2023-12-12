@@ -92,7 +92,7 @@ class MockDataWrapper:
 
     def update_voyage(self, voyage: Voyage) -> None:
         try:
-            idx = self.voyages.index(voyage)
+            idx = self.get_voyage_index(voyage.id)
             self.voyages[idx] = deepcopy(voyage)
         except ValueError:
             pass
@@ -114,7 +114,7 @@ class MockDataWrapper:
 
     def update_flight(self, flight: Flight) -> None:
         try:
-            idx = self.flights.index(flight)
+            idx = self.get_flight_index(flight)
             self.flights[idx] = deepcopy(flight)
         except ValueError:
             pass
@@ -181,3 +181,33 @@ class MockDataWrapper:
             return deepcopy(self.flights[0])
         else:
             return None
+    
+    def get_employee_index(self, id: int) -> int:
+        for i, elem in enumerate(self.employees):
+            if elem.id == id:
+                return i
+        return None
+
+    def get_destination_index(self, id: int) -> int:
+        for i, elem in enumerate(self.destinations):
+            if elem.id == id:
+                return i
+        return None
+
+    def get_plane_index(self, id: int) -> int:
+        for i, elem in enumerate(self.planes):
+            if elem.id == id:
+                return i
+        return None
+
+    def get_voyage_index(self, id: int) -> int:
+        for i, elem in enumerate(self.voyages):
+            if elem.id == id:
+                return i
+        return None
+
+    def get_flight_index(self, flight: Flight) -> int:
+        for i, elem in enumerate(self.flights):
+            if elem.flight_number == flight.flight_number and elem.date == flight.date:
+                return i
+        return None

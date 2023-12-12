@@ -21,9 +21,9 @@ class FlightLogic:
         flight_nr = self.create_flight_nr(destination, departure, date)
 
         if destination == 0:
-            arrival_time = self.calculate_arrival_time(departure_time, departure)
+            arrival_time = self.calculate_arrival_time(date, departure_time, departure)
         else:
-            arrival_time = self.calculate_arrival_time(departure_time, destination)
+            arrival_time = self.calculate_arrival_time(date, departure_time, destination)
 
         self.data_wrapper.create_flight(
             Flight(
@@ -84,12 +84,20 @@ class FlightLogic:
         return flights_dest
     
     
-    def calculate_arrival_time(self, departure_time: datetime.datetime, destination_id: datetime.datetime) -> datetime:
+    def calculate_arrival_time(self, departure_date: datetime.date, departure_time: datetime.time, destination_id: int) -> datetime:
         """Calculates the arrival time of a flight
         by adding the travel time from Destination to the departure time"""
 
         destination = self.destination_logic.get_destination(destination_id)
-        arrival_time = departure_time + datetime.timedelta(minutes = destination.flight_time)
+        departure = datetime.datetime(
+            departure_date.year,
+            departure_date.month,
+            departure_date.day,
+            hour=departure_time.hour,
+            minute=departure_time.minute
+        )
+
+        arrival_time = departure + datetime.timedelta(minutes = destination.flight_time)
 
         return arrival_time
 
