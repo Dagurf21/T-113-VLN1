@@ -75,7 +75,14 @@ class EmployeeLogic:
 
     def update_employee(self, employee) -> None:
         """Updates a employee object with the given id"""
-        return self.data_wrapper.update_employee(employee)
+        change_employee = self.get_employee(employee.id)
+        
+        if change_employee != None:
+            employee.name = change_employee.name
+            employee.ssn = change_employee.ssn
+            return self.data_wrapper.update_employee(employee)
+        else:
+            return None
 
     def delete_employee(self, employee_id) -> None:
         """Deletes a employee object with the given id"""

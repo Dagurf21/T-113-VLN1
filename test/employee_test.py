@@ -52,17 +52,6 @@ class TestEmployee(unittest.TestCase):
     ]
     MOCK_PILOTS = [
         Pilot(
-            name="George",
-            password="securityexpert",
-            address="12 George Av.",
-            ssn="1112232569",
-            mobile_phone="612-6342",
-            email="george@nanair.is",
-            home_phone="916-2345",
-            assignments=[],
-            license="C750",
-        ),
-        Pilot(
             name="Tom",
             password="AAAAAAA",
             address="8 Tom Blvd.",
@@ -72,6 +61,17 @@ class TestEmployee(unittest.TestCase):
             home_phone=None,
             assignments=[],
             license="C150",
+        ),
+        Pilot(
+            name="George",
+            password="securityexpert",
+            address="12 George Av.",
+            ssn="1112232569",
+            mobile_phone="612-6342",
+            email="george@nanair.is",
+            home_phone="916-2345",
+            assignments=[],
+            license="C750",
         ),
     ]
     MOCK_FLIGHT_ATTENDANTS = [
@@ -317,7 +317,12 @@ class TestEmployee(unittest.TestCase):
         for employee in self.MOCK_EMPLOYEES:
             data.create_employee(employee)
 
-        self.assertListEqual(self.MOCK_PILOTS, employee_logic.get_all_pilots())
+        pilot_list = []
+        for pilot in employee_logic.get_all_pilots():
+            pilot.id = None
+            pilot_list.append(pilot)
+
+        self.assertListEqual(self.MOCK_PILOTS, pilot_list)
 
     def test_get_pilots_by_license(self):
         data = MockDataWrapper()
@@ -343,9 +348,10 @@ class TestEmployee(unittest.TestCase):
         data.create_employee(self.MOCK_PILOTS[0])
         data.create_employee(self.MOCK_PILOTS[1])
 
-        self.assertListEqual(
-            [self.MOCK_PILOTS[0]], employee_logic.get_pilots_by_liscense("C750")
-        )
+        gotten_pilot = employee_logic.get_pilots_by_license("C750")
+        gotten_pilot[0].id = None
+
+        self.assertListEqual([self.MOCK_PILOTS[1]], gotten_pilot)
 
     def test_update_employee_valid(self):
         data = MockDataWrapper()
@@ -356,6 +362,7 @@ class TestEmployee(unittest.TestCase):
 
         prev_pw = employee.password
 
+        employee.id = 0
         employee.address = "TEST"
         employee.password = "54321"
         employee.mobile_phone = "123-1234"
