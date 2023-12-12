@@ -192,13 +192,13 @@ class TestDestinations(unittest.TestCase):
             data.create_destination(dest)
 
         for dest in data.get_all_destinations():
-            dest.distance_km = 0
+            dest.distance_km = 314321432431
             destination_logic.update_destination(dest)
 
         for dest in data.get_all_destinations():
             self.assertNotEqual(
                 dest.distance_km,
-                0,
+                314321432431,
                 "Distance should not have changed. It should be immutable",
             )
 
@@ -210,13 +210,13 @@ class TestDestinations(unittest.TestCase):
             data.create_destination(dest)
 
         for dest in data.get_all_destinations():
-            dest.flight_time = 0
+            dest.flight_time = 314321432431
             destination_logic.update_destination(dest)
 
         for dest in data.get_all_destinations():
             self.assertNotEqual(
                 dest.flight_time,
-                0,
+                314321432431,
                 "Flight time should not have changed. It should be immutable",
             )
 
@@ -227,9 +227,13 @@ class TestDestinations(unittest.TestCase):
         for dest in self.MOCK_DESTINATIONS:
             data.create_destination(dest)
 
+        counter = 0
+
         for dest in data.get_all_destinations():
             dest.representative = ""
+            dest.id = counter
             destination_logic.update_destination(dest)
+            counter += 1
 
         for dest in data.get_all_destinations():
             self.assertEqual(

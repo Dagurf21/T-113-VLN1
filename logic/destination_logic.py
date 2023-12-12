@@ -1,5 +1,6 @@
 from logic.logic_utilities import Validator
 from model.destination import Destination
+from copy import deepcopy
 
 
 class DestinationLogic:

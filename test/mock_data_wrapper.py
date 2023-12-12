@@ -1,6 +1,7 @@
 from model import *
 from copy import deepcopy
 
+
 class MockDataWrapper:
     def __init__(self):
         self.employees: list[Employee] = []
@@ -48,11 +49,11 @@ class MockDataWrapper:
 
     def update_destination(self, destination: Destination) -> None:
         try:
-            idx = self.destinations.index(destination)
+            idx = destination.id
             self.destinations[idx] = deepcopy(destination)
         except ValueError:
             pass
-        
+
     def delete_destination(self, destination_id: int) -> None:
         destinations = self.get_all_destinations()
         for destination in destinations:
@@ -102,7 +103,7 @@ class MockDataWrapper:
         for voyage in voyages:
             if voyage.id == voyage_id:
                 self.voyages.remove(voyage)
-    
+
     def create_flight(self, flight: Flight) -> None:
         flight = deepcopy(flight)
         flight.id = self.flight_id_mark
@@ -118,8 +119,7 @@ class MockDataWrapper:
             self.flights[idx] = deepcopy(flight)
         except ValueError:
             pass
-    
-    
+
     # Testing utility functions
 
     def get_employee(self, id: int) -> list[Employee]:
@@ -151,19 +151,19 @@ class MockDataWrapper:
             if elem.id == id:
                 return elem
         return None
-    
+
     def get_first_employee(self) -> Employee:
         if len(self.employees) > 0:
             return deepcopy(self.employees[0])
         else:
             return None
-    
+
     def get_first_destination(self) -> Destination:
         if len(self.destinations) > 0:
             return deepcopy(self.destinations[0])
         else:
             return None
-    
+
     def get_first_plane(self) -> Plane:
         if len(self.planes) > 0:
             return deepcopy(self.planes[0])
