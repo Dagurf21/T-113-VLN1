@@ -84,13 +84,12 @@ class FlightLogic:
         return flights_dest
     
     
-    def calculate_arrival_time(self, departure_time, destination_id) -> datetime:
+    def calculate_arrival_time(self, departure_time: datetime.datetime, destination_id: datetime.datetime) -> datetime:
         """Calculates the arrival time of a flight
         by adding the travel time from Destination to the departure time"""
 
         destination = self.destination_logic.get_destination(destination_id)
-        hours, minutes, seconds = f"{departure_time}".split(":")
-        arrival_time = datetime.timedelta(hours = int(hours), minutes = int(minutes)) + datetime.timedelta(minutes = destination.flight_time)
+        arrival_time = departure_time + datetime.timedelta(minutes = destination.flight_time)
 
         return arrival_time
 
