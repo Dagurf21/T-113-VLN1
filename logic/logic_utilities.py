@@ -93,21 +93,6 @@ class Validator:
         #  [^@]+    Anything but @ symbol
         return re.match("[^@]+@[^@]+\.[^@]+", email)
 
-        email = email.split("@")
-
-        try:
-            email[1] = email[1].split(".")
-
-            if "" in email or "" in email[1]:
-                raise Exception("One of the email fields is empty")
-            if len(email) != 2 and len(email[1]) != 2:
-                raise Exception("@ and . not in the correct space")
-            else:
-                return True
-
-        except (IndexError, Exception):
-            return False
-
     # Pilot and flight attendant validations
     def liscense(self, liscense) -> bool:
         """Verifies if the liscense is valid"""
