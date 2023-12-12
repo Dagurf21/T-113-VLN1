@@ -78,16 +78,3 @@ class EmployeeLogic:
         """Deletes a employee object with the given id"""
         return self.data_wrapper.delete_employee(employee_id)
 
-    def is_employee_manager(self, employee) -> None:
-        """Checks if the given employee is manager"""
-        manager_list = self.get_employees_by_job("Manager")
-        if employee in manager_list:
-            return True
-        return False
-
-    def is_employee_flight_manager(self, employee) -> None:
-        """Checks if the given employee is manager"""
-        flight_manager_list = self.get_employees_by_job("FlightManager")
-        if employee in flight_manager_list:
-            return True
-        return False
