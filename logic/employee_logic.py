@@ -61,14 +61,14 @@ class EmployeeLogic:
         pilot_list.sort()
         return pilot_list
 
-    def get_pilots_by_license(self, license) -> list["Pilot"]:
+    def get_pilots_by_license(self, planelicense) -> list["Pilot"]:
         """Returns a list of pilots with the given license"""
         pilot_list = self.get_all_pilots()
 
         pilots_with_the_license = []
 
         for pilot in pilot_list:
-            if license in pilot.liscense:
+            if planelicense == pilot.liscense:
                 pilots_with_the_license.append(pilot)
 
         return pilots_with_the_license
@@ -84,10 +84,10 @@ class EmployeeLogic:
     def get_plane_licenses(self) -> list:
         """Returns a list of plane types"""
         plane_list = self.data_wrapper.get_all_planes()
-
+        license_list = []
         for plane in plane_list:
-            plane_list.append(plane.type)
-        return plane_list
+            license_list.append(plane.type)
+        return license_list
 
     def validate_employee(self, employee):
         """Validates a given employee"""
@@ -111,11 +111,11 @@ class EmployeeLogic:
         if employee_job_title == "Pilot" or employee_job_title == "FlightAttendant":
             try:
                 is_license_valid = self.validate.licenses(
-                    employee.license, self.get_plane_licenses
+                    employee.license, self.get_plane_licenses()
                 )
                 is_employee_valid = is_employee_valid and is_license_valid
                 raise Exception("Pilot verify over")
-            except AttributeError:
+            except (AttributeError, Exception):
                 is_assignments_valid = self.validate.assignments(employee.assignments)
                 is_employee_valid = is_employee_valid and is_assignments_valid
 
