@@ -68,7 +68,7 @@ class EmployeeLogic:
         pilots_with_the_license = []
 
         for pilot in pilot_list:
-            if type(pilot).__name__ == license:
+            if license in pilot.liscense:
                 pilots_with_the_license.append(pilot)
 
         return pilots_with_the_license
@@ -80,6 +80,14 @@ class EmployeeLogic:
     def delete_employee(self, employee_id) -> None:
         """Deletes a employee object with the given id"""
         return self.data_wrapper.delete_employee(employee_id)
+
+    def get_plane_licenses(self) -> list:
+        """Returns a list of plane types"""
+        plane_list = self.data_wrapper.get_all_planes()
+
+        for plane in plane_list:
+            plane_list.append(plane.type)
+        return plane_list
 
     def validate_employee(self, employee):
         """Validates a given employee"""
@@ -95,10 +103,17 @@ class EmployeeLogic:
                 employee.home_phone
             )
 
+        if employee_job_title == "Manager" or employee_job_title == "FlightManager":
+            is_phone_valid = is_phone_valid and self.validate.phone_number(
+                employee.work_phone
+            )
+
         if employee_job_title == "Pilot" or employee_job_title == "FlightAttendant":
             try:
-                is_liscense_valid = self.validate.licenses(employee.liscense)
-                is_employee_valid = is_employee_valid and is_liscense_valid
+                is_license_valid = self.validate.licenses(
+                    employee.license, self.get_plane_licenses
+                )
+                is_employee_valid = is_employee_valid and is_license_valid
                 raise Exception("Pilot verify over")
             except AttributeError:
                 is_assignments_valid = self.validate.assignments(employee.assignments)

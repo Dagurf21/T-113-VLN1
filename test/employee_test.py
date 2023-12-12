@@ -207,7 +207,7 @@ class TestEmployee(unittest.TestCase):
         employee_logic = EmployeeLogic(data)
 
         employee = deepcopy(self.MOCK_FLIGHT_ATTENDANTS[0])
-        employee.assignments = [9, 2]
+        employee.assignments = [9, 2, 2]
     
         employee_logic.create_employee(employee)
         self.assertIsNone(data.get_first_employee())
@@ -237,7 +237,7 @@ class TestEmployee(unittest.TestCase):
         employee_logic = EmployeeLogic(data)
 
         employee = deepcopy(self.MOCK_PILOTS[0])
-        employee.assignments = [9, 2]
+        employee.assignments = [9, 2, 3, 2]
     
         employee_logic.create_employee(employee)
         self.assertIsNone(data.get_first_employee())

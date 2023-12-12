@@ -1,22 +1,6 @@
 # import os
-from logic.employee_logic import EmployeeLogic
-from logic.flight_logic import FlightLogic
-from logic.destination_logic import DestinationLogic
-from logic.voyage_logic import VoyageLogic
-from logic.plane_logic import PlaneLogic
-from logic.logic_utilities import Validator
-from logic.logic_utilities import Utilities
-
-from model.destination import Destination
-from model.employee import Employee
-from model.flight import Flight
-from model.flight_attendant import FlightAttendant
-from model.flight_manager import FlightManager
-from model.manager import Manager
-from model.pilot import Pilot
-from model.plane import Plane
-from model.voyage import Voyage
-
+from logic import Validator, Utilities, PlaneLogic, VoyageLogic, DestinationLogic, FlightLogic, EmployeeLogic
+from model import Destination, Employee, Flight, FlightAttendant, FlightManager, Manager, Pilot, Plane, Voyage
 from data.data_wrapper import DataWrapper
 
 
@@ -51,19 +35,19 @@ class LogicWrapper(object):
         """Fetches a employee with input email"""
         return self.employee_logic.get_employee_by_email(email)
 
-    def get_employees_by_job(self, job) -> list:
+    def get_employees_by_job(self, job) -> list[Employee]:
         """Fetches a list of employees that fit the job title"""
         return self.employee_logic.get_employees_by_job(job)
 
-    def get_all_pilots(self) -> list:
+    def get_all_pilots(self) -> list[Pilot]:
         """Fetches all pilots and returns them in a list"""
         return self.get_all_pilots()
 
-    def get_pilots_by_liscense(self, liscense) -> list:
-        """Retrieves a list of pilots which have the given liscense"""
-        return self.get_pilots_by_liscense(liscense)
+    def get_pilots_by_license(self, license) -> list[Pilot]:
+        """Retrieves a list of pilots which have the given license"""
+        return self.get_pilots_by_license(license)
 
-    def get_all_flight_attendants(self) -> list:
+    def get_all_flight_attendants(self) -> list[Pilot]:
         """Fetches all pilots and returns them in a list"""
         return self.get_employees_by_job("FlightAttendants")
 
@@ -74,14 +58,6 @@ class LogicWrapper(object):
     def delete_employee(self, id) -> None:
         """Erases an employee from the record/ via ID"""
         return self.employee_logic.delete_employee(id)
-
-    def is_employee_manager(self, employee):
-        """Checks if the given employee is a manager"""
-        return self.employee_logic.is_employee_manager(employee)
-
-    def is_employee_flight_manager(self, employee):
-        """Check if a given employee is a flight manager"""
-        return self.employee_logic.is_employee_flight_manager(employee)
 
     # Flight Class
     def create_flight(self, data) -> None:
