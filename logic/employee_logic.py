@@ -7,7 +7,6 @@ class EmployeeLogic:
 
     def __init__(self, data_connection) -> None:
         self.data_wrapper = data_connection
-        self.plane = PlaneLogic(data_connection)
         self.validate = Validator()
         self.utility = Utilities()
 
