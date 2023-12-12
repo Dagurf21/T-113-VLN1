@@ -32,7 +32,10 @@ class TestPlane(unittest.TestCase):
 
         plane_logic.create_plane(self.MOCK_PLANES[0])
 
-        self.assertEqual(data.get_first_plane(), self.MOCK_PLANES[0])
+        plane = data.get_first_plane()
+        self.assertIsNotNone(plane.id)
+        plane.id = None
+        self.assertEqual(plane, self.MOCK_PLANES[0])
 
     def test_create_plane_invalid_capacity(self):
         data = MockDataWrapper()
@@ -52,16 +55,25 @@ class TestPlane(unittest.TestCase):
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
         
-        self.assertEqual(self.MOCK_PLANES, plane_logic.get_all_planes())
+        planes = []
+        for plane in data.get_all_planes():
+            self.assertIsNotNone(plane.id)
+            plane.id = None
+            planes.append(plane)
+
+        self.assertEqual(self.MOCK_PLANES, planes)
     
-    def test_get_all_planes(self):
+    def test_get_plane(self):
         data = MockDataWrapper()
         plane_logic = PlaneLogic(data)
 
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
         
-        self.assertEqual(self.MOCK_PLANES[1], plane_logic.get_plane(1))
+        plane = plane_logic.get_plane(1)
+        self.assertIsNotNone(plane.id)
+        plane.id = None
+        self.assertEqual(self.MOCK_PLANES[1], plane)
     
     def test_update_plane(self):
         data = MockDataWrapper()
@@ -89,4 +101,10 @@ class TestPlane(unittest.TestCase):
         id_to_remove = 0
         plane_logic.delete_plane(id_to_remove)
         expect = [plane for plane in self.MOCK_PLANES if plane.id != id_to_remove]
-        self.assertListEqual(expect, data.get_all_planes())
+
+        planes = data.get_all_planes()
+        for plane in planes:
+            self.assertIsNotNone(plane.id)
+            plane.id = None
+
+        self.assertListEqual(expect, planes)
