@@ -1,7 +1,5 @@
 from model import Voyage
-from logic import Validator
-from logic import FlightLogic
-from model import Flight
+from logic import Validator, FlightLogic
 import datetime
 
 
