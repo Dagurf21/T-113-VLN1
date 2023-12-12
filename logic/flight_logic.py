@@ -55,14 +55,10 @@ class FlightLogic:
     def get_same_date_flights(self, destination_id, date) -> int:
         """Returns the amount of flights with the same date and destination"""
         all_flights = self.get_all_flight()
-
         flights_within = 0
 
-        date = f"{date}"
-        
         for flight in all_flights:
             # If flights are same destination and date
-            print(type(flight.date))
             if flight.destination == 0:
                 if flight.departure == destination_id and flight.date == date:
                     flights_within += 1
