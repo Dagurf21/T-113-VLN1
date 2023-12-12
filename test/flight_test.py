@@ -135,7 +135,7 @@ class TestFlight(unittest.TestCase):
         for i in range(20):
             loc_id = i % 2
             flight_number = flight_logic.create_flight_nr(loc_id, 1 - loc_id, date)
-            self.assertEqual("NA010", flight_number)
+            self.assertEqual(f"NA01{i}", flight_number)
 
             data.create_flight(Flight(
                 flight_number=flight_number,

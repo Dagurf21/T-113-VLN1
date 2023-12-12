@@ -2,6 +2,7 @@ import unittest
 from logic.employee_logic import *
 from test.mock_data_wrapper import MockDataWrapper
 from model import *
+from copy import deepcopy
 
 class TestEmployee(unittest.TestCase):
 
@@ -121,110 +122,413 @@ class TestEmployee(unittest.TestCase):
         self.MOCK_EMPLOYEES.extend(self.MOCK_FLIGHT_ATTENDANTS)
 
     def test_create_employee_invalid_ssn(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_EMPLOYEES[1])
+        employee.ssn = "asa124839"
+    
+        employee_logic.create_employee(employee)
+        self.assertIsNone(data.get_first_employee())
 
     def test_create_employee_invalid_mobile_phone(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_EMPLOYEES[1])
+        employee.mobile_phone = "asd-1234"
+    
+        employee_logic.create_employee(employee)
+        self.assertIsNone(data.get_first_employee())
 
     def test_create_employee_invalid_email(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_EMPLOYEES[1])
+        employee.email = "asd1234.@asd"
+    
+        employee_logic.create_employee(employee)
+        self.assertIsNone(data.get_first_employee())
 
     def test_create_employee_invalid_home_phone(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_EMPLOYEES[1])
+        employee.home_phone = "asd-1234"
+    
+        employee_logic.create_employee(employee)
+        self.assertIsNone(data.get_first_employee())
 
     def test_create_employee_manager_valid(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee_logic.create_employee(self.MOCK_MANAGERS[0])
+        self.assertIsNotNone(data.get_first_employee())
 
     def test_create_employee_manager_invalid_work_phone(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_MANAGERS[0])
+        employee.work_phone = "asd-1234"
+    
+        employee_logic.create_employee(employee)
+        self.assertIsNone(data.get_first_employee())
 
     def test_create_employee_flight_manager_valid(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+    
+        employee_logic.create_employee(self.MOCK_FLIGHT_MANAGERS[0])
+        self.assertIsNotNone(data.get_first_employee())
 
     def test_create_employee_flight_manager_invalid_work_phone(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_FLIGHT_MANAGERS[0])
+        employee.work_phone = "asd-1234"
+    
+        employee_logic.create_employee(employee)
+        self.assertIsNone(data.get_first_employee())
 
     def test_create_employee_flight_attendant_valid(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+    
+        employee_logic.create_employee(self.MOCK_FLIGHT_ATTENDANTS[0])
+        self.assertIsNotNone(data.get_first_employee())
 
     def test_create_employee_flight_attendant_invalid_assignments(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_FLIGHT_ATTENDANTS[0])
+        employee.assignments = [9, 2]
+    
+        employee_logic.create_employee(employee)
+        self.assertIsNone(data.get_first_employee())
 
     def test_create_employee_pilot_valid(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        data.create_plane(Plane(
+            name="",
+            ty="C750",
+            manufacturer="",
+            capacity=0,
+        ))
+        data.create_plane(Plane(
+            name="",
+            ty="C150",
+            manufacturer="",
+            capacity=0,
+        ))
+    
+        employee_logic.create_employee(self.MOCK_PILOTS[0])
+        self.assertIsNotNone(data.get_first_employee())
 
     def test_create_employee_pilot_invalid_assignments(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_PILOTS[0])
+        employee.assignments = [9, 2]
+    
+        employee_logic.create_employee(employee)
+        self.assertIsNone(data.get_first_employee())
 
     def test_create_employee_pilot_invalid_license(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_PILOTS[0])
+        employee.assignments = "C128"
+    
+        employee_logic.create_employee(employee)
+        self.assertIsNone(data.get_first_employee())
 
     def test_get_all_employees(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+        
+        for employee in self.MOCK_EMPLOYEES:
+            data.create_employee(employee)
+
+        self.assertListEqual(self.MOCK_EMPLOYEES, employee_logic.get_all_employees())
 
     def test_get_employee(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+        
+        for employee in self.MOCK_EMPLOYEES:
+            data.create_employee(employee)
+
+        self.assertEqual(self.MOCK_EMPLOYEES[5], employee_logic.get_employee(5))
 
     def test_get_employee_by_email(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+        
+        for employee in self.MOCK_EMPLOYEES:
+            data.create_employee(employee)
+
+        expect = self.MOCK_EMPLOYEES[5]
+        self.assertEqual(expect, employee_logic.get_employee_by_email(expect.email))
 
     def test_get_employee_by_job(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+        
+        for employee in self.MOCK_EMPLOYEES:
+            data.create_employee(employee)
+
+        self.assertListEqual(self.MOCK_PILOTS, employee_logic.get_employees_by_job("Pilot"))
 
     def test_get_all_pilots(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+        
+        for employee in self.MOCK_EMPLOYEES:
+            data.create_employee(employee)
+
+        self.assertListEqual(self.MOCK_PILOTS, employee_logic.get_all_pilots())
 
     def test_get_pilots_by_license(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        data.create_plane(Plane(
+            name="",
+            ty="C750",
+            manufacturer="",
+            capacity=0,
+        ))
+        data.create_plane(Plane(
+            name="",
+            ty="C150",
+            manufacturer="",
+            capacity=0,
+        ))
+
+        data.create_employee(self.MOCK_PILOTS[0])
+        data.create_employee(self.MOCK_PILOTS[1])
+
+        self.assertListEqual([self.MOCK_PILOTS[0]], employee_logic.get_pilots_by_liscense("C750"))
 
     def test_update_employee_valid(self):
-        raise NotImplementedError
-    
-    def test_update_employee_invalid_ssn(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_EMPLOYEES[0])
+        data.create_employee(employee)
+
+        prev_pw = employee.password
+
+        employee.address = "TEST"
+        employee.password = "54321"
+        employee.mobile_phone = "123-1234"
+        employee.home_phone = "123-1234"
+        employee.email = "test@test.test"
+        employee_logic.update_employee(employee)
+
+        self.assertEqual(data.get_first_employee().address, "TEST")
+        self.assertNotEqual(data.get_first_employee().password, prev_pw)
+        self.assertEqual(data.get_first_employee().mobile_phone, "123-1234")
+        self.assertEqual(data.get_first_employee().home_phone, "123-1234")
+        self.assertEqual(data.get_first_employee().email, "test@test.test")
+
+    def test_update_employee_invalid_fields(self):
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_EMPLOYEES[0])
+        data.create_employee(employee)
+
+        employee.ssn = "1112231239"
+        employee.name = "Testman"
+        employee_logic.update_employee(employee)
+
+        self.assertNotEqual(data.get_first_employee().address, "TEST")
     
     def test_update_employee_invalid_mobile_phone(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_EMPLOYEES[0])
+        data.create_employee(employee)
+
+        employee.mobile_phone = "1vqr32-3"
+        employee_logic.update_employee(employee)
+
+        self.assertNotEqual(data.get_first_employee().mobile_phone, "1vqr32-3")
 
     def test_update_employee_invalid_email(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_EMPLOYEES[0])
+        data.create_employee(employee)
+
+        employee.email = "123"
+        employee_logic.update_employee(employee)
+
+        self.assertNotEqual(data.get_first_employee().email, "123")
 
     def test_update_employee_invalid_home_phone(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
 
-    def test_update_employee_invalid_job(self):
-        raise NotImplementedError
+        employee = deepcopy(self.MOCK_EMPLOYEES[0])
+        data.create_employee(employee)
+
+        employee.home_phone = "521"
+        employee_logic.update_employee(employee)
+
+        self.assertNotEqual(data.get_first_employee().home_phone, "521")
 
     def test_update_manager_valid(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_MANAGERS[0])
+        data.create_employee(employee)
+
+        employee.work_phone = "123-1234"
+        employee_logic.update_employee(employee)
+
+        self.assertNotEqual(data.get_first_employee().work_phone, "123-1234")
 
     def test_update_manager_invalid_work_phone(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_MANAGERS[0])
+        data.create_employee(employee)
+
+        employee.work_phone = "612"
+        employee_logic.update_employee(employee)
+
+        self.assertNotEqual(data.get_first_employee().work_phone, "612")
 
     def test_update_flight_manager_valid(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_FLIGHT_MANAGERS[0])
+        data.create_employee(employee)
+
+        employee.work_phone = "123-1234"
+        employee_logic.update_employee(employee)
+
+        self.assertNotEqual(data.get_first_employee().work_phone, "123-1234")
 
     def test_update_flight_manager_invalid_work_phone(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_FLIGHT_MANAGERS[0])
+        data.create_employee(employee)
+
+        employee.work_phone = "612"
+        employee_logic.update_employee(employee)
+
+        self.assertNotEqual(data.get_first_employee().work_phone, "612")
+
+    def test_update_pilot_valid(self):
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_PILOTS[0])
+        data.create_employee(employee)
+
+        voyage = deepcopy(self.VOYAGE_TEMPLATE)
+        data.create_voyage(voyage)
+
+        data.create_plane(Plane(
+            name="",
+            ty="C750",
+            manufacturer="",
+            capacity=0,
+        ))
+        data.create_plane(Plane(
+            name="",
+            ty="C150",
+            manufacturer="",
+            capacity=0,
+        ))
+
+        employee.assignments = [0]
+        employee.license = "C150"
+        employee_logic.update_employee(employee)
+
+        self.assertListEqual(data.get_first_employee().assignments, [0])
+        self.assertEqual(data.get_first_employee().license, "C150")
 
     def test_update_pilot_invalid_assignments(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_PILOTS[0])
+        data.create_employee(employee)
+
+        employee.assignments = [1, 9]
+        employee_logic.update_employee(employee)
+
+        self.assertListEqual(data.get_first_employee().assignments, [])
 
     def test_update_pilot_invalid_license(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_PILOTS[0])
+        data.create_employee(employee)
+
+        employee.license
+        employee_logic.update_employee(employee)
+
+        self.assertEqual(data.get_first_employee().license, "C750")
 
     def test_update_flight_attendant_valid(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_FLIGHT_ATTENDANTS[0])
+        data.create_employee(employee)
+
+        voyage = deepcopy(self.VOYAGE_TEMPLATE)
+        data.create_voyage(voyage)
+
+        employee.assignments = [0]
+        employee_logic.update_employee(employee)
+
+        self.assertListEqual(data.get_first_employee().assignments, [0])
 
     def test_update_flight_attendant_invalid_assignments(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
+
+        employee = deepcopy(self.MOCK_FLIGHT_ATTENDANTS[0])
+        data.create_employee(employee)
+
+        employee.assignments = [0]
+        employee_logic.update_employee(employee)
+
+        self.assertListEqual(data.get_first_employee().assignments, [])
 
     def test_delete_employee(self):
-        raise NotImplementedError
+        data = MockDataWrapper()
+        employee_logic = EmployeeLogic(data)
 
-    def test_is_employee_manager(self):
-        raise NotImplementedError
+        for employee in self.MOCK_EMPLOYEES:
+            data.create_employee(employee)
 
-    def test_is_employee_flight_manager(self):
-        raise NotImplementedError
+        id_to_delete = 2
+        employee_logic.delete_employee(id_to_delete)
+        expect = [employee for employee in self.MOCK_EMPLOYEES if employee.id != id_to_delete]
+        self.assertListEqual(expect, data.get_all_employees())
 
