@@ -2,6 +2,7 @@
 from logic import Validator, Utilities, PlaneLogic, VoyageLogic, DestinationLogic, FlightLogic, EmployeeLogic
 from model import Destination, Employee, Flight, FlightAttendant, FlightManager, Manager, Pilot, Plane, Voyage
 from data.data_wrapper import DataWrapper
+import datetime
 
 
 class LogicWrapper(object):
@@ -68,9 +69,9 @@ class LogicWrapper(object):
         """Returns a list of all flight routes"""
         return self.flight_logic.get_all_flights()
 
-    def get_flight(self, id) -> Flight:  # Flight
+    def get_flight(self, flight_number: str, date: datetime.date) -> Flight:  # Flight
         """Returns a specific flight route/ via ID"""
-        return self.flight_logic.get_flight(id)
+        return self.flight_logic.get_flight(flight_number, date)
 
     def update_flight(self, id, data) -> None:
         """Updates info on flight routes"""

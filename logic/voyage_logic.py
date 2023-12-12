@@ -55,25 +55,25 @@ class VoyageLogic:
         all_voyages = self.data_wrapper.get_all_voyages()
         now = datetime.datetime.now()
 
-        for Voyage in all_voyages:
+        for voyage in all_voyages:
             # Status options: Finished, Landed abroad, In the Air, Not started, Cancelled
-            departure_flight = self.flight_logic.get_flight(Voyage.departure_flight)
-            arrival_flight = self.flight_logic.get_flight(Voyage.arrival_flight)
+            departure_flight = self.flight_logic.get_flight(voyage.departure_flight, voyage.date)
+            arrival_flight = self.flight_logic.get_flight(voyage.arrival_flight, voyage.date)
 
-            if Voyage.status == VoyageStatus.Cancelled:
+            if voyage.status == VoyageStatus.Cancelled:
                 pass
 
             # If the flight date has not been reached yet
-            elif Voyage.date < now.date():
-                Voyage.status = VoyageStatus.NotStarted
+            elif voyage.date < now.date():
+                voyage.status = VoyageStatus.NotStarted
 
             # If the flight is today
-            elif Voyage.date == now.date():
+            elif voyage.date == now.date():
                 # If the departure time has been reached
-                if Voyage.departure_time <= now:
+                if voyage.departure_time <= now:
                     # If the flight has not arrived at it's destination
                     if now.time() < departure_flight.arrival_time:
-                        Voyage.status = VoyageStatus.InTheAir
+                        voyage.status = VoyageStatus.InTheAir
 
                     # If the time is past the arrival time abroad
                     # and not reached the return flights departure time
@@ -82,7 +82,7 @@ class VoyageLogic:
                         <= now.time()
                         < arrival_flight.departure_time
                     ):
-                        Voyage.status = VoyageStatus.LandedAbroad
+                        voyage.status = VoyageStatus.LandedAbroad
 
                     # If the time is past the return flight departure time
                     # and not past its arrival time
@@ -91,16 +91,16 @@ class VoyageLogic:
                         <= now.time()
                         < arrival_flight.arrival_time
                     ):
-                        Voyage.status = VoyageStatus.InTheAir
+                        voyage.status = VoyageStatus.InTheAir
 
                     else:
-                        Voyage.status = VoyageStatus.Finished
+                        voyage.status = VoyageStatus.Finished
 
                 else:
-                    Voyage.status = VoyageStatus.NotStarted
+                    voyage.status = VoyageStatus.NotStarted
 
             else:
-                Voyage.status = VoyageStatus.Finished
+                voyage.status = VoyageStatus.Finished
 
         return all_voyages
 

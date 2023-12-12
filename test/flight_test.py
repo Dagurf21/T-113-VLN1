@@ -31,18 +31,21 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[0])
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
-        date = datetime.datetime.now()
+        date = datetime.date.today()
         flight_logic.create_flight(0, 1, date, datetime.time(1, 00))
 
-        self.assertIsNotNone(data.get_flight(0))
-        self.assertEqual(data.get_flight(0), Flight(
+        res = data.get_flight("NA010", date)
+        expect = Flight(
             flight_number="NA010",
             departure=0,
             destination=1,
             date=date,
             departure_time=datetime.time(1, 00),
             arrival_time=datetime.time(4, 20),
-        ))
+        )
+
+        self.assertIsNotNone(res)
+        self.assertEqual(res, expect)
 
     def test_create_flight_invalid_departure(self):
         data = MockDataWrapper()
@@ -284,7 +287,7 @@ class TestFlight(unittest.TestCase):
         data.create_flight(flights[0])
         data.create_flight(flights[1])
 
-        self.assertEqual(flights[1], flight_logic.get_flight("NA011"))
+        self.assertEqual(flights[1], flight_logic.get_flight("NA011", datetime.date(2023, 12, 4)))
 
     def test_update_flight(self):
         data = MockDataWrapper()

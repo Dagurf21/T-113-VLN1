@@ -34,7 +34,7 @@ class FlightLogic:
                 destination = destination,
                 date = date,
                 departure_time = departure_time,
-                arrival_time = arrival_time,
+                arrival_time = arrival_time.time(),
             )
         )
         
@@ -114,12 +114,12 @@ class FlightLogic:
         return self.data_wrapper.get_all_flights()
 
 
-    def get_flight(self, flight_nr):  # Flight
+    def get_flight(self, flight_nr: str, date: datetime.date):  # Flight
         """Gets a specific flight route with a specific ID"""
         flight_list = self.get_all_flight()
 
         for flight in flight_list:
-            if flight.flight_number == flight_nr:
+            if flight.flight_number == flight_nr and flight.date == date:
                 return flight
         
         return None
