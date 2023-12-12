@@ -7,5 +7,5 @@ class Flight:
     departure: int
     destination: int
     date: datetime.date
-    departure_time: str
-    arrival_time: str
+    departure_time: datetime.time
+    arrival_time: datetime.time
