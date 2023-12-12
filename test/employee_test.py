@@ -5,13 +5,13 @@ from model import *
 
 class TestEmployee(unittest.TestCase):
 
-    MOCK_MANAGERS = [
-        Manager(
-            name="Bob",
-            password="",
-            # TODO: Incomplete
-        )
-    ]
+    # MOCK_MANAGERS = [
+    #    Manager(
+    #         name="Bob",
+    #         password="",
+    #         # TODO: Incomplete
+    #     )
+    # ]
     MOCK_FLIGHT_MANAGERS = []
     MOCK_PILOTS = []
     MOCK_FLIGHT_ATTENDANTS = []
@@ -22,12 +22,12 @@ class TestEmployee(unittest.TestCase):
         plane=None,
         pilots=[],
         flight_attendants=[],
-        departure_time=datetime(0),
+        departure_time=datetime(1, 1, 1),
         departure_flight=0,
-        arrival_departure_time=datetime(0),
+        arrival_departure_time=datetime(1, 1, 1),
         arrival_flight=0,
-        date=datetime(0),
-        return_date=datetime(0),
+        date=datetime(1, 1, 1),
+        return_date=datetime(1, 1, 1),
         status=""
     )
     

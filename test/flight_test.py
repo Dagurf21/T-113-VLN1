@@ -313,7 +313,7 @@ class TestFlight(unittest.TestCase):
         data.create_flight(flight)
         flight.departure = -1
         flight.destination = -1
-        flight.date = datetime(0)
+        flight.date = datetime(1, 1, 1)
         flight.departure_time="TEST"
         flight.arrival_time="TEST"
 
@@ -322,7 +322,7 @@ class TestFlight(unittest.TestCase):
         flight_logic.update_flight("NA010", flight)
         self.assertNotEqual(data.get_first_flight().departure, -1)
         self.assertNotEqual(data.get_first_flight().destination, -1)
-        self.assertNotEqual(data.get_first_flight().date, datetime(0))
+        self.assertNotEqual(data.get_first_flight().date, datetime(1, 1, 1))
         self.assertEqual(data.get_first_flight().departure_time, "TEST")
         self.assertEqual(data.get_first_flight().arrival_time, "TEST")
 
