@@ -32,7 +32,7 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
         date = datetime.now()
-        flight_logic.create_flight(0, 1, date, "01:00")
+        flight_logic.create_flight(0, 1, date, "01:00:00")
 
         self.assertIsNotNone(data.get_flight(0))
         self.assertEqual(data.get_flight(0), Flight(
@@ -52,7 +52,7 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
         date = datetime.now()
-        flight_logic.create_flight(9, 1, date, "01:00")
+        flight_logic.create_flight(9, 1, date, "01:00:00")
 
         self.assertIsNone(data.get_flight(0))
 
@@ -64,7 +64,7 @@ class TestFlight(unittest.TestCase):
         data.create_destination(self.MOCK_DESTINATIONS[1])
 
         date = datetime.now()
-        flight_logic.create_flight(0, -1, date, "01:00")
+        flight_logic.create_flight(0, -1, date, "01:00:00")
 
         self.assertIsNone(data.get_flight(0))
 
@@ -89,9 +89,9 @@ class TestFlight(unittest.TestCase):
 
         date = datetime.now()
 
-        flight_logic.create_flight(0, 1, date, "01:00")
-        flight_logic.create_flight(1, 0, date, "01:30")
-        flight_logic.create_flight(0, 1, date, "02:00")
+        flight_logic.create_flight(0, 1, date, "01:00:00")
+        flight_logic.create_flight(1, 0, date, "01:30:00")
+        flight_logic.create_flight(0, 1, date, "02:00:00")
 
         self.assertIsNotNone(data.get_flight(0))
         self.assertEqual(data.get_flight(0), Flight(
@@ -99,8 +99,8 @@ class TestFlight(unittest.TestCase):
             departure=0,
             destination=1,
             date=date,
-            departure_time="01:00",
-            arrival_time="04:20",
+            departure_time="01:00:00",
+            arrival_time="04:20:00",
         ))
         
         self.assertIsNotNone(data.get_flight(1))
@@ -109,8 +109,8 @@ class TestFlight(unittest.TestCase):
             departure=0,
             destination=1,
             date=date,
-            departure_time="01:30",
-            arrival_time="04:50",
+            departure_time="01:30:00",
+            arrival_time="04:50:00",
         ))
 
         self.assertIsNotNone(data.get_flight(2))
@@ -119,8 +119,8 @@ class TestFlight(unittest.TestCase):
             departure=0,
             destination=1,
             date=date,
-            departure_time="02:00",
-            arrival_time="05:20",
+            departure_time="02:00:00",
+            arrival_time="05:20:00",
         ))
 
     def test_create_flight_nr(self):

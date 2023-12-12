@@ -14,6 +14,7 @@ class MainMenuUI(UIWidget):
                 options.append("Employees")
                 options.append("Voyages")
                 options.append("Destinations")
+                options.append("Planes")
             if isinstance(self.user, FlightManager):
                 options.append("Voyages")
             if isinstance(self.user, Pilot):
