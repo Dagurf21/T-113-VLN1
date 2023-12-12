@@ -7,10 +7,8 @@ from logic.plane_logic import PlaneLogic
 from logic.logic_utilities import Validator
 from logic.logic_utilities import Utilities
 
-from model.destination import Destination
-from model.employee import Employee
-from model.flight import Flight
-from model.flight_attendant import FlightAttendant
+from model import Destination, Employee, Flight, FlightAttendant
+
 from model.flight_manager import FlightManager
 from model.manager import Manager
 from model.pilot import Pilot
@@ -59,7 +57,7 @@ class LogicWrapper(object):
         """Fetches all pilots and returns them in a list"""
         return self.get_all_pilots()
 
-    def get_pilots_by_license(self, license) -> list[Pilot.license]:
+    def get_pilots_by_license(self, license) -> list[Pilot]:
         """Retrieves a list of pilots which have the given license"""
         return self.get_pilots_by_license(license)
 
@@ -74,14 +72,6 @@ class LogicWrapper(object):
     def delete_employee(self, id) -> None:
         """Erases an employee from the record/ via ID"""
         return self.employee_logic.delete_employee(id)
-
-    def is_employee_manager(self, employee):
-        """Checks if the given employee is a manager"""
-        return self.employee_logic.is_employee_manager(employee)
-
-    def is_employee_flight_manager(self, employee):
-        """Check if a given employee is a flight manager"""
-        return self.employee_logic.is_employee_flight_manager(employee)
 
     # Flight Class
     def create_flight(self, data) -> None:
