@@ -94,8 +94,8 @@ class Validator:
         return re.match("[^@]+@[^@]+\.[^@]+", email)
 
     # Pilot and flight attendant validations
-    def liscense(self, liscense) -> bool:
-        """Verifies if the liscense is valid"""
+    def licenses(self, licenses) -> bool:
+        """Verifies if the list of licenses is valid"""
         return True
 
     def assignments(self, assignments) -> bool:

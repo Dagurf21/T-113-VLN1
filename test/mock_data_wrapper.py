@@ -16,7 +16,7 @@ class MockDataWrapper:
         self.plane_id_mark = 0
 
     def get_all_employees(self) -> list[Employee]:
-        return self.employees[:]
+        return deepcopy(self.employees)
 
     def create_employee(self, employee: Employee) -> None:
         employee = deepcopy(employee)
@@ -44,7 +44,7 @@ class MockDataWrapper:
         self.destinations.append(destination)
 
     def get_all_destinations(self) -> list[Destination]:
-        return self.destinations[:]
+        return deepcopy(self.destinations)
 
     def update_destination(self, destination: Destination) -> None:
         try:
@@ -66,7 +66,7 @@ class MockDataWrapper:
         self.planes.append(plane)
 
     def get_all_planes(self: Plane) -> list[Plane]:
-        return self.planes[:]
+        return deepcopy(self.planes)
 
     def update_plane(self, plane: Plane) -> None:
         try:
@@ -88,7 +88,7 @@ class MockDataWrapper:
         self.voyages.append(voyage)
 
     def get_all_voyages(self) -> list[Voyage]:
-        return self.voyages[:]
+        return deepcopy(self.voyages)
 
     def update_voyage(self, voyage: Voyage) -> None:
         try:
@@ -110,7 +110,7 @@ class MockDataWrapper:
         self.flights.append(flight)
 
     def get_all_flights(self) -> list[Flight]:
-        return self.flights[:]
+        return deepcopy(self.flights)
 
     def update_flight(self, flight: Flight) -> None:
         try:
@@ -154,30 +154,30 @@ class MockDataWrapper:
     
     def get_first_employee(self) -> Employee:
         if len(self.employees) > 0:
-            return self.employees[0]
+            return deepcopy(self.employees[0])
         else:
             return None
     
     def get_first_destination(self) -> Destination:
         if len(self.destinations) > 0:
-            return self.destinations[0]
+            return deepcopy(self.destinations[0])
         else:
             return None
     
     def get_first_plane(self) -> Plane:
         if len(self.planes) > 0:
-            return self.planes[0]
+            return deepcopy(self.planes[0])
         else:
             return None
 
     def get_first_voyage(self) -> Voyage:
         if len(self.voyages) > 0:
-            return self.voyages[0]
+            return deepcopy(self.voyages[0])
         else:
             return None
 
     def get_first_flight(self) -> Flight:
         if len(self.flights) > 0:
-            return self.flights[0]
+            return deepcopy(self.flights[0])
         else:
             return None
