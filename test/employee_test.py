@@ -22,7 +22,7 @@ class TestEmployee(unittest.TestCase):
             password="1234",
             address="45 John St.",
             ssn="1112233219",
-            mobile_phone="919-",
+            mobile_phone="919-2934",
             email="jonn@nanair.is",
             home_phone=None,
             work_phone="912-3213",
