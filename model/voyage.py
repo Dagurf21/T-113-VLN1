@@ -1,9 +1,8 @@
 from dataclasses import dataclass
-from datetime import datetime
 from model.plane import Plane
 from model.pilot import Pilot
 from model.flight_attendant import FlightAttendant
-
+import datetime
 
 @dataclass(kw_only=True)
 class Voyage:
@@ -13,12 +12,12 @@ class Voyage:
     plane: Plane
     pilots: list[Pilot] = None
     flight_attendants: list[FlightAttendant] = None
-    departure_time: datetime
+    departure_time: datetime.time
     departure_flight: int # flight id
-    arrival_departure_time: datetime
+    arrival_departure_time: datetime.time
     arrival_flight: int # flight id
-    date: datetime
-    return_date: datetime
+    date: datetime.date
+    return_date: datetime.date
     status: str
     # Status options: Finished, Landed abroad, In the Air, Not started, Cancelled 
 

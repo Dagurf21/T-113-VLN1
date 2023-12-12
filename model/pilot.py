@@ -10,4 +10,4 @@ class Pilot(Employee):
     def __lt__(self, other_pilot):
         """This makes it so that the logic layer can
         sort by liscense"""
-        return self.license < other_pilot.liscense
+        return self.license < other_pilot.license

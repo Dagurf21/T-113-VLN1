@@ -7,21 +7,18 @@ from copy import copy
 class TestPlane(unittest.TestCase):
     MOCK_PLANES = [
         Plane(
-            id=0,
             name="Terminator",
             ty="737",
             manufacturer="Boeing",
             capacity=300,
         ),
         Plane(
-            id=1,
             name="Terminator 2",
             ty="A320",
             manufacturer="Airbus",
             capacity=350,
         ),
         Plane(
-            id=2,
             name="Terminator",
             ty="777",
             manufacturer="Boeing",

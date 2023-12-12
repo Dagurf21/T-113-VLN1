@@ -31,7 +31,7 @@ class LogicWrapper(object):
         """Returns a employee with input ID"""
         return self.employee_logic.get_employee(id)
 
-    def get_employee_by_email(self, email) -> Employee:
+    def get_employee_by_email(self, email) -> list[Employee]:
         """Fetches a employee with input email"""
         return self.employee_logic.get_employee_by_email(email)
 
@@ -64,11 +64,11 @@ class LogicWrapper(object):
         """Creates an flight"""
         return self.flight_logic.create_flight(data)
 
-    def get_all_flight(self) -> list[Flight]:  # Flight route
+    def get_all_flight(self) -> list[Flight]:  # Flight
         """Returns a list of all flight routes"""
         return self.flight_logic.get_all_flights()
 
-    def get_flight(self, id) -> Flight:  # Flight route
+    def get_flight(self, id) -> Flight:  # Flight
         """Returns a specific flight route/ via ID"""
         return self.flight_logic.get_flight(id)
 
@@ -167,8 +167,8 @@ class LogicWrapper(object):
         return self.validate.email(email_data)
 
     ### Pilot Validation
-    def validate_liscense(self, liscense_data):
-        return self.validate.liscense(liscense_data)
+    def validate_license(self, license_data):
+        return self.validate.license(license_data)
 
     ### Pilot & Flight Attendant Validation
     def validate_assignments(self, assignments_data):

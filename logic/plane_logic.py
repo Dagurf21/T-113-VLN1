@@ -15,9 +15,6 @@ class PlaneLogic:
         if plane.id is None:
             self.data_wrapper.create_plane(plane)
 
-        else:
-            raise ValueError("Invalid Input")
-
     def get_all_planes(self) -> list[Plane]:
         """Gets list of all planes through data wrapper and forwards list of planes"""
         return self.data_wrapper.get_all_planes()

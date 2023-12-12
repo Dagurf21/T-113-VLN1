@@ -50,7 +50,7 @@ class PlaneUI(UIWidget):
             ])
 
         self._display_interactive_datalist(
-            { "ID": 3, "name": 12, "Type": 12, "Availability": 12, "Destination": 14, "Flight ID": 10},
+            { "ID": 3, "name": 12, "Type": 12, "Availability": 12, "Seats": 5, "Flight ID": 10},
             planes_data
         )
         # Should work, not sure about the spacing
