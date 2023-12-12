@@ -31,6 +31,14 @@ class PlaneLogic:
                 return plane
         return None
 
+    def get_plane_types(self) -> list:
+        """Returns a list of plane types"""
+        plane_list = self.get_all_planes()
+
+        for plane in plane_list:
+            plane_list.append(plane.type)
+        return plane_list
+
     def update_plane(self, id, plane) -> None:
         """Updates information of a plane with a specific ID"""
         plane.id = id
