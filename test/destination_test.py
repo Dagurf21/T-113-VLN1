@@ -4,6 +4,7 @@ from logic.destination_logic import DestinationLogic
 from test.mock_data_wrapper import MockDataWrapper
 from model import Destination
 
+
 class TestDestinations(unittest.TestCase):
     MOCK_DESTINATIONS = [
         Destination(
@@ -31,60 +32,84 @@ class TestDestinations(unittest.TestCase):
         for dest in self.MOCK_DESTINATIONS:
             destination_logic.create_destination(dest)
 
-        result = data.get_all_destinations()
-        self.assertListEqual(result, self.MOCK_DESTINATIONS, "Destination should have been created as it has valid data")
+        result = []
+
+        for dest in data.get_all_destinations():
+            dest.id = None
+            result.append(dest)
+
+        self.assertListEqual(
+            result,
+            self.MOCK_DESTINATIONS,
+            "Destination should have been created as it has valid data",
+        )
 
     def test_create_destination_invalid_distance(self):
         data = MockDataWrapper()
         destination_logic = DestinationLogic(data)
 
-        destination_logic.create_destination(Destination(
-            id=0,
-            country="Test",
-            airport="BIRK",
-            distance_km=-192,
-            flight_time=300,
-            representative="John",
-            emergency_number="123-1234",
-        ))
+        destination_logic.create_destination(
+            Destination(
+                id=0,
+                country="Test",
+                airport="BIRK",
+                distance_km=-192,
+                flight_time=300,
+                representative="John",
+                emergency_number="123-1234",
+            )
+        )
 
         result = data.get_all_destinations()
-        self.assertTrue(len(result) == 0, "The destination should not have been created as it has invalid data")
+        self.assertTrue(
+            len(result) == 0,
+            "The destination should not have been created as it has invalid data",
+        )
 
     def test_create_destination_invalid_flight_time(self):
         data = MockDataWrapper()
         destination_logic = DestinationLogic(data)
 
-        destination_logic.create_destination(Destination(
-            id=0,
-            country="Test",
-            airport="BIRK",
-            distance_km=192,
-            flight_time=-300,
-            representative="John",
-            emergency_number="123-1234",
-        ))
+        destination_logic.create_destination(
+            Destination(
+                id=0,
+                country="Test",
+                airport="BIRK",
+                distance_km=192,
+                flight_time=-300,
+                representative="John",
+                emergency_number="123-1234",
+            )
+        )
 
         result = data.get_all_destinations()
-        self.assertTrue(len(result) == 0,  "The destination should not have been created as it has invalid data")
+        self.assertTrue(
+            len(result) == 0,
+            "The destination should not have been created as it has invalid data",
+        )
 
     def test_create_destination_invalid_number(self):
         data = MockDataWrapper()
         destination_logic = DestinationLogic(data)
 
-        destination_logic.create_destination(Destination(
-            id=0,
-            country="Test",
-            airport="BIRK",
-            distance_km=192,
-            flight_time=-300,
-            representative="John",
-            emergency_number="12-1234",
-        ))
+        destination_logic.create_destination(
+            Destination(
+                id=0,
+                country="Test",
+                airport="BIRK",
+                distance_km=192,
+                flight_time=-300,
+                representative="John",
+                emergency_number="12-1234",
+            )
+        )
 
         result = data.get_all_destinations()
-        self.assertTrue(len(result) == 0, "The destination should not have been created as it has invalid data")
-    
+        self.assertTrue(
+            len(result) == 0,
+            "The destination should not have been created as it has invalid data",
+        )
+
     def test_get_all_destinations(self):
         data = MockDataWrapper()
         destination_logic = DestinationLogic(data)
@@ -93,7 +118,11 @@ class TestDestinations(unittest.TestCase):
             data.create_destination(dest)
 
         destination_logic = destination_logic.get_all_destinations()
-        self.assertListEqual(destination_logic, self.MOCK_DESTINATIONS, "get_all_destinations should have returned all the destinations with the same data")
+        self.assertListEqual(
+            destination_logic,
+            self.MOCK_DESTINATIONS,
+            "get_all_destinations should have returned all the destinations with the same data",
+        )
 
     def test_get_destination(self):
         data = MockDataWrapper()
@@ -101,10 +130,14 @@ class TestDestinations(unittest.TestCase):
 
         for dest in self.MOCK_DESTINATIONS:
             data.create_destination(dest)
-        
+
         for dest in self.MOCK_DESTINATIONS:
             result = destination_logic.get_destination(dest.id)
-            self.assertEqual(result, dest, "get_destination should have given the destinations back with the same data")
+            self.assertEqual(
+                result,
+                dest,
+                "get_destination should have given the destinations back with the same data",
+            )
 
     def test_update_destination_country(self):
         data = MockDataWrapper()
@@ -116,9 +149,13 @@ class TestDestinations(unittest.TestCase):
         for dest in data.get_all_destinations():
             dest.country = "TEST"
             destination_logic.update_destination(dest)
-        
+
         for dest in data.get_all_destinations():
-            self.assertNotEqual(dest.country, "TEST",  "Country should not have changed. It should be immutable")
+            self.assertNotEqual(
+                dest.country,
+                "TEST",
+                "Country should not have changed. It should be immutable",
+            )
 
     def test_update_destination_airport(self):
         data = MockDataWrapper()
@@ -130,9 +167,13 @@ class TestDestinations(unittest.TestCase):
         for dest in data.get_all_destinations():
             dest.airport = "TEST"
             destination_logic.update_destination(dest)
-        
+
         for dest in data.get_all_destinations():
-            self.assertNotEqual(dest.airport, "TEST",  "Airport should not have changed. It should be immutable")
+            self.assertNotEqual(
+                dest.airport,
+                "TEST",
+                "Airport should not have changed. It should be immutable",
+            )
 
     def test_update_destination_distance(self):
         data = MockDataWrapper()
@@ -144,9 +185,13 @@ class TestDestinations(unittest.TestCase):
         for dest in data.get_all_destinations():
             dest.distance_km = 0
             destination_logic.update_destination(dest)
-        
+
         for dest in data.get_all_destinations():
-            self.assertNotEqual(dest.distance_km, 0,  "Distance should not have changed. It should be immutable")
+            self.assertNotEqual(
+                dest.distance_km,
+                0,
+                "Distance should not have changed. It should be immutable",
+            )
 
     def test_update_destination_flight_time(self):
         data = MockDataWrapper()
@@ -158,9 +203,13 @@ class TestDestinations(unittest.TestCase):
         for dest in data.get_all_destinations():
             dest.flight_time = 0
             destination_logic.update_destination(dest)
-        
+
         for dest in data.get_all_destinations():
-            self.assertNotEqual(dest.flight_time, 0, "Flight time should not have changed. It should be immutable")
+            self.assertNotEqual(
+                dest.flight_time,
+                0,
+                "Flight time should not have changed. It should be immutable",
+            )
 
     def test_update_destination_representetive(self):
         data = MockDataWrapper()
@@ -172,9 +221,11 @@ class TestDestinations(unittest.TestCase):
         for dest in data.get_all_destinations():
             dest.representative = ""
             destination_logic.update_destination(dest)
-        
+
         for dest in data.get_all_destinations():
-            self.assertEqual(dest.representative, "", "Representative should have been changed")
+            self.assertEqual(
+                dest.representative, "", "Representative should have been changed"
+            )
 
     def test_update_destination_emergency_number(self):
         data = MockDataWrapper()
@@ -186,20 +237,24 @@ class TestDestinations(unittest.TestCase):
         for dest in data.get_all_destinations():
             dest.emergency_number = ""
             destination_logic.update_destination(dest)
-        
+
         for dest in data.get_all_destinations():
-            self.assertEqual(dest.emergency_number, "", "Emergency number should have been changed")
-    
+            self.assertEqual(
+                dest.emergency_number, "", "Emergency number should have been changed"
+            )
+
     def test_delete_destination(self):
         data = MockDataWrapper()
         destination_logic = DestinationLogic(data)
 
         for dest in self.MOCK_DESTINATIONS:
             data.create_destination(dest)
-        
+
         id_to_remove = 0
         destination_logic.delete_destination(id_to_remove)
         expect = [dest for dest in self.MOCK_DESTINATIONS if dest.id != id_to_remove]
-        self.assertListEqual(expect, data.get_all_destinations(), f"Element with id of {id_to_remove} should have been removed")
-
-
+        self.assertListEqual(
+            expect,
+            data.get_all_destinations(),
+            f"Element with id of {id_to_remove} should have been removed",
+        )
