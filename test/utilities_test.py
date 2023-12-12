@@ -23,6 +23,9 @@ class TestValidator(unittest.TestCase):
 
     def test_valid_email(self):
         self.assertTrue(self.validator.email("a@a.is"))
+        self.assertTrue(self.validator.email("a@a.a.a"))
+        self.assertTrue(self.validator.email("a_a@a.a"))
+        self.assertTrue(self.validator.email("a.a@a.a"))
         
     def test_invalid_email(self):
         self.assertFalse(self.validator.email("a.@a"))
@@ -32,4 +35,5 @@ class TestValidator(unittest.TestCase):
         self.assertFalse(self.validator.email("a.@"))
         self.assertFalse(self.validator.email("a@."))
         self.assertFalse(self.validator.email(".@"))
+        self.assertFalse(self.validator.email("a@a@a.a"))
 

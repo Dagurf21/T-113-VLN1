@@ -1,5 +1,6 @@
 import datetime
 import bcrypt
+import re
 
 from model import Voyage
 
@@ -31,7 +32,7 @@ class Validator:
     def distance_km(self, km) -> bool:
         """"""
         try:
-            return int(km) > 0
+            return int(km) >= 0
 
         except ValueError:
             return False
@@ -39,7 +40,7 @@ class Validator:
     def flight_time(self, time) -> bool:
         """"""
         try:
-            return int(time) > 0
+            return int(time) >= 0
 
         except ValueError:
             return False
@@ -83,20 +84,14 @@ class Validator:
 
     def email(self, email):
         """Checks if the given email is an email"""
-        email = email.split("@")
 
-        try:
-            email[1] = email[1].split(".")
-
-            if "" in email or "" in email[1]:
-                raise Exception("One of the email fields is empty")
-            if len(email) != 2 and len(email[1]) != 2:
-                raise Exception("@ and . not in the correct space")
-            else:
-                return True
-
-        except (IndexError, Exception):
-            return False
+        # Regex email validation
+        #  [^@]+    Anything but @ symbol
+        #  @        @ symbol
+        #  [^@]+    Anything but @ synbol
+        #  \.       . symbol
+        #  [^@]+    Anything but @ symbol
+        return re.match("[^@]+@[^@]+\.[^@]+", email)
 
     # Pilot and flight attendant validations
     def liscense(self, liscense) -> bool:

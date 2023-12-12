@@ -55,7 +55,7 @@ class FlightLogic:
         flights_within = 0
         for flight in all_flights:
             # If flights are same destination and date
-            if flight.destination == destination_id and flight.date == date:
+            if flight.destination == destination_id and flight.date.day == date.day:
                 flights_within += 1
 
         return flights_within
@@ -86,9 +86,7 @@ class FlightLogic:
     def add_staff_to_flights():
         """Alows you to add staff to a flight after creating it"""
 
-        # TODO Implement function
-
-        pass
+        raise NotImplementedError()
 
 
     def get_all_flight(self) -> list[Flight]:
