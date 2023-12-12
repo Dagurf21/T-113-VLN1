@@ -60,7 +60,7 @@ class DestinationData:
 
             for row in reader:
                 if int(row["id"]) == destination.id:
-                    writer.writerow({'id': destination.id, 'country': destination.country, 'airport': destination.airport, 'distance': destination.distance_km, 'flight_time': destination.flight_time, 'representative': destination.representative, 'emergency_number': destination.emergency_number})
+                    writer.writerow({'id': row["id"], 'country': destination.country, 'airport': destination.airport, 'distance': destination.distance_km, 'flight_time': destination.flight_time, 'representative': destination.representative, 'emergency_number': destination.emergency_number})
                 else:
                     writer.writerow({'id': row["id"], 'country': row["country"], 'airport': row["airport"], 'distance': row["distance"], 'flight_time': row["flight_time"], 'representative': row["representative"], 'emergency_number': row["emergency_number"]})
 

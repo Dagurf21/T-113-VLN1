@@ -14,7 +14,7 @@ class DestinationLogic:
         if self.validate_destination(destination_data):
             return self.data_wrapper.create_destination(destination_data)
         else:
-            raise Exception("invalid destination info")
+            return None
 
     def get_all_destinations(self) -> list["Destination"]:
         """Returns a list of all destinations"""
@@ -32,10 +32,15 @@ class DestinationLogic:
 
     def update_destination(self, destination_data) -> None:
         """Updates a destination object with the given id"""
-        if self.validate_destination(destination_data):
-            return self.data_wrapper.update_destination(destination_data)
-        else:
-            raise Exception("invalid destination info")
+
+        change_destination = self.get_destination(destination_data.id)
+
+        destination_data.country = change_destination.country
+        destination_data.airport = change_destination.airport
+        destination_data.distance_km = change_destination.distance_km
+        destination_data.flight_time = change_destination.flight_time
+
+        return self.data_wrapper.update_destination(destination_data)
 
     def delete_destination(self, destination_id) -> None:
         """Deletes a destination object with the given id"""

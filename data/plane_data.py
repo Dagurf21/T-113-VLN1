@@ -60,7 +60,7 @@ class PlaneData:
             for row in reader:
                 # Writes the plane with the new data into the temp file
                 if int(row["id"]) == plane.id:
-                    writer.writerow({'id': plane.id, 'name': plane.name, 'type': plane.ty, 'manufacturer': plane.manufacturer, 'capacity': plane.capacity, 'flights': plane.flights})
+                    writer.writerow({'id': row["id"], 'name': plane.name, 'type': plane.ty, 'manufacturer': plane.manufacturer, 'capacity': plane.capacity, 'flights': plane.flights})
                 
                 # Writes the other planes unchanged 
                 else:
