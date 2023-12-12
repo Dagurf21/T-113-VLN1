@@ -14,7 +14,7 @@ class DestinationLogic:
         if self.validate_destination(destination_data):
             return self.data_wrapper.create_destination(destination_data)
         else:
-            raise Exception("invalid destination info")
+            return None
 
     def get_all_destinations(self) -> list["Destination"]:
         """Returns a list of all destinations"""
@@ -35,7 +35,7 @@ class DestinationLogic:
         if self.validate_destination(destination_data):
             return self.data_wrapper.update_destination(destination_data)
         else:
-            raise Exception("invalid destination info")
+            return None
 
     def delete_destination(self, destination_id) -> None:
         """Deletes a destination object with the given id"""
