@@ -15,7 +15,12 @@ class FlightData:
 
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             
-            writer.writerow({'flight_nr': flight.flight_number, 'departure': flight.departure, 'destination': flight.destination, 'date': flight.date, 'departure_time': flight.departure_time, 'arrival_time': flight.arrival_time})
+            writer.writerow({'flight_nr': flight.flight_number, 
+                             'departure': flight.departure, 
+                             'destination': flight.destination, 
+                             'date': flight.date, 
+                             'departure_time': flight.departure_time, 
+                             'arrival_time': flight.arrival_time})
 
 
     def get_all_flights(self) -> list["Flight"]:
@@ -26,7 +31,14 @@ class FlightData:
             reader = csv.DictReader(csvfile)
             
             for row in reader:
-                ret_list.append(Flight(flight_number = row["flight_nr"], departure = int(row["departure"]), destination = int(row["destination"]), date = row["date"], departure_time = row["departure_time"], arrival_time = row["arrival_time"]))
+                ret_list.append(
+                    Flight(
+                        flight_number = row["flight_nr"], 
+                        departure = int(row["departure"]), 
+                        destination = int(row["destination"]), 
+                        date = row["date"], 
+                        departure_time = row["departure_time"], 
+                        arrival_time = row["arrival_time"]))
         
         return ret_list
 
@@ -46,11 +58,19 @@ class FlightData:
             for row in reader:
                 # Writes the flight with the new data into the temp file
                 if row["flight_nr"] == flight.flight_number:
-                    writer.writerow({'flight_nr': flight.flight_number, 'departure': flight.departure, 'destination': flight.destination, 'departure_time': flight.departure_time, 'arrival_time': flight.arrival_time})
+                    writer.writerow({'flight_nr': flight.flight_number, 
+                                     'departure': flight.departure, 
+                                     'destination': flight.destination, 
+                                     'departure_time': flight.departure_time, 
+                                     'arrival_time': flight.arrival_time})
                 
                 # Writes the other flights unchanged 
                 else:
-                    writer.writerow({'flight_nr': row["flight_nr"], 'departure': row["departure"], 'destination': row["destination"], 'departure_time': row["departure_time"], 'arrival_time': row["arrival_time"]})
+                    writer.writerow({'flight_nr': row["flight_nr"], 
+                                     'departure': row["departure"], 
+                                     'destination': row["destination"], 
+                                     'departure_time': row["departure_time"], 
+                                     'arrival_time': row["arrival_time"]})
 
         # Replaces the main file with the tempfile
         shutil.move(tempfile.name, self.file_name)

@@ -17,7 +17,13 @@ class PlaneData:
 
             id = self.get_new_id()
             
-            writer.writerow({'id': id, 'name': plane.name, 'type': plane.ty, 'manufacturer': plane.manufacturer, 'capacity': plane.capacity, 'flights': plane.flights})
+            writer.writerow({'id': id, 
+                             'name': plane.name, 
+                             'type': plane.ty, 
+                             'manufacturer': plane.manufacturer, 
+                             'capacity': plane.capacity, 
+                             'flights': plane.flights
+                            })
 
 
     def get_new_id(self) -> int:
@@ -41,7 +47,13 @@ class PlaneData:
             
             for row in reader:
                 if row["type"]:
-                    ret_list.append(Plane(id = int(row["id"]), name = row["name"], ty = row["type"], manufacturer = row["manufacturer"], capacity = int(row["capacity"]), flights = row["flights"]))
+                    ret_list.append(Plane(
+                        id = int(row["id"]), 
+                        name = row["name"], 
+                        ty = row["type"], 
+                        manufacturer = row["manufacturer"], 
+                        capacity = int(row["capacity"]), 
+                        flights = row["flights"]))
     
         return ret_list
 
@@ -60,11 +72,21 @@ class PlaneData:
             for row in reader:
                 # Writes the plane with the new data into the temp file
                 if int(row["id"]) == plane.id:
-                    writer.writerow({'id': row["id"], 'name': plane.name, 'type': plane.ty, 'manufacturer': plane.manufacturer, 'capacity': plane.capacity, 'flights': plane.flights})
+                    writer.writerow({'id': row["id"], 
+                                     'name': plane.name, 
+                                     'type': plane.ty, 
+                                     'manufacturer': plane.manufacturer, 
+                                     'capacity': plane.capacity, 
+                                     'flights': plane.flights})
                 
                 # Writes the other planes unchanged 
                 else:
-                    writer.writerow({'id': row["id"], 'name': row["name"], 'type': row["type"], 'manufacturer': row["manufacturer"], 'capacity': row["capacity"], 'flights': row["flights"]})
+                    writer.writerow({'id': row["id"], 
+                                     'name': row["name"], 
+                                     'type': row["type"], 
+                                     'manufacturer': row["manufacturer"], 
+                                     'capacity': row["capacity"], 
+                                     'flights': row["flights"]})
         
         # Replaces the main file with the tempfile
         shutil.move(tempfile.name, self.file_name)
@@ -89,11 +111,21 @@ class PlaneData:
 
                 # If the plane is found, Everything except the id and name is erased
                 if int(row["id"]) == plane_id:
-                    row = {'id' : row["id"], 'name' : row["name"], 'type' : None, 'manufacturer' : None, 'capacity' : None, 'flights' : None}
+                    row = {'id' : row["id"], 
+                           'name' : row["name"], 
+                           'type' : None, 
+                           'manufacturer' : None, 
+                           'capacity' : None, 
+                           'flights' : None}
 
                 # Each row from the original file is written to the temporary file
                 else:
-                    row = {'id': row["id"], 'name': row["name"], 'type': row["type"], 'manufacturer': row["manufacturer"], 'capacity': row["capacity"], 'flights': row["flights"]}
+                    row = {'id': row["id"], 
+                           'name': row["name"], 
+                           'type': row["type"], 
+                           'manufacturer': row["manufacturer"], 
+                           'capacity': row["capacity"], 
+                           'flights': row["flights"]}
                 
                 writer.writerow(row)
 

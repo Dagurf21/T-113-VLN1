@@ -68,17 +68,19 @@ class VoyageData:
 
 
     def split_date(self, date: str):
-        """"""
+        """Splits the date string into year, month and day integers"""
         year, month, day = date.split("-")
 
         return int(year), int(month), int(day)
 
 
     def split_time(self, time):
-        """"""
+        """SPlits the time string into hour, minute and second 
+        and returns the hour and minute as int"""
         hour, minute, second = time.split(":")
 
         return int(hour), int(minute)
+
 
     def update_voyage(self, voyage) -> None:
         """Updates the voyage with the given id"""
@@ -97,14 +99,15 @@ class VoyageData:
             for row in reader:
                 # Writes the plane with the new data into the temp file
                 if int(row["id"]) == voyage.id:
-                    writer.writerow({'id': row["id"], 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': voyage.pilots, 'attendants': voyage.flight_attendants, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.arrival_departure_time, 'arrival_flight': voyage.arrival_flight, 'date': voyage.date, 'return_date': voyage.return_date, 'status': voyage.status})
-                
+                    row = {'id': row["id"], 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': voyage.pilots, 'attendants': voyage.flight_attendants, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.arrival_departure_time, 'arrival_flight': voyage.arrival_flight, 'date': voyage.date, 'return_date': voyage.return_date, 'status': voyage.status}
                 # Writes the other planes unchanged 
                 else:
-                    writer.writerow({'id': row["id"], 'destination': row["destination"], 'sold_seats': row["sold_seats"], 'plane': row["plane"], 'pilots': row["pilots"], 'attendants': row["attendants"], 'departure_time': row["departure_time"], 'departure_flight': row["departure_flight"], 'arrival_departure_time': row["arrival_departure_time"], 'arrival_flight': row["arrival_flight"], 'date': row["date"], 'return_date': row["return_date"], 'status': row["status"]})
+                    row = {'id': row["id"], 'destination': row["destination"], 'sold_seats': row["sold_seats"], 'plane': row["plane"], 'pilots': row["pilots"], 'attendants': row["attendants"], 'departure_time': row["departure_time"], 'departure_flight': row["departure_flight"], 'arrival_departure_time': row["arrival_departure_time"], 'arrival_flight': row["arrival_flight"], 'date': row["date"], 'return_date': row["return_date"], 'status': row["status"]}
 
-            # Replaces the main file with the tempfile
-            shutil.move(tempfile.name, self.file_name)
+                writer.writerow(row)
+
+        # Replaces the main file with the tempfile
+        shutil.move(tempfile.name, self.file_name)
 
 
     def cancel_voyage(self, voyage_id) -> None:

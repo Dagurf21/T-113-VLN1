@@ -23,18 +23,55 @@ class EmployeeData:
                 # Assigns employees the appropriate employee subclass and append to ret_list
                 match row["job_title"]:
                     case "Manager" | "Chuck Norris":
-                        ret_list.append(Manager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
+                        ret_list.append(Manager(
+                            id = int(row["id"]), 
+                            name = row["name"], 
+                            password = row["password"], 
+                            address = row["address"], 
+                            ssn = row["ssn"], 
+                            mobile_phone = row["mobile_phone"], 
+                            email = row["email"], 
+                            home_phone = row["home_phone"], 
+                            work_phone = row["work_phone"]))
                 
                     case "Pilot":
                         assignment_list = row["assignments"].split(".")
-                        ret_list.append(Pilot(id = int(row["id"]), name = row["name"], password = row["password"], license = row["license"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list))
+                        ret_list.append(Pilot(
+                            id = int(row["id"]), 
+                            name = row["name"], 
+                            password = row["password"], 
+                            license = row["license"], 
+                            address = row["address"], 
+                            ssn = row["ssn"], 
+                            mobile_phone = row["mobile_phone"], 
+                            email = row["email"], 
+                            home_phone = row["home_phone"], 
+                            assignments = assignment_list))
                 
                     case "Flight Attendant":
                         assignment_list = row["assignments"].split(".")
-                        ret_list.append(FlightAttendant(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], assignments = assignment_list))
+                        ret_list.append(FlightAttendant(
+                            id = int(row["id"]), 
+                            name = row["name"], 
+                            password = row["password"], 
+                            address = row["address"], 
+                            ssn = row["ssn"], 
+                            mobile_phone = row["mobile_phone"], 
+                            email = row["email"], 
+                            home_phone = row["home_phone"], 
+                            assignments = assignment_list))
                 
                     case "Flight Manager":
-                        ret_list.append(FlightManager(id = int(row["id"]), name = row["name"], password = row["password"], address = row["address"], ssn = row["ssn"], mobile_phone = row["mobile_phone"], email = row["email"], home_phone = row["home_phone"], work_phone = row["work_phone"]))
+                        ret_list.append(FlightManager(
+                            id = int(row["id"]), 
+                            name = row["name"], 
+                            password = row["password"], 
+                            address = row["address"], 
+                            ssn = row["ssn"], 
+                            mobile_phone = row["mobile_phone"], 
+                            email = row["email"], 
+                            home_phone = row["home_phone"], 
+                            work_phone = row["work_phone"]))
                 
                     case _:
                         pass
@@ -76,7 +113,18 @@ class EmployeeData:
                 assignments = None
 
             # Writes the employee to the bottom of file
-            writer.writerow({'id': id, 'name': employee.name, 'job_title': job_title, 'license': pilot_license, 'password': employee.password, 'address': employee.address, 'ssn': employee.ssn, 'mobile_phone': employee.mobile_phone, 'email': employee.email, 'home_phone': employee.home_phone, 'work_phone': work_phone, 'assignments': assignments})
+            writer.writerow({'id': id, 
+                             'name': employee.name, 
+                             'job_title': job_title, 
+                             'license': pilot_license, 
+                             'password': employee.password, 
+                             'address': employee.address, 
+                             'ssn': employee.ssn, 
+                             'mobile_phone': employee.mobile_phone, 
+                             'email': employee.email, 
+                             'home_phone': employee.home_phone, 
+                             'work_phone': work_phone, 
+                             'assignments': assignments})
             
 
     def get_new_id(self) -> int:
@@ -150,11 +198,32 @@ class EmployeeData:
 
                 # If the employee is found, Everything except id and name is erased
                 if int(row["id"]) == employee_id:
-                    row = {'id' : row["id"], 'name' : row["name"], 'job_title' : None, 'password' : None, 'address' : None, 'ssn' : None, 'mobile_phone' : None, 'email' : None, 'home_phone' : None, 'work_phone' : None, 'assignments' : None}
+                    row = {'id' : row["id"], 
+                           'name' : row["name"], 
+                           'job_title' : None, 
+                           'password' : None, 
+                           'address' : None, 
+                           'ssn' : None, 
+                           'mobile_phone' : None, 
+                           'email' : None, 
+                           'home_phone' : None, 
+                           'work_phone' : None, 
+                           'assignments' : None}
 
                 # Each row from the original file is written to the temporary file
                 else:
-                    row = {'id': row["id"], 'name': row["name"], 'job_title': row["job_title"], 'license': row["license"], 'password': row["password"], 'address': row["address"], 'ssn': row["ssn"], 'mobile_phone': row["mobile_phone"], 'email': row["email"], 'home_phone': row["home_phone"], 'work_phone': row["work_phone"], 'assignments' : row["assignments"]}
+                    row = {'id': row["id"], 
+                           'name': row["name"], 
+                           'job_title': row["job_title"], 
+                           'license': row["license"], 
+                           'password': row["password"], 
+                           'address': row["address"], 
+                           'ssn': row["ssn"], 
+                           'mobile_phone': row["mobile_phone"], 
+                           'email': row["email"], 
+                           'home_phone': row["home_phone"], 
+                           'work_phone': row["work_phone"], 
+                           'assignments' : row["assignments"]}
                 
                 writer.writerow(row)
 
