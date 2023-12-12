@@ -32,7 +32,7 @@ class Validator:
     def distance_km(self, km) -> bool:
         """"""
         try:
-            return int(km) > 0
+            return int(km) >= 0
 
         except ValueError:
             return False
@@ -40,7 +40,7 @@ class Validator:
     def flight_time(self, time) -> bool:
         """"""
         try:
-            return int(time) > 0
+            return int(time) >= 0
 
         except ValueError:
             return False
