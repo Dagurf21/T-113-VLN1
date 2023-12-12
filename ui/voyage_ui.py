@@ -1,9 +1,9 @@
-from ui import UIWidget, UICancelException
+from ui import UIElement, UICancelException
 from model import Voyage, Employee
 from logic import LogicWrapper
 
 
-class VoyageUI(UIWidget):
+class VoyageUI(UIElement):
     def __init__(self, user: Employee, logic_wrapper: LogicWrapper):
         self.user = user
         self.logic_wrapper = logic_wrapper

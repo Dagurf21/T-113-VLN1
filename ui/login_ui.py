@@ -1,10 +1,10 @@
 from logic import LogicWrapper
-from ui import UIWidget, getkey
+from ui import UIElement, getkey
 from ui import MainMenuUI
 from colorama import Fore, Style
 import cursor
 
-class LoginUI(UIWidget):
+class LoginUI(UIElement):
     def __init__(self, logic_wrapper: LogicWrapper):
         self.logic_wrapper = logic_wrapper
 

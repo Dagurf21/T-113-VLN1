@@ -9,7 +9,7 @@ UI_WIDTH = 71
 class UICancelException(Exception):
     pass
 
-class UIWidget:
+class UIElement:
     def _clear_screen(self):
         """Clears the screen using the systems clear command"""
         os.system('cls' if os.name == 'nt' else 'clear')
