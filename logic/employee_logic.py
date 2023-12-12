@@ -1,4 +1,4 @@
-from logic import Validator, Utilities
+from logic import Validator, Utilities, Plane
 from model import Employee, Pilot
 
 
@@ -7,6 +7,7 @@ class EmployeeLogic:
 
     def __init__(self, data_connection) -> None:
         self.data_wrapper = data_connection
+        self.plane = Plane(data_connection)
         self.validate = Validator()
         self.utility = Utilities()
 
@@ -102,7 +103,9 @@ class EmployeeLogic:
 
         if employee_job_title == "Pilot" or employee_job_title == "FlightAttendant":
             try:
-                is_liscense_valid = self.validate.licenses(employee.liscense)
+                is_liscense_valid = self.validate.licenses(
+                    employee.liscense, self.plane.get_plane_types
+                )
                 is_employee_valid = is_employee_valid and is_liscense_valid
                 raise Exception("Pilot verify over")
             except AttributeError:
