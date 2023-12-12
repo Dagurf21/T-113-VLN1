@@ -31,17 +31,20 @@ class DestinationLogic:
 
         return None
 
-    def update_destination(self, destination_data) -> None:
+    def update_destination(self, destination: Destination) -> None:
         """Updates a destination object with the given id"""
 
-        change_destination = self.get_destination(destination_data.id)
+        change_destination = self.get_destination(destination.id)
 
-        destination_data.country = change_destination.country
-        destination_data.airport = change_destination.airport
-        destination_data.distance_km = change_destination.distance_km
-        destination_data.flight_time = change_destination.flight_time
+        if change_destination is None:
+            return
 
-        return self.data_wrapper.update_destination(destination_data)
+        destination.country = change_destination.country
+        destination.airport = change_destination.airport
+        destination.distance_km = change_destination.distance_km
+        destination.flight_time = change_destination.flight_time
+
+        return self.data_wrapper.update_destination(destination)
 
     def delete_destination(self, destination_id) -> None:
         """Deletes a destination object with the given id"""

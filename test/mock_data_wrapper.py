@@ -30,6 +30,9 @@ class MockDataWrapper:
     def delete_employee(self, id: int) -> None:
         employees = self.get_all_employees()
         for i, employee in enumerate(employees):
+            if employee is None:
+                continue
+
             if employee.id == id:
                 self.employees[i] = None
 
@@ -53,6 +56,9 @@ class MockDataWrapper:
     def delete_destination(self, destination_id: int) -> None:
         destinations = self.get_all_destinations()
         for i, destination in enumerate(destinations):
+            if destination is None:
+                continue
+
             if destination.id == destination_id:
                 self.destinations[i] = None
 
@@ -76,6 +82,9 @@ class MockDataWrapper:
     def delete_plane(self, plane_id: int) -> None:
         planes = self.get_all_planes()
         for i, plane in enumerate(planes):
+            if plane is None:
+                continue
+
             if plane.id == plane_id:
                 self.planes[i] = None
 
@@ -99,6 +108,9 @@ class MockDataWrapper:
     def cancel_voyage(self, voyage_id: int) -> None:
         voyages = self.get_all_voyages()
         for i, voyage in enumerate(voyages):
+            if voyage is None:
+                continue
+
             if voyage.id == voyage_id:
                 self.voyages[i] = None
 
@@ -123,30 +135,45 @@ class MockDataWrapper:
 
     def get_employee(self, id: int) -> list[Employee]:
         for elem in self.employees:
+            if elem is None:
+                continue
+
             if elem.id == id:
                 return elem
         return None
 
     def get_destination(self, id: int) -> list[Destination]:
         for elem in self.destinations:
+            if elem is None:
+                continue
+
             if elem.id == id:
                 return elem
         return None
 
     def get_plane(self, id: int) -> list[Plane]:
         for elem in self.planes:
+            if elem is None:
+                continue
+
             if elem.id == id:
                 return elem
         return None
 
     def get_voyage(self, id: int) -> list[Voyage]:
         for elem in self.voyages:
+            if elem is None:
+                continue
+
             if elem.id == id:
                 return elem
         return None
 
     def get_flight(self, id: int) -> list[Flight]:
         for elem in self.flights:
+            if elem is None:
+                continue
+
             if elem.id == id:
                 return elem
         return None
@@ -183,30 +210,45 @@ class MockDataWrapper:
     
     def get_employee_index(self, id: int) -> int:
         for i, elem in enumerate(self.employees):
+            if elem is None:
+                continue
+
             if elem.id == id:
                 return i
         return None
 
     def get_destination_index(self, id: int) -> int:
         for i, elem in enumerate(self.destinations):
+            if elem is None:
+                continue
+
             if elem.id == id:
                 return i
         return None
 
     def get_plane_index(self, id: int) -> int:
         for i, elem in enumerate(self.planes):
+            if elem is None:
+                continue
+
             if elem.id == id:
                 return i
         return None
 
     def get_voyage_index(self, id: int) -> int:
         for i, elem in enumerate(self.voyages):
+            if elem is None:
+                continue
+
             if elem.id == id:
                 return i
         return None
 
     def get_flight_index(self, flight: Flight) -> int:
         for i, elem in enumerate(self.flights):
+            if elem is None:
+                continue
+
             if elem.flight_number == flight.flight_number and elem.date == flight.date:
                 return i
         return None

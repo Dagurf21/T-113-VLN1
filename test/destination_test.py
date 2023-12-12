@@ -267,7 +267,7 @@ class TestDestinations(unittest.TestCase):
         destination_logic.delete_destination(id_to_remove)
         expect = None
 
-        result = destination_logic.get_destination(0)
+        result = data.get_destination(0)
 
         self.assertEqual(
             expect,
