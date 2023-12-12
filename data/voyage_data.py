@@ -38,9 +38,9 @@ class VoyageData:
         
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
-            
+
             for row in reader:
-                ret_list.append(Voyage(id = int(row["id"]), destination = int(row["destination"]), sold_seats = int(row["sold_seats"]), plane = int(row["plane"]), pilots = row["pilots"], flight_attendants = row["attendants"], departure_time = row["departure_time"], departure_flight = row["departure_flight"],arrival_flight = row["arrival_flight"], date = row["date"], return_date = row["return_date"], status = row["status"]))
+                ret_list.append(Voyage(id = int(row["id"]), destination = int(row["destination"]), sold_seats = int(row["sold_seats"]), plane = int(row["plane"]), pilots = row["pilots"], flight_attendants = row["attendants"], departure_time = row["departure_time"], departure_flight = row["departure_flight"], arrival_departure_time = row["arrival_departure_time"], arrival_flight = row["arrival_flight"], date = row["date"], return_date = row["return_date"], status = row["status"]))
         
         return ret_list
 
