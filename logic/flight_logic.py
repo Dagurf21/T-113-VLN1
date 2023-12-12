@@ -103,12 +103,6 @@ class FlightLogic:
         return arrival_time
 
 
-    def add_staff_to_flights():
-        """Alows you to add staff to a flight after creating it"""
-
-        raise NotImplementedError()
-
-
     def get_all_flight(self) -> list[Flight]:
         """Gets list of all flight from data_wrapper and forwards list of flight"""
         return self.data_wrapper.get_all_flights()
@@ -125,15 +119,11 @@ class FlightLogic:
         return None
 
 
-    def update_flight(self, id, flight) -> None:
+    def update_flight(self, flight_number: str, date: datetime.date, flight: Flight) -> None:
         """Updates flight through data_wrapper"""
-        flight.id = id
+
+        existing_flight = self.get_flight(flight_number, date)
+        existing_flight.departure_time = flight.departure_time
+        existing_flight.arrival_time = flight.arrival_time
 
         self.data_wrapper.update_flight(flight)
-
-
-    def assign_pilot(self, pilot, flight) -> None:
-        """Assigns a pilot to a specific flight"""
-
-        if self.validator.pilot_validator(self.data_wrapper):
-            self.data_wrapper.assign_pilot(pilot)

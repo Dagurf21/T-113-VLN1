@@ -28,7 +28,8 @@ class TestPlane(unittest.TestCase):
 
     def test_create_plane_valid(self):
         data = MockDataWrapper()
-        plane_logic = PlaneLogic(data)
+        flight_logic = FlightLogic(data)
+        plane_logic = PlaneLogic(data, flight_logic)
 
         plane_logic.create_plane(self.MOCK_PLANES[0])
 
@@ -39,7 +40,8 @@ class TestPlane(unittest.TestCase):
 
     def test_create_plane_invalid_capacity(self):
         data = MockDataWrapper()
-        plane_logic = PlaneLogic(data)
+        flight_logic = FlightLogic(data)
+        plane_logic = PlaneLogic(data, flight_logic)
 
         plane = copy(self.MOCK_PLANES[0])
         plane.capacity = -1
@@ -50,7 +52,8 @@ class TestPlane(unittest.TestCase):
 
     def test_create_plane_invalid_flights(self):
         data = MockDataWrapper()
-        plane_logic = PlaneLogic(data)
+        flight_logic = FlightLogic(data)
+        plane_logic = PlaneLogic(data, flight_logic)
 
         plane = copy(self.MOCK_PLANES[0])
         plane.flights = ["NA011"]
@@ -61,7 +64,8 @@ class TestPlane(unittest.TestCase):
     
     def test_get_all_planes(self):
         data = MockDataWrapper()
-        plane_logic = PlaneLogic(data)
+        flight_logic = FlightLogic(data)
+        plane_logic = PlaneLogic(data, flight_logic)
 
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
@@ -76,7 +80,8 @@ class TestPlane(unittest.TestCase):
     
     def test_get_plane(self):
         data = MockDataWrapper()
-        plane_logic = PlaneLogic(data)
+        flight_logic = FlightLogic(data)
+        plane_logic = PlaneLogic(data, flight_logic)
 
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
@@ -88,7 +93,8 @@ class TestPlane(unittest.TestCase):
     
     def test_update_plane(self):
         data = MockDataWrapper()
-        plane_logic = PlaneLogic(data)
+        flight_logic = FlightLogic(data)
+        plane_logic = PlaneLogic(data, flight_logic)
 
         data.create_flight(Flight(
             flight_number="NA010"
@@ -109,7 +115,8 @@ class TestPlane(unittest.TestCase):
 
     def test_delete_plane(self):
         data = MockDataWrapper()
-        plane_logic = PlaneLogic(data)
+        flight_logic = FlightLogic(data)
+        plane_logic = PlaneLogic(data, flight_logic)
 
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)

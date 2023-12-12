@@ -15,7 +15,7 @@ class LogicWrapper(object):
         self.flight_logic = FlightLogic(self.data_wrapper)
         self.destination_logic = DestinationLogic(self.data_wrapper)
         self.voyage_logic = VoyageLogic(self.data_wrapper)
-        self.plane_logic = PlaneLogic(self.data_wrapper)
+        self.plane_logic = PlaneLogic(self.data_wrapper, self.flight_logic)
         self.validate = Validator()
         self.utility = Utilities()
 
@@ -76,10 +76,6 @@ class LogicWrapper(object):
     def update_flight(self, id, data) -> None:
         """Updates info on flight routes"""
         return self.flight_logic.update_flight(id, data)
-
-    def assign_pilot(self, id, pilot) -> None:
-        """Assigns pilot to a flight"""
-        return self.flight_logic.assign_pilot(id, pilot)
 
     # Voyage Class
     def create_voyage(self, data) -> None:

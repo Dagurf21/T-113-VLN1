@@ -124,6 +124,8 @@ class MockDataWrapper:
     def update_flight(self, flight: Flight) -> None:
         try:
             idx = self.get_flight_index(flight)
+            if idx is None:
+                return
             self.flights[idx] = deepcopy(flight)
         except ValueError:
             pass

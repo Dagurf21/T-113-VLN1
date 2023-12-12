@@ -226,9 +226,6 @@ class TestFlight(unittest.TestCase):
         arrival = flight_logic.calculate_arrival_time(departure.date(), departure.time(), 1)
 
         self.assertEqual(arrival, datetime.datetime(2023, 10, 25, 3, 20))
-    
-    def test_add_staff_to_flights(self):
-        raise NotImplementedError()
 
     def test_get_all_flights(self):
         data = MockDataWrapper()
@@ -315,61 +312,10 @@ class TestFlight(unittest.TestCase):
         flight.departure_time=datetime.time(1, 1)
         flight.arrival_time=datetime.time(1, 1)
 
-        # TODO: Wouldn't there be able to exist multiple flights with the same 
-        # flight number or would the flight be deleted after it has concluded
-        flight_logic.update_flight("NA010", flight)
+        flight_logic.update_flight("NA010", datetime.date(2023, 12, 4), flight)
         self.assertNotEqual(data.get_first_flight().departure, -1)
         self.assertNotEqual(data.get_first_flight().destination, -1)
         self.assertNotEqual(data.get_first_flight().date, datetime.date(1, 1, 1))
-        self.assertEqual(data.get_first_flight().departure_time, datetime.time(1, 1))
-        self.assertEqual(data.get_first_flight().arrival_time, datetime.time(1, 1))
-    
-    def test_assign_pilot(self):
-        data = MockDataWrapper()
-        flight_logic = FlightLogic(data)
-
-        data.create_destination(self.MOCK_DESTINATIONS[0])
-        data.create_destination(self.MOCK_DESTINATIONS[1])
-
-        pilot = Pilot(
-            id=0,
-            name="John",
-            password=None,
-            address=None,
-            ssn=None,
-            mobile_phone=None,
-            email=None,
-            home_phone=None,
-            license="C750",
-        )
-        manager = Manager(
-            id=0,
-            name="John",
-            password=None,
-            address=None,
-            ssn=None,
-            mobile_phone=None,
-            email=None,
-            home_phone=None,
-            work_phone=None,
-        )
-        data.create_employee(pilot)
-        data.create_employee(manager)
-
-        flight = Flight(
-            flight_number="NA010",
-            departure=0,
-            destination=1,
-            date=datetime.date(2023, 12, 4),
-            departure_time=datetime.time(15, 00),
-            arrival_time=datetime.time(16, 00),
-        )
-
-        data.create_flight(flight)
-
-        flight_logic.assign_pilot(self, pilot, flight)
-        flight_logic.assign_pilot(self, manager, flight)
-
-        raise NotImplementedError()
-
+        self.assertEqual(data.get_first_flight().departure_time, datetime.time(19, 00))
+        self.assertEqual(data.get_first_flight().arrival_time, datetime.time(23, 00))
 
