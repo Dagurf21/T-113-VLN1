@@ -124,34 +124,77 @@ class VoyageUI(UIElement):
 
     def list_voyages(self):
         voyages = self.logic_wrapper.get_all_voyages()
-        voyage_data = []
 
-        for voyage in voyages:
-            voyage_data.append(
-                [
-                    voyage.id,
-                    voyage.departure_flight,
-                    voyage.return_flight,
-                    voyage.sold_seats,
-                    voyage.departure_date,
-                    voyage.return_date,
-                    voyage.status,
-                ]
+        while True:
+            try:
+                option = self._display_selection(
+                    [
+                        "All",
+                        "On day",
+                        "In week",
+                    ],
+                    header_title="List Voyages [Filter]",
+                    include_back=True
+                )
+            except UICancelException:
+                return
+            
+            try:
+                match option:
+                    case "On day":
+                        date = self._prompt(
+                            "Specity date (yyyy-mm-dd)",
+                            opt_instruction="Leave empty to cancel",
+                            header_title="List Voyages on day",
+                            validator=self.validate_date
+                        )
+                        date = self.parse_date(date)
+                        voyages = [voyage for voyage in voyages if voyage.departure_date == date]
+
+                    case "In week":
+                        date = self._prompt(
+                            "Specity first day of week (yyyy-mm-dd)",
+                            opt_instruction="Leave empty to cancel",
+                            header_title="List Voyages on day",
+                            validator=self.validate_date
+                        )
+                        date = self.parse_date(date)
+                        end_date = date + datetime.timedelta(weeks=1)
+                        voyages = [voyage for voyage in voyages if date <= voyage.departure_date <= end_date]
+
+                    case "Back":
+                        return
+            except UICancelException:
+                continue
+
+            voyage_data = []
+
+            for voyage in voyages:
+                voyage_data.append(
+                    [
+                        voyage.id,
+                        voyage.departure_flight,
+                        voyage.return_flight,
+                        voyage.sold_seats,
+                        voyage.departure_date,
+                        voyage.return_date,
+                        voyage.status,
+                    ]
+                )
+
+            self._display_interactive_datalist(
+                {
+                    "id": 3,
+                    "From": 6,
+                    "DEST": 6,
+                    "Seats": 5,
+                    "Date": 10,
+                    "Return date": 11,
+                    "Status": 15,
+                },
+                voyage_data,
+                title="Voyages",
             )
-
-        self._display_interactive_datalist(
-            {
-                "id": 3,
-                "From": 6,
-                "DEST": 6,
-                "Seats": 5,
-                "Date": 10,
-                "Return date": 11,
-                "Status": 15,
-            },
-            voyage_data,
-            title="Voyages",
-        )
 
     def list_voyage(self):
         self._print_header(message="List a voyage", add_extra_newline=True)
