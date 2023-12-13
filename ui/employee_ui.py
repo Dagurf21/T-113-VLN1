@@ -1,3 +1,4 @@
+import datetime
 from ui import UIElement, UICancelException
 from model import Employee, Pilot, Manager, FlightAttendant, FlightManager, Voyage, Destination, Flight
 from logic import LogicWrapper
@@ -48,6 +49,8 @@ class EmployeeUI(UIElement):
                         "List all employees",
                         "List all pilots",
                         "List all flight attendants",
+                        "List all employees available on.",
+                        "List all employees unavailable on.",
                     ],
                     header_title="Employees",
                     include_back=True
@@ -62,6 +65,10 @@ class EmployeeUI(UIElement):
                     self.list_all_pilots()
                 case "List all flight attendants":
                     self.list_all_flight_attendants()
+                case "List all employees available on.":
+                    self.list_all_available_employees_on()
+                case "List all employees unavailable on.":
+                    self.list_all_unavailable_on()
 
     def list_all_employees(self):
         employees = self.logic_wrapper.get_all_employees()
@@ -119,6 +126,64 @@ class EmployeeUI(UIElement):
             employee_data,
             title="Employees",
         )
+
+    def list_all_available_employees_on(self):
+        try:
+            date = self._prompt(
+                "Pick date (yyyy-mm-dd)",
+                opt_instruction="Leave empty to cancel",
+                header_title="List employees available on.",
+                validator=self.validate_date,
+            )
+            date = self.parse_date(date)
+            employees = self.logic_wrapper.get_employee_by_not_workday(date)
+            employee_data = []
+
+            for employee in employees:
+                employee_data.append([
+                    employee.id,
+                    employee.name,
+                    employee.address,
+                    employee.mobile_phone,
+                    employee.email
+                ])
+
+            self._display_interactive_datalist(
+                { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, 
+                employee_data,
+                title="Employees",
+            )
+        except UICancelException:
+            pass
+    
+    def list_all_unavailable_on(self):
+        try:
+            date = self._prompt(
+                "Pick date (yyyy-mm-dd)",
+                opt_instruction="Leave empty to cancel",
+                header_title="List employees available on.",
+                validator=self.validate_date,
+            )
+            date = self.parse_date(date)
+            employees_destinations = self.logic_wrapper.get_employee_by_workday(date)
+            employee_data = []
+
+            for (employee, destination) in employees_destinations:
+                employee_data.append([
+                    employee.id,
+                    employee.name,
+                    employee.address,
+                    employee.mobile_phone,
+                    f"-> {destination.country} ({destination.airport})"
+                ])
+
+            self._display_interactive_datalist(
+                { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, 
+                employee_data,
+                title="Employees",
+            )
+        except UICancelException:
+            pass
 
     def display_employee(self):
         self._print_header(
@@ -451,3 +516,15 @@ class EmployeeUI(UIElement):
         except ValueError:
             return "ID must be number"
 
+    def validate_date(self, inp):
+        if len(inp) != 10:
+            return "Invalid date format"
+        
+        try:
+            self.parse_date(inp)
+        except:
+            return "Invalid date format"
+
+    def parse_date(self, date):
+        year, month, day = date.split('-')
+        return datetime.date(int(year), int(month), int(day))
