@@ -197,7 +197,10 @@ class Utilities:
 
     def check_password(self, employee, given_password):
         """Takes in a password check if it is the password."""
-        inputted_password = given_password.encode("utf-8")
-        encoded_employee_password = employee.password.encode("utf-8")
-        result = bcrypt.checkpw(inputted_password, encoded_employee_password)
-        return result
+        try:
+            inputted_password = given_password.encode("utf-8")
+            encoded_employee_password = employee.password.encode("utf-8")
+            result = bcrypt.checkpw(inputted_password, encoded_employee_password)
+            return result
+        except ValueError:
+            return None
