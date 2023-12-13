@@ -71,7 +71,7 @@ class VoyageUI(UIElement):
                 opt_instruction="Leave empty to cancel",
             )
             return_date = self._prompt(
-                "Enter Return date of voyage",
+                "Enter return date of voyage",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
             )
@@ -86,14 +86,14 @@ class VoyageUI(UIElement):
                 opt_instruction="Leave empty to cancel",
             )
             flight_attendants = self._prompt(
-                "Enter flight_attendants ID",
+                "Enter Flight Attendant ID",
                 header_title="Create voyage",
-                opt_instruction="Minimum 1 flight attendant. Leave empty to cancel (optional: n to skip)",
+                opt_instruction="Leave empty to cancel (optional: n to skip)",
             )
             pilots = self._prompt(
-                "Enter lead pilot ID's",
+                "Enter Pilot ID",
                 header_title="Create voyage",
-                opt_instruction="First ID is head pilot (Minimum 2 pilots). Leave empty to cancel (optional: n to skip)",
+                opt_instruction="Leave empty to cancel (optional: n to skip)",
             )
 
             if flight_attendants.lower() == "n":
@@ -367,9 +367,9 @@ class VoyageUI(UIElement):
 
                 if pilots_or_attendants == "Pilots":  # Insert pilots
                     voyage.pilots.append(self._prompt(
-                        "Enter ID's of pilots",
+                        "Enter ID of pilot",
                         header_title="Staff voyage",
-                        opt_instruction="Leave empty to cancel. (First ID is head pilot - Format is {id}.{id})",
+                        opt_instruction="Leave empty to cancel.",
                     ))
                     self.logic_wrapper.update_voyage(voyage)
 
@@ -377,9 +377,9 @@ class VoyageUI(UIElement):
                     pilots_or_attendants == "Flight attendant"
                 ):  # Instert flight attendants
                     voyage.flight_attendants.append(self._prompt(
-                        "Enter ID's of flight attendants",
+                        "Enter ID of flight attendant",
                         header_title="Staff voyage",
-                        opt_instruction="Leave empty to cancel. (Format is {id}.{id})",
+                        opt_instruction="Leave empty to cancel.",
                     ))
                     self.logic_wrapper.update_voyage(voyage)
 
