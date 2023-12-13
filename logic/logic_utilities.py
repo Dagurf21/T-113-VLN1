@@ -188,10 +188,3 @@ class Utilities:
             return result
         except ValueError:
             return None
-
-    def get_by_id(self, list_of_classes, search_id):
-        """Parses through a list til the class with the correct id is found"""
-        for class_obj in list_of_classes:
-            if class_obj.id == search_id:
-                return class_obj
-        return None
