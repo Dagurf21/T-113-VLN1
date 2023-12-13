@@ -14,7 +14,7 @@ class LoginUI(UIElement):
 
             command = self._getkey()
 
-            match command.lower():
+            match command:
                 case "q": # Exit the application
                     break
 
