@@ -228,15 +228,16 @@ class VoyageUI(UIElement):
             self._print_header(f"List Voyage [ID:{voyage_id}]", add_extra_newline=True)
             self._print_list(
                 [
-                    f"ID:          {voyage.id}",
-                    f"Plane:       {voyage.plane}",
-                    f"Pilot:       {voyage.pilots}",
-                    f"Sold Seats:  {voyage.sold_seats}",
-                    f"From:        {voyage.departure_flight}",
-                    f"To:          {voyage.return_flight}",
-                    f"Date:        {voyage.departure_date}",
-                    f"Return Date: {voyage.return_date}",
-                    f"Status:      {voyage.status}",
+                    f"ID:           {voyage.id}",
+                    f"Plane:        {voyage.plane}",
+                    f"Pilots:       {', '.join(map(str, voyage.pilots))}",
+                    f"Attendants:   {', '.join(map(str, voyage.flight_attendants))}",
+                    f"Sold Seats:   {voyage.sold_seats}",
+                    f"From:         {voyage.departure_flight}",
+                    f"To:           {voyage.return_flight}",
+                    f"Date:         {voyage.departure_date}",
+                    f"Return Date:  {voyage.return_date}",
+                    f"Status:       {voyage.status}",
                 ],
                 add_newline_after=True,
             )
@@ -598,17 +599,16 @@ class VoyageUI(UIElement):
     def validate_pilot(self, inp, plane_id):
         try:
             employee_id = int(inp)
-            
-            if self.logic_wrapper.check_job_position(employee_id, "Pilot"):
-                if self.logic_wrapper.pilot_has_license(employee_id, plane_id):
-                    return None
-                else:
-                    return f"Pilot does not have a license to fly this plane"
-            else:
-                return f"Pilot with id {employee_id} doesn't exist"
-
         except ValueError:
             return "ID must be a number"
+            
+        if self.logic_wrapper.check_job_position(employee_id, "Pilot"):
+            if self.logic_wrapper.pilot_has_license(employee_id, plane_id):
+                return None
+            else:
+                return f"Pilot does not have a license to fly this plane"
+        else:
+            return f"Pilot with id {employee_id} doesn't exist"
     
     def validate_number(self, inp):
         try:

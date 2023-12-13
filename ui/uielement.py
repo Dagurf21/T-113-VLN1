@@ -308,7 +308,10 @@ class UIElement:
                 if c == b'\x0d':
                     return ''
 
-                return c.decode('utf-8')
+                try:
+                    return c.decode('utf-8')
+                except:
+                    return None
             else: # *nix
                 if ord(c) == 3:
                     raise KeyboardInterrupt
