@@ -221,8 +221,8 @@ class LogicWrapper(object):
     def seats_available(self, voyage_data):
         return self.validate.seats_available(voyage_data)
 
-    def validate_job_position(self, employee_id, job_title):
-        return self.employee_logic.validate_job_position(employee_id, job_title)
+    def check_job_position(self, employee_id, job_title):
+        return self.employee_logic.check_job_position(employee_id, job_title)
 
     def validate_status(self, status_data):
         return self.validate.status(status_data)
