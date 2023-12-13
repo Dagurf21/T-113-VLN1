@@ -210,8 +210,8 @@ class LogicWrapper(object):
     def validate_license(self, license_data):
         return self.validate.license(self.data_wrapper, license_data)
 
-    def pilot_has_license(self, pilot, plane):
-        return self.validate.pilot_has_license(pilot, plane)
+    def pilot_has_license(self, pilot_id, plane_id):
+        return self.employee_logic.pilot_has_license(pilot_id, plane_id)
 
     ### Pilot & Flight Attendant Validation
     def validate_assignments(self, assignments_data):
