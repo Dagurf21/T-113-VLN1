@@ -1,6 +1,24 @@
 # import os
-from logic import Validator, Utilities, PlaneLogic, VoyageLogic, DestinationLogic, FlightLogic, EmployeeLogic
-from model import Destination, Employee, Flight, FlightAttendant, FlightManager, Manager, Pilot, Plane, Voyage
+from logic import (
+    Validator,
+    Utilities,
+    PlaneLogic,
+    VoyageLogic,
+    DestinationLogic,
+    FlightLogic,
+    EmployeeLogic,
+)
+from model import (
+    Destination,
+    Employee,
+    Flight,
+    FlightAttendant,
+    FlightManager,
+    Manager,
+    Pilot,
+    Plane,
+    Voyage,
+)
 from data.data_wrapper import DataWrapper
 import datetime
 
@@ -161,7 +179,7 @@ class LogicWrapper(object):
 
     ### Pilot Validation
     def validate_license(self, license_data):
-        return self.validate.license(license_data)
+        return self.validate.license(self.data_wrapper, license_data)
 
     ### Pilot & Flight Attendant Validation
     def validate_assignments(self, assignments_data):

@@ -94,10 +94,10 @@ class Validator:
         return re.match("[^@]+@[^@]+\.[^@]+", email)
 
     # Pilot and flight attendant validations
-    def licenses(self, planelicense, plane_type_list) -> bool:
-        """Verifies if the list of licenses is valid"""
-        for planetype in plane_type_list:
-            if planelicense == planetype:
+    def license(self, data_wrapper, planelicense) -> bool:
+        """Verifies if the plane license is valid by getting the list of planes"""
+        for plane in data_wrapper.get_all_planes():
+            if planelicense == plane.type:
                 return True
         return False
 
