@@ -97,7 +97,7 @@ class Validator:
     def license(self, data_wrapper, planelicense) -> bool:
         """Verifies if the plane license is valid by getting the list of planes"""
         for plane in data_wrapper.get_all_planes():
-            if planelicense == plane.type:
+            if planelicense == plane.ty:
                 return True
         return False
 

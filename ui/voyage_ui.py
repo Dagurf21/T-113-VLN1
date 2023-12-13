@@ -97,14 +97,12 @@ class VoyageUI(UIElement):
             )
 
             if flight_attendants.lower() == "n":
-                flight_attendants = None
+                flight_attendants = []
 
             if pilots.lower() == "n":
-                pilots = None
+                pilots = []
 
-            data = f"{plane};{destination};{date};{return_date};{departure_time};{arrival_departure_time};{sold_seats};{flight_attendants};{pilots}"
-
-            self.logic_wrapper.create_voyage(data)
+            self.logic_wrapper.create_voyage(plane, destination, date, return_date, departure_time, arrival_departure_time, sold_seats, flight_attendants, pilots)
 
             return  # TODO
 
@@ -368,21 +366,21 @@ class VoyageUI(UIElement):
                 )
 
                 if pilots_or_attendants == "Pilots":  # Insert pilots
-                    voyage.pilots = self._prompt(
+                    voyage.pilots.append(self._prompt(
                         "Enter ID's of pilots",
                         header_title="Staff voyage",
                         opt_instruction="Leave empty to cancel. (First ID is head pilot - Format is {id}.{id})",
-                    )
+                    ))
                     self.logic_wrapper.update_voyage(voyage)
 
                 elif (
                     pilots_or_attendants == "Flight attendant"
                 ):  # Instert flight attendants
-                    voyage.attendants = self._prompt(
+                    voyage.flight_attendants.append(self._prompt(
                         "Enter ID's of flight attendants",
                         header_title="Staff voyage",
                         opt_instruction="Leave empty to cancel. (Format is {id}.{id})",
-                    )
+                    ))
                     self.logic_wrapper.update_voyage(voyage)
 
                 return

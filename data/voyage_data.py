@@ -17,8 +17,9 @@ class VoyageData:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             id = self.get_new_id()
-            
-            writer.writerow({'id': id, 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': voyage.pilots, 'attendants': voyage.flight_attendants, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.return_departure_time, 'arrival_flight': voyage.return_flight, 'date': voyage.departure_date, 'return_date': voyage.return_date, 'status': voyage.status})
+            pilots_csv_list = ".".join(voyage.pilots)
+            attendants_csv_list = ".".join(voyage.flight_attendants)
+            writer.writerow({'id': id, 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': pilots_csv_list, 'attendants': attendants_csv_list, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.return_departure_time, 'arrival_flight': voyage.return_flight, 'date': voyage.departure_date, 'return_date': voyage.return_date, 'status': voyage.status})
 
 
     def get_new_id(self) -> int:
@@ -47,14 +48,16 @@ class VoyageData:
                 dep_hour, dep_minute = self.split_time(row["departure_time"])
                 ret_hour, ret_minute = self.split_time(row["arrival_departure_time"])
 
+                pilots_list = row["pilots"].split(".")
+                attendants_list = row["attendants"].split(".")
                 ret_list.append(
                     Voyage(
                         id = int(row["id"]), 
                         destination = int(row["destination"]), 
                         sold_seats = int(row["sold_seats"]), 
                         plane = int(row["plane"]), 
-                        pilots = row["pilots"], 
-                        flight_attendants = row["attendants"], 
+                        pilots = pilots_list, 
+                        flight_attendants = attendants_list, 
                         departure_time = datetime.time(hour = dep_hour, minute = dep_minute), 
                         departure_flight = row["departure_flight"], 
                         return_departure_time = datetime.time(hour = ret_hour, minute = ret_minute), 
@@ -99,7 +102,9 @@ class VoyageData:
             for row in reader:
                 # Writes the plane with the new data into the temp file
                 if int(row["id"]) == voyage.id:
-                    row = {'id': row["id"], 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': voyage.pilots, 'attendants': voyage.flight_attendants, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.return_departure_time, 'arrival_flight': voyage.return_flight, 'date': voyage.departure_date, 'return_date': voyage.return_date, 'status': voyage.status}
+                    pilots_csv_list = ".".join(voyage.pilots)
+                    attendants_csv_list = ".".join(voyage.flight_attendants)
+                    row = {'id': row["id"], 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': pilots_csv_list, 'attendants': attendants_csv_list, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.return_departure_time, 'arrival_flight': voyage.return_flight, 'date': voyage.departure_date, 'return_date': voyage.return_date, 'status': voyage.status}
                 # Writes the other planes unchanged 
                 else:
                     row = {'id': row["id"], 'destination': row["destination"], 'sold_seats': row["sold_seats"], 'plane': row["plane"], 'pilots': row["pilots"], 'attendants': row["attendants"], 'departure_time': row["departure_time"], 'departure_flight': row["departure_flight"], 'arrival_departure_time': row["arrival_departure_time"], 'arrival_flight': row["arrival_flight"], 'date': row["date"], 'return_date': row["return_date"], 'status': row["status"]}
