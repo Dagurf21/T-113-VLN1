@@ -88,7 +88,8 @@ class PlaneUI(UIElement):
                 f"Name:         {plane.name}",
                 f"Type:         {plane.ty}",
                 f"Manufacturer: {plane.manufacturer}",
-                f"Capacity:     {plane.voyages}"
+                f"Capacity:     {plane.capacity}",
+                f"Voyages:      {plane.voyages}"
             ], add_newline_after=True)
 
     def register_plane(self):
@@ -96,7 +97,7 @@ class PlaneUI(UIElement):
             name          = self._prompt("Enter name",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
             plane_type    = self._prompt("Enter type",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
             manufacturer  = self._prompt("Enter manufacturer",    header_title="Register Plane", opt_instruction="Leave empty to cancel")
-            capacity      = self._prompt("Enter capacity",        header_title="Register Plane", opt_instruction="Leave empty to cancel")
+            capacity      = int(self._prompt("Enter capacity",        header_title="Register Plane", opt_instruction="Leave empty to cancel"))
             #flights       = self._display_prompt("Enter ",            header_title="Register Plane", opt_instruction="Leave empty to cancel")
             # Not sure if we add flights now or later
             # O
