@@ -229,4 +229,4 @@ class EmployeeLogic:
             pilot = self.get_employee(pilot_id)
             plane = self.plane_logic.get_plane(plane_id)
             
-            return pilot.license == plane.type
+            return pilot.license == plane.ty
