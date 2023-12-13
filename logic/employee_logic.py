@@ -1,5 +1,6 @@
-from logic import Validator, Utilities, PlaneLogic
+from logic import Validator, Utilities, PlaneLogic, VoyageLogic, DestinationLogic
 from model import Employee, Pilot, Destination
+import datetime
 
 
 class EmployeeLogic:
@@ -10,6 +11,8 @@ class EmployeeLogic:
         self.validate = Validator()
         self.utility = Utilities()
         self.plane_logic = PlaneLogic(data_connection)
+        self.voyage_logic = VoyageLogic(data_connection)
+        self.destination_logic = DestinationLogic(data_connection)
 
     def create_employee(self, employee) -> None:
         """Takes in a employee object and forwards it to the data layer"""
@@ -56,9 +59,22 @@ class EmployeeLogic:
 
         return employees_with_the_job
 
-    def get_employee_by_workday(self, workdate) -> list[("Employee", "Destination")]:
+    def get_employee_by_workday(self, workdate: datetime.date) -> list[("Employee", "Destination")]:
         """Returns a list of employees that are working on a specific day"""
         employee_return_list = []
+        pilots_and_attendants = self.get_employees_by_job("Pilot")
+        pilots_and_attendants += self.get_employees_by_job("FlightAttendant")
+
+        for employee in pilots_and_attendants:
+            if employee.assignments:
+                for voyage in employee.assignments:
+                    voyage = self.voyage_logic.get_voyage(voyage)
+                    if voyage.departure_date == workdate or voyage.return_date == workdate:
+                        destination = self.destination_logic.get_destination(voyage.destination)
+                        employee_return_list.append((employee, destination.country))
+
+        return employee_return_list
+        """
         list_of_voyages = self.data_wrapper.get_all_voyages()
         list_of_destinations = self.data_wrapper.get_all_destinations()
         for voyage in list_of_voyages:
@@ -96,6 +112,7 @@ class EmployeeLogic:
                 except TypeError:
                     ...
         return employee_return_list
+        """
 
     def get_employee_by_not_workday(self, workdate) -> list["Employee"]:
         """Returns a list of employees that are working on a specific day"""
@@ -117,11 +134,13 @@ class EmployeeLogic:
                     ...
         return list_of_employees
 
+
     def get_all_pilots(self) -> list["Employee"]:
         """Returns a sorted list of pilots"""
         pilot_list = self.get_employees_by_job("Pilot")
         pilot_list.sort()
         return pilot_list
+
 
     def get_pilots_by_license(self, planelicense) -> list["Pilot"]:
         """Returns a list of pilots with the given license"""
