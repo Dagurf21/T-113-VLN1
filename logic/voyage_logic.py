@@ -27,10 +27,11 @@ class VoyageLogic:
         departure_flight = self.flight_logic.create_flight(
             0, destination_id, date, departure_time
         )
+        
         arrival_flight = self.flight_logic.create_flight(
             destination_id, 0, return_departure_date, return_departure_time
         )
-        # TODO return date
+
         self.data_wrapper.create_voyage(
             Voyage(
                 destination=destination_id,
@@ -145,3 +146,4 @@ class VoyageLogic:
                 return False
         
         return True
+    
