@@ -7,3 +7,15 @@
 
 #### Hópur 28
 Axel Snær Ammendrup Atlason, Dagur Freyr Guðbrandsson, Elías Andri Harðarson, Kristján Kári Gunnarsson(Odysseus101), Marteinn Logi Jóhannsson
+
+Velkomin!
+
+Aðgangur:
+    Email
+        "Kennari"
+    Password
+        "pass"
+
+Fyrir module þarfir þarf bara að skrifa:
+    "pip install -r requirements.txt" 
+Inn í terminal-ið.
