@@ -107,7 +107,7 @@ class UIElement:
             else:
                 self._print_header(message=f"{header_title} ({max_elements - len(elems)})", add_extra_newline=True)
             
-                if len(elems) >= max_elements:
+                if max_elements != 0 and len(elems) >= max_elements:
                     break
 
         return elems
