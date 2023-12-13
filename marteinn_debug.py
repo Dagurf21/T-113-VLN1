@@ -11,5 +11,10 @@
 #         Flight_route_logic
 #         Plane_logic
 
+phone_number = "123-4567"
+phone_number = phone_number.replace("-", "")
+if len != 7:
+    raise IndexError:
+compacted_number = phone_number[:3] + phone_number[-4:]
 
-print(len("123-1234"))
+print(compacted_number)
