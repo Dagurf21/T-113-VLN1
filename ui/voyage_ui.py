@@ -227,9 +227,7 @@ class VoyageUI(UIElement):
                     continue
 
                 voyage_fields = [
-                    "Seats sold",
-                    "Pilots",
-                    "Attendants",
+                    "Seats sold"
                 ]
 
                 field_to_update = self._display_selection(
@@ -243,27 +241,7 @@ class VoyageUI(UIElement):
                             opt_instruction="Leave empty to cancel",
                             validator=self.validate_number,
                         ))
-                    case "Pilots":
-                        voyage.pilots = (self._prompt_list(
-                            prompt="Enter pilot ID",
-                            header_title="Enter ID's of pilots, first ID is head pilot, must enter at least 2",
-                            #validator=self.validate_pilot,
-                            max_elements=2,
-                        ))
-                    case "Attendants":
-                        voyage.attendants = (self._prompt_list(
-                            prompt="Enter ID's of attendants",
-                            header_title="Enter ID's of pilots, first ID is head pilot, must enter at least 2",
-                            #validator=self.validate_pilot,
-                            max_elements=4,
-                        ))
-
-                        """voyage.attendants = list(map(int, self._prompt(
-                            "Enter ID's of attendants",
-                            opt_instruction="Leave empty to cancel",
-                            #validator=self.validate_flight_attendant,
-                        )))"""
-
+                
                 self.logic_wrapper.update_voyage(voyage)
 
                 return
