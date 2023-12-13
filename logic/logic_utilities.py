@@ -16,7 +16,10 @@ class Validator:
         if it is valid(True) or invalid(False)"""
 
         try:
-            compacted_number = phone_number[0:3] + phone_number[4:8]
+            phone_number = phone_number.replace("-", "")
+            if len(phone_number) != 7:
+                raise IndexError
+            compacted_number = phone_number[:3] + phone_number[-4:]
             int(compacted_number)
             return True
 
