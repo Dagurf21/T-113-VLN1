@@ -1,16 +1,30 @@
-id,name,job_title,license,password,address,ssn,mobile_phone,email,home_phone,work_phone,assignments
-0,Chuck Norris,Chuck Norris,All,$2b$12$rfKEGKb9ERVDCvXs1w11UO79rpoKYB60xkD.d9ert78Vy.ReeanSO,Fortnite,1003400009,000-0000,chucknorris@nanair.is,000-0001,000-0003,
-1,DEV,Manager,,$2b$12$jB0AXGcSSL.hEoowj0GcxuR7qspPvFKkJzcAcW5VBzfwccedrLhSe,_,_,_,,_,_,
-2,sdvfk,,,,,,,,,,
-3,Marteinn,Manager,,$2b$12$NriTlbdfgy9wBtqYNDwvJej5Hd4N1Q26MU2oG54LQj1i93AtLeCji,marteinn home,0509041230,663-7270,Marteinnlogi@gmail.com,,123-1234,
-4,flight person,Flight Attendant,,$2b$12$DHVivbQBzMZulN6mdhAa5uB4AkMp/O1RuydWRWhQDCQU4Ra0RegTu,123,0101011230,12301230,phone@my.cell,,,
-5,Dagur Freyr,Flight Manager,,$2b$12$ZZLV1MD3KBYa8SUDVtBX2uDOXhD.0IVLlWiOU.wIR708NENYoaING,reynivellir 1,2110000000,123-4567,dagur@gmail.com,,1234321,
-6,Kristjan Kari Gunnarsson,Manager,,$2b$12$4Ag6xzzbTgTpEhU9RST4bOTqiLZC.SeFtympX4LcaHbBnn.Ygcid6,nei,1212810000,8213231,kristjang23@ru.is,,2423421,
-7,sdfk,Manager,,$2b$12$luK8XrGECpikQSwNbinMteRTX.ChczXy1ZTDTI.ECEfIKALO2nxja,sdfk@nanair.is,0504230020,2232321,sdfk@nanair.is,,2313454,
-8,Bob,Manager,,$2b$12$rfKEGKb9ERVDCvXs1w11UO79rpoKYB60xkD.d9ert78Vy.ReeanSO,bobinn street,0101015400,231231,bob@nanair.is,,132312412,
-9,Glenn Quagmire,Pilot,C750,$2b$12$Bo3aF3sovbrofZjriZ7ZK.S0mNkYTwrtf4LiH/GCyryGyh9evS/DK,Quahog,2503532469,8888888,Quagmire@nanair.is,,,
-10,Kennari,Manager,,$2b$12$3LOAz5Xuxjn4RNXbi5rdgO3KyXH.SY4R1xHdQQLsw0BYi/LVDai3m,HR,0101010100,123-1234,kennari@ru.is,,321-4321,
-11,Pilot McMan,Pilot,C750,$2b$12$3/T8M5wPFMoKB7I/MzEp.OOH6OVzum4G3dZSIxQJsaYySOJra4Hg6,creative bankruptcy,1112231239,123-1234,mcpilot@nanair.is,,,4
-12,Aaron,Pilot,C750,$2b$12$BALVPxfYNBBs0cCeBYYmjuvMKJ9cn9YG3L.EiirDCejFJyT7pH/bq,some address,1112231219,123-1235,aaron@nanair.is,,,4
-13,some guy,Flight Attendant,,$2b$12$mQ0yDxHr2t2kae4UM.A7Vu2jR2EGdq1cEdjZ/AN49dfo.Q106ahh6,some guy add,1010101010,1234567,soem@nanir.is,1234567,,
-14,som egirls,Flight Attendant,,$2b$12$XjsaF6ICeiV9wM1X6YPuNuPU0EPBw4g.ny6mAy2d0GBbgy55L3nH.,blabla,1010101010,1234567,na@nan.is,1234568,,
+id,name,job_title,license,password,address,ssn,mobile_phone,email,home_phone,work_phone,assignments
+
+0,Chuck Norris,Chuck Norris,All,$2b$12$rfKEGKb9ERVDCvXs1w11UO79rpoKYB60xkD.d9ert78Vy.ReeanSO,Fortnite,1003400009,000-0000,chucknorris@nanair.is,000-0001,000-0003,
+
+1,DEV,Manager,,$2b$12$jB0AXGcSSL.hEoowj0GcxuR7qspPvFKkJzcAcW5VBzfwccedrLhSe,_,_,_,,_,_,
+
+2,sdvfk,,,,,,,,,,
+
+3,Marteinn,Manager,,$2b$12$NriTlbdfgy9wBtqYNDwvJej5Hd4N1Q26MU2oG54LQj1i93AtLeCji,marteinn home,0509041230,663-7270,Marteinnlogi@gmail.com,,123-1234,
+
+4,flight person,Flight Attendant,,$2b$12$DHVivbQBzMZulN6mdhAa5uB4AkMp/O1RuydWRWhQDCQU4Ra0RegTu,123,0101011230,12301230,phone@my.cell,,,
+
+5,Dagur Freyr,Flight Manager,,$2b$12$ZZLV1MD3KBYa8SUDVtBX2uDOXhD.0IVLlWiOU.wIR708NENYoaING,reynivellir 1,2110000000,123-4567,dagur@gmail.com,,1234321,
+6,Kristján Kári Gunnarsson,Manager,,$2b$12$4Ag6xzzbTgTpEhU9RST4bOTqiLZC.SeFtympX4LcaHbBnn.Ygcid6,リ𝙹リᒷ 𝙹⎓ ||𝙹⚍∷,1212810000,8213231,kristjang23@ru.is,,2423421,
+7,sdfk,Manager,,$2b$12$luK8XrGECpikQSwNbinMteRTX.ChczXy1ZTDTI.ECEfIKALO2nxja,sdfk@nanair.is,0504230020,2232321,sdfk@nanair.is,,2313454,
+
+8,Bob,Manager,,$2b$12$rfKEGKb9ERVDCvXs1w11UO79rpoKYB60xkD.d9ert78Vy.ReeanSO,bobinn street,0101015400,231231,bob@nanair.is,,132312412,
+
+9,Glenn Quagmire,Pilot,C750,$2b$12$Bo3aF3sovbrofZjriZ7ZK.S0mNkYTwrtf4LiH/GCyryGyh9evS/DK,Quahog,2503532469,8888888,Quagmire@nanair.is,,,
+
+10,Kennari,Manager,,$2b$12$3LOAz5Xuxjn4RNXbi5rdgO3KyXH.SY4R1xHdQQLsw0BYi/LVDai3m,HR,0101010100,123-1234,kennari@ru.is,,321-4321,
+
+11,Pilot McMan,Pilot,C750,$2b$12$3/T8M5wPFMoKB7I/MzEp.OOH6OVzum4G3dZSIxQJsaYySOJra4Hg6,creative bankruptcy,1112231239,123-1234,mcpilot@nanair.is,,,4
+
+12,Aaron,Pilot,C750,$2b$12$BALVPxfYNBBs0cCeBYYmjuvMKJ9cn9YG3L.EiirDCejFJyT7pH/bq,some address,1112231219,123-1235,aaron@nanair.is,,,4
+
+13,some guy,Flight Attendant,,$2b$12$mQ0yDxHr2t2kae4UM.A7Vu2jR2EGdq1cEdjZ/AN49dfo.Q106ahh6,some guy add,1010101010,1234567,soem@nanir.is,1234567,,
+
+14,som egirls,Flight Attendant,,$2b$12$XjsaF6ICeiV9wM1X6YPuNuPU0EPBw4g.ny6mAy2d0GBbgy55L3nH.,blabla,1010101010,1234567,na@nan.is,1234568,,
+
