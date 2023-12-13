@@ -297,7 +297,7 @@ class VoyageUI(UIElement):
 
             duplicate_voyage_options = [
                 "Duplicate voyage once, only new dates",
-                "Duplicate voyage, recurring over time"
+                "Recurring voyage"
             ]
 
             duplicate_options = self._display_selection(
@@ -364,7 +364,11 @@ class VoyageUI(UIElement):
                 
                     """Duplicate voyage End only date"""
                     
-                case "Duplicate voyage, recurring over time":
+                case "Recurring voyage":
+                    # Voyage id to duplicate
+                    # Interval how many days between voyages
+
+                    # How long ? in days until what date :
                     pass
 
 
