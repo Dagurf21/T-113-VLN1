@@ -46,7 +46,7 @@ class PlaneUI(UIElement):
                 plane.ty,
                 "UNIMPLEMENTED",
                 plane.capacity,
-                plane.flights
+                plane.voyages
             ])
 
         self._display_interactive_datalist(
@@ -88,7 +88,7 @@ class PlaneUI(UIElement):
                 f"Name:         {plane.name}",
                 f"Type:         {plane.ty}",
                 f"Manufacturer: {plane.manufacturer}",
-                f"Capacity:     {plane.flights}"
+                f"Capacity:     {plane.voyages}"
             ], add_newline_after=True)
 
     def register_plane(self):

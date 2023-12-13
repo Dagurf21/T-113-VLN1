@@ -53,7 +53,7 @@ class PlaneData:
                         ty = row["type"], 
                         manufacturer = row["manufacturer"], 
                         capacity = int(row["capacity"]), 
-                        flights = row["flights"]))
+                        voyages = row["flights"]))
     
         return ret_list
 

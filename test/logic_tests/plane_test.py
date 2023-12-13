@@ -2,7 +2,7 @@ import unittest
 from logic.plane_logic import *
 from .mock_data_wrapper import MockDataWrapper
 from model import *
-from copy import copy
+from copy import deepcopy
 
 class TestPlane(unittest.TestCase):
     MOCK_PLANES = [
@@ -43,7 +43,7 @@ class TestPlane(unittest.TestCase):
         flight_logic = FlightLogic(data)
         plane_logic = PlaneLogic(data, flight_logic)
 
-        plane = copy(self.MOCK_PLANES[0])
+        plane = deepcopy(self.MOCK_PLANES[0])
         plane.capacity = -1
 
         plane_logic.create_plane(plane)
@@ -55,8 +55,8 @@ class TestPlane(unittest.TestCase):
         flight_logic = FlightLogic(data)
         plane_logic = PlaneLogic(data, flight_logic)
 
-        plane = copy(self.MOCK_PLANES[0])
-        plane.flights = ["NA011"]
+        plane = deepcopy(self.MOCK_PLANES[0])
+        plane.voyages = ["NA011"]
 
         plane_logic.create_plane(plane)
 
@@ -104,11 +104,11 @@ class TestPlane(unittest.TestCase):
             data.create_plane(plane)
         
         for plane in self.MOCK_PLANES:
-            plane = copy(plane)
+            plane = deepcopy(plane)
             plane.capacity = 5
             # TODO: How do we want to connect planes to flights if the flight
             # is identified by both the number and date?
-            plane.flights = ["NA010"]
+            plane.voyages = ["NA010"]
 
         raise NotImplementedError
         

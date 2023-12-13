@@ -212,7 +212,6 @@ class EmployeeUI(UIElement):
                         work_phone=work_phone
                     )
                 case "Pilot":
-                    assignments = self._prompt_assignments("Register Employee")
                     license = self._prompt(
                         "Enter license",
                         header_title="Register Employee",
@@ -228,7 +227,7 @@ class EmployeeUI(UIElement):
                         email=email,
                         home_phone=home_phone,
                         license=license,
-                        assignments=assignments
+                        assignments=[]
                     )
                 case "Flight Attendant":
                     assignments = self._prompt_assignments("Register Employee")
@@ -240,7 +239,7 @@ class EmployeeUI(UIElement):
                         mobile_phone=mobile_phone,
                         email=email,
                         home_phone=home_phone,
-                        assignments=assignments
+                        assignments=[]
                     )
                 case "Flight Manager":
                     work_phone   = self._prompt(
