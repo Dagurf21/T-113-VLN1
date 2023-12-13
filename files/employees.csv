@@ -11,3 +11,5 @@ id,name,job_title,license,password,address,ssn,mobile_phone,email,home_phone,wor
 9,Glenn Quagmire,Pilot,C750,$2b$12$Bo3aF3sovbrofZjriZ7ZK.S0mNkYTwrtf4LiH/GCyryGyh9evS/DK,Quahog,2503532469,8888888,Quagmire@nanair.is,,,
 10,Kennari,Manager,,$2b$12$3LOAz5Xuxjn4RNXbi5rdgO3KyXH.SY4R1xHdQQLsw0BYi/LVDai3m,HR,0101010100,123-1234,kennari@ru.is,,321-4321,
 
+11,Pilot McMan,Pilot,C150,$2b$12$3/T8M5wPFMoKB7I/MzEp.OOH6OVzum4G3dZSIxQJsaYySOJra4Hg6,creative bankruptcy,1112231239,123-1234,mcpilot@nanair.is,,,
+12,Aaron,Pilot,C150,$2b$12$BALVPxfYNBBs0cCeBYYmjuvMKJ9cn9YG3L.EiirDCejFJyT7pH/bq,some address,1112231219,123-1235,aaron@nanair.is,,,

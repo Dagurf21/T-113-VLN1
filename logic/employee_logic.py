@@ -1,4 +1,4 @@
-from logic import Validator, Utilities
+from logic import Validator, Utilities, PlaneLogic
 from model import Employee, Pilot, Destination
 
 
@@ -9,6 +9,7 @@ class EmployeeLogic:
         self.data_wrapper = data_connection
         self.validate = Validator()
         self.utility = Utilities()
+        self.plane_logic = PlaneLogic(data_connection)
 
     def create_employee(self, employee) -> None:
         """Takes in a employee object and forwards it to the data layer"""
@@ -203,3 +204,10 @@ class EmployeeLogic:
             return True
 
         return False
+
+
+    def pilot_has_license(self, pilot_id, plane_id):
+            pilot = self.get_employee(pilot_id)
+            plane = self.plane_logic.get_plane(plane_id)
+            
+            return pilot.license == plane.type

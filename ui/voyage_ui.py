@@ -81,7 +81,7 @@ class VoyageUI(UIElement):
                 opt_instruction="Leave empty to cancel",
                 validator=self.validate_date,
             )
-            arrival_departure_time = self._prompt(
+            return_departure_time = self._prompt(
                 "Enter departure time of arrival flight (hh:mm)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
@@ -110,7 +110,7 @@ class VoyageUI(UIElement):
                 self.parse_date(date),
                 self.parse_date(return_date),
                 self.parse_time(departure_time),
-                self.parse_time(arrival_departure_time),
+                self.parse_time(return_departure_time),
                 int(sold_seats),
                 list(map(int, flight_attendants)),
                 list(map(int, pilots)),
@@ -227,9 +227,7 @@ class VoyageUI(UIElement):
                     continue
 
                 voyage_fields = [
-                    "Seats sold",
-                    "Pilots",
-                    "Attendants",
+                    "Seats sold"
                 ]
 
                 field_to_update = self._display_selection(
@@ -243,27 +241,7 @@ class VoyageUI(UIElement):
                             opt_instruction="Leave empty to cancel",
                             validator=self.validate_number,
                         ))
-                    case "Pilots":
-                        voyage.pilots = (self._prompt_list(
-                            prompt="Enter pilot ID",
-                            header_title="Enter ID's of pilots, first ID is head pilot, must enter at least 2",
-                            #validator=self.validate_pilot,
-                            max_elements=2,
-                        ))
-                    case "Attendants":
-                        voyage.attendants = (self._prompt_list(
-                            prompt="Enter ID's of attendants",
-                            header_title="Enter ID's of pilots, first ID is head pilot, must enter at least 2",
-                            #validator=self.validate_pilot,
-                            max_elements=4,
-                        ))
-
-                        """voyage.attendants = list(map(int, self._prompt(
-                            "Enter ID's of attendants",
-                            opt_instruction="Leave empty to cancel",
-                            #validator=self.validate_flight_attendant,
-                        )))"""
-
+                
                 self.logic_wrapper.update_voyage(voyage)
 
                 return
@@ -316,22 +294,83 @@ class VoyageUI(UIElement):
         self._print_header(message="Duplicate Voyage")
         self._print_header(message="Duplicate Voyage", add_extra_newline=True)
         while True:
-            try:
-                voyage_id = self._prompt(
-                    "Enter voyage id",
-                    opt_instruction="Leave empty to cancel",
-                    clear_screen=False,
-                )
-            except UICancelException:
-                return
 
-            try:
-                voyage_id = int(voyage_id)
-            except ValueError:
-                self._print_header("List voyage", add_extra_newline=True)
-                self._print_centered("ID has to be a number", add_newline_after=True)
-                continue
-            self.logic_wrapper.voyage
+            duplicate_voyage_options = [
+                "Duplicate voyage once, only new dates",
+                "Recurring voyage"
+            ]
+
+            duplicate_options = self._display_selection(
+                duplicate_voyage_options, header_title="Duplicate Voyages"
+            )
+
+            match duplicate_options:
+                case "Duplicate voyage once, only new dates":
+                    self._print_header(message="Duplicate voyage, new dates", add_extra_newline=True)
+                    try:
+                        voyage_id = self._prompt(
+                            "Enter voyage id",
+                            opt_instruction="Leave empty to cancel",
+                            clear_screen=False,
+                        )
+                    except UICancelException:
+                        return
+
+                    try:
+                        voyage_id = int(voyage_id)
+                    except ValueError:
+                        self._print_header("List voyage", add_extra_newline=True)
+                        self._print_centered("ID has to be a number", add_newline_after=True)
+                        continue
+
+                    """ Duplicate voyage new date only """
+                    copy_voyage = self.logic_wrapper.get_voyage(voyage_id)
+                    new_voyage = copy_voyage
+                    
+                    departure_date = self._prompt(
+                        "Enter date of voyage (yyyy-mm-dd)",
+                        header_title="Create voyage",
+                        opt_instruction="Leave empty to cancel",
+                        validator=self.validate_date,
+                    )
+                    return_date = self._prompt(
+                        "Enter Return date of voyage (yyyy-mm-dd)",
+                        header_title="Create voyage",
+                        opt_instruction="Leave empty to cancel",
+                        validator=self.validate_date,
+                    )
+
+                    new_voyage.pilots = []
+                    new_voyage.attendants = []
+                    new_voyage.sold_seats = 0
+                    new_voyage.departure_date = self.parse_date(departure_date)
+                    new_voyage.return_date = self.parse_date(return_date)
+
+                    self.logic_wrapper.create_voyage(
+                        int(copy_voyage.plane),
+                        int(copy_voyage.destination),
+                        new_voyage.departure_date,
+                        new_voyage.return_date,
+                        copy_voyage.departure_time,
+                        copy_voyage.return_departure_time,
+                        int(copy_voyage.sold_seats),
+                        list(map(int, copy_voyage.flight_attendants)),
+                        list(map(int, copy_voyage.pilots)),
+                    )
+
+                    self._print_header(
+                        "Successfully duplicated voyage", 
+                        add_extra_newline=True)
+                
+                    """Duplicate voyage End only date"""
+                    
+                case "Recurring voyage":
+                    # Voyage id to duplicate
+                    # Interval how many days between voyages
+
+                    # How long ? in days until what date :
+                    pass
+
 
     def staff_voyage(self):
         self._print_header(message="Staff Voyage", add_extra_newline=True)
@@ -364,7 +403,7 @@ class VoyageUI(UIElement):
                         voyage.pilots = (self._prompt_list(
                             prompt="Enter pilot ID",
                             header_title="Enter ID's of pilots, first ID is head pilot, must enter at least 2",
-                            #validator=self.validate_pilot,
+                            validator=self.validate_pilot,
                             max_elements=2,
                         ))
 
@@ -374,8 +413,7 @@ class VoyageUI(UIElement):
                         voyage.attendants = (self._prompt_list(
                             prompt="Enter pilot ID",
                             header_title="Enter ID's of pilots, first ID is head pilot, must enter at least 2",
-                            #validator=self.validate_pilot,
-                            max_elements=2,
+                            validator=self.validate_pilot,
                         ))
                         self.logic_wrapper.update_voyage(voyage)
                         
