@@ -48,8 +48,9 @@ class VoyageData:
                 dep_hour, dep_minute = self.split_time(row["departure_time"])
                 ret_hour, ret_minute = self.split_time(row["arrival_departure_time"])
 
-                pilots_list = row["pilots"].split(".")
-                attendants_list = row["attendants"].split(".")
+                pilots_list = [pilot for pilot in row["pilots"].split(".") if pilot != ""]
+                attendants_list = [attendant for attendant in row["attendants"].split(".") if attendant != ""]
+
                 ret_list.append(
                     Voyage(
                         id = int(row["id"]), 

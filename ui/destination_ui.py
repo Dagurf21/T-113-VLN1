@@ -112,7 +112,7 @@ class DestinationUI(UIElement):
             country          = self._prompt("Enter country",             header_title="Register Employee", opt_instruction="Leave empty to cancel")
             airport          = self._prompt("Enter airport",             header_title="Register Employee", opt_instruction="Leave empty to cancel")
             distance_km      = self._prompt("Enter distance (km)",       header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            flight_time      = self._prompt("Enter flight time (00:00)", header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self.validate_time)
+            flight_time      = self._prompt("Enter flight time (00:00)", header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self.validate_time_delta)
             representative   = self._prompt("Enter representative name", header_title="Register Employee", opt_instruction="Leave empty to cancel")
             emergency_number = self._prompt("Enter emergency number",    header_title="Register Employee", opt_instruction="Leave empty to cancel")
 
@@ -120,7 +120,7 @@ class DestinationUI(UIElement):
                 country=country,
                 airport=airport,
                 distance_km=distance_km,
-                flight_time=self.parse_time_delta(flight_time).total_seconds() // 60,
+                flight_time=int(self.parse_time_delta(flight_time).total_seconds() // 60),
                 representative=representative,
                 emergency_number=emergency_number
             )
