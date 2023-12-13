@@ -88,7 +88,8 @@ class PlaneUI(UIElement):
                 f"Name:         {plane.name}",
                 f"Type:         {plane.ty}",
                 f"Manufacturer: {plane.manufacturer}",
-                f"Capacity:     {plane.voyages}"
+                f"Capacity:     {plane.capacity}",
+                f"Voyages:      {plane.voyages}"
             ], add_newline_after=True)
 
     def register_plane(self):
