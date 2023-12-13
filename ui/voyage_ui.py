@@ -192,7 +192,7 @@ class VoyageUI(UIElement):
                     f"To:          {voyage.return_flight}",
                     f"Date:        {voyage.departure_date}",
                     f"Return Date: {voyage.return_date}",
-                    f"Status:      {VoyageStatus[voyage.status]}",
+                    f"Status:      {voyage.status}",
                 ],
                 add_newline_after=True,
             )
@@ -351,24 +351,29 @@ class VoyageUI(UIElement):
                     ["Pilots", "Flight attendant"], header_title="Staff voyage"
                 )
 
-                if pilots_or_attendants == "Pilots":  # Insert pilots
-                    voyage.pilots.append(self._prompt(
-                        "Enter ID of pilot",
-                        header_title="Staff voyage",
-                        opt_instruction="Leave empty to cancel.",
-                    ))
-                    self.logic_wrapper.update_voyage(voyage)
+                match pilots_or_attendants:
+                    case "Pilots":
+                        
+                        voyage.pilots = (self._prompt_list(
+                            prompt="Enter ID of pilot",
+                            header_title="Staff Voyage",
+                            validator=self.validate_number
+                        ))
 
-                elif (
-                    pilots_or_attendants == "Flight attendant"
-                ):  # Instert flight attendants
-                    voyage.flight_attendants.append(self._prompt(
-                        "Enter ID of flight attendant",
-                        header_title="Staff voyage",
-                        opt_instruction="Leave empty to cancel.",
-                    ))
-                    self.logic_wrapper.update_voyage(voyage)
+                        print(voyage.pilots)
+                        input()
 
+                            
+                        
+                        #self.logic_wrapper.update_voyage(voyage)
+
+                    case "Flight attendant":
+                        voyage.flight_attendants.append(self._prompt(
+                            "Enter ID of flight attendant",
+                            header_title="Staff voyage",
+                            opt_instruction="Leave empty to cancel.",
+                        ))
+                        self.logic_wrapper.update_voyage(voyage)
                 return
             except UICancelException:
                 return
