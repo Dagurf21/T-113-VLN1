@@ -182,7 +182,7 @@ class EmployeeUI(UIElement):
                 "Flight Manager",
             ], header_title="Register Employee")
 
-            name         = self._prompt("Enter name",         header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_name)
+            name         = self._prompt("Enter name",         header_title="Register Employee", opt_instruction="Leave empty to cancel")
             password     = self._prompt("Enter password",     header_title="Register Employee", opt_instruction="Leave empty to cancel")
             address      = self._prompt("Enter address",      header_title="Register Employee", opt_instruction="Leave empty to cancel")
             ssn          = self._prompt("Enter SSN",          header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_ssn)
@@ -241,7 +241,7 @@ class EmployeeUI(UIElement):
                         assignments=[]
                     )
                 case "Flight Manager":
-                    work_phone   = self._prompt(
+                    work_phone = self._prompt(
                         "Enter work phone",
                         header_title="Register Employee",
                         opt_instruction="Leave empty to cancel",
@@ -424,9 +424,6 @@ class EmployeeUI(UIElement):
             return None
         
         return "Invalid license"
-    
-    def _validate_name(self, name):
-        return None
 
     def _validate_ssn(self, ssn):
         if self.logic_wrapper.validate_ssn(ssn):

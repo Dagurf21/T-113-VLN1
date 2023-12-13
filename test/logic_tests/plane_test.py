@@ -28,8 +28,8 @@ class TestPlane(unittest.TestCase):
 
     def test_create_plane_valid(self):
         data = MockDataWrapper()
-        flight_logic = FlightLogic(data)
-        plane_logic = PlaneLogic(data, flight_logic)
+        voyage_logic = VoyageLogic(data)
+        plane_logic = PlaneLogic(data, voyage_logic)
 
         plane_logic.create_plane(self.MOCK_PLANES[0])
 
@@ -40,8 +40,8 @@ class TestPlane(unittest.TestCase):
 
     def test_create_plane_invalid_capacity(self):
         data = MockDataWrapper()
-        flight_logic = FlightLogic(data)
-        plane_logic = PlaneLogic(data, flight_logic)
+        voyage_logic = VoyageLogic(data)
+        plane_logic = PlaneLogic(data, voyage_logic)
 
         plane = deepcopy(self.MOCK_PLANES[0])
         plane.capacity = -1
@@ -52,8 +52,8 @@ class TestPlane(unittest.TestCase):
 
     def test_create_plane_invalid_flights(self):
         data = MockDataWrapper()
-        flight_logic = FlightLogic(data)
-        plane_logic = PlaneLogic(data, flight_logic)
+        voyage_logic = VoyageLogic(data)
+        plane_logic = PlaneLogic(data, voyage_logic)
 
         plane = deepcopy(self.MOCK_PLANES[0])
         plane.voyages = ["NA011"]
@@ -64,8 +64,8 @@ class TestPlane(unittest.TestCase):
     
     def test_get_all_planes(self):
         data = MockDataWrapper()
-        flight_logic = FlightLogic(data)
-        plane_logic = PlaneLogic(data, flight_logic)
+        voyage_logic = VoyageLogic(data)
+        plane_logic = PlaneLogic(data, voyage_logic)
 
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
@@ -80,8 +80,8 @@ class TestPlane(unittest.TestCase):
     
     def test_get_plane(self):
         data = MockDataWrapper()
-        flight_logic = FlightLogic(data)
-        plane_logic = PlaneLogic(data, flight_logic)
+        voyage_logic = VoyageLogic(data)
+        plane_logic = PlaneLogic(data, voyage_logic)
 
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
@@ -93,12 +93,8 @@ class TestPlane(unittest.TestCase):
     
     def test_update_plane(self):
         data = MockDataWrapper()
-        flight_logic = FlightLogic(data)
-        plane_logic = PlaneLogic(data, flight_logic)
-
-        data.create_flight(Flight(
-            flight_number="NA010"
-        ))
+        voyage_logic = VoyageLogic(data)
+        plane_logic = PlaneLogic(data, voyage_logic)
 
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
@@ -106,17 +102,18 @@ class TestPlane(unittest.TestCase):
         for plane in self.MOCK_PLANES:
             plane = deepcopy(plane)
             plane.capacity = 5
-            # TODO: How do we want to connect planes to flights if the flight
-            # is identified by both the number and date?
-            plane.voyages = ["NA010"]
+            plane.voyages = [0]
+            plane_logic.update_plane(plane)
 
-        raise NotImplementedError
+        for plane in data.get_all_planes():
+            self.assertEqual(plane.capacity, 5)
+            self.assertListNotEqual(plane.voyages, [5])
         
 
     def test_delete_plane(self):
         data = MockDataWrapper()
-        flight_logic = FlightLogic(data)
-        plane_logic = PlaneLogic(data, flight_logic)
+        voyage_logic = VoyageLogic(data)
+        plane_logic = PlaneLogic(data, voyage_logic)
 
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
