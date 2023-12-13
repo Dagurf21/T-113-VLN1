@@ -11,7 +11,7 @@ class PlaneData:
     def create_plane(self, plane) -> None:
         """Writes the new plane into the storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
-            fieldnames = ["id", "name", "type", "manufacturer", "capacity", "flights"]
+            fieldnames = ["id", "name", "type", "manufacturer", "capacity", "voyages"]
             
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
@@ -22,7 +22,7 @@ class PlaneData:
                              'type': plane.ty, 
                              'manufacturer': plane.manufacturer, 
                              'capacity': plane.capacity, 
-                             'flights': plane.flights
+                             'voyages': plane.voyages
                             })
 
 
@@ -53,7 +53,7 @@ class PlaneData:
                         ty = row["type"], 
                         manufacturer = row["manufacturer"], 
                         capacity = int(row["capacity"]), 
-                        voyages = row["flights"]))
+                        voyages = row["voyages"]))
     
         return ret_list
 
@@ -64,7 +64,7 @@ class PlaneData:
         tempfile = NamedTemporaryFile(mode='w', delete=False)
         
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
-            fieldnames = ["id", "name", "type", "manufacturer", "capacity", "flights"]
+            fieldnames = ["id", "name", "type", "manufacturer", "capacity", "voyages"]
            
             reader = csv.DictReader(csvfile, fieldnames=fieldnames)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
@@ -77,7 +77,7 @@ class PlaneData:
                                      'type': plane.ty, 
                                      'manufacturer': plane.manufacturer, 
                                      'capacity': plane.capacity, 
-                                     'flights': plane.flights})
+                                     'voyages': plane.voyagess})
                 
                 # Writes the other planes unchanged 
                 else:
@@ -86,7 +86,7 @@ class PlaneData:
                                      'type': row["type"], 
                                      'manufacturer': row["manufacturer"], 
                                      'capacity': row["capacity"], 
-                                     'flights': row["flights"]})
+                                     'voyages': row["voyages"]})
         
         # Replaces the main file with the tempfile
         shutil.move(tempfile.name, self.file_name)
@@ -98,7 +98,7 @@ class PlaneData:
         tempfile = NamedTemporaryFile(mode='w', delete=False)
 
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
-            fieldnames = ["id", "name", "type", "manufacturer", "capacity", "flights"]
+            fieldnames = ["id", "name", "type", "manufacturer", "capacity", "voyages"]
             
             reader = csv.DictReader(csvfile)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
@@ -116,7 +116,7 @@ class PlaneData:
                            'type' : None, 
                            'manufacturer' : None, 
                            'capacity' : None, 
-                           'flights' : None}
+                           'voyages' : None}
 
                 # Each row from the original file is written to the temporary file
                 else:
@@ -125,7 +125,7 @@ class PlaneData:
                            'type': row["type"], 
                            'manufacturer': row["manufacturer"], 
                            'capacity': row["capacity"], 
-                           'flights': row["flights"]}
+                           'voyages': row["voyages"]}
                 
                 writer.writerow(row)
 
