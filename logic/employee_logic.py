@@ -183,7 +183,7 @@ class EmployeeLogic:
         )
 
 
-    def validate_job_position(self, employee_id, job_title) -> bool:
+    def check_job_position(self, employee_id, job_title) -> bool:
         """Validates if the employee is the job title"""
         employee = self.get_employee(employee_id)
         print(type(employee).__name__)
