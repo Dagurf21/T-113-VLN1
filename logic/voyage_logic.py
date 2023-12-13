@@ -69,7 +69,7 @@ class VoyageLogic:
             # If the flight is today
             elif voyage.departure_date == now.date():
                 # If the departure time has been reached
-                if voyage.departure_time >= now:
+                if voyage.departure_time >= now.time:
                     # If the flight has not arrived at it's destination
                     if now.time() < departure_flight.arrival_time:
                         voyage.status = VoyageStatus.InTheAir
