@@ -227,6 +227,9 @@ class LogicWrapper(object):
     def validate_status(self, status_data):
         return self.validate.status(status_data)
 
+    def validate_voyage_staff(self, voyage):
+        return self.validate.voyage_staff(voyage)
+
     ### Utilities
     # Password Utility
     def password_encoder(self, password):
