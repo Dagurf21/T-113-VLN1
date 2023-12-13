@@ -55,7 +55,7 @@ class EmployeeLogic:
 
         return employees_with_the_job
 
-    def get_employee_by_workday(self, workdate) -> list["Employee"]:
+    def get_employee_by_workday(self, workdate) -> list["Employee", "Destination"]:
         """Returns a list of employees that are working on a specific day"""
         employee_return_list = []
         list_of_voyages = self.data_wrapper.get_all_voyages()
