@@ -5,12 +5,12 @@ from model.pilot import Pilot
 from model.flight_attendant import FlightAttendant
 import enum
 
-class VoyageStatus(enum.Enum):
-    Cancelled = 0,
-    NotStarted = 1,
-    InTheAir = 2,
-    LandedAbroad = 3,
-    Finished = 4,
+class VoyageStatus(enum.StrEnum):
+    Cancelled = "Cancelled",
+    NotStarted = "Not Started",
+    InTheAir = "In the Air",
+    LandedAbroad = "Landed Abroad",
+    Finished = "Finished",
 
 @dataclass(kw_only=True)
 class Voyage:
