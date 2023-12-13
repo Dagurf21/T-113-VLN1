@@ -7,4 +7,4 @@ class Plane:
     ty: str # type
     manufacturer: str
     capacity: int
-    flights: list[int] = field(default_factory=lambda: [])
+    voyages: list[int] = field(default_factory=lambda: [])

@@ -1,6 +1,7 @@
 from ui import UIElement, UICancelException
-from model import Voyage, Employee
+from model import Voyage, Employee, FlightAttendant, Pilot, VoyageStatus
 from logic import LogicWrapper
+import datetime
 
 
 class VoyageUI(UIElement):
@@ -54,55 +55,66 @@ class VoyageUI(UIElement):
                 "Enter plane ID",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
+                validator=self.validate_plane,
             )
             destination = self._prompt(
                 "Enter destination ID of voyage",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
+                validator=self.validate_destination,
             )
             date = self._prompt(
-                "Enter date of voyage",
+                "Enter date of voyage (yyyy-mm-dd)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
+                validator=self.validate_date,
             )
             departure_time = self._prompt(
-                "Enter time of departure",
+                "Enter time of departure (hh:mm)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
+                validator=self.validate_time,
             )
             return_date = self._prompt(
-                "Enter return date of voyage",
+                "Enter Return date of voyage (yyyy-mm-dd)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
+                validator=self.validate_date,
             )
             arrival_departure_time = self._prompt(
-                "Enter departure time of arrival flight",
+                "Enter departure time of arrival flight (hh:mm)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
+                validator=self.validate_time,
             )
             sold_seats = self._prompt(
                 "Enter the amount of sold seats",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
+                validator=self.validate_number,
             )
-            flight_attendants = self._prompt(
-                "Enter Flight Attendant ID",
+            flight_attendants = self._prompt_list(
+                "Enter flight attendant ID",
                 header_title="Create voyage",
-                opt_instruction="Leave empty to cancel (optional: n to skip)",
+                validator=self.validate_flight_attendant,
             )
-            pilots = self._prompt(
-                "Enter Pilot ID",
+            pilots = self._prompt_list(
+                "Enter lead pilot ID's",
                 header_title="Create voyage",
-                opt_instruction="Leave empty to cancel (optional: n to skip)",
+                validator=self.validate_pilot,
             )
 
-            if flight_attendants.lower() == "n":
-                flight_attendants = []
-
-            if pilots.lower() == "n":
-                pilots = []
-
-            self.logic_wrapper.create_voyage(plane, destination, date, return_date, departure_time, arrival_departure_time, sold_seats, flight_attendants, pilots)
+            self.logic_wrapper.create_voyage(
+                int(plane),
+                int(destination),
+                self.parse_date(date),
+                self.parse_date(return_date),
+                self.parse_time(departure_time),
+                self.parse_time(arrival_departure_time),
+                int(sold_seats),
+                list(map(int, flight_attendants)),
+                list(map(int, pilots)),
+            )
 
             return  # TODO
 
@@ -180,7 +192,7 @@ class VoyageUI(UIElement):
                     f"To:          {voyage.return_flight}",
                     f"Date:        {voyage.departure_date}",
                     f"Return Date: {voyage.return_date}",
-                    f"Status:      {voyage.status}",
+                    f"Status:      {VoyageStatus[voyage.status]}",
                 ],
                 add_newline_after=True,
             )
@@ -216,13 +228,8 @@ class VoyageUI(UIElement):
 
                 voyage_fields = [
                     "Seats sold",
-                    "Plane",
                     "Pilots",
                     "Attendants",
-                    "Departure Flight",
-                    "Arrival Flight",
-                    "Date of flight",
-                    "Status of voyage",
                 ]
 
                 field_to_update = self._display_selection(
@@ -231,45 +238,24 @@ class VoyageUI(UIElement):
 
                 match field_to_update:
                     case "Seats sold":
-                        voyage.sold_seats = self._prompt(
+                        voyage.sold_seats = int(self._prompt(
                             "Enter new amount of sold seats",
                             opt_instruction="Leave empty to cancel",
-                        )
-                    case "Plane":
-                        voyage.plane = self._prompt(
-                            "Enter new plane ID",
-                            opt_instruction="Leave empty to cancel",
-                        )
+                            validator=self.validate_number,
+                        ))
                     case "Pilots":
-                        voyage.pilots = self._prompt(
+                        voyage.pilots = list(map(int, self._prompt_list(
                             "Enter ID's of pilots, first ID is head pilot, must enter at least 2",
-                            opt_instruction="Leave empty to cancel - Format is {id}.{id}",
-                        )
+                            prompt="Enter pilot ID",
+                            validator=self.validate_pilot,
+                            max_elements=2,
+                        )))
                     case "Attendants":
-                        voyage.attendants = self._prompt(
+                        voyage.attendants = list(map(int, self._prompt(
                             "Enter ID's of attendants",
                             opt_instruction="Leave empty to cancel",
-                        )
-                    case "Departure Flight":
-                        voyage.departure_flight = self._prompt(
-                            "Enter new flight number for departure flight",
-                            opt_instruction="Leave empty to cancel",
-                        )
-                    case "Arrival Flight":
-                        voyage.return_flight = self._prompt(
-                            "Enter new flight number for arrival flight",
-                            opt_instruction="Leave empty to cancel",
-                        )
-                    case "Date of flight":
-                        voyage.departure_date = self._prompt(
-                            "Enter new date for voyage",
-                            opt_instruction="Leave empty to cancel",
-                        )
-                    case "Status of voyage":
-                        voyage.status = self._prompt(
-                            "Enter new status for voyage",
-                            opt_instruction="Leave empty to cancel (Status options: Finished, Landed abroad, In the Air, Not started, Cancelled )",
-                        )
+                            validator=self.validate_flight_attendant,
+                        )))
 
                 self.logic_wrapper.update_voyage(voyage)
 
@@ -386,3 +372,83 @@ class VoyageUI(UIElement):
                 return
             except UICancelException:
                 return
+
+    def validate_plane(self, inp):
+        try:
+            plane_id = int(inp)
+            plane = self.logic_wrapper.get_plane(plane_id)
+            if plane is None:
+                return f"Plane with id {plane_id} doesn't exist"
+            
+            return None
+        except ValueError:
+            return "ID must be a number"
+
+    def validate_destination(self, inp):
+        try:
+            destination_id = int(inp)
+            if destination_id == 0:
+                return "Destination cannot be 0"
+
+            destination = self.logic_wrapper.get_plane(destination_id)
+            if destination is None:
+                return f"Destination with id {destination} doesn't exist"
+            
+            return None
+        except ValueError:
+            return "ID must be a number"
+
+    def validate_date(self, inp):
+        if len(inp) != 10:
+            return "Invalid date format"
+        
+        try:
+            self.parse_date(inp)
+        except:
+            return "Invalid date format"
+
+    def validate_time(self, inp):
+        if len(inp) != 5:
+            return "Invalid date format"
+        
+        try:
+            self.parse_time(inp)
+        except:
+            return "Invalid date format"
+
+    def validate_flight_attendant(self, inp):
+        try:
+            employee_id = int(inp)
+            employee = self.logic_wrapper.get_employee(employee_id)
+            if employee is not FlightAttendant:
+                return f"Flight Attendant with id {employee_id} doesn't exist"
+            
+            return None
+        except ValueError:
+            return "ID must be a number"
+
+    def validate_pilot(self, inp):
+        try:
+            employee_id = int(inp)
+            employee = self.logic_wrapper.get_employee(employee_id)
+            if employee is not Pilot:
+                return f"Pilot with id {employee_id} doesn't exist"
+            
+            return None
+        except ValueError:
+            return "ID must be a number"
+    
+    def validate_number(self, inp):
+        try:
+            int(inp)
+            return None
+        except ValueError:
+            return "Input must be a number"
+
+    def parse_date(self, date):
+        year, month, day = date.split('-')
+        return datetime.date(int(year), int(month), int(day))
+
+    def parse_time(self, date):
+        hours, minutes = date.split(':')
+        return datetime.time(int(hours), int(minutes))

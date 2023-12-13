@@ -1,23 +1,23 @@
 # import os
 from data.data_wrapper import DataWrapper
-from logic.flight_logic import FlightLogic
+from logic.voyage_logic import VoyageLogic
 from model.plane import Plane
 
 
 class PlaneLogic:
     """This is a Logic class for Plane"""
 
-    def __init__(self, data_wrapper: DataWrapper, flight_logic: FlightLogic) -> None:
+    def __init__(self, data_wrapper: DataWrapper, voyage_logic: VoyageLogic) -> None:
         """Intitiatets plane with data_wrapper"""
         self.data_wrapper = data_wrapper
-        self.flight_logic = flight_logic
+        self.voyage_logic = voyage_logic
 
     def create_plane(self, plane) -> None:
         """Takes in plane data checks if ID is valid and forwards it to data layer"""
         if plane.capacity < 0:
             return
         
-        # TODO: Validate flights
+        # TODO: Validate voyages
 
         if plane.id is None:
             self.data_wrapper.create_plane(plane)
@@ -35,10 +35,8 @@ class PlaneLogic:
                 return plane
         return None
 
-    def update_plane(self, id, plane) -> None:
+    def update_plane(self, plane) -> None:
         """Updates information of a plane with a specific ID"""
-        plane.id = id
-
         return self.data_wrapper.update_plane(plane)
 
     def delete_plane(self, id) -> None:

@@ -182,7 +182,7 @@ class EmployeeUI(UIElement):
                 "Flight Manager",
             ], header_title="Register Employee")
 
-            name         = self._prompt("Enter name",         header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_name)
+            name         = self._prompt("Enter name",         header_title="Register Employee", opt_instruction="Leave empty to cancel")
             password     = self._prompt("Enter password",     header_title="Register Employee", opt_instruction="Leave empty to cancel")
             address      = self._prompt("Enter address",      header_title="Register Employee", opt_instruction="Leave empty to cancel")
             ssn          = self._prompt("Enter SSN",          header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_ssn)
@@ -212,7 +212,6 @@ class EmployeeUI(UIElement):
                         work_phone=work_phone
                     )
                 case "Pilot":
-                    assignments = self._prompt_assignments("Register Employee")
                     license = self._prompt(
                         "Enter license",
                         header_title="Register Employee",
@@ -228,10 +227,9 @@ class EmployeeUI(UIElement):
                         email=email,
                         home_phone=home_phone,
                         license=license,
-                        assignments=assignments
+                        assignments=[]
                     )
                 case "Flight Attendant":
-                    assignments = self._prompt_assignments("Register Employee")
                     employee = FlightAttendant(
                         name=name,
                         password=password,
@@ -240,10 +238,10 @@ class EmployeeUI(UIElement):
                         mobile_phone=mobile_phone,
                         email=email,
                         home_phone=home_phone,
-                        assignments=assignments
+                        assignments=[]
                     )
                 case "Flight Manager":
-                    work_phone   = self._prompt(
+                    work_phone = self._prompt(
                         "Enter work phone",
                         header_title="Register Employee",
                         opt_instruction="Leave empty to cancel",
@@ -375,6 +373,8 @@ class EmployeeUI(UIElement):
             try:
                 employee_id = self._prompt("Enter employee id", opt_instruction="Leave empty to cancel", clear_screen=False)
                 employee_id = int(employee_id)
+            except UICancelException:
+                return
             except ValueError:
                 self._print_header("Remove Employee", add_extra_newline=True)
                 self._print_centered("Id has to be a number", add_newline_after=True)
@@ -424,9 +424,6 @@ class EmployeeUI(UIElement):
             return None
         
         return "Invalid license"
-    
-    def _validate_name(self, name):
-        return None
 
     def _validate_ssn(self, ssn):
         if self.logic_wrapper.validate_ssn(ssn):
