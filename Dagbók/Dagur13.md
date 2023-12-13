@@ -5,11 +5,11 @@
 - UI(Axel & Dagur):
   - [X] Get all pilots
   - [X] Get all flight attendants
-  - [ ] Duplicate Voyage
+  - [X] Duplicate Voyage
   - [X] Different privileges for different employee types
   - [ ] Lista alla starfsmenn sem eru að vinna ákveðinn dag og til hvaða áfangastaðar þeir eru að fara.
   - [X] Lista alla starfsmenn sem eru ekki að vinna ákveðinn dag.
-  - [ ] My profile (prentvæn upplýsingar fyrir starfsmann)
+  - [X] My profile (prentvæn upplýsingar fyrir starfsmann)
   - [ ] Sýna total sæti og seld sæti á voyage í list voyage
   - [ ] Lista voyages á ákveðnum degi
   - [ ] Lista voyages á ákveðnari viku
@@ -24,7 +24,7 @@
   - [ ] Þegar það er cancelað voyage, að af skrá starfsfólk.
   - [ ] Lista alla starfsmenn sem eru að vinna ákveðinn dag og til hvaða áfangastaðar þeir eru að fara.
   - [X] Lista alla starfsmenn sem eru ekki að vinna ákveðinn dag.
-  - [ ] Duplicate voyage
+  - [X] Duplicate voyage
 
 - Storage(Elías):
   - [X] Bæta crew á voyage
@@ -38,10 +38,13 @@
 
 #### Dagslok skýrsla (Hvað gerði hver og einn í dag) ?
 
-- Axel Snær: 
-- Dagur Freyr: 
-- Elías Andri: 
-- Kristján Kári: 
-- Marteinn Logi: 
+- Axel Snær: Unit tests, bug fixes og hjálpaði öðrum.
+- Dagur Freyr: Voyage UI og fleira
+- Elías Andri: Dagbók, Voyage logic og validation, employee validation.
+- Kristján Kári: Uppfærði hönnunarskjalið og fann fullt af bugs
+- Marteinn Logi: Gerði test cases, bug fixes og fleira
 
 #### TODO á morgun
+Klára það sem er eftir af todo listanum
+klára uppfæra hönnunarskýrsluna
+Byrja að plana myndband hugsanlega
