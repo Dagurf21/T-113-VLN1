@@ -58,6 +58,10 @@ class LogicWrapper(object):
         """Fetches a list of employees that fit the job title"""
         return self.employee_logic.get_employees_by_job(job)
 
+    def get_employee_by_workday(self, date) -> list[Employee]:
+        """Retrieves a list of employees that are working on a specific date"""
+        return self.employee_logic.get_employee_by_workday(date)
+
     def get_all_pilots(self) -> list[Pilot]:
         """Fetches all pilots and returns them in a list"""
         return self.get_all_pilots()
