@@ -161,18 +161,55 @@ class EmployeeData:
                 if int(row["id"]) == employee.id:
                     match row["job_title"]:
                         case "Manager" | "Chuck Norris" | "Flight Manager":
-                            row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"], row["work_phone"] = employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone, employee.work_phone
+                            row = {
+                                'id' : row["id"], 
+                                'name' : row["name"], 
+                                'job_title' : row["job_title"],
+                                'license' : None, 
+                                'password' : employee.password, 
+                                'address' : employee.address, 
+                                'ssn' : row["ssn"], 
+                                'mobile_phone' : employee.mobile_phone, 
+                                'email' : employee.email, 
+                                'home_phone' : employee.home_phone, 
+                                'work_phone' : employee.work_phone, 
+                                'assignments' : None
+                            }
                     
                         case "Pilot":
-                            assignments = ".".join(employee.assignments)
-                            row["license"], row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"], row["assignments"]  = employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone, assignments
-                    
+                            assignments = ".".join(str(id) for id in employee.assignments)
+                            row = {
+                                'id' : row["id"], 
+                                'name' : row["name"], 
+                                'job_title' : row["job_title"],
+                                'license' : employee.license, 
+                                'password' : employee.password, 
+                                'address' : employee.address, 
+                                'ssn' : row["ssn"], 
+                                'mobile_phone' : employee.mobile_phone, 
+                                'email' : employee.email, 
+                                'home_phone' : employee.home_phone, 
+                                'work_phone' : None, 
+                                'assignments' : assignments
+                            }
+
                         case "Flight Attendant":
-                            assignments = ".".join(employee.assignments)
-                            row["password"], row["address"], row["mobile_phone"], row["email"], row["home_phone"], row["assignments"]  = employee.password, employee.address, employee.mobile_phone, employee.email, employee.home_phone, assignments
-                
+                            assignments = ".".join(str(id) for id in employee.assignments)
+                            row = {
+                                'id' : row["id"], 
+                                'name' : row["name"], 
+                                'job_title' : row["job_title"],
+                                'license' : None, 
+                                'password' : employee.password, 
+                                'address' : employee.address, 
+                                'ssn' : row["ssn"], 
+                                'mobile_phone' : employee.mobile_phone, 
+                                'email' : employee.email, 
+                                'home_phone' : employee.home_phone, 
+                                'work_phone' : None, 
+                                'assignments' : assignments
+                            }
                 # Each row from the original file is written to the temporary file
-                row = {'id': row["id"], 'name': row["name"], 'job_title': row["job_title"], 'license': row["license"], 'password': row["password"], 'address': row["address"], 'ssn': row["ssn"], 'mobile_phone': row["mobile_phone"], 'email': row["email"], 'home_phone': row["home_phone"], 'work_phone': row["work_phone"]}
                 writer.writerow(row)
 
         # The temporary file replaces the original file
