@@ -230,7 +230,6 @@ class EmployeeUI(UIElement):
                         assignments=[]
                     )
                 case "Flight Attendant":
-                    assignments = self._prompt_assignments("Register Employee")
                     employee = FlightAttendant(
                         name=name,
                         password=password,
