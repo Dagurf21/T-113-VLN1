@@ -404,14 +404,40 @@ class VoyageUI(UIElement):
                         )
 
                         end_date_voyage = self.parse_date(end_date_voyage)
+                        now = datetime.date.today()
                         print(end_date_voyage)
                         print(type(end_date_voyage))
                         
                         copy_voyage = self.logic_wrapper.get_voyage(voyage_id)
 
-                        now = datetime.date.today()
 
-                    
+                        while now < end_date_voyage:
+                            
+                            days_between_flights = copy_voyage.departure_date - copy_voyage.return_date
+
+                            print (days_between_flights)
+                            input ()
+
+                            #departure_date = 
+                            #return_date = 
+
+                            new_voyage.pilots = []
+                            new_voyage.attendants = []
+                            new_voyage.sold_seats = 0
+                            new_voyage.departure_date = self.parse_date(departure_date)
+                            new_voyage.return_date = self.parse_date(return_date)
+
+                            self.logic_wrapper.create_voyage(
+                                int(copy_voyage.plane),
+                                int(copy_voyage.destination),
+                                new_voyage.departure_date,
+                                new_voyage.return_date,
+                                copy_voyage.departure_time,
+                                copy_voyage.return_departure_time,
+                                int(copy_voyage.sold_seats),
+                                list(map(int, copy_voyage.flight_attendants)),
+                                list(map(int, copy_voyage.pilots)),
+                            )
 
                         
 
@@ -453,21 +479,21 @@ class VoyageUI(UIElement):
 
                 match pilots_or_attendants:
                     case "Pilots":
-                        
-                        voyage.pilots = (self._prompt_list(
+                        pilot = (self._prompt_list(
                             prompt="Enter pilot ID",
-                            header_title="Enter ID's of pilots, first ID is head pilot, must enter at least 2",
+                            header_title="Enter ID of pilot",
                             validator=self.validate_pilot,
                             max_elements=2,
                         ))
+                        voyage.pilots.append(pilot)
 
                         self.logic_wrapper.update_voyage(voyage)
 
                     case "Flight attendant":
                         voyage.attendants = (self._prompt_list(
-                            prompt="Enter pilot ID",
-                            header_title="Enter ID's of pilots, first ID is head pilot, must enter at least 2",
-                            validator=self.validate_pilot,
+                            prompt="Enter ID of flight attendant",
+                            header_title="Enter ID of flight attendant",
+                            validator=self.validate_flight_attendant,
                         ))
                         self.logic_wrapper.update_voyage(voyage)
                         
