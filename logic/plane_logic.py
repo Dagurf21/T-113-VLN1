@@ -1,7 +1,7 @@
 # import os
 from copy import deepcopy
 from data.data_wrapper import DataWrapper
-from logic.voyage_logic import VoyageLogic
+from logic import VoyageLogic
 from model.plane import Plane
 
 
