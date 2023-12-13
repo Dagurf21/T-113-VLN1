@@ -84,12 +84,12 @@ class EmployeeLogic:
                 try:
                     for pilot in voyage.pilots:
                         list_of_employees.remove(pilot)
-                except TypeError:
+                except (TypeError, ValueError):
                     ...
                 try:
                     for flight_attendant in voyage.flight_attendants:
                         list_of_employees.remove(flight_attendant)
-                except TypeError:
+                except (TypeError, ValueError):
                     ...
         return list_of_employees
 
@@ -172,13 +172,11 @@ class EmployeeLogic:
             and is_phone_valid
         )
 
-
     def check_job_position(self, employee_id, job_title) -> bool:
         """Validates if the employee is the job title"""
         employee = self.get_employee(employee_id)
         print(type(employee).__name__)
         if type(employee).__name__ == job_title:
-
-                return True
+            return True
 
         return False
