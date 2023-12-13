@@ -227,14 +227,19 @@ class VoyageUI(UIElement):
                 )
                 continue
 
+            pilot_repr = self.format_employee_list(voyage.pilots, 14, "Pilots: ", 2, 2)
+            attendant_repr = self.format_employee_list(voyage.flight_attendants, 14, "Attendants: ", 1)
+            plane = self.logic_wrapper.get_plane(voyage.plane)
+
             self._print_header(f"List Voyage [ID:{voyage_id}]", add_extra_newline=True)
             self._print_list(
                 [
                     f"ID:           {voyage.id}",
-                    f"Plane:        {voyage.plane}",
-                    f"Pilots:       {', '.join(map(str, voyage.pilots))}",
-                    f"Attendants:   {', '.join(map(str, voyage.flight_attendants))}",
+                    f"Plane:        {plane.name} ({plane.manufacturer} {plane.ty})",
+                    *pilot_repr,
+                    *attendant_repr,
                     f"Sold Seats:   {voyage.sold_seats}",
+                    f"Capacity:     {plane.capacity}",
                     f"From:         {voyage.departure_flight}",
                     f"To:           {voyage.return_flight}",
                     f"Date:         {voyage.departure_date}",
@@ -626,3 +631,22 @@ class VoyageUI(UIElement):
     def parse_time(self, date):
         hours, minutes = date.split(':')
         return datetime.time(int(hours), int(minutes))
+    
+    def format_employee_list(self, employees: list[Employee], padding_len: int, header: int, min_len: int, max_len: int = None) -> str:
+        result = []
+        for i in range(min_len):
+            if max_len is not None and i >= max_len:
+                break
+
+            string = " " * padding_len
+            if i == 0:
+                string = f"{header:<{padding_len}}"
+
+            if i >= len(employees):
+                result.append(f"{string}- EMPTY -")
+                continue
+
+            employee = self.logic_wrapper.get_employee(employees[i])
+            result.append(f"{string}{employee.name}")
+        
+        return result
