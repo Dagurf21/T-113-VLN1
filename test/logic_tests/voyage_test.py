@@ -213,10 +213,23 @@ class TestVoyage(unittest.TestCase):
             return_departure_time=datetime.time(1, 20),
             return_flight="FA010",
             return_date=datetime.date(2023, 10, 8),
+            pilots=[],
+            flight_attendants=[],
             status=VoyageStatus.Finished,
         )
 
         data.create_voyage(voyage)
+
+        data.create_employee(Pilot(
+            name="",
+            password="",
+            address="",
+            ssn="",
+            mobile_phone="",
+            email="",
+            home_phone=None,
+            license="",
+        ))
 
         voyage.destination = 9
         voyage.sold_seats = 150
@@ -228,6 +241,8 @@ class TestVoyage(unittest.TestCase):
         voyage.return_flight = "FA011"
         voyage.return_date = datetime.date(2023, 10, 10)
         voyage.status = VoyageStatus.LandedAbroad
+        voyage.pilots = [0]
+        voyage.flight_attendants = [1, 2]
 
         voyage_logic.update_voyage(voyage)
 
@@ -242,6 +257,8 @@ class TestVoyage(unittest.TestCase):
         self.assertNotEqual(result.return_flight, "FA011")
         self.assertNotEqual(result.return_date, datetime.date(2023, 10, 10))
         self.assertNotEqual(result.status, VoyageStatus.LandedAbroad)
+        self.assertListEqual(result.pilots, [0])
+        self.assertListEqual(result.flight_attendants, [])
 
     def test_delete_voyage(self):
         data = MockDataWrapper()
