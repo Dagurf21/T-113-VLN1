@@ -32,21 +32,22 @@ class Validator:
 
         # Think that Datetime module has this as a feature
 
-    def distance_km(self, km) -> bool:
-        """"""
+    def distance_km(self, km: int) -> bool:
+        """Returns true if distance is not under zero"""
         try:
             return int(km) >= 0
 
         except ValueError:
             return False
 
-    def flight_time(self, time) -> bool:
-        """"""
+    def flight_time(self, time: int) -> bool:
+        """Returns true if time in minutes is not under zero"""
         try:
             return time >= 0
 
         except ValueError:
             return False
+
 
     # Employee validation
     def ssn(self, ssn) -> bool:
@@ -95,6 +96,7 @@ class Validator:
         #  [^@]+    Anything but @ symbol
         return re.match("[^@]+@[^@]+\.[^@]+", email)
 
+
     # Pilot and flight attendant validations
     def license(self, data_wrapper, planelicense) -> bool:
         """Verifies if the plane license is valid by getting the list of planes"""
@@ -103,16 +105,20 @@ class Validator:
                 return True
         return False
 
+
     def pilot_has_license(self, pilot, plane):
         return pilot.license == plane.type
+
 
     def assignments(self, assignments) -> bool:
         """Validates the assignments
         for example, if the same assignment comes up twice"""
         cleaned_assignments = []
+        
         for assignment in assignments:
             if assignment not in cleaned_assignments:
                 cleaned_assignments.append(assignment)
+        
         assignments.sort()
         cleaned_assignments.sort()
 
@@ -131,14 +137,6 @@ class Validator:
         available_seats = plane_seats - voyage.sold_seats
         return 1 > available_seats
 
-    def job_position(self, employee_list, job_title) -> bool:
-        """Goes through a list of employees and verifies
-        if all of them are the given job_title"""
-        for employee in employee_list:
-            if type(employee).__name__ != job_title:
-                return False
-
-        return True
 
     def flight_times(self, voyage) -> bool:
         """Compares the times and check
@@ -151,10 +149,12 @@ class Validator:
         ]
         return all(map(self.flight_time, flight_times))
 
+
     def status(self, status) -> bool:
         """Validates the status, returns either
         valid(True) or invalid(False)"""
         return False
+
 
     def pilot_validator(self, data):
         """Validates that there aren't to many pilots"""
