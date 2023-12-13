@@ -147,7 +147,7 @@ class Validator:
             voyage.departure_flight.departure_time,
             voyage.deprature_flight.arrival_time,
         ]
-        are_flight_times_valid = False  # W.i.P
+        return all(map(self.flight_time, flight_times))
 
     def status(self, status) -> bool:
         """Validates the status, returns either
