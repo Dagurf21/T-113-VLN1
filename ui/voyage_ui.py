@@ -536,7 +536,7 @@ class VoyageUI(UIElement):
         try:
             employee_id = int(inp)
             employee = self.logic_wrapper.get_employee(employee_id)
-            if employee is not FlightAttendant:
+            if isinstance(employee, FlightAttendant):
                 return f"Flight Attendant with id {employee_id} doesn't exist"
             
             return None
@@ -547,7 +547,7 @@ class VoyageUI(UIElement):
         try:
             employee_id = int(inp)
             employee = self.logic_wrapper.get_employee(employee_id)
-            if employee is not Pilot:
+            if not isinstance(employee, Pilot):
                 return f"Pilot with id {employee_id} doesn't exist"
             
             return None
