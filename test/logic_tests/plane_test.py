@@ -28,8 +28,7 @@ class TestPlane(unittest.TestCase):
 
     def test_create_plane_valid(self):
         data = MockDataWrapper()
-        voyage_logic = VoyageLogic(data)
-        plane_logic = PlaneLogic(data, voyage_logic)
+        plane_logic = PlaneLogic(data)
 
         plane_logic.create_plane(self.MOCK_PLANES[0])
 
@@ -40,8 +39,7 @@ class TestPlane(unittest.TestCase):
 
     def test_create_plane_invalid_capacity(self):
         data = MockDataWrapper()
-        voyage_logic = VoyageLogic(data)
-        plane_logic = PlaneLogic(data, voyage_logic)
+        plane_logic = PlaneLogic(data)
 
         plane = deepcopy(self.MOCK_PLANES[0])
         plane.capacity = -1
@@ -52,8 +50,7 @@ class TestPlane(unittest.TestCase):
 
     def test_create_plane_invalid_voyages(self):
         data = MockDataWrapper()
-        voyage_logic = VoyageLogic(data)
-        plane_logic = PlaneLogic(data, voyage_logic)
+        plane_logic = PlaneLogic(data)
 
         plane = deepcopy(self.MOCK_PLANES[0])
         plane.voyages = [5]
@@ -64,8 +61,7 @@ class TestPlane(unittest.TestCase):
     
     def test_get_all_planes(self):
         data = MockDataWrapper()
-        voyage_logic = VoyageLogic(data)
-        plane_logic = PlaneLogic(data, voyage_logic)
+        plane_logic = PlaneLogic(data)
 
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
@@ -80,8 +76,7 @@ class TestPlane(unittest.TestCase):
     
     def test_get_plane(self):
         data = MockDataWrapper()
-        voyage_logic = VoyageLogic(data)
-        plane_logic = PlaneLogic(data, voyage_logic)
+        plane_logic = PlaneLogic(data)
 
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
@@ -93,8 +88,7 @@ class TestPlane(unittest.TestCase):
     
     def test_update_plane(self):
         data = MockDataWrapper()
-        voyage_logic = VoyageLogic(data)
-        plane_logic = PlaneLogic(data, voyage_logic)
+        plane_logic = PlaneLogic(data)
 
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
@@ -112,8 +106,7 @@ class TestPlane(unittest.TestCase):
 
     def test_delete_plane(self):
         data = MockDataWrapper()
-        voyage_logic = VoyageLogic(data)
-        plane_logic = PlaneLogic(data, voyage_logic)
+        plane_logic = PlaneLogic(data)
 
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
