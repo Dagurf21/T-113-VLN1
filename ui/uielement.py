@@ -64,7 +64,7 @@ class UIElement:
         
         return inp
 
-    def _prompt_list(self, prompt: str, header_title: str, enable_cancel: bool = True, element_display: Callable[[str], str] = lambda e: str(e), validator: Callable[[str], str] = lambda e: None):
+    def _prompt_list(self, prompt: str, header_title: str, enable_cancel: bool = True, element_display: Callable[[str], str] = lambda e: str(e), validator: Callable[[str], str] = lambda e: None, max_elements: int = 0):
         """
         Prompts the user for a list of elements
 
@@ -102,7 +102,13 @@ class UIElement:
                 continue
 
             elems.append(elem)
-            self._print_header(message=header_title, add_extra_newline=True)
+            if max_elements != 0:
+                self._print_header(message=header_title, add_extra_newline=True)
+            else:
+                self._print_header(message=f"{header_title} ({max_elements - len(elems)})", add_extra_newline=True)
+            
+                if len(elems) >= max_elements:
+                    break
 
         return elems
     
