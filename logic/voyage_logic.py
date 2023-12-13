@@ -53,6 +53,7 @@ class VoyageLogic:
 
         all_voyages = self.data_wrapper.get_all_voyages()
         now = datetime.datetime.now()
+        now_time = datetime.time(hour = now.hour, minute = now.minute)
     
 
         for voyage in all_voyages:
@@ -70,16 +71,16 @@ class VoyageLogic:
             # If the flight is today
             elif voyage.departure_date == now.date():
                 # If the departure time has been reached
-                if voyage.departure_time >= now.strftime("%H:%M"):
+                if voyage.departure_time >= now_time:
                     # If the flight has not arrived at it's destination
-                    if now.strftime("%H:%M") < departure_flight.arrival_time:
+                    if now_time < departure_flight.arrival_time:
                         voyage.status = VoyageStatus.InTheAir
 
                     # If the time is past the arrival time abroad
                     # and not reached the return flights departure time
                     elif (
                         departure_flight.arrival_time
-                        <= now.strftime("%H:%M")
+                        <= now_time
                         < arrival_flight.departure_time
                     ):
                         voyage.status = VoyageStatus.LandedAbroad
@@ -88,7 +89,7 @@ class VoyageLogic:
                     # and not past its arrival time
                     elif (
                         arrival_flight.departure_time
-                        <= now.strftime("%H:%M")
+                        <= now_time
                         < arrival_flight.arrival_time
                     ):
                         voyage.status = VoyageStatus.InTheAir
