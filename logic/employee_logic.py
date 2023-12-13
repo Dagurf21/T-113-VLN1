@@ -63,18 +63,14 @@ class EmployeeLogic:
             if voyage.departure_date == workdate or voyage.date == workdate:
                 try:
                     for pilot in voyage.pilots:
-                        if employee_return_list in employee_return_list:
-                            ...
-                        else:
-                            employee_return_list.append(pilot)
+                        employee_return_list.append([pilot, voyage.destination])
                 except TypeError:
                     ...
                 try:
                     for flight_attendant in voyage.flight_attendants:
-                        if employee_return_list in employee_return_list:
-                            ...
-                        else:
-                            employee_return_list.append(flight_attendant)
+                        employee_return_list.append(
+                            [flight_attendant, voyage.destination]
+                        )
                 except TypeError:
                     ...
         return employee_return_list
