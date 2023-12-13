@@ -1,3 +1,4 @@
 id,destination,sold_seats,plane,pilots,attendants,departure_time,departure_flight,arrival_departure_time,arrival_flight,date,return_date,status
 
 0,1,100,0,,,12:30:00,NA010,14:45:00,NA010,2023-10-04,2023-11-05,VoyageStatus.NotStarted
+1,1,2,0,,,18:00:00,NA012,20:00:00,NA013,2024-01-01,2024-01-01,Not Started

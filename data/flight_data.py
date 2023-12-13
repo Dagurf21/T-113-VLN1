@@ -2,6 +2,7 @@ from model.flight import Flight
 import csv
 from tempfile import NamedTemporaryFile
 import shutil
+import datetime
 
 class FlightData:
     def __init__(self) -> None:
@@ -31,16 +32,33 @@ class FlightData:
             reader = csv.DictReader(csvfile)
             
             for row in reader:
+                year, month, day = self.split_date(row["date"])
+                date = datetime.date(year = year, month = month, day = day)
+                departure_hour, departure_minute = self.split_time(row["departure_time"])
+                arrival_hour, arrival_minute = self.split_time(row["arrival_time"])
                 ret_list.append(
                     Flight(
                         flight_number = row["flight_nr"], 
                         departure = int(row["departure"]), 
                         destination = int(row["destination"]), 
-                        date = row["date"], 
-                        departure_time = row["departure_time"], 
-                        arrival_time = row["arrival_time"]))
+                        date = date, 
+                        departure_time = datetime.time(hour = departure_hour, minute = departure_minute), 
+                        arrival_time = datetime.time(hour = arrival_hour, minute = arrival_minute)))
         
         return ret_list
+
+
+    def split_date(self, date) -> tuple[int, int, int]:
+        """Splits date into year, month and day and returns them as ints"""
+        year, month, day = date.split("-")
+        return int(year), int(month), int(day)
+
+
+    def split_time(self, time) -> tuple[int, int]:
+        """Splits time into hour, minute and seconds
+        and returns hour and minute as ints"""
+        hour, minute, second = time.split(":")
+        return int(hour), int(minute)
 
 
     def update_flight(self, flight) -> None:
