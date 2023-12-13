@@ -73,13 +73,15 @@ class Validator:
             year = "2" + century + year
 
         try:
+            if len(ssn) != 10:
+                raise Exception("SSN too long or too short")
             int(ssn)  # Checks if the ssn only contains numbers
             datetime.date(
                 int(year), int(month), int(day)
             )  # Check if it is a valid time
             return True
 
-        except ValueError:
+        except (ValueError, Exception):
             return False
 
     def email(self, email):
