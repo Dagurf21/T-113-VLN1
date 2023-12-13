@@ -181,3 +181,14 @@ class EmployeeLogic:
             and is_email_valid
             and is_phone_valid
         )
+
+
+    def validate_job_position(self, employee_id, job_title) -> bool:
+        """Validates if the employee is the job title"""
+        employee = self.get_employee(employee_id)
+        print(type(employee).__name__)
+        if type(employee).__name__ == job_title:
+
+                return True
+
+        return False
