@@ -420,7 +420,7 @@ class EmployeeUI(UIElement):
         return list(map(int, assignments))
 
     def _validate_license(self, license):
-        if self.logic_wrapper.validate_liscense(license):
+        if self.logic_wrapper.validate_license(license):
             return None
         
         return "Invalid license"

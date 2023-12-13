@@ -7,3 +7,5 @@ id,name,job_title,license,password,address,ssn,mobile_phone,email,home_phone,wor
 
 5,Dagur Freyr,Flight Manager,,$2b$12$ZZLV1MD3KBYa8SUDVtBX2uDOXhD.0IVLlWiOU.wIR708NENYoaING,reynivellir 1,2110000000,123-4567,dagur@gmail.com,,1234321,
 
+6,Glenn Quagmire,Pilot,C750,$2b$12$0wy3c3WkP4u.lGwMREJTtuUQ173etWchHCukIvwV81ZFzsLn4Hn0W,Spoon street,2503532569,2594938,quagmire@nanair.is,,,
+7,Queen Elizabeth II,Pilot,C750,$2b$12$sCkwwzhw6XckI4Z4Yv4g7uMrOh4jWmeNd/.7RiKyZDlWucMkMEhJi,Buckingham Palace,2104263929,3125738,thequeen@nanair.is,1237300,,
