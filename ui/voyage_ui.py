@@ -192,7 +192,7 @@ class VoyageUI(UIElement):
                     f"To:          {voyage.return_flight}",
                     f"Date:        {voyage.departure_date}",
                     f"Return Date: {voyage.return_date}",
-                    f"Status:      {VoyageStatus[voyage.status]}",
+                    f"Status:      {voyage.status}",
                 ],
                 add_newline_after=True,
             )
@@ -244,18 +244,25 @@ class VoyageUI(UIElement):
                             validator=self.validate_number,
                         ))
                     case "Pilots":
-                        voyage.pilots = list(map(int, self._prompt_list(
-                            "Enter ID's of pilots, first ID is head pilot, must enter at least 2",
+                        voyage.pilots = (self._prompt_list(
                             prompt="Enter pilot ID",
-                            validator=self.validate_pilot,
+                            header_title="Enter ID's of pilots, first ID is head pilot, must enter at least 2",
+                            #validator=self.validate_pilot,
                             max_elements=2,
-                        )))
+                        ))
                     case "Attendants":
-                        voyage.attendants = list(map(int, self._prompt(
+                        voyage.attendants = (self._prompt_list(
+                            prompt="Enter ID's of attendants",
+                            header_title="Enter ID's of pilots, first ID is head pilot, must enter at least 2",
+                            #validator=self.validate_pilot,
+                            max_elements=4,
+                        ))
+
+                        """voyage.attendants = list(map(int, self._prompt(
                             "Enter ID's of attendants",
                             opt_instruction="Leave empty to cancel",
-                            validator=self.validate_flight_attendant,
-                        )))
+                            #validator=self.validate_flight_attendant,
+                        )))"""
 
                 self.logic_wrapper.update_voyage(voyage)
 
@@ -351,24 +358,27 @@ class VoyageUI(UIElement):
                     ["Pilots", "Flight attendant"], header_title="Staff voyage"
                 )
 
-                if pilots_or_attendants == "Pilots":  # Insert pilots
-                    voyage.pilots.append(self._prompt(
-                        "Enter ID of pilot",
-                        header_title="Staff voyage",
-                        opt_instruction="Leave empty to cancel.",
-                    ))
-                    self.logic_wrapper.update_voyage(voyage)
+                match pilots_or_attendants:
+                    case "Pilots":
+                        
+                        voyage.pilots = (self._prompt_list(
+                            prompt="Enter pilot ID",
+                            header_title="Enter ID's of pilots, first ID is head pilot, must enter at least 2",
+                            #validator=self.validate_pilot,
+                            max_elements=2,
+                        ))
 
-                elif (
-                    pilots_or_attendants == "Flight attendant"
-                ):  # Instert flight attendants
-                    voyage.flight_attendants.append(self._prompt(
-                        "Enter ID of flight attendant",
-                        header_title="Staff voyage",
-                        opt_instruction="Leave empty to cancel.",
-                    ))
-                    self.logic_wrapper.update_voyage(voyage)
+                        self.logic_wrapper.update_voyage(voyage)
 
+                    case "Flight attendant":
+                        voyage.attendants = (self._prompt_list(
+                            prompt="Enter pilot ID",
+                            header_title="Enter ID's of pilots, first ID is head pilot, must enter at least 2",
+                            #validator=self.validate_pilot,
+                            max_elements=2,
+                        ))
+                        self.logic_wrapper.update_voyage(voyage)
+                        
                 return
             except UICancelException:
                 return

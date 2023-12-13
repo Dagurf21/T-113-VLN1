@@ -55,26 +55,20 @@ class EmployeeLogic:
 
         return employees_with_the_job
 
-    def get_employee_by_workday(self, workdate) -> list["Employee"]:
+    def get_employee_by_workday(self, workdate) -> list[("Employee", "Destination")]:
         """Returns a list of employees that are working on a specific day"""
         employee_return_list = []
         list_of_voyages = self.data_wrapper.get_all_voyages()
         for voyage in list_of_voyages:
-            if voyage.departure_date == workdate or voyage.date == workdate:
+            if voyage.departure_date == workdate or voyage.return_date == workdate:
                 try:
                     for pilot in voyage.pilots:
-                        if employee_return_list in employee_return_list:
-                            ...
-                        else:
-                            employee_return_list.append(pilot)
+                        employee_return_list.append((pilot, voyage.destination))
                 except TypeError:
                     ...
                 try:
                     for flight_attendant in voyage.flight_attendants:
-                        if employee_return_list in employee_return_list:
-                            ...
-                        else:
-                            employee_return_list.append(flight_attendant)
+                        employee_return_list.append((flight_attendant, voyage.destination))
                 except TypeError:
                     ...
         return employee_return_list
@@ -84,10 +78,10 @@ class EmployeeLogic:
         employee_return_list = []
         list_of_voyages = self.data_wrapper.get_all_voyages()
         for voyage in list_of_voyages:
-            if voyage.departure_date != workdate and voyage.date != workdate:
+            if voyage.departure_date != workdate and voyage.return_date != workdate:
                 try:
                     for pilot in voyage.pilots:
-                        if employee_return_list in employee_return_list:
+                        if pilot in employee_return_list:
                             ...
                         else:
                             employee_return_list.append(pilot)
@@ -95,7 +89,7 @@ class EmployeeLogic:
                     ...
                 try:
                     for flight_attendant in voyage.flight_attendants:
-                        if employee_return_list in employee_return_list:
+                        if flight_attendant in employee_return_list:
                             ...
                         else:
                             employee_return_list.append(flight_attendant)

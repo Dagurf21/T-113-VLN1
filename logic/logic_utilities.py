@@ -165,14 +165,14 @@ class Validator:
         else:
             return True
 
-    def validate_voyage(self, voyage) -> Voyage:
+    def voyage_staff(self, voyage) -> Voyage:
         """Validates a voyage and return a validated
         voyage if possible, else None"""
-        are_seats_available = self.validate.seats_available(voyage)
-        are_pilots_valid = self.validate.job_position(voyage.pilots, "Pilot")
-        are_attendants_valid = self.validate.job_position(
-            voyage.flight_attendants, "FlightAttendant"
+        are_pilots_valid = self.job_position(voyage.pilots, "Pilot")
+        are_flight_attendants_valid = self.job_position(
+            voyage.flight_attendants, "FlightAttendants"
         )
+        return are_pilots_valid and are_flight_attendants_valid
 
 
 class Utilities:
