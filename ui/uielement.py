@@ -1,6 +1,6 @@
 import os
 from collections.abc import Callable
-from colorama import Fore, Back, Style, ansi
+from colorama import Fore, Style, ansi
 import cursor
 import getch
 
@@ -136,8 +136,7 @@ class UIElement:
                 add_newline_after=True
             )
 
-            with cursor.HiddenCursor():
-                option = getkey()
+            option = self._getkey()
 
             try:
                 option = int(option) - 1
@@ -184,8 +183,7 @@ class UIElement:
             self._print_datalist(headers, data[current_page * rows_per_page:current_page*rows_per_page+rows_per_page])
             self._print_centered(f"{Fore.BLACK}q: return - n: next page - p: prev page{Style.RESET_ALL}", add_newline_after=True, add_newline_before=True)
 
-            with cursor.HiddenCursor():
-                opt = getkey()
+            opt = self._getkey()
 
             match opt:
                 case "q": # Return
@@ -299,23 +297,24 @@ class UIElement:
         if add_extra_newline:
             print()
 
-def getkey() -> str:
-    c = getch.getch()
+    def _getkey(self) -> str:
+        with cursor.HiddenCursor():
+            c = getch.getch()
 
-    if isinstance(c, bytes): # Windows
-        if c == b'\x03':
-            raise KeyboardInterrupt
+            if isinstance(c, bytes): # Windows
+                if c == b'\x03':
+                    raise KeyboardInterrupt
 
-        if c == b'\x0d':
-            return ''
+                if c == b'\x0d':
+                    return ''
 
-        return c.decode('utf-8')
-    else: # *nix
-        if ord(c) == 3:
-            raise KeyboardInterrupt
+                return c.decode('utf-8')
+            else: # *nix
+                if ord(c) == 3:
+                    raise KeyboardInterrupt
 
-        if ord(c) == 13:
-            return ''
-        
-        return c
+                if ord(c) == 13:
+                    return ''
+                
+                return c
 
