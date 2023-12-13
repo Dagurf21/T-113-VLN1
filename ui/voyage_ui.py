@@ -467,24 +467,33 @@ class VoyageUI(UIElement):
 
                 match pilots_or_attendants:
                     case "Pilots":
-                        pilot = (self._prompt_list(
+                        pilot = (self._prompt(
                             prompt="Enter pilot ID",
                             header_title="Enter ID of pilot",
-                            validator=self.validate_pilot,
-                            max_elements=2,
+                            validator= lambda e: self.validate_pilot(e, voyage.plane),
                         ))
                         voyage.pilots.append(pilot)
 
                         self.logic_wrapper.update_voyage(voyage)
 
+                        assigned_pilot = self.logic_wrapper.get_employee(int(pilot))
+                        assigned_pilot.assignments.append(voyage.id)
+                        self.logic_wrapper.update_employee(assigned_pilot)
+
                     case "Flight attendant":
-                        voyage.attendants = (self._prompt_list(
+                        attendant = (self._prompt(
                             prompt="Enter ID of flight attendant",
                             header_title="Enter ID of flight attendant",
                             validator=self.validate_flight_attendant,
                         ))
+                        voyage.flight_attendants.append(attendant)
+
                         self.logic_wrapper.update_voyage(voyage)
                         
+                        assigned_attendant = self.logic_wrapper.get_employee(pilot)
+                        assigned_attendant.assignments.append(voyage.id)
+                        self.logic_wrapper.update_employee(assigned_attendant)
+
                 return
             except UICancelException:
                 return
@@ -535,22 +544,26 @@ class VoyageUI(UIElement):
     def validate_flight_attendant(self, inp):
         try:
             employee_id = int(inp)
-            employee = self.logic_wrapper.get_employee(employee_id)
-            if employee is not FlightAttendant:
-                return f"Flight Attendant with id {employee_id} doesn't exist"
-            
-            return None
+            if self.logic_wrapper.check_job_position(employee_id, "FlightAttendant"):
+                return None
+            else:
+                return f"Flight attendant with id {employee_id} doesn't exist"
+        
         except ValueError:
             return "ID must be a number"
 
-    def validate_pilot(self, inp):
+    def validate_pilot(self, inp, plane_id):
         try:
             employee_id = int(inp)
-            employee = self.logic_wrapper.get_employee(employee_id)
-            if employee is not Pilot:
-                return f"Pilot with id {employee_id} doesn't exist"
             
-            return None
+            if self.logic_wrapper.check_job_position(employee_id, "Pilot"):
+                if self.logic_wrapper.pilot_has_license(employee_id, plane_id):
+                    return None
+                else:
+                    return f"Pilot does not have a license to fly this plane"
+            else:
+                return f"Pilot with id {employee_id} doesn't exist"
+
         except ValueError:
             return "ID must be a number"
     
