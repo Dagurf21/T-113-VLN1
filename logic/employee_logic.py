@@ -79,6 +79,30 @@ class EmployeeLogic:
                     ...
         return employee_return_list
 
+    def get_employee_by_not_workday(self, workdate) -> list["Employee"]:
+        """Returns a list of employees that are working on a specific day"""
+        employee_return_list = []
+        list_of_voyages = self.data_wrapper.get_all_voyages()
+        for voyage in list_of_voyages:
+            if voyage.departure_date != workdate and voyage.date != workdate:
+                try:
+                    for pilot in voyage.pilots:
+                        if employee_return_list in employee_return_list:
+                            ...
+                        else:
+                            employee_return_list.append(pilot)
+                except TypeError:
+                    ...
+                try:
+                    for flight_attendant in voyage.flight_attendants:
+                        if employee_return_list in employee_return_list:
+                            ...
+                        else:
+                            employee_return_list.append(flight_attendant)
+                except TypeError:
+                    ...
+        return employee_return_list
+
     def get_all_pilots(self) -> list["Employee"]:
         """Returns a sorted list of pilots"""
         pilot_list = self.get_employees_by_job("Pilot")
