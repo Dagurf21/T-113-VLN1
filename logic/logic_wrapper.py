@@ -97,7 +97,7 @@ class LogicWrapper(object):
 
     # Voyage Class
     def create_voyage(
-        self,         
+        self,
         plane_id: int,
         destination_id: int,
         date: datetime.date,
@@ -106,18 +106,20 @@ class LogicWrapper(object):
         return_departure_time: datetime.time,
         sold_seats: int,
         flight_attendants: list[int],
-        pilots: list[int],) -> None:
+        pilots: list[int],
+    ) -> None:
         """Creates a voyage"""
         return self.voyage_logic.create_voyage(
-            plane_id, 
-            destination_id, 
-            date, 
-            return_departure_date, 
+            plane_id,
+            destination_id,
+            date,
+            return_departure_date,
             departure_time,
             return_departure_time,
             sold_seats,
             flight_attendants,
-            pilots)
+            pilots,
+        )
 
     def get_all_voyages(self) -> list:
         """Returns a list of all current voyages"""
@@ -199,6 +201,9 @@ class LogicWrapper(object):
     ### Pilot Validation
     def validate_license(self, license_data):
         return self.validate.license(self.data_wrapper, license_data)
+
+    def pilot_has_license(self, pilot, plane):
+        return self.validate.pilot_has_license(pilot, plane)
 
     ### Pilot & Flight Attendant Validation
     def validate_assignments(self, assignments_data):
