@@ -23,8 +23,7 @@ class VoyageLogic:
         pilots: list[int],
     ) -> None:
         """Takes in a voyage object and forwards it to the data layer"""
-        # flight_data = Flight(date=data.date,destination=data.destination)
-        # create_flight(flight_data)
+        
         departure_flight = self.flight_logic.create_flight(
             0, destination_id, date, departure_time
         )
