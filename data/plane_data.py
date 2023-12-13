@@ -23,7 +23,7 @@ class PlaneData:
                              'type': plane.ty, 
                              'manufacturer': plane.manufacturer, 
                              'capacity': plane.capacity, 
-                             'voyages': voyages
+                             'voyages': '.'.join(voyages)
                             })
 
 
@@ -56,7 +56,7 @@ class PlaneData:
                         ty = row["type"], 
                         manufacturer = row["manufacturer"], 
                         capacity = int(row["capacity"]), 
-                        voyages = voyages))
+                        voyages = '.'.join(voyages)))
     
         return ret_list
 
