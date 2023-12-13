@@ -120,7 +120,7 @@ class DestinationUI(UIElement):
                 country=country,
                 airport=airport,
                 distance_km=distance_km,
-                flight_time=self.parse_time_delta(flight_time).total_seconds() // 60,
+                flight_time=int(self.parse_time_delta(flight_time).total_seconds() // 60),
                 representative=representative,
                 emergency_number=emergency_number
             )
