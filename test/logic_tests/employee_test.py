@@ -132,6 +132,12 @@ class TestEmployee(unittest.TestCase):
         employee_logic.create_employee(employee)
         self.assertIsNone(data.get_first_employee())
 
+        employee = deepcopy(self.MOCK_EMPLOYEES[1])
+        employee.ssn = "05"
+
+        employee_logic.create_employee(employee)
+        self.assertIsNone(data.get_first_employee())
+
     def test_create_employee_invalid_mobile_phone(self):
         data = MockDataWrapper()
         employee_logic = EmployeeLogic(data)
