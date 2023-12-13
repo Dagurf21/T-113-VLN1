@@ -63,11 +63,13 @@ class EmployeeLogic:
             if voyage.departure_date == workdate or voyage.return_date == workdate:
                 try:
                     for pilot in voyage.pilots:
+                        pilot = self.get_employee(int(pilot))
                         employee_return_list.append((pilot, voyage.destination))
                 except TypeError:
                     ...
                 try:
                     for flight_attendant in voyage.flight_attendants:
+                        flight_attendant = self.get_employee(int(flight_attendant))
                         employee_return_list.append(
                             (flight_attendant, voyage.destination)
                         )
@@ -80,14 +82,16 @@ class EmployeeLogic:
         list_of_voyages = self.data_wrapper.get_all_voyages()
         list_of_employees = self.data_wrapper.get_all_employees()
         for voyage in list_of_voyages:
-            if voyage.departure_date != workdate and voyage.return_date != workdate:
+            if voyage.departure_date == workdate or voyage.return_date == workdate:
                 try:
                     for pilot in voyage.pilots:
+                        pilot = self.get_employee(int(pilot))
                         list_of_employees.remove(pilot)
                 except (TypeError, ValueError):
                     ...
                 try:
                     for flight_attendant in voyage.flight_attendants:
+                        flight_attendant = self.get_employee(int(flight_attendant))
                         list_of_employees.remove(flight_attendant)
                 except (TypeError, ValueError):
                     ...
