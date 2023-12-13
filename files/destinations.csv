@@ -1,3 +1,7 @@
 id,country,airport,distance,flight_time,representative,emergency_number
 0,Iceland,Reykjavík Airport,0,0,Chuck Norris,000-0000
 1,Greenland,Nuuk,1430,32,Joe,2324232
+2,Greenland,Kulusuk Airport,733,110,mama,8888888
+3,Faroe Island,Vágar Floghavn,770,85,Friðþjófur,0312330
+4,Shetland,Tingwall Airport,1155,140,Boris,+441595840246
+5,Norway,Longyearbyen Airport,1992,180,Polar Bear,02341324
