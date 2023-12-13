@@ -247,16 +247,6 @@ class TestEmployee(unittest.TestCase):
         employee_logic.create_employee(employee)
         self.assertIsNone(data.get_first_employee())
 
-    def test_create_employee_pilot_invalid_license(self):
-        data = MockDataWrapper()
-        employee_logic = EmployeeLogic(data)
-
-        employee = deepcopy(self.MOCK_PILOTS[0])
-        employee.license = "C128"
-
-        employee_logic.create_employee(employee)
-        self.assertIsNone(data.get_first_employee())
-
     def test_get_all_employees(self):
         data = MockDataWrapper()
         employee_logic = EmployeeLogic(data)

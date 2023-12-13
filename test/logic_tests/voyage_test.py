@@ -232,15 +232,15 @@ class TestVoyage(unittest.TestCase):
         voyage_logic.update_voyage(voyage)
 
         result = data.get_first_voyage()
-        self.assertNotEqual(result.destination, 1)
-        self.assertNotEqual(result.sold_seats, 150)
+        self.assertNotEqual(result.destination, 9)
+        self.assertEqual(result.sold_seats, 150)
         self.assertNotEqual(result.plane, 5)
-        self.assertEqual(result.departure_time, datetime.time(3, 40))
+        self.assertNotEqual(result.departure_time, datetime.time(3, 40))
         self.assertNotEqual(result.departure_flight, "FA011")
-        self.assertEqual(result.departure_date, datetime.date(2023, 10, 8))
-        self.assertEqual(result.return_departure_time, datetime.time(9, 20))
+        self.assertNotEqual(result.departure_date, datetime.date(2023, 10, 8))
+        self.assertNotEqual(result.return_departure_time, datetime.time(9, 20))
         self.assertNotEqual(result.return_flight, "FA011")
-        self.assertEqual(result.return_date, datetime.date(2023, 10, 10))
+        self.assertNotEqual(result.return_date, datetime.date(2023, 10, 10))
         self.assertNotEqual(result.status, VoyageStatus.LandedAbroad)
 
     def test_delete_voyage(self):

@@ -33,7 +33,7 @@ class LogicWrapper(object):
         self.flight_logic = FlightLogic(self.data_wrapper)
         self.destination_logic = DestinationLogic(self.data_wrapper)
         self.voyage_logic = VoyageLogic(self.data_wrapper)
-        self.plane_logic = PlaneLogic(self.data_wrapper, self.flight_logic)
+        self.plane_logic = PlaneLogic(self.data_wrapper, self.voyage_logic)
         self.validate = Validator()
         self.utility = Utilities()
 
@@ -57,6 +57,14 @@ class LogicWrapper(object):
     def get_employees_by_job(self, job) -> list[Employee]:
         """Fetches a list of employees that fit the job title"""
         return self.employee_logic.get_employees_by_job(job)
+
+    def get_employee_by_workday(self, date) -> list[Employee]:
+        """Retrieves a list of employees that are working on a specific date"""
+        return self.employee_logic.get_employee_by_workday(date)
+
+    def get_employee_by_not_workday(self, date) -> list[Employee]:
+        """Retrieves a list of employees that are working on a specific date"""
+        return self.employee_logic.get_employee_by_not_workday(date)
 
     def get_all_pilots(self) -> list[Pilot]:
         """Fetches all pilots and returns them in a list"""

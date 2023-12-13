@@ -1,3 +1,4 @@
+import datetime
 from ui import UIElement, UICancelException
 from model import Destination, Employee
 from logic import LogicWrapper
@@ -111,7 +112,7 @@ class DestinationUI(UIElement):
             country          = self._prompt("Enter country",             header_title="Register Employee", opt_instruction="Leave empty to cancel")
             airport          = self._prompt("Enter airport",             header_title="Register Employee", opt_instruction="Leave empty to cancel")
             distance_km      = self._prompt("Enter distance (km)",       header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            flight_time      = self._prompt("Enter flight time (00:00)",  header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            flight_time      = self._prompt("Enter flight time (00:00)", header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self.validate_time)
             representative   = self._prompt("Enter representative name", header_title="Register Employee", opt_instruction="Leave empty to cancel")
             emergency_number = self._prompt("Enter emergency number",    header_title="Register Employee", opt_instruction="Leave empty to cancel")
 
@@ -119,7 +120,7 @@ class DestinationUI(UIElement):
                 country=country,
                 airport=airport,
                 distance_km=distance_km,
-                flight_time=flight_time,
+                flight_time=self.parse_time(flight_time),
                 representative=representative,
                 emergency_number=emergency_number
             )
@@ -223,4 +224,17 @@ class DestinationUI(UIElement):
                 return
             except UICancelException:
                 return
+
+    def validate_time(self, inp):
+        if len(inp) != 5:
+            return "Invalid date format"
+        
+        try:
+            self.parse_time(inp)
+        except:
+            return "Invalid date format"
+
+    def parse_time(self, date):
+        hours, minutes = date.split(':')
+        return datetime.time(int(hours), int(minutes))
 
