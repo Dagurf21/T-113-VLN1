@@ -123,7 +123,7 @@ class VoyageUI(UIElement):
             return
 
     def list_voyages(self):
-        voyages = self.logic_wrapper.get_all_voyages()
+        voyages: list[Voyage] = self.logic_wrapper.get_all_voyages()
 
         while True:
             try:
@@ -170,12 +170,14 @@ class VoyageUI(UIElement):
             voyage_data = []
 
             for voyage in voyages:
+                plane = self.logic_wrapper.get_plane(voyage.plane)
+
                 voyage_data.append(
                     [
                         voyage.id,
                         voyage.departure_flight,
                         voyage.return_flight,
-                        voyage.sold_seats,
+                        f"{voyage.sold_seats} / {plane.capacity}",
                         voyage.departure_date,
                         voyage.return_date,
                         voyage.status,
@@ -186,8 +188,8 @@ class VoyageUI(UIElement):
                 {
                     "id": 3,
                     "From": 6,
-                    "DEST": 6,
-                    "Seats": 5,
+                    "Dest": 6,
+                    "Seats": 9,
                     "Date": 10,
                     "Return date": 11,
                     "Status": 15,
