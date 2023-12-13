@@ -101,6 +101,9 @@ class Validator:
                 return True
         return False
 
+    def pilot_has_license(self, pilot, plane):
+        return pilot.license == plane.type
+
     def assignments(self, assignments) -> bool:
         """Validates the assignments
         for example, if the same assignment comes up twice"""
