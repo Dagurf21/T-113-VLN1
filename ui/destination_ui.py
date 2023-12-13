@@ -120,7 +120,7 @@ class DestinationUI(UIElement):
                 country=country,
                 airport=airport,
                 distance_km=distance_km,
-                flight_time=self.parse_time(flight_time),
+                flight_time=self.parse_time_delta(flight_time).total_seconds() // 60,
                 representative=representative,
                 emergency_number=emergency_number
             )
@@ -225,16 +225,16 @@ class DestinationUI(UIElement):
             except UICancelException:
                 return
 
-    def validate_time(self, inp):
+    def validate_time_delta(self, inp):
         if len(inp) != 5:
             return "Invalid date format"
         
         try:
-            self.parse_time(inp)
+            self.parse_time_delta(inp)
         except:
             return "Invalid date format"
 
-    def parse_time(self, date):
+    def parse_time_delta(self, date) -> datetime.timedelta:
         hours, minutes = date.split(':')
-        return datetime.time(int(hours), int(minutes))
+        return datetime.timedelta(hours=int(hours), minutes=int(minutes))
 
