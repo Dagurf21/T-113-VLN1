@@ -113,6 +113,7 @@ class VoyageLogic:
 
         return None
 
+
     def update_voyage(self, voyage) -> None:
         """Updates a voyage object with the given id"""
         voyage_to_update = self.get_voyage(voyage.id)
