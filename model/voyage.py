@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import datetime
 from model.plane import Plane
 from model.pilot import Pilot
@@ -18,8 +18,8 @@ class Voyage:
     destination: int
     sold_seats: int
     plane: Plane
-    pilots: list[Pilot] = None
-    flight_attendants: list[FlightAttendant] = None
+    pilots: list[Pilot] = field(default_factory=lambda: [])
+    flight_attendants: list[FlightAttendant] = field(default_factory=lambda: [])
     departure_time: datetime.time
     departure_flight: str # flight id
     departure_date: datetime.date
