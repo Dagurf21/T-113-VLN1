@@ -144,6 +144,11 @@ class LogicWrapper(object):
     def delete_voyage(self, id) -> None:
         """Erases voyage/ via ID"""
         return self.voyage_logic.delete_voyage(id)
+    
+    def validate_departure_time(self, departure_date: datetime.date, departure_time: datetime.time) -> bool:
+        """Validates that two flights dont depart at the same time""" 
+        return self.voyage_logic.validate_departure_time(departure_date, departure_time)
+
 
     # Destination class
     def create_destination(self, data) -> None:
