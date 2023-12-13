@@ -1,6 +1,7 @@
 import unittest
 from logic.logic_utilities import *
 
+
 class TestValidator(unittest.TestCase):
     def setUp(self):
         self.validator = Validator()
@@ -17,8 +18,8 @@ class TestValidator(unittest.TestCase):
     def test_invalid_ssn(self):
         self.assertFalse(self.validator.ssn("1113231239"))
         self.assertFalse(self.validator.ssn("1122231239"))
-        self.assertFalse(self.validator.ssn("1112231232"))
-        self.assertFalse(self.validator.ssn("1112231233"))
+        self.assertFalse(self.validator.ssn("111223123f"))
+        self.assertFalse(self.validator.ssn("11122312d3"))
         self.assertFalse(self.validator.ssn("4112231239"))
 
     def test_valid_email(self):
@@ -26,7 +27,7 @@ class TestValidator(unittest.TestCase):
         self.assertTrue(self.validator.email("a@a.a.a"))
         self.assertTrue(self.validator.email("a_a@a.a"))
         self.assertTrue(self.validator.email("a.a@a.a"))
-        
+
     def test_invalid_email(self):
         self.assertFalse(self.validator.email("a.@a"))
         self.assertFalse(self.validator.email(".@a"))
@@ -36,4 +37,3 @@ class TestValidator(unittest.TestCase):
         self.assertFalse(self.validator.email("a@."))
         self.assertFalse(self.validator.email(".@"))
         self.assertFalse(self.validator.email("a@a@a.a"))
-

@@ -66,14 +66,11 @@ class Validator:
             ssn[-1],
         )
 
-        if century == "9":
-            year = "19" + year
-
-        elif century == "0":
-            year = "20" + year
+        if century > "5":
+            year = "1" + century + year
 
         else:
-            year = "INVALID"  # This is done to make the ssn not pass the datetime check
+            year = "2" + century + year
 
         try:
             int(ssn)  # Checks if the ssn only contains numbers
