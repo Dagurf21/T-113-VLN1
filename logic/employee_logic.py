@@ -83,7 +83,7 @@ class EmployeeLogic:
             if voyage.departure_date != workdate and voyage.date != workdate:
                 try:
                     for pilot in voyage.pilots:
-                        if employee_return_list in employee_return_list:
+                        if pilot in employee_return_list:
                             ...
                         else:
                             employee_return_list.append(pilot)
@@ -91,7 +91,7 @@ class EmployeeLogic:
                     ...
                 try:
                     for flight_attendant in voyage.flight_attendants:
-                        if employee_return_list in employee_return_list:
+                        if flight_attendant in employee_return_list:
                             ...
                         else:
                             employee_return_list.append(flight_attendant)
