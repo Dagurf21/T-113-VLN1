@@ -319,56 +319,110 @@ class VoyageUI(UIElement):
                     try:
                         voyage_id = int(voyage_id)
                     except ValueError:
-                        self._print_header("List voyage", add_extra_newline=True)
+                        self._print_header("Duplicate voyage, new dates", add_extra_newline=True)
                         self._print_centered("ID has to be a number", add_newline_after=True)
                         continue
 
-                    """ Duplicate voyage new date only """
-                    copy_voyage = self.logic_wrapper.get_voyage(voyage_id)
-                    new_voyage = copy_voyage
-                    
-                    departure_date = self._prompt(
-                        "Enter date of voyage (yyyy-mm-dd)",
-                        header_title="Create voyage",
-                        opt_instruction="Leave empty to cancel",
-                        validator=self.validate_date,
-                    )
-                    return_date = self._prompt(
-                        "Enter Return date of voyage (yyyy-mm-dd)",
-                        header_title="Create voyage",
-                        opt_instruction="Leave empty to cancel",
-                        validator=self.validate_date,
-                    )
+                    try:
+                        """ Duplicate voyage new date only """
+                        copy_voyage = self.logic_wrapper.get_voyage(voyage_id)
+                        new_voyage = copy_voyage
+                        
+                        departure_date = self._prompt(
+                            "Enter date of voyage (yyyy-mm-dd)",
+                            header_title="Create voyage",
+                            opt_instruction="Leave empty to cancel",
+                            validator=self.validate_date,
+                        )
+                        return_date = self._prompt(
+                            "Enter Return date of voyage (yyyy-mm-dd)",
+                            header_title="Create voyage",
+                            opt_instruction="Leave empty to cancel",
+                            validator=self.validate_date,
+                        )
 
-                    new_voyage.pilots = []
-                    new_voyage.attendants = []
-                    new_voyage.sold_seats = 0
-                    new_voyage.departure_date = self.parse_date(departure_date)
-                    new_voyage.return_date = self.parse_date(return_date)
+                        new_voyage.pilots = []
+                        new_voyage.attendants = []
+                        new_voyage.sold_seats = 0
+                        new_voyage.departure_date = self.parse_date(departure_date)
+                        new_voyage.return_date = self.parse_date(return_date)
 
-                    self.logic_wrapper.create_voyage(
-                        int(copy_voyage.plane),
-                        int(copy_voyage.destination),
-                        new_voyage.departure_date,
-                        new_voyage.return_date,
-                        copy_voyage.departure_time,
-                        copy_voyage.return_departure_time,
-                        int(copy_voyage.sold_seats),
-                        list(map(int, copy_voyage.flight_attendants)),
-                        list(map(int, copy_voyage.pilots)),
-                    )
+                        self.logic_wrapper.create_voyage(
+                            int(copy_voyage.plane),
+                            int(copy_voyage.destination),
+                            new_voyage.departure_date,
+                            new_voyage.return_date,
+                            copy_voyage.departure_time,
+                            copy_voyage.return_departure_time,
+                            int(copy_voyage.sold_seats),
+                            list(map(int, copy_voyage.flight_attendants)),
+                            list(map(int, copy_voyage.pilots)),
+                        )
 
-                    self._print_header(
-                        "Successfully duplicated voyage", 
-                        add_extra_newline=True)
+                        self._print_header(
+                            "Successfully duplicated voyage", 
+                            add_extra_newline=True)
                 
-                    """Duplicate voyage End only date"""
+                        """Duplicate voyage End only date"""
+                    except UICancelException:
+                        return
                     
                 case "Recurring voyage":
                     # Voyage id to duplicate
-                    # Interval how many days between voyages
+                    self._print_header(message="Duplicate voyage, new dates", add_extra_newline=True)
+                    try:
+                        voyage_id = self._prompt(
+                            "Enter voyage id",
+                            opt_instruction="Leave empty to cancel",
+                            clear_screen=False,
+                        )
+                    except UICancelException:
+                        return
 
+                    try:
+                        voyage_id = int(voyage_id)
+                    except ValueError:
+                        self._print_header("Duplicate voyage, new dates", add_extra_newline=True)
+                        self._print_centered("ID has to be a number", add_newline_after=True)
+                        continue
+                    
+                    # Interval how many days between voyages
+                    try: 
+                        self._print_header("Duplicate voyage, new dates", add_extra_newline=True)
+                        voyage_interval = self._prompt(
+                            "Enter how many days inbetween each voyage",
+                            opt_instruction="Leave empty to cancel",
+                            clear_screen=True,
+                            validator=self.validate_number
+                        )
+
+                        end_date_voyage = self._prompt(
+                            "Enter the date of which the reccurance will end",
+                            opt_instruction="Leave empty to cancel",
+                            clear_screen=True,
+                            validator=self.validate_date
+                        )
+
+                        end_date_voyage = self.parse_date(end_date_voyage)
+                        print(end_date_voyage)
+                        print(type(end_date_voyage))
+                        
+                        copy_voyage = self.logic_wrapper.get_voyage(voyage_id)
+
+                        now = datetime.date.today()
+
+                    
+
+                        
+
+                    except UICancelException:
+                        return
+                
                     # How long ? in days until what date :
+                    datetime.timedelta(days=2)
+                    date = datetime.date(2023, 10, 10)
+                    date += datetime.timedelta(days=2)
+                    print (date) # 2023, 10, 12
                     pass
 
 
