@@ -1,16 +1,4 @@
 id,name,job_title,license,password,address,ssn,mobile_phone,email,home_phone,work_phone,assignments
-<<<<<<< HEAD
-0,Chuck Norris,Chuck Norris,All,[],Fortnite,1003400009,000-0000,chucknorris@nanair.is,000-0001,000-0003,
-1,DEV,Manager,,$2b$12$jB0AXGcSSL.hEoowj0GcxuR7qspPvFKkJzcAcW5VBzfwccedrLhSe,_,_,_,,_,_,
-2,sdvfk,Manager,,asfevj,sevf,0112231239,1234567,test@test.is,123-4567,123-4567,
-3,Marteinn,Manager,,$2b$12$NriTlbdfgy9wBtqYNDwvJej5Hd4N1Q26MU2oG54LQj1i93AtLeCji,marteinn home,0509041230,663-7270,Marteinnlogi@gmail.com,,123-1234,
-4,flight person,Flight Attendant,,$2b$12$DHVivbQBzMZulN6mdhAa5uB4AkMp/O1RuydWRWhQDCQU4Ra0RegTu,123,0101011230,12301230,phone@my.cell,,,
-
-5,Dagur Freyr,Flight Manager,,$2b$12$ZZLV1MD3KBYa8SUDVtBX2uDOXhD.0IVLlWiOU.wIR708NENYoaING,reynivellir 1,2110000000,123-4567,dagur@gmail.com,,1234321,
-
-6,Glenn Quagmire,Pilot,C750,$2b$12$0wy3c3WkP4u.lGwMREJTtuUQ173etWchHCukIvwV81ZFzsLn4Hn0W,Spoon street,2503532569,2594938,quagmire@nanair.is,,,
-7,Queen Elizabeth II,Pilot,C750,$2b$12$sCkwwzhw6XckI4Z4Yv4g7uMrOh4jWmeNd/.7RiKyZDlWucMkMEhJi,Buckingham Palace,2104263929,3125738,thequeen@nanair.is,1237300,,
-=======
 0,Chuck Norris,Chuck Norris,All,$2b$12$rfKEGKb9ERVDCvXs1w11UO79rpoKYB60xkD.d9ert78Vy.ReeanSO,Fortnite,1003400009,000-0000,chucknorris@nanair.is,000-0001,000-0003,
 1,DEV,Manager,,$2b$12$jB0AXGcSSL.hEoowj0GcxuR7qspPvFKkJzcAcW5VBzfwccedrLhSe,_,_,_,,_,_,
 2,sdvfk,,,,,,,,,,
@@ -20,4 +8,3 @@ id,name,job_title,license,password,address,ssn,mobile_phone,email,home_phone,wor
 6,Kristján Kári Gunnarsson,Manager,,$2b$12$4Ag6xzzbTgTpEhU9RST4bOTqiLZC.SeFtympX4LcaHbBnn.Ygcid6,| random address |,1212810000,8213231,kristjang23@ru.is,,2423421,
 7,sdfk,Manager,,$2b$12$luK8XrGECpikQSwNbinMteRTX.ChczXy1ZTDTI.ECEfIKALO2nxja,sdfk@nanair.is,0504230020,2232321,sdfk@nanair.is,,2313454,
 8,Bob,Manager,,$2b$12$rfKEGKb9ERVDCvXs1w11UO79rpoKYB60xkD.d9ert78Vy.ReeanSO,bobinn street,0101015400,231231,bob@nanair.is,,132312412,
->>>>>>> 8c3a34e (more users and password reset for chuck)
