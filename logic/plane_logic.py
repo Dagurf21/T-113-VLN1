@@ -8,10 +8,10 @@ from model.plane import Plane
 class PlaneLogic:
     """This is a Logic class for Plane"""
 
-    def __init__(self, data_wrapper: DataWrapper, voyage_logic: VoyageLogic) -> None:
+    def __init__(self, data_wrapper: DataWrapper) -> None:
         """Intitiatets plane with data_wrapper"""
         self.data_wrapper = data_wrapper
-        self.voyage_logic = voyage_logic
+        self.voyage_logic = VoyageLogic(data_wrapper)
 
     def create_plane(self, plane) -> None:
         """Takes in plane data checks if ID is valid and forwards it to data layer"""
