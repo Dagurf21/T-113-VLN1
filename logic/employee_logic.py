@@ -59,19 +59,38 @@ class EmployeeLogic:
         """Returns a list of employees that are working on a specific day"""
         employee_return_list = []
         list_of_voyages = self.data_wrapper.get_all_voyages()
+        list_of_destinations = self.data_wrapper.get_all_destinations()
         for voyage in list_of_voyages:
             if voyage.departure_date == workdate or voyage.return_date == workdate:
                 try:
                     for pilot in voyage.pilots:
                         pilot = self.get_employee(int(pilot))
-                        employee_return_list.append((pilot, voyage.destination))
+                        if pilot == None:
+                            raise TypeError
+                        employee_return_list.append(
+                            (
+                                pilot,
+                                self.utility.get_by_id(
+                                    list_of_destinations,
+                                    int(voyage.destination),
+                                ),
+                            )
+                        )
                 except TypeError:
                     ...
                 try:
                     for flight_attendant in voyage.flight_attendants:
                         flight_attendant = self.get_employee(int(flight_attendant))
+                        if flight_attendant == None:
+                            raise TypeError
                         employee_return_list.append(
-                            (flight_attendant, voyage.destination)
+                            (
+                                flight_attendant,
+                                self.utility.get_by_id(
+                                    list_of_destinations,
+                                    int(voyage.destination),
+                                ),
+                            )
                         )
                 except TypeError:
                     ...
