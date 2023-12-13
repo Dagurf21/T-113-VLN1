@@ -71,7 +71,7 @@ class EmployeeLogic:
                     voyage = self.voyage_logic.get_voyage(voyage)
                     if voyage.departure_date == workdate or voyage.return_date == workdate:
                         destination = self.destination_logic.get_destination(voyage.destination)
-                        employee_return_list.append((employee, destination.country))
+                        employee_return_list.append((employee, destination))
 
         return employee_return_list
         """
