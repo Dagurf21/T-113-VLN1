@@ -216,7 +216,6 @@ class EmployeeUI(UIElement):
                         "Enter license",
                         header_title="Register Employee",
                         opt_instruction="Leave empty to cancel",
-                        validator=self._validate_license
                     )
                     employee = Pilot(
                         name=name,
@@ -357,7 +356,6 @@ class EmployeeUI(UIElement):
                         employee.license = self._prompt(
                             "Enter new license",
                             opt_instruction="Leave empty to cancel",
-                            validator=self._validate_license
                         )
 
                 self.logic_wrapper.update_employee(employee)
@@ -418,12 +416,6 @@ class EmployeeUI(UIElement):
             validator=self._validate_assignment
         )
         return list(map(int, assignments))
-
-    def _validate_license(self, license):
-        if self.logic_wrapper.validate_license(license):
-            return None
-        
-        return "Invalid license"
 
     def _validate_ssn(self, ssn):
         if self.logic_wrapper.validate_ssn(ssn):
