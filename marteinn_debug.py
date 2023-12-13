@@ -12,11 +12,4 @@
 #         Plane_logic
 
 
-class Baba:
-    def __init__(self) -> None:
-        print("Boom")
-
-
-Baba()
-
-Baba.explode()
+print(len("123-1234"))
