@@ -43,7 +43,7 @@ class Validator:
     def flight_time(self, time) -> bool:
         """"""
         try:
-            return int(time) >= 0
+            return time >= 0
 
         except ValueError:
             return False
