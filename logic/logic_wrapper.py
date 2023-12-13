@@ -96,9 +96,28 @@ class LogicWrapper(object):
         return self.flight_logic.update_flight(id, data)
 
     # Voyage Class
-    def create_voyage(self, data) -> None:
+    def create_voyage(
+        self,         
+        plane_id: int,
+        destination_id: int,
+        date: datetime.date,
+        return_departure_date: datetime.date,
+        departure_time: datetime.time,
+        return_departure_time: datetime.time,
+        sold_seats: int,
+        flight_attendants: list[int],
+        pilots: list[int],) -> None:
         """Creates a voyage"""
-        return self.voyage_logic.create_voyage(data)
+        return self.voyage_logic.create_voyage(
+            plane_id, 
+            destination_id, 
+            date, 
+            return_departure_date, 
+            departure_time,
+            return_departure_time,
+            sold_seats,
+            flight_attendants,
+            pilots)
 
     def get_all_voyages(self) -> list:
         """Returns a list of all current voyages"""
