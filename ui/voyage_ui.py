@@ -2,6 +2,7 @@ from ui import UIElement, UICancelException
 from model import Voyage, Employee, FlightAttendant, Pilot, VoyageStatus
 from logic import LogicWrapper
 import datetime
+from copy import deepcopy
 
 
 class VoyageUI(UIElement):
@@ -389,12 +390,12 @@ class VoyageUI(UIElement):
                     # Interval how many days between voyages
                     try: 
                         self._print_header("Duplicate voyage, new dates", add_extra_newline=True)
-                        voyage_interval = self._prompt(
+                        voyage_interval = int(self._prompt(
                             "Enter how many days inbetween each voyage",
                             opt_instruction="Leave empty to cancel",
                             clear_screen=True,
                             validator=self.validate_number
-                        )
+                        ))
 
                         end_date_voyage = self._prompt(
                             "Enter the date of which the reccurance will end",
@@ -409,23 +410,18 @@ class VoyageUI(UIElement):
                         print(type(end_date_voyage))
                         
                         copy_voyage = self.logic_wrapper.get_voyage(voyage_id)
-
+                        time_between_flights = datetime.timedelta(days=voyage_interval)
 
                         while now < end_date_voyage:
-                            
-                            days_between_flights = copy_voyage.departure_date - copy_voyage.return_date
-
-                            print (days_between_flights)
-                            input ()
-
-                            #departure_date = 
-                            #return_date = 
+                            new_voyage = deepcopy(copy_voyage)
+                           
+                            time_between_flights += datetime.timedelta(days=voyage_interval)
 
                             new_voyage.pilots = []
                             new_voyage.attendants = []
                             new_voyage.sold_seats = 0
-                            new_voyage.departure_date = self.parse_date(departure_date)
-                            new_voyage.return_date = self.parse_date(return_date)
+                            new_voyage.departure_date += time_between_flights
+                            new_voyage.return_date += time_between_flights
 
                             self.logic_wrapper.create_voyage(
                                 int(copy_voyage.plane),
@@ -439,18 +435,10 @@ class VoyageUI(UIElement):
                                 list(map(int, copy_voyage.pilots)),
                             )
 
-                        
+                            now = new_voyage.return_date
 
                     except UICancelException:
                         return
-                
-                    # How long ? in days until what date :
-                    datetime.timedelta(days=2)
-                    date = datetime.date(2023, 10, 10)
-                    date += datetime.timedelta(days=2)
-                    print (date) # 2023, 10, 12
-                    pass
-
 
     def staff_voyage(self):
         self._print_header(message="Staff Voyage", add_extra_newline=True)
