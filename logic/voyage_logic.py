@@ -115,7 +115,14 @@ class VoyageLogic:
 
     def update_voyage(self, voyage) -> None:
         """Updates a voyage object with the given id"""
-        return self.data_wrapper.update_voyage(voyage)
+        voyage_to_update = self.get_voyage(voyage.id)
+
+        if voyage_to_update is None:
+            return
+
+        voyage_to_update.sold_seats = voyage.sold_seats
+
+        return self.data_wrapper.update_voyage(voyage_to_update)
 
     def delete_voyage(self, id) -> None:
         """Deletes a voyage object with the given id"""

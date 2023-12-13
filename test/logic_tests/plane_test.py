@@ -50,13 +50,13 @@ class TestPlane(unittest.TestCase):
 
         self.assertIsNone(data.get_first_plane())
 
-    def test_create_plane_invalid_flights(self):
+    def test_create_plane_invalid_voyages(self):
         data = MockDataWrapper()
         voyage_logic = VoyageLogic(data)
         plane_logic = PlaneLogic(data, voyage_logic)
 
         plane = deepcopy(self.MOCK_PLANES[0])
-        plane.voyages = ["NA011"]
+        plane.voyages = [5]
 
         plane_logic.create_plane(plane)
 
@@ -99,15 +99,15 @@ class TestPlane(unittest.TestCase):
         for plane in self.MOCK_PLANES:
             data.create_plane(plane)
         
-        for plane in self.MOCK_PLANES:
+        for plane in data.get_all_planes():
             plane = deepcopy(plane)
             plane.capacity = 5
             plane.voyages = [0]
             plane_logic.update_plane(plane)
 
-        for plane in data.get_all_planes():
+        for (plane, original) in zip(data.get_all_planes(), self.MOCK_PLANES):
             self.assertEqual(plane.capacity, 5)
-            self.assertListNotEqual(plane.voyages, [5])
+            self.assertListEqual(plane.voyages, original.voyages)
         
 
     def test_delete_plane(self):
