@@ -35,7 +35,7 @@ class EmployeeData:
                             work_phone = row["work_phone"]))
                 
                     case "Pilot":
-                        assignment_list = row["assignments"].split(".")
+                        assignment_list = [assignment for assignment in row["assignments"].split(".") if assignment != ""]
                         ret_list.append(Pilot(
                             id = int(row["id"]), 
                             name = row["name"], 
@@ -49,7 +49,7 @@ class EmployeeData:
                             assignments = assignment_list))
                 
                     case "Flight Attendant":
-                        assignment_list = row["assignments"].split(".")
+                        assignment_list = [assignment for assignment in row["assignments"].split(".") if assignment != ""]
                         ret_list.append(FlightAttendant(
                             id = int(row["id"]), 
                             name = row["name"], 
