@@ -16,13 +16,14 @@ class PlaneData:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             id = self.get_new_id()
-            
+
+            voyages = ".".join(str(id) for id in plane.voyages)
             writer.writerow({'id': id, 
                              'name': plane.name, 
                              'type': plane.ty, 
                              'manufacturer': plane.manufacturer, 
                              'capacity': plane.capacity, 
-                             'voyages': plane.voyages
+                             'voyages': voyages
                             })
 
 
@@ -47,13 +48,15 @@ class PlaneData:
             
             for row in reader:
                 if row["type"]:
+                    voyages = [int(voyage) for voyage in row["voyages"].split(".") if voyage != ""]
+                    
                     ret_list.append(Plane(
                         id = int(row["id"]), 
                         name = row["name"], 
                         ty = row["type"], 
                         manufacturer = row["manufacturer"], 
                         capacity = int(row["capacity"]), 
-                        voyages = row["voyages"]))
+                        voyages = voyages))
     
         return ret_list
 
@@ -72,12 +75,14 @@ class PlaneData:
             for row in reader:
                 # Writes the plane with the new data into the temp file
                 if int(row["id"]) == plane.id:
+                    voyages = ".".join(str(id) for id in plane.voyages)
+
                     writer.writerow({'id': row["id"], 
                                      'name': plane.name, 
                                      'type': plane.ty, 
                                      'manufacturer': plane.manufacturer, 
                                      'capacity': plane.capacity, 
-                                     'voyages': plane.voyagess})
+                                     'voyages': voyages})
                 
                 # Writes the other planes unchanged 
                 else:
