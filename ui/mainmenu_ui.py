@@ -23,7 +23,7 @@ class MainMenuUI(UIElement):
                 pass
 
             options.append("My Profile")
-            options.append("Log out")
+
 
             try:
                 option = self._display_selection(
