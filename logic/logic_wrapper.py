@@ -125,7 +125,7 @@ class LogicWrapper(object):
         pilots: list[int],
     ) -> None:
         """Creates a voyage"""
-        id = self.voyage_logic.create_voyage(
+        return self.voyage_utilities.create_voyage(
             plane_id,
             destination_id,
             date,
@@ -134,7 +134,6 @@ class LogicWrapper(object):
             return_departure_time,
             sold_seats,
         )
-        self.voyage_utilities.man_voyage(id, pilots, flight_attendants, plane_id)
 
     def get_all_voyages(self) -> list:
         """Returns a list of all current voyages"""
@@ -150,7 +149,7 @@ class LogicWrapper(object):
 
     def delete_voyage(self, id) -> None:
         """Erases voyage/ via ID"""
-        return self.voyage_logic.delete_voyage(id)
+        return self.voyage_utilities.delete_voyage(id)
 
     def validate_departure_time(
         self, departure_date: datetime.date, departure_time: datetime.time
@@ -258,12 +257,6 @@ class LogicWrapper(object):
         return self.utility.check_password(employee, given_password)
 
     # Voyage Utilities
-
-    def assign_pilot_to_voyage(self, voyage_id: int, pilot_id: int):
-        return self.voyage_utilities.assign_pilot_to_voyage(voyage_id, pilot_id)
-
-    def assign_plane_to_voyage(self, plane_id: int, voyage_id: int):
-        return self.voyage_utilities.assign_plane_to_voyage(plane_id, voyage_id)
 
     def staff_voyage_pilot(self, new_staff: int):
         return self.voyage_utilities.staff_voyage_pilot(new_staff)
