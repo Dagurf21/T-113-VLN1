@@ -1,7 +1,7 @@
 # import os
 import datetime
 from data.data_wrapper import DataWrapper
-from model import Flight
+from model import Flight, FlightStatus
 from logic import Validator
 from logic import DestinationLogic
 
@@ -118,6 +118,19 @@ class FlightLogic:
         
         return None
 
+    def get_flight_status(self, flight) -> Flight:
+        '''Update's status on flight'''
+
+        now = datetime.datetime.now()
+
+        match now:
+            case flight.date:
+                return FlightStatus.InUse
+            
+            case other:
+                return FlightStatus.Available
+
+        raise NotImplementedError
 
     def update_flight(self, flight_number: str, date: datetime.date, flight: Flight) -> None:
         """Updates flight through data_wrapper"""

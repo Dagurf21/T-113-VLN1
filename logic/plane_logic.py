@@ -38,6 +38,11 @@ class PlaneLogic:
             if plane.id == search_id:
                 return plane
         return None
+    
+    def log_voyage(self, voyage) -> None:
+        '''adds voyage to plane.voyage'''
+        self.data_wrapper.plane_data.add_voyage
+        
 
     def update_plane(self, plane) -> None:
         """Updates information of a plane with a specific ID"""
