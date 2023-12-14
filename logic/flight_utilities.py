@@ -6,16 +6,16 @@ class FlightUtilities:
         self.flight_logic = FlightLogic(data_connection)
         self.voyage_logic = VoyageLogic(data_connection)
 
-    def get_flight_status(self, flight) -> Flight:
+    def get_flight_status(self, flight) -> FlightStatus:
         '''Update's status on flight'''
 
         now = datetime.datetime.now()
 
-        match now:
-            case flight.date:
-                return FlightStatus.InUse
-            
-            case other:
-                return FlightStatus.Available
+        for voyage_id in flight.voyages:
+            voyage = self.voyage_logic.get_voyage(voyage_id)
 
-        raise NotImplementedError
+            if voyage.departure_date <= now.date() <= voyage.return_date:
+                if voyage.departure_time <= now.time() <= voyage.return_departure_time:
+                    return FlightStatus.InUse
+
+        return FlightStatus.Available
