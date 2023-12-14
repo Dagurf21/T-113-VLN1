@@ -171,12 +171,12 @@ class DestinationUI(UIElement):
                 )
 
                 match field_to_update:
-                    case 0: # Representative
+                    case "Representative": # Representative
                         destination.representative = self._prompt(
                             "Enter new representative",
                             opt_instruction="Leave empty to cancel"
                         )
-                    case 1: # Emergency Number
+                    case "Emergency Number": # Emergency Number
                         destination.emergency_number = self._prompt(
                             "Enter new emergency number",
                             opt_instruction="Leave empty to cancel"
