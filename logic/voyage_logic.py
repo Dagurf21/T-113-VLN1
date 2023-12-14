@@ -120,6 +120,10 @@ class VoyageLogic:
 
         return None
     
+    def staff_voyage(self,):
+        ''' '''
+        raise NotImplementedError
+
     def get_voyage_by_date(self, date) -> list[Voyage]:
         '''Filters out all voyages by given date'''
 
