@@ -8,7 +8,7 @@ class DestinationData:
         self.file_name = "files/destinations.csv"
 
     
-    def create_destination(self, destination) -> None:
+    def create_destination(self, destination) -> int:
         """Writes new destination to storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
             fieldnames = ["id", "country", "airport", "distance", "flight_time", "representative", "emergency_number"]
@@ -24,6 +24,8 @@ class DestinationData:
                              'flight_time': destination.flight_time, 
                              'representative': destination.representative, 
                              'emergency_number': destination.emergency_number})
+            
+            return id
 
 
     def get_new_id(self) -> int:

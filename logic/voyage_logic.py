@@ -1,5 +1,5 @@
 from model import Voyage, VoyageStatus
-from logic import Validator, FlightLogic
+from logic import Validator, FlightLogic, PlaneLogic
 import datetime
 
 
@@ -10,6 +10,7 @@ class VoyageLogic:
         self.data_wrapper = data_connection
         self.validate = Validator()
         self.flight_logic = FlightLogic(data_connection)
+        self.plane_logic = PlaneLogic(data_connection)
 
     def create_voyage(
         self,
@@ -33,7 +34,7 @@ class VoyageLogic:
             destination_id, 0, return_departure_date, return_departure_time
         )
 
-        self.data_wrapper.create_voyage(
+        new_voyage = self.data_wrapper.create_voyage(
             Voyage(
                 destination=destination_id,
                 sold_seats=sold_seats,
@@ -49,6 +50,10 @@ class VoyageLogic:
                 status=VoyageStatus.NotStarted,
             )
         )
+
+        plane = self.plane_logic.get_plane(plane_id)
+        plane.voyages.append(new_voyage)
+        self.plane_logic.update_plane(plane)
 
     def get_all_voyages(self) -> list:
         """Returns a list of all voyages"""

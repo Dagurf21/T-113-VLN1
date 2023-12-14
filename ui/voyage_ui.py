@@ -183,14 +183,15 @@ class VoyageUI(UIElement):
                 else:
                     manned = "Unmanned"
 
+                dest = self.logic_wrapper.get_destination(voyage.destination)
+
                 voyage_data.append(
                     [
                         voyage.id,
-                        voyage.departure_flight,
-                        voyage.return_flight,
-                        f"{voyage.sold_seats} / {plane.capacity}",
-                        voyage.departure_date,
-                        voyage.return_date,
+                        f"-> {dest.airport}",
+                        f"{voyage.sold_seats:<3} / {plane.capacity:<3}",
+                        f"{voyage.departure_date} @ {voyage.departure_time}",
+                        f"{voyage.return_date} @ {voyage.departure_time}",
                         manned,
                         voyage.status,
                     ]
@@ -199,11 +200,10 @@ class VoyageUI(UIElement):
             self._display_interactive_datalist(
                 {
                     "id": 3,
-                    "From": 6,
-                    "Dest": 6,
+                    "Dest": 8,
                     "Seats": 9,
-                    "Date": 10,
-                    "Return date": 11,
+                    "Date": 19,
+                    "Return date": 19,
                     "Manned": 8,
                     "Status": 15,
                 },

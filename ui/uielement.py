@@ -112,7 +112,7 @@ class UIElement:
 
         return elems
     
-    def _display_selection(self, options: [str], opt_instruction: str = None, header_title: str = "", include_back: bool = True, allow_cancel: bool = False, allow_back_shortcut: bool = True) -> str:
+    def _display_selection(self, options: [str], opt_instruction: str = None, header_title: str = "", include_back: bool = True, allow_cancel: bool = False, allow_back_shortcut: bool = True, back_title: str = "Back") -> str:
         """
         Displays an interactive menu to select one of the provided options.
 
@@ -122,10 +122,11 @@ class UIElement:
             - include_back: Adds an option to return that throws a UICancelException when pressed
             - allow_cancel: Allow the user to leave the option empty and throw a UICancelException
             - allow_back_shortcut: Allows the user to press 'q' to go back
+            - back_title: Specifies the name of the back option if include_back is true
         """
 
         if include_back:
-            options.append("Back")
+            options.append(back_title)
 
         while True:
             self._print_header(

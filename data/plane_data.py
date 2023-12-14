@@ -8,7 +8,7 @@ class PlaneData:
         self.file_name = "files/planes.csv"
     
 
-    def create_plane(self, plane) -> None:
+    def create_plane(self, plane) -> int:
         """Writes the new plane into the storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
             fieldnames = ["id", "name", "type", "manufacturer", "capacity", "voyages"]
@@ -25,6 +25,8 @@ class PlaneData:
                              'capacity': plane.capacity, 
                              'voyages': '.'.join(voyages)
                             })
+            
+            return id
 
 
     def get_new_id(self) -> int:
