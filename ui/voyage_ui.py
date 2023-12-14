@@ -802,6 +802,16 @@ class VoyageUI(UIElement):
         else:
             return None
 
+    def validate_voyage(self, inp):
+        err = self.validate_number(inp)
+        if err is not None:
+            return err
+
+        voyage = self.logic_wrapper.get_voyage(int(inp))
+        if voyage is not None:
+            return None
+
+        return f"Voyage with id '{inp}' doesn't exist"
 
     def parse_date(self, date):
         year, month, day = date.split('-')
