@@ -1,8 +1,8 @@
 ## Fimmtudagur 14. Desember - Dagur 14
 
 #### Verkefni Vikunar
- - [ ] Lista alla starfsmenn sem eru að vinna ákveðinn dag og til hvaða áfangastaðar þeir eru að fara.
- - [ ] Sýna total sæti og seld sæti á voyage í list voyage
+ - [x] Lista alla starfsmenn sem eru að vinna ákveðinn dag og til hvaða áfangastaðar þeir eru að fara.
+ - [x] Sýna total sæti og seld sæti á voyage í list voyage
  - [ ] Lista voyages á ákveðnum degi
  - [ ] Lista voyages á ákveðnari viku
  - [ ] Birta hvort voyages eru fullmannaðar eða ekki 
@@ -19,10 +19,12 @@
 
 #### Dagslok skýrsla (Hvað gerði hver og einn í dag) ?
 
-- Axel Snær: 
-- Dagur Freyr: 
+- Axel Snær: Bugfixes, fara yfir kröfur
+- Dagur Freyr: fara yfir kröfur, Bug fixes, Bæta validation
 - Elías Andri: 
-- Kristján Kári: 
+- Kristján Kári:  
 - Marteinn Logi: 
 
 #### TODO á morgun
+
+- [ ]
