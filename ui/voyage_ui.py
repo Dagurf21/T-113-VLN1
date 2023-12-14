@@ -22,6 +22,7 @@ class VoyageUI(UIElement):
                         "Cancel voyage",
                         "Duplicate voyage",
                         "Staff voyage",
+                        "Unstaff voyage",
                     ],
                     header_title="Voyages",
                 )
@@ -49,6 +50,9 @@ class VoyageUI(UIElement):
 
                 case "Staff voyage":
                     self.staff_voyage()
+
+                case "Unstaff voyage":
+                    self.unstaff_voyage()
 
     def create_voyage(self):
         try:
@@ -497,7 +501,7 @@ class VoyageUI(UIElement):
         while True:
             try:
                 voyage_id = self._prompt(
-                    "Enter Voygae ID",
+                    "Enter Voyage ID",
                     opt_instruction="Leave empty to cancel",
                     clear_screen=False,
                 )
@@ -505,7 +509,7 @@ class VoyageUI(UIElement):
             except UICancelException:
                 return
             except ValueError:
-                self._print_header("Cancel voyage", add_extra_newline=True)
+                self._print_header("Staff voyage", add_extra_newline=True)
                 self._print_centered("ID has to be a number", add_newline_after=True)
                 continue
 
@@ -523,7 +527,7 @@ class VoyageUI(UIElement):
                             header_title="Enter ID of pilot",
                             validator= lambda e: self.validate_pilot(e, voyage.plane),
                         ))
-                        voyage.pilots.append(pilot)
+                        voyage.pilots.append(int(pilot))
 
                         self.logic_wrapper.update_voyage(voyage)
 
@@ -537,12 +541,100 @@ class VoyageUI(UIElement):
                             header_title="Enter ID of flight attendant",
                             validator=self.validate_flight_attendant,
                         ))
-                        voyage.flight_attendants.append(attendant)
+                        voyage.flight_attendants.append(int(attendant))
 
                         self.logic_wrapper.update_voyage(voyage)
                         
                         assigned_attendant = self.logic_wrapper.get_employee(int(attendant))
                         assigned_attendant.assignments.append(voyage.id)
+                        self.logic_wrapper.update_employee(assigned_attendant)
+
+                return
+            except UICancelException:
+                return
+
+    def unstaff_voyage(self):
+        self._print_header(message="Unstaff Voyage", add_extra_newline=True)
+
+        while True:
+            try:
+                voyage_id = self._prompt(
+                    "Enter Voyage ID",
+                    opt_instruction="Leave empty to cancel",
+                    clear_screen=False,
+                )
+                voyage_id = int(voyage_id)
+            except UICancelException:
+                return
+            except ValueError:
+                self._print_header("Unstaff voyage", add_extra_newline=True)
+                self._print_centered("ID has to be a number", add_newline_after=True)
+                continue
+
+            try:
+                voyage = self.logic_wrapper.get_voyage(voyage_id)
+
+                pilots_or_attendants = self._display_selection(
+                    ["Pilots", "Flight attendant"], header_title="Staff voyage"
+                )
+
+                match pilots_or_attendants:
+                    case "Pilots":
+                        employee_data = []
+                        for pilot_id in voyage.pilots:
+                            pilot = self.logic_wrapper.get_employee(pilot_id)
+                            employee_data.append([
+                                pilot.id, pilot.name, pilot.license, pilot.email
+                            ])
+
+                        self._display_interactive_datalist(
+                            headers={ "id": 3, "name": 20, "license": 10, "email": 20 },
+                            data=employee_data,
+                            title="Currently assigned pilots",
+                            return_msg="continue",
+                        )
+
+                        pilot = self._prompt(
+                            prompt="Enter ID of pilot to unassign",
+                            header_title="Enter ID of pilot",
+                            opt_instruction="Leave empty to cancel",
+                            validator= lambda e: self.validate_pilot(e, voyage.plane),
+                        )
+                        voyage.pilots.remove(int(pilot))
+
+                        self.logic_wrapper.update_voyage(voyage)
+
+                        assigned_pilot = self.logic_wrapper.get_employee(int(pilot))
+                        assigned_pilot.assignments.remove(voyage.id)
+                        self.logic_wrapper.update_employee(assigned_pilot)
+
+                    case "Flight attendant":
+                        employee_data = []
+                        for attendant_id in voyage.flight_attendants:
+                            attendant = self.logic_wrapper.get_employee(attendant_id)
+                            employee_data.append([
+                                attendant.id, attendant.name, attendant.email
+                            ])
+
+                        self._display_interactive_datalist(
+                            headers={ "id": 3, "name": 20, "email": 20 },
+                            data=employee_data,
+                            title="Currently assigned flight attendants",
+                            return_msg="continue",
+                        )
+
+                        attendant = self._prompt(
+                            prompt="Enter ID of flight attendant to unassign",
+                            header_title="Enter ID of flight attendant",
+                            opt_instruction="Leave empty to cancel",
+                            validator=self.validate_flight_attendant,
+                        )
+                        voyage.flight_attendants.remove(int(attendant))
+
+                        self.logic_wrapper.update_voyage(voyage)
+                        
+                        assigned_attendant = self.logic_wrapper.get_employee(int(attendant))
+                        assigned_attendant.assignments.remove(voyage.id)
                         self.logic_wrapper.update_employee(assigned_attendant)
 
                 return

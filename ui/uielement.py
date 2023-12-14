@@ -162,7 +162,7 @@ class UIElement:
 
             return options[option]
 
-    def _display_interactive_datalist(self, headers: {str: int}, data: [[str]], title: str = "", rows_per_page: int = 10):
+    def _display_interactive_datalist(self, headers: {str: int}, data: [[str]], title: str = "", rows_per_page: int = 10, return_msg: str = "return"):
         """
         Displays an interactive table of data where the data is divided into pages
         and the user can flip between the pages
@@ -181,7 +181,7 @@ class UIElement:
 
             self._print_header(message=f"{title} [{current_page+1}/{page_count+1}]", add_extra_newline=True)
             self._print_datalist(headers, data[current_page * rows_per_page:current_page*rows_per_page+rows_per_page])
-            self._print_centered(f"{Fore.BLACK}q: return - n: next page - p: prev page{Style.RESET_ALL}", add_newline_after=True, add_newline_before=True)
+            self._print_centered(f"{Fore.BLACK}q: {return_msg} - n: next page - p: prev page{Style.RESET_ALL}", add_newline_after=True, add_newline_before=True)
 
             opt = self._getkey()
 
