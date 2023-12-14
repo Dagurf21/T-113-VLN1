@@ -1,4 +1,4 @@
-from ui import UIElement, EmployeeUI, PlaneUI, VoyageUI, DestinationUI, ProfileUI
+from ui import UIElement, EmployeeUI, PlaneUI, VoyageUI, DestinationUI, ProfileUI, UICancelException
 from model import Employee, Manager, FlightManager, FlightAttendant, Pilot
 from logic import LogicWrapper
 
@@ -23,13 +23,16 @@ class MainMenuUI(UIElement):
                 pass
 
             options.append("My Profile")
-            options.append("Log out")
 
-            option = self._display_selection(
-                options,
-                header_title=f"Welcome {self.user.name}!",
-                include_back=False,
-            )
+
+            try:
+                option = self._display_selection(
+                    options,
+                    header_title=f"Welcome {self.user.name}!",
+                    back_title="Log out",
+                )
+            except UICancelException:
+                return
 
             match option:
                 case "Employees":
@@ -52,6 +55,3 @@ class MainMenuUI(UIElement):
                     profile_ui = ProfileUI(self.user, self.logic_wrapper)
                     profile_ui.show()
                     
-                case "Log out":
-                    return
-

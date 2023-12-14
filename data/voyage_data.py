@@ -9,7 +9,7 @@ class VoyageData:
         self.file_name = "files/voyages.csv"
     
 
-    def create_voyage(self, voyage) -> None:
+    def create_voyage(self, voyage) -> int:
         """Writes new voyage into the storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
             fieldnames = ["id", "destination", "sold_seats", "plane", "pilots", "attendants", "departure_time", "departure_flight", "arrival_departure_time", "arrival_flight", "date", "return_date", "status"]
@@ -20,6 +20,8 @@ class VoyageData:
             pilots_csv_list = ".".join(str(id) for id in voyage.pilots)
             attendants_csv_list = ".".join(str(id) for id in voyage.flight_attendants)
             writer.writerow({'id': id, 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': pilots_csv_list, 'attendants': attendants_csv_list, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.return_departure_time, 'arrival_flight': voyage.return_flight, 'date': voyage.departure_date, 'return_date': voyage.return_date, 'status': voyage.status})
+            
+            return id
 
 
     def get_new_id(self) -> int:

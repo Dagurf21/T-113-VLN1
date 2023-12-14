@@ -20,9 +20,7 @@ class VoyageLogic:
         departure_time: datetime.time,
         return_departure_time: datetime.time,
         sold_seats: int,
-        flight_attendants: list[int],
-        pilots: list[int],
-    ) -> None:
+    ) -> int:
         """Takes in a voyage object and forwards it to the data layer"""
 
         departure_flight = self.flight_logic.create_flight(
@@ -33,13 +31,13 @@ class VoyageLogic:
             destination_id, 0, return_departure_date, return_departure_time
         )
 
-        self.data_wrapper.create_voyage(
+        return self.data_wrapper.create_voyage(
             Voyage(
                 destination=destination_id,
                 sold_seats=sold_seats,
                 plane=plane_id,
-                pilots=pilots,
-                flight_attendants=flight_attendants,
+                pilots=[],
+                flight_attendants=[],
                 departure_time=departure_time,
                 departure_flight=departure_flight,
                 return_departure_time=return_departure_time,
@@ -119,6 +117,27 @@ class VoyageLogic:
                 return voyage
 
         return None
+    
+    def staff_voyage(self,):
+        ''' '''
+        
+        raise NotImplementedError
+
+    def get_voyage_by_date(self, date) -> list[Voyage]:
+        '''Filters out all voyages by given date'''
+
+        all_voyages = self.get_all_voyages
+        voyage_on_date = []
+
+        for voyage in all_voyages:
+            
+            if voyage.date == date:
+                voyage_on_date.append(voyage)
+            
+            else:
+                pass
+
+        return voyage_on_date
 
     def update_voyage(self, voyage) -> None:
         """Updates a voyage object with the given id"""
@@ -152,6 +171,21 @@ class VoyageLogic:
             if (
                 date == voyage.departure_date
                 and departure_time == voyage.departure_time
+            ):
+                return False
+
+        return True
+    
+    def validate_return_departure_time(
+        self, date: datetime.date, departure_time: datetime.time
+    ) -> bool:
+        """Returns True if no other voyages are departing at the same date and time"""
+        all_voyages = self.get_all_voyages()
+
+        for voyage in all_voyages:
+            if (
+                date == voyage.return_date
+                and departure_time == voyage.return_departure_time
             ):
                 return False
 

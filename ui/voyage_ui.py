@@ -56,47 +56,47 @@ class VoyageUI(UIElement):
 
     def create_voyage(self):
         try:
-            plane = self._prompt(
-                "Enter plane ID",
-                header_title="Create voyage",
-                opt_instruction="Leave empty to cancel",
-                validator=self.validate_plane,
-            )
             destination = self._prompt(
                 "Enter destination ID of voyage",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
                 validator=self.validate_destination,
             )
-            date = self._prompt(
+            date = self.parse_date(self._prompt(
                 "Enter date of voyage (yyyy-mm-dd)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
                 validator=self.validate_date,
-            )
-            departure_time = self._prompt(
+            ))
+            departure_time = self.parse_time(self._prompt(
                 "Enter time of departure (hh:mm)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
-                validator=self.validate_time,
-            )
-            return_date = self._prompt(
+                validator=lambda e: self.validate_departure_time(date, False, e),
+            ))
+            return_date = self.parse_date(self._prompt(
                 "Enter Return date of voyage (yyyy-mm-dd)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
                 validator=self.validate_date,
-            )
-            return_departure_time = self._prompt(
+            ))
+            return_departure_time = self.parse_time(self._prompt(
                 "Enter departure time of arrival flight (hh:mm)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
-                validator=self.validate_time,
+                validator=lambda e: self.validate_departure_time(date, True, e),
+            ))
+            plane = self._prompt(
+                "Enter plane ID",
+                header_title="Create voyage",
+                opt_instruction="Leave empty to cancel",
+                validator=self.validate_plane,
             )
             sold_seats = self._prompt(
                 "Enter the amount of sold seats",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
-                validator=self.validate_number,
+                validator=lambda e: self.validate_seats_sold_by_plane(plane, e)
             )
             flight_attendants = self._prompt_list(
                 "Enter flight attendant ID",
@@ -106,16 +106,16 @@ class VoyageUI(UIElement):
             pilots = self._prompt_list(
                 "Enter lead pilot ID's",
                 header_title="Create voyage",
-                validator=self.validate_pilot,
+                validator=lambda e: self.validate_pilot(e, int(plane)),
             )
 
             self.logic_wrapper.create_voyage(
                 int(plane),
                 int(destination),
-                self.parse_date(date),
-                self.parse_date(return_date),
-                self.parse_time(departure_time),
-                self.parse_time(return_departure_time),
+                date,
+                return_date,
+                departure_time,
+                return_departure_time,
                 int(sold_seats),
                 list(map(int, flight_attendants)),
                 list(map(int, pilots)),
@@ -176,14 +176,23 @@ class VoyageUI(UIElement):
             for voyage in voyages:
                 plane = self.logic_wrapper.get_plane(voyage.plane)
 
+                if len(voyage.pilots) == 2 and len(voyage.flight_attendants) > 1:
+                    manned = "Full"
+                elif len(voyage.pilots) > 0 or len(voyage.flight_attendants) > 0:
+                    manned = "Partial"
+                else:
+                    manned = "Unmanned"
+
+                dest = self.logic_wrapper.get_destination(voyage.destination)
+
                 voyage_data.append(
                     [
                         voyage.id,
-                        voyage.departure_flight,
-                        voyage.return_flight,
-                        f"{voyage.sold_seats} / {plane.capacity}",
-                        voyage.departure_date,
-                        voyage.return_date,
+                        f"-> {dest.airport}",
+                        f"{voyage.sold_seats:<3} / {plane.capacity:<3}",
+                        f"{voyage.departure_date} @ {voyage.departure_time}",
+                        f"{voyage.return_date} @ {voyage.departure_time}",
+                        manned,
                         voyage.status,
                     ]
                 )
@@ -191,11 +200,11 @@ class VoyageUI(UIElement):
             self._display_interactive_datalist(
                 {
                     "id": 3,
-                    "From": 6,
-                    "Dest": 6,
+                    "Dest": 8,
                     "Seats": 9,
-                    "Date": 10,
-                    "Return date": 11,
+                    "Date": 19,
+                    "Return date": 19,
+                    "Manned": 8,
                     "Status": 15,
                 },
                 voyage_data,
@@ -295,7 +304,7 @@ class VoyageUI(UIElement):
                         voyage.sold_seats = int(self._prompt(
                             "Enter new amount of sold seats",
                             opt_instruction="Leave empty to cancel",
-                            validator=self.validate_number,
+                            validator=lambda e: self.validate_seats_sold(voyage, e),
                         ))
                 
                 self.logic_wrapper.update_voyage(voyage)
@@ -522,32 +531,20 @@ class VoyageUI(UIElement):
 
                 match pilots_or_attendants:
                     case "Pilots":
-                        pilot = (self._prompt(
+                        pilot = self._prompt(
                             prompt="Enter pilot ID",
                             header_title="Enter ID of pilot",
-                            validator= lambda e: self.validate_pilot(e, voyage.plane),
-                        ))
-                        voyage.pilots.append(int(pilot))
-
-                        self.logic_wrapper.update_voyage(voyage)
-
-                        assigned_pilot = self.logic_wrapper.get_employee(int(pilot))
-                        assigned_pilot.assignments.append(voyage.id)
-                        self.logic_wrapper.update_employee(assigned_pilot)
+                            validator= lambda e: self.validate_assign_pilot(voyage, e),
+                        )
+                        self.logic_wrapper.staff_voyage_pilot(voyage_id, int(pilot))
 
                     case "Flight attendant":
-                        attendant = (self._prompt(
+                        attendant = self._prompt(
                             prompt="Enter ID of flight attendant",
                             header_title="Enter ID of flight attendant",
-                            validator=self.validate_flight_attendant,
-                        ))
-                        voyage.flight_attendants.append(int(attendant))
-
-                        self.logic_wrapper.update_voyage(voyage)
-                        
-                        assigned_attendant = self.logic_wrapper.get_employee(int(attendant))
-                        assigned_attendant.assignments.append(voyage.id)
-                        self.logic_wrapper.update_employee(assigned_attendant)
+                            validator=lambda e: self.validate_assign_flight_attendant(voyage, e),
+                        )
+                        self.logic_wrapper.staff_voyage_attendant(voyage_id, int(attendant))
 
                 return
             except UICancelException:
@@ -598,15 +595,9 @@ class VoyageUI(UIElement):
                             prompt="Enter ID of pilot to unassign",
                             header_title="Enter ID of pilot",
                             opt_instruction="Leave empty to cancel",
-                            validator= lambda e: self.validate_pilot(e, voyage.plane),
+                            validator= lambda e: self.validate_unassign_pilot(voyage, e),
                         )
-                        voyage.pilots.remove(int(pilot))
-
-                        self.logic_wrapper.update_voyage(voyage)
-
-                        assigned_pilot = self.logic_wrapper.get_employee(int(pilot))
-                        assigned_pilot.assignments.remove(voyage.id)
-                        self.logic_wrapper.update_employee(assigned_pilot)
+                        self.logic_wrapper.unstaff_voyage_pilot(voyage_id, int(pilot))
 
                     case "Flight attendant":
                         employee_data = []
@@ -627,15 +618,9 @@ class VoyageUI(UIElement):
                             prompt="Enter ID of flight attendant to unassign",
                             header_title="Enter ID of flight attendant",
                             opt_instruction="Leave empty to cancel",
-                            validator=self.validate_flight_attendant,
+                            validator=lambda e: self.validate_unassign_flight_attendant(voyage, e),
                         )
-                        voyage.flight_attendants.remove(int(attendant))
-
-                        self.logic_wrapper.update_voyage(voyage)
-                        
-                        assigned_attendant = self.logic_wrapper.get_employee(int(attendant))
-                        assigned_attendant.assignments.remove(voyage.id)
-                        self.logic_wrapper.update_employee(assigned_attendant)
+                        self.logic_wrapper.unstaff_voyage_attendant(voyage_id, int(attendant))
 
                 return
             except UICancelException:
@@ -675,14 +660,23 @@ class VoyageUI(UIElement):
         except:
             return "Invalid date format"
 
-    def validate_time(self, inp):
+    def validate_departure_time(self, date: datetime.date, ret: bool, inp):
         if len(inp) != 5:
-            return "Invalid date format"
+            return "Invalid time format"
         
         try:
-            self.parse_time(inp)
+            time = self.parse_time(inp)
+
+            valid = None
+            if ret and not self.logic_wrapper.validate_return_departure_time(date, time):
+                return "Return departure time conflicts with another voyage"
+            elif not self.logic_wrapper.validate_departure_time(date, time):
+                return "Departure time conflicts with another voyage"
+
+            if valid:
+                return False
         except:
-            return "Invalid date format"
+            return "Invalid time format"
 
     def validate_flight_attendant(self, inp):
         try:
@@ -715,6 +709,106 @@ class VoyageUI(UIElement):
             return None
         except ValueError:
             return "Input must be a number"
+
+    def validate_assign_pilot(self, voyage: Voyage, pilot_id: str):
+        err = self.validate_pilot(pilot_id)
+        if err is not None:
+            return err
+        
+        if int(pilot_id) in voyage.pilots:
+            return "Pilot already assigned"
+        
+        pilot = self.logic_wrapper.get_employee(int(pilot_id))
+
+        if self.logic_wrapper.is_working(pilot_id, voyage.departure_date):
+            return "Pilot is already working on the departure date"
+            
+        if self.logic_wrapper.is_working(pilot_id, voyage.return_date):
+            return "Pilot is already working on the return date"
+
+        return None
+
+    def validate_assign_flight_attendant(self, voyage: Voyage, attendant_id: str):
+        err = self.validate_flight_attendant(attendant_id)
+        if err is not None:
+            return err
+        
+        if int(attendant_id) in voyage.flight_attendants:
+            return "Attendant already assigned"
+        
+        attendant = self.logic_wrapper.get_employee(int(attendant_id))
+
+        if self.logic_wrapper.is_working(attendant_id, voyage.departure_date):
+            return "Attendant is already working on the departure date"
+            
+        if self.logic_wrapper.is_working(attendant_id, voyage.return_date):
+            return "Attendant is already working on the return date"
+
+        return None
+
+    def validate_unassign_pilot(self, voyage: Voyage, pilot_id: str):
+        err = self.validate_pilot(pilot_id)
+        if err is not None:
+            return err
+        
+        if int(pilot_id) not in voyage.pilots:
+            return "Pilot not assigned"
+        
+        return None
+
+    def validate_unassign_flight_attendant(self, voyage: Voyage, attendant_id: str):
+        err = self.validate_flight_attendant(attendant_id)
+        if err is not None:
+            return err
+        
+        if int(attendant_id) not in voyage.flight_attendants:
+            return "Attendant not assigned"
+        
+        return None
+
+    def validate_seats_sold(self, voyage: Voyage, seats_sold: int):
+        err = self.validate_number(seats_sold)
+        if err is not None:
+            return err
+    
+        plane = self.logic_wrapper.get_plane(voyage.plane)
+        plane_capacity = int(plane.capacity)
+        seats_sold = int(seats_sold)
+
+        if seats_sold > plane_capacity:
+            return f"The planes maximum capacity is {plane.capacity}"
+        
+        else:
+            return None
+        
+    def validate_seats_sold_by_plane(self, plane_id: str, seats_sold:int):
+        err = self.validate_plane(plane_id)
+        if err is not None:
+            return err
+        
+        err = self.validate_number(seats_sold)
+        if err is not None:
+            return err
+
+        plane = self.logic_wrapper.get_plane(int(plane_id))
+        plane_capacity = plane.capacity
+        seats_sold = int(seats_sold)
+
+        if seats_sold > plane_capacity:
+            return f"The planes maximum capacity is {plane_capacity}"
+        else:
+            return None
+
+    def validate_voyage(self, inp):
+        err = self.validate_number(inp)
+        if err is not None:
+            return err
+
+        voyage = self.logic_wrapper.get_voyage(int(inp))
+        if voyage is not None:
+            return None
+
+        return f"Voyage with id '{inp}' doesn't exist"
 
     def parse_date(self, date):
         year, month, day = date.split('-')

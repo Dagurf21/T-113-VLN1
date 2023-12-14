@@ -23,6 +23,8 @@ class FlightData:
                              'departure_time': flight.departure_time, 
                              'arrival_time': flight.arrival_time})
 
+            return flight.flight_number
+
 
     def get_all_flights(self) -> list["Flight"]:
         """Returns a list of all flights"""

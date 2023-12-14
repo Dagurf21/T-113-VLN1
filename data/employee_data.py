@@ -79,7 +79,7 @@ class EmployeeData:
         return ret_list
 
 
-    def create_employee(self, employee) -> None:
+    def create_employee(self, employee) -> int:
         """Writes new employee into the storage file"""
         with open(self.file_name, 'a', encoding="utf-8") as csvfile:
             fieldnames = ["id", "name", "job_title", "license", "password", "address", "ssn", "mobile_phone", "email", "home_phone", "work_phone", "assignments"]
@@ -125,6 +125,8 @@ class EmployeeData:
                              'home_phone': employee.home_phone, 
                              'work_phone': work_phone, 
                              'assignments': assignments})
+            
+            return id
             
 
     def get_new_id(self) -> int:

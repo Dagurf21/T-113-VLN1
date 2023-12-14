@@ -4,7 +4,7 @@ from colorama import Fore, Style, ansi
 import cursor
 import getch
 
-UI_WIDTH = 81
+UI_WIDTH = 97
 
 class UICancelException(Exception):
     pass
@@ -112,7 +112,7 @@ class UIElement:
 
         return elems
     
-    def _display_selection(self, options: [str], opt_instruction: str = None, header_title: str = "", include_back: bool = True, allow_cancel: bool = False) -> str:
+    def _display_selection(self, options: [str], opt_instruction: str = None, header_title: str = "", include_back: bool = True, allow_cancel: bool = False, allow_back_shortcut: bool = True, back_title: str = "Back") -> str:
         """
         Displays an interactive menu to select one of the provided options.
 
@@ -121,10 +121,12 @@ class UIElement:
             - header_title: Specifies the title of the header used when clear_screen is enabled
             - include_back: Adds an option to return that throws a UICancelException when pressed
             - allow_cancel: Allow the user to leave the option empty and throw a UICancelException
+            - allow_back_shortcut: Allows the user to press 'q' to go back
+            - back_title: Specifies the name of the back option if include_back is true
         """
 
         if include_back:
-            options.append("Back")
+            options.append(back_title)
 
         while True:
             self._print_header(
@@ -137,6 +139,9 @@ class UIElement:
             )
 
             option = self._getkey()
+
+            if include_back and allow_back_shortcut and option == 'q':
+                raise UICancelException
 
             try:
                 option = int(option) - 1
@@ -287,9 +292,9 @@ class UIElement:
             self._clear_screen()
 
         print("""
-+-------------------------------------------------------------------------------+
-|                           NaN AIR Management system                           |
-+-------------------------------------------------------------------------------+""")
++-----------------------------------------------------------------------------------------------+
+|                                   NaN AIR Management system                                   |
++-----------------------------------------------------------------------------------------------+""")
 
         if isinstance(message, str):
             self._print_centered(message, color=Fore.LIGHTYELLOW_EX)

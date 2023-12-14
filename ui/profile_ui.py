@@ -64,6 +64,8 @@ class ProfileUI(UIElement):
             if next_week >= voyage.departure_date >= today or next_week >= voyage.return_date >= today:
                 voyages.append(voyage)
 
+        voyages.sort(key=lambda e: e.departure_date)
+
         voyage_data = []
         for voyage in voyages:
             voyage_data.append(
@@ -91,3 +93,4 @@ class ProfileUI(UIElement):
             voyage_data,
             title="Voyages",
         )
+

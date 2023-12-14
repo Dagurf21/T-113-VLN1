@@ -8,7 +8,7 @@ class PlaneData:
         self.file_name = "files/planes.csv"
     
 
-    def create_plane(self, plane) -> None:
+    def create_plane(self, plane) -> int:
         """Writes the new plane into the storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
             fieldnames = ["id", "name", "type", "manufacturer", "capacity", "voyages"]
@@ -25,6 +25,8 @@ class PlaneData:
                              'capacity': plane.capacity, 
                              'voyages': '.'.join(voyages)
                             })
+            
+            return id
 
 
     def get_new_id(self) -> int:
@@ -56,7 +58,7 @@ class PlaneData:
                         ty = row["type"], 
                         manufacturer = row["manufacturer"], 
                         capacity = int(row["capacity"]), 
-                        voyages = '.'.join(voyages)))
+                        voyages = voyages))
     
         return ret_list
 
@@ -69,9 +71,10 @@ class PlaneData:
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
             fieldnames = ["id", "name", "type", "manufacturer", "capacity", "voyages"]
            
-            reader = csv.DictReader(csvfile, fieldnames=fieldnames)
+            reader = csv.DictReader(csvfile)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
+            writer.writeheader()
             for row in reader:
                 # Writes the plane with the new data into the temp file
                 if int(row["id"]) == plane.id:

@@ -1,7 +1,7 @@
 # import os
 import datetime
 from data.data_wrapper import DataWrapper
-from model import Flight
+from model import Flight, FlightStatus
 from logic import Validator
 from logic import DestinationLogic
 
