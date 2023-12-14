@@ -5,7 +5,7 @@
  - [x] Sýna total sæti og seld sæti á voyage í list voyage
  - [x] Lista voyages á ákveðnum degi
  - [x] Lista voyages á ákveðnari viku
- - [ ] Birta hvort voyages eru fullmannaðar eða ekki 
+ - [x] Birta hvort voyages eru fullmannaðar eða ekki 
  - [ ] Bug fixes 
 
 
@@ -28,4 +28,7 @@
 
 - [ ] Kennslu mundband
 - [ ] Plane status
-- [ ] 
+- [ ] Uppfæra skýrslu
+- [ ] Bugfixes
+- [ ] Fara yfir kröfur
+- [ ] Skrá allar C kröfur
