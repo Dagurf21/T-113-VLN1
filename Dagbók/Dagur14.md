@@ -3,11 +3,10 @@
 #### Verkefni Vikunar
  - [x] Lista alla starfsmenn sem eru að vinna ákveðinn dag og til hvaða áfangastaðar þeir eru að fara.
  - [x] Sýna total sæti og seld sæti á voyage í list voyage
- - [ ] Lista voyages á ákveðnum degi
- - [ ] Lista voyages á ákveðnari viku
+ - [x] Lista voyages á ákveðnum degi
+ - [x] Lista voyages á ákveðnari viku
  - [ ] Birta hvort voyages eru fullmannaðar eða ekki 
- - [ ] Bug fixes
- - [ ] 
+ - [ ] Bug fixes 
 
 
 ### Verkefna skipting
@@ -27,4 +26,6 @@
 
 #### TODO á morgun
 
-- [ ]
+- [ ] Kennslu mundband
+- [ ] Plane status
+- [ ] 
