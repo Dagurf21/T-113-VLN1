@@ -176,6 +176,13 @@ class VoyageUI(UIElement):
             for voyage in voyages:
                 plane = self.logic_wrapper.get_plane(voyage.plane)
 
+                if len(voyage.pilots) == 2 and len(voyage.flight_attendants) > 1:
+                    manned = "Full"
+                elif len(voyage.pilots) > 0 or len(voyage.flight_attendants) > 0:
+                    manned = "Partial"
+                else:
+                    manned = "Unmanned"
+
                 voyage_data.append(
                     [
                         voyage.id,
@@ -184,6 +191,7 @@ class VoyageUI(UIElement):
                         f"{voyage.sold_seats} / {plane.capacity}",
                         voyage.departure_date,
                         voyage.return_date,
+                        manned,
                         voyage.status,
                     ]
                 )
@@ -196,6 +204,7 @@ class VoyageUI(UIElement):
                     "Seats": 9,
                     "Date": 10,
                     "Return date": 11,
+                    "Manned": 8,
                     "Status": 15,
                 },
                 voyage_data,
