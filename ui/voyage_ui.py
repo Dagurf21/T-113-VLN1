@@ -734,7 +734,13 @@ class VoyageUI(UIElement):
             return "Pilot already assigned"
         
         pilot = self.logic_wrapper.get_employee(int(pilot_id))
-        # TODO: check if working
+
+        if self.logic_wrapper.is_working(pilot_id, voyage.departure_date):
+            return "Pilot is already working on the departure date"
+            
+        if self.logic_wrapper.is_working(pilot_id, voyage.return_date):
+            return "Pilot is already working on the return date"
+
         return None
 
     def validate_assign_flight_attendant(self, voyage: Voyage, attendant_id: str):
@@ -746,7 +752,13 @@ class VoyageUI(UIElement):
             return "Attendant already assigned"
         
         attendant = self.logic_wrapper.get_employee(int(attendant_id))
-        # TODO: check if working
+
+        if self.logic_wrapper.is_working(attendant_id, voyage.departure_date):
+            return "Attendant is already working on the departure date"
+            
+        if self.logic_wrapper.is_working(attendant_id, voyage.return_date):
+            return "Attendant is already working on the return date"
+
         return None
 
     def validate_unassign_pilot(self, voyage: Voyage, pilot_id: str):
