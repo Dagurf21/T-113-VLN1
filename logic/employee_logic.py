@@ -201,6 +201,19 @@ class EmployeeLogic:
             and is_phone_valid
         )
 
+    def is_working(self, employee_id, date) -> bool:
+        '''Checks if employee is working on a given date'''
+
+        status = 
+
+        employee = self.get_employee(employee_id)
+        activeflights = VoyageLogic.get_voyage_by_date(date)
+
+
+        
+
+
+        return 
     
     def check_job_position(self, employee_id, job_title) -> bool:
         """Validates if the employee is the job title"""
