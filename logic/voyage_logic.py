@@ -1,5 +1,5 @@
 from model import Voyage, VoyageStatus
-from logic import Validator, FlightLogic, PlaneLogic
+from logic import Validator, FlightLogic
 import datetime
 
 
@@ -10,7 +10,6 @@ class VoyageLogic:
         self.data_wrapper = data_connection
         self.validate = Validator()
         self.flight_logic = FlightLogic(data_connection)
-        self.plane_logic = PlaneLogic(data_connection)
 
     def create_voyage(
         self,
@@ -23,7 +22,7 @@ class VoyageLogic:
         sold_seats: int,
         flight_attendants: list[int],
         pilots: list[int],
-    ) -> None:
+    ) -> int:
         """Takes in a voyage object and forwards it to the data layer"""
 
         departure_flight = self.flight_logic.create_flight(
@@ -34,7 +33,7 @@ class VoyageLogic:
             destination_id, 0, return_departure_date, return_departure_time
         )
 
-        new_voyage = self.data_wrapper.create_voyage(
+        return self.data_wrapper.create_voyage(
             Voyage(
                 destination=destination_id,
                 sold_seats=sold_seats,
@@ -50,10 +49,6 @@ class VoyageLogic:
                 status=VoyageStatus.NotStarted,
             )
         )
-
-        plane = self.plane_logic.get_plane(plane_id)
-        plane.voyages.append(new_voyage)
-        self.plane_logic.update_plane(plane)
 
     def get_all_voyages(self) -> list:
         """Returns a list of all voyages"""
@@ -155,6 +150,7 @@ class VoyageLogic:
         voyage_to_update.sold_seats = voyage.sold_seats
         voyage_to_update.pilots = voyage.pilots
         voyage_to_update.flight_attendants = voyage.flight_attendants
+        voyage_to_update.plane = voyage.plane
 
         return self.data_wrapper.update_voyage(voyage_to_update)
 
