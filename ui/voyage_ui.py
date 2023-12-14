@@ -686,13 +686,13 @@ class VoyageUI(UIElement):
 
     def validate_departure_time(self, date: datetime.date, inp):
         if len(inp) != 5:
-            return "Invalid date format"
+            return "Invalid time format"
         
         try:
             time = self.parse_time(inp)
             # TODO: Validate time
         except:
-            return "Invalid date format"
+            return "Invalid time format"
 
     def validate_flight_attendant(self, inp):
         try:
