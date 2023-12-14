@@ -43,7 +43,7 @@ class Validator:
     def flight_time(self, time: int) -> bool:
         """Returns true if time in minutes is not under zero"""
         try:
-            return time >= 0
+            return int(time) >= 0
 
         except ValueError:
             return False
@@ -158,6 +158,7 @@ class Validator:
             voyage.flight_attendants, "FlightAttendants"
         )
         return are_pilots_valid and are_flight_attendants_valid
+
 
 class Utilities:
     """A class which contains
