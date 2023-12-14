@@ -56,12 +56,6 @@ class VoyageUI(UIElement):
 
     def create_voyage(self):
         try:
-            plane = self._prompt(
-                "Enter plane ID",
-                header_title="Create voyage",
-                opt_instruction="Leave empty to cancel",
-                validator=self.validate_plane,
-            )
             destination = self._prompt(
                 "Enter destination ID of voyage",
                 header_title="Create voyage",
@@ -91,6 +85,12 @@ class VoyageUI(UIElement):
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
                 validator=self.validate_time,
+            )
+            plane = self._prompt(
+                "Enter plane ID",
+                header_title="Create voyage",
+                opt_instruction="Leave empty to cancel",
+                validator=self.validate_plane,
             )
             sold_seats = self._prompt(
                 "Enter the amount of sold seats",
