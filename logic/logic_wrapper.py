@@ -133,6 +133,14 @@ class LogicWrapper(object):
             pilots,
         )
 
+    def same_day_validation_departure(self, date, voyages):
+        '''Validates same day validation'''
+        return self.logic_utilities.same_day_validation_departure(date, voyages)
+
+    def same_day_validation_return(self, date, voyages):
+        '''Validates same day validation'''
+        return self.logic_utilities.same_day_validation_return(date, voyages)
+
     def get_all_voyages(self) -> list:
         """Returns a list of all current voyages"""
         return self.voyage_logic.get_all_voyages()
