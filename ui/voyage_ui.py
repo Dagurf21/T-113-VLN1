@@ -220,16 +220,10 @@ class VoyageUI(UIElement):
                     "Enter voyage id",
                     opt_instruction="Leave empty to cancel",
                     clear_screen=False,
+                    validator=self.validate_voyage,
                 )
             except UICancelException:
                 return
-
-            try:
-                voyage_id = int(voyage_id)
-            except ValueError:
-                self._print_header("List voyage", add_extra_newline=True)
-                self._print_centered("ID has to be a number", add_newline_after=True)
-                continue
 
             voyage = self.logic_wrapper.get_voyage(voyage_id)
 
