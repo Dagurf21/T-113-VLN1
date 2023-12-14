@@ -21,9 +21,9 @@
 
 - Axel Snær: Bugfixes, fara yfir kröfur
 - Dagur Freyr: fara yfir kröfur, Bug fixes, Bæta validation
-- Elías Andri: 
-- Kristján Kári:  
-- Marteinn Logi: 
+- Elías Andri: Bug fixes, on ground research
+- Kristján Kári: Bug fixes, Validation, fara yfir skýrslu
+- Marteinn Logi: Kennslu myndband, Profunar spurningar, viðtöl
 
 #### TODO á morgun
 
