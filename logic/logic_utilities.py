@@ -163,6 +163,29 @@ class Validator:
         )
         return are_pilots_valid and are_flight_attendants_valid
 
+    def same_day_validation_departure(self, date, voyages):
+        '''Checks given time if there are any other flights departing'''
+
+        status = False
+
+        for voyage in voyages:
+
+            if voyage.departure_date == date:
+                status = True
+
+        return status
+
+    def same_day_validation_return(self, date, voyages):
+        '''Checks given time if there are any other flights departing'''
+
+        status = False
+
+        for voyage in voyages:
+
+            if voyage.return_date == date:
+                status = True
+
+        return status
 
 class Utilities:
     """A class which contains
