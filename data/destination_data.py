@@ -68,7 +68,7 @@ class DestinationData:
         tempfile = NamedTemporaryFile(mode='w', delete=False)
 
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
-            fieldnames = ["id", "country", "airport", "flight_time", "distance", "representative", "emergency_number"]
+            fieldnames = ["id", "country", "airport", "distance", "flight_time", "representative", "emergency_number"]
             
             reader = csv.DictReader(csvfile)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
