@@ -119,6 +119,22 @@ class VoyageLogic:
                 return voyage
 
         return None
+    
+    def get_voyage_by_date(self, date) -> list[Voyage]:
+        '''Filters out all voyages by given date'''
+
+        all_voyages = self.get_all_voyages
+        voyage_on_date = []
+
+        for voyage in all_voyages:
+            
+            if voyage.date == date:
+                voyage_on_date.append(voyage)
+            
+            else:
+                pass
+
+        return voyage_on_date
 
     def update_voyage(self, voyage) -> None:
         """Updates a voyage object with the given id"""
