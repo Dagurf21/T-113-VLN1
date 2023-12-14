@@ -61,6 +61,10 @@ class LogicWrapper(object):
     def get_employee_by_workday(self, date) -> list[Employee]:
         """Retrieves a list of employees that are working on a specific date"""
         return self.employee_logic.get_employee_by_workday(date)
+    
+    def is_working(self,employee_id, date) -> bool:
+        '''Checks and returns if employee is working on given date'''
+        return self.voyage_logic.is_working(employee_id, date)
 
     def get_employee_by_not_workday(self, date) -> list[Employee]:
         """Retrieves a list of employees that are working on a specific date"""
