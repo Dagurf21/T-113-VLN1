@@ -1,4 +1,4 @@
-from ui import UIElement, EmployeeUI, PlaneUI, VoyageUI, DestinationUI
+from ui import UIElement, EmployeeUI, PlaneUI, VoyageUI, DestinationUI, ProfileUI
 from model import Employee, Manager, FlightManager, FlightAttendant, Pilot
 from logic import LogicWrapper
 
@@ -49,7 +49,8 @@ class MainMenuUI(UIElement):
                     destination_ui.show()
 
                 case "My Profile":
-                    pass
+                    profile_ui = ProfileUI(self.user, self.logic_wrapper)
+                    profile_ui.show()
                     
                 case "Log out":
                     return

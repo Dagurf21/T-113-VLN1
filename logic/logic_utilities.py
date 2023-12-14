@@ -48,7 +48,6 @@ class Validator:
         except ValueError:
             return False
 
-
     # Employee validation
     def ssn(self, ssn) -> bool:
         """Take in a social security number
@@ -96,7 +95,6 @@ class Validator:
         #  [^@]+    Anything but @ symbol
         return re.match("[^@]+@[^@]+\.[^@]+", email)
 
-
     # Pilot and flight attendant validations
     def license(self, data_wrapper, planelicense) -> bool:
         """Verifies if the plane license is valid by getting the list of planes"""
@@ -105,20 +103,15 @@ class Validator:
                 return True
         return False
 
-
-    def pilot_has_license(self, pilot, plane):
-        return pilot.license == plane.type
-
-
     def assignments(self, assignments) -> bool:
         """Validates the assignments
         for example, if the same assignment comes up twice"""
         cleaned_assignments = []
-        
+
         for assignment in assignments:
             if assignment not in cleaned_assignments:
                 cleaned_assignments.append(assignment)
-        
+
         assignments.sort()
         cleaned_assignments.sort()
 
@@ -137,7 +130,6 @@ class Validator:
         available_seats = plane_seats - voyage.sold_seats
         return 1 > available_seats
 
-
     def flight_times(self, voyage) -> bool:
         """Compares the times and check
         if they do not cause conflicts"""
@@ -149,12 +141,9 @@ class Validator:
         ]
         return all(map(self.flight_time, flight_times))
 
-
-    def status(self, status) -> bool:
-        """Validates the status, returns either
-        valid(True) or invalid(False)"""
-        return False
-
+    def status(self, voyage) -> bool:
+        """Validates the status, returns a validated version of the voyage"""
+        # TODO AXEL PLEASE GOD HELP US
 
     def pilot_validator(self, data):
         """Validates that there aren't to many pilots"""
@@ -195,3 +184,10 @@ class Utilities:
             return result
         except ValueError:
             return None
+
+    def get_by_id(self, list_of_classes, search_id):
+        """Parses through a list til the class with the correct id is found"""
+        for class_obj in list_of_classes:
+            if class_obj.id == search_id:
+                return class_obj
+        return None

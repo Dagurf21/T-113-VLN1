@@ -91,22 +91,76 @@ class EmployeeUI(UIElement):
 
     def list_all_pilots(self):
         employees = self.logic_wrapper.get_employees_by_job("Pilot")
-        employee_data = []
 
-        for employee in employees:
-            employee_data.append([
-                employee.id,
-                employee.name,
-                employee.address,
-                employee.mobile_phone,
-                employee.email
-            ])
+        while True:
+            try:
+                option = self._display_selection(
+                    [
+                        "All",
+                        "With License",
+                    ],
+                    header_title="List Pilots [Filter]",
+                    include_back=True
+                )
+            except UICancelException:
+                return
+            
+            match option:
+                case "With License":
+                    try:
+                        license = self._prompt(
+                            "License",
+                            opt_instruction="Leave empty to cancel",
+                            header_title="List Pilots [Filter License]",
+                        )
+                    except UICancelException:
+                        continue
 
-        self._display_interactive_datalist(
-            { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, 
-            employee_data,
-            title="Employees",
-        )
+                    employees = [employee for employee in employees if employee.license == license]
+                case "Back":
+                    return
+
+            while True:
+                try:
+                    option = self._display_selection(
+                        [
+                            "ID",
+                            "Name",
+                            "License",
+                        ],
+                        header_title="List Pilots [Sort]",
+                        include_back=True
+                    )
+                except UICancelException:
+                    return
+
+                match option:
+                    case "ID":
+                        employees.sort(key=lambda e: e.id)
+                    case "Name":
+                        employees.sort(key=lambda e: e.name)
+                    case "License":
+                        employees.sort(key=lambda e: e.license)
+                    case "Back":
+                        break
+
+                employee_data = []
+
+                for employee in employees:
+                    employee_data.append([
+                        employee.id,
+                        employee.name,
+                        employee.address,
+                        employee.mobile_phone,
+                        employee.license,
+                        employee.email
+                    ])
+
+                self._display_interactive_datalist(
+                    { "id": 3, "name": 8, "addr.": 10, "phone": 8, "license": 8, "email": 25 }, 
+                    employee_data,
+                    title="Employees",
+                )
 
     def list_all_flight_attendants(self):
         employees = self.logic_wrapper.get_employees_by_job("FlightAttendant")

@@ -1,3 +1,10 @@
-id,name,type,manufacturer,capacity,flights
-0,TF-chuck,C750,Cessna,5,[]
-1,porsche,macan,porsche,4,[]
+id,name,type,manufacturer,capacity,voyages
+0,TF-chuck,C750,Cessna,5,
+1,porsche,macan,porsche,4,
+2,AeroSwift,AS550,AeroSwift Aviation,550,
+3,SkyJet,SJ900,SkyJet Industries,880,
+4,XYZ-air,Z200,XYZ Aircraft,660,
+5,VelocityAir,V500,Velocity Aircraft,440,
+6,HorizonFlyer,HF2000,Horizon Aviation,330,
+7,TurboWing,TW700,TurboWing Aircraft,550,
+8,SkyMaster ,SM800,SkyMaster Industries,770,

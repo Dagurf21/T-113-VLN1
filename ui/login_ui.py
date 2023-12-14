@@ -1,8 +1,7 @@
 from logic import LogicWrapper
-from ui import UIElement, getkey
+from ui import UIElement
 from ui import MainMenuUI
 from colorama import Fore, Style
-import cursor
 
 class LoginUI(UIElement):
     def __init__(self, logic_wrapper: LogicWrapper):
@@ -13,10 +12,9 @@ class LoginUI(UIElement):
             self._print_header()
             self._print_plane()
 
-            with cursor.HiddenCursor():
-                command = getkey()
+            command = self._getkey()
 
-            match command.lower():
+            match command:
                 case "q": # Exit the application
                     break
 
@@ -29,7 +27,7 @@ class LoginUI(UIElement):
     def login(self):
         email = self._prompt("Input email", validator=self._validate_email, enable_cancel=False)
         employee = self.logic_wrapper.get_employee_by_email(email)
-        password = self._prompt("Input password", header_title=f"Log in as {employee.email}", enable_cancel=False, validator=lambda e: self._validate_password(employee, e))
+        self._prompt("Input password", header_title=f"Log in as {employee.email}", enable_cancel=False, validator=lambda e: self._validate_password(employee, e))
 
         main_menu = MainMenuUI(employee, self.logic_wrapper)
         main_menu.show()
@@ -55,18 +53,18 @@ class LoginUI(UIElement):
 
     def _print_plane(self):
         print(f"""\
-|             ______                                                  |
-|             _\ _~-\___                                              |
-|     =  = ==(_NaN AIR__D                                             |
-|                 \_____\___________________,-~~~~~~~`-.._            |
-|                 /     o O o o o o O O o o o o o o O o  |\_          |
-|                 `~-.__        ___..----..                  )        |
-|                       `---~~\___________/------------`````          |
-|                       =  ===(_________D                             |
-|                                                                     |
--------------------------------  NaN Air  -----------------------------
-|                                                                     |
-|                        [{Fore.GREEN}L{Style.RESET_ALL}]og in  -  [{Fore.RED}Q{Style.RESET_ALL}]uit                          |
-|                                                                     |
------------------------------------------------------------------------""")
+|                  ______                                                       |
+|                  _\ _~-\___                                                   |
+|          =  = ==(_NaN AIR__D                                                  |
+|                      \_____\___________________,-~~~~~~~`-.._                 |
+|                      /     o O o o o o O O o o o o o o O o  |\_               |
+|                      `~-.__        ___..----..                  )             |
+|                            `---~~\___________/------------`````               |
+|                            =  ===(_________D                                  |
+|                                                                               |
++-----------------------------------  NaN Air  ---------------------------------+
+|                                                                               |
+|                               [{Fore.GREEN}L{Style.RESET_ALL}]og in  -  [{Fore.RED}Q{Style.RESET_ALL}]uit                             |
+|                                                                               |
++-------------------------------------------------------------------------------+""")
 

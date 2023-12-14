@@ -17,8 +17,8 @@ class VoyageData:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             id = self.get_new_id()
-            pilots_csv_list = ".".join(voyage.pilots)
-            attendants_csv_list = ".".join(voyage.flight_attendants)
+            pilots_csv_list = ".".join(str(id) for id in voyage.pilots)
+            attendants_csv_list = ".".join(str(id) for id in voyage.flight_attendants)
             writer.writerow({'id': id, 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': pilots_csv_list, 'attendants': attendants_csv_list, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.return_departure_time, 'arrival_flight': voyage.return_flight, 'date': voyage.departure_date, 'return_date': voyage.return_date, 'status': voyage.status})
 
 
@@ -48,8 +48,8 @@ class VoyageData:
                 dep_hour, dep_minute = self.split_time(row["departure_time"])
                 ret_hour, ret_minute = self.split_time(row["arrival_departure_time"])
 
-                pilots_list = [pilot for pilot in row["pilots"].split(".") if pilot != ""]
-                attendants_list = [attendant for attendant in row["attendants"].split(".") if attendant != ""]
+                pilots_list = [int(pilot) for pilot in row["pilots"].split(".") if pilot != ""]
+                attendants_list = [int(attendant) for attendant in row["attendants"].split(".") if attendant != ""]
 
                 ret_list.append(
                     Voyage(
@@ -103,8 +103,9 @@ class VoyageData:
             for row in reader:
                 # Writes the plane with the new data into the temp file
                 if int(row["id"]) == voyage.id:
-                    pilots_csv_list = ".".join(voyage.pilots)
-                    attendants_csv_list = ".".join(voyage.flight_attendants)
+                    pilots_csv_list = ".".join(str(id) for id in voyage.pilots)
+                    attendants_csv_list = ".".join(str(id) for id in voyage.flight_attendants)
+                    
                     row = {'id': row["id"], 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': pilots_csv_list, 'attendants': attendants_csv_list, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.return_departure_time, 'arrival_flight': voyage.return_flight, 'date': voyage.departure_date, 'return_date': voyage.return_date, 'status': voyage.status}
                 # Writes the other planes unchanged 
                 else:

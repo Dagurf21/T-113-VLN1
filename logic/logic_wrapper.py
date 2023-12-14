@@ -33,7 +33,7 @@ class LogicWrapper(object):
         self.flight_logic = FlightLogic(self.data_wrapper)
         self.destination_logic = DestinationLogic(self.data_wrapper)
         self.voyage_logic = VoyageLogic(self.data_wrapper)
-        self.plane_logic = PlaneLogic(self.data_wrapper, self.voyage_logic)
+        self.plane_logic = PlaneLogic(self.data_wrapper)
         self.validate = Validator()
         self.utility = Utilities()
 
@@ -145,6 +145,12 @@ class LogicWrapper(object):
         """Erases voyage/ via ID"""
         return self.voyage_logic.delete_voyage(id)
 
+    def validate_departure_time(
+        self, departure_date: datetime.date, departure_time: datetime.time
+    ) -> bool:
+        """Validates that two flights dont depart at the same time"""
+        return self.voyage_logic.validate_departure_time(departure_date, departure_time)
+
     # Destination class
     def create_destination(self, data) -> None:
         """Creates a new destination"""
@@ -210,8 +216,8 @@ class LogicWrapper(object):
     def validate_license(self, license_data):
         return self.validate.license(self.data_wrapper, license_data)
 
-    def pilot_has_license(self, pilot, plane):
-        return self.validate.pilot_has_license(pilot, plane)
+    def pilot_has_license(self, pilot_id, plane_id):
+        return self.employee_logic.pilot_has_license(pilot_id, plane_id)
 
     ### Pilot & Flight Attendant Validation
     def validate_assignments(self, assignments_data):
@@ -229,6 +235,9 @@ class LogicWrapper(object):
 
     def validate_voyage_staff(self, voyage):
         return self.validate.voyage_staff(voyage)
+
+    def validate_status(self, voyage):
+        return self.voyage_logic.validate_status(voyage)
 
     ### Utilities
     # Password Utility
