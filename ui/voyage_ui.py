@@ -541,7 +541,7 @@ class VoyageUI(UIElement):
 
                         self.logic_wrapper.update_voyage(voyage)
                         
-                        assigned_attendant = self.logic_wrapper.get_employee(pilot)
+                        assigned_attendant = self.logic_wrapper.get_employee(int(attendant))
                         assigned_attendant.assignments.append(voyage.id)
                         self.logic_wrapper.update_employee(assigned_attendant)
 
