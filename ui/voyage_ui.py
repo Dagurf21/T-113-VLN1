@@ -358,17 +358,21 @@ class VoyageUI(UIElement):
     def duplicate_voyage(self):
         self._print_header(message="Duplicate Voyage")
         self._print_header(message="Duplicate Voyage", add_extra_newline=True)
+        
         while True:
+            try:
+                duplicate_voyage_options = [
+                    "Duplicate voyage once, only new dates",
+                    "Recurring voyage"
+                ]
 
-            duplicate_voyage_options = [
-                "Duplicate voyage once, only new dates",
-                "Recurring voyage"
-            ]
-
-            duplicate_options = self._display_selection(
-                duplicate_voyage_options, header_title="Duplicate Voyages"
-            )
-
+                duplicate_options = self._display_selection(
+                    duplicate_voyage_options, 
+                    header_title="Duplicate Voyages"
+                )
+            except UICancelException:
+                return
+            
             match duplicate_options:
                 case "Duplicate voyage once, only new dates":
                     self._print_header(message="Duplicate voyage, new dates", add_extra_newline=True)
