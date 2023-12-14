@@ -525,7 +525,7 @@ class VoyageUI(UIElement):
                         pilot = (self._prompt(
                             prompt="Enter pilot ID",
                             header_title="Enter ID of pilot",
-                            validator= lambda e: self.validate_pilot(e, voyage.plane),
+                            validator= lambda e: self.validate_assign_pilot(voyage, e),
                         ))
                         voyage.pilots.append(int(pilot))
 
@@ -539,7 +539,7 @@ class VoyageUI(UIElement):
                         attendant = (self._prompt(
                             prompt="Enter ID of flight attendant",
                             header_title="Enter ID of flight attendant",
-                            validator=self.validate_flight_attendant,
+                            validator=lambda e: self.validate_assign_flight_attendant(voyage, e),
                         ))
                         voyage.flight_attendants.append(int(attendant))
 
@@ -598,7 +598,7 @@ class VoyageUI(UIElement):
                             prompt="Enter ID of pilot to unassign",
                             header_title="Enter ID of pilot",
                             opt_instruction="Leave empty to cancel",
-                            validator= lambda e: self.validate_pilot(e, voyage.plane),
+                            validator= lambda e: self.validate_unassign_pilot(voyage, e),
                         )
                         voyage.pilots.remove(int(pilot))
 
@@ -627,7 +627,7 @@ class VoyageUI(UIElement):
                             prompt="Enter ID of flight attendant to unassign",
                             header_title="Enter ID of flight attendant",
                             opt_instruction="Leave empty to cancel",
-                            validator=self.validate_flight_attendant,
+                            validator=lambda e: self.validate_unassign_flight_attendant(voyage, e),
                         )
                         voyage.flight_attendants.remove(int(attendant))
 
@@ -715,6 +715,50 @@ class VoyageUI(UIElement):
             return None
         except ValueError:
             return "Input must be a number"
+
+    def validate_assign_pilot(self, voyage: Voyage, pilot_id: str):
+        err = self.validate_pilot(pilot_id)
+        if err is not None:
+            return err
+        
+        if int(pilot_id) in voyage.pilots:
+            return "Pilot already assigned"
+        
+        pilot = self.logic_wrapper.get_employee(int(pilot_id))
+        # TODO: check if working
+        return None
+
+    def validate_assign_flight_attendant(self, voyage: Voyage, attendant_id: str):
+        err = self.validate_flight_attendant(attendant_id)
+        if err is not None:
+            return err
+        
+        if int(attendant_id) in voyage.flight_attendants:
+            return "Attendant already assigned"
+        
+        attendant = self.logic_wrapper.get_employee(int(attendant_id))
+        # TODO: check if working
+        return None
+
+    def validate_unassign_pilot(self, voyage: Voyage, pilot_id: str):
+        err = self.validate_pilot(pilot_id)
+        if err is not None:
+            return err
+        
+        if int(pilot_id) not in voyage.pilots:
+            return "Pilot not assigned"
+        
+        return None
+
+    def validate_unassign_flight_attendant(self, voyage: Voyage, attendant_id: str):
+        err = self.validate_flight_attendant(attendant_id)
+        if err is not None:
+            return err
+        
+        if int(attendant_id) not in voyage.flight_attendants:
+            return "Attendant not assigned"
+        
+        return None
 
     def parse_date(self, date):
         year, month, day = date.split('-')
