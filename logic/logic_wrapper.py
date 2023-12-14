@@ -7,6 +7,7 @@ from logic import (
     DestinationLogic,
     FlightLogic,
     EmployeeLogic,
+    FlightUtilities,
 )
 from model import (
     Destination,
@@ -34,6 +35,7 @@ class LogicWrapper(object):
         self.destination_logic = DestinationLogic(self.data_wrapper)
         self.voyage_logic = VoyageLogic(self.data_wrapper)
         self.plane_logic = PlaneLogic(self.data_wrapper)
+        self.flight_utilities = FlightUtilities(self.data_wrapper)
         self.validate = Validator()
         self.utility = Utilities()
 
