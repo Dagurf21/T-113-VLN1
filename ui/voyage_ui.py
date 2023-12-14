@@ -72,7 +72,7 @@ class VoyageUI(UIElement):
                 "Enter time of departure (hh:mm)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
-                validator=lambda e: self.validate_departure_time(date, e),
+                validator=lambda e: self.validate_departure_time(date, False, e),
             ))
             return_date = self.parse_date(self._prompt(
                 "Enter Return date of voyage (yyyy-mm-dd)",
@@ -84,7 +84,7 @@ class VoyageUI(UIElement):
                 "Enter departure time of arrival flight (hh:mm)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
-                validator=lambda e: self.validate_departure_time(date, e),
+                validator=lambda e: self.validate_departure_time(date, True, e),
             ))
             plane = self._prompt(
                 "Enter plane ID",
@@ -684,13 +684,21 @@ class VoyageUI(UIElement):
         except:
             return "Invalid date format"
 
-    def validate_departure_time(self, date: datetime.date, inp):
+    def validate_departure_time(self, date: datetime.date, ret: bool, inp):
         if len(inp) != 5:
             return "Invalid time format"
         
         try:
             time = self.parse_time(inp)
-            # TODO: Validate time
+
+            valid = None
+            if ret and self.logic_wrapper.validate_return_departure_time(date, time):
+                return "Return departure time conflicts with another voyage"
+            elif self.logic_wrapper.validate_departure_time(date, time):
+                return "Departure time conflicts with another voyage"
+
+            if valid:
+                return False
         except:
             return "Invalid time format"
 
