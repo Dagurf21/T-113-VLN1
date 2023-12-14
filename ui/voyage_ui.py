@@ -123,9 +123,9 @@ class VoyageUI(UIElement):
             return
 
     def list_voyages(self):
-        voyages: list[Voyage] = self.logic_wrapper.get_all_voyages()
-
         while True:
+            voyages: list[Voyage] = self.logic_wrapper.get_all_voyages()
+            voyages.sort(key=lambda e: e.departure_date)
             try:
                 option = self._display_selection(
                     [
