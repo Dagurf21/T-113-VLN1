@@ -15,6 +15,7 @@ class EmployeeUI(UIElement):
                     [
                         "List employees",
                         "List employee",
+                        "List employee assignments in week",
                         "Register employee",
                         "Update employee",
                         "Remove employee",
@@ -31,6 +32,9 @@ class EmployeeUI(UIElement):
 
                 case "List employee":
                     self.display_employee()
+
+                case "List employee assignments in week":
+                    self.list_assigned_voyages_in_week()
 
                 case "Register employee":
                     self.register_employee()
@@ -520,6 +524,70 @@ class EmployeeUI(UIElement):
             except UICancelException:
                 return
 
+    def list_assigned_voyages_in_week(self):
+        while True:
+            try:
+                employee_id = self._prompt(
+                    "Employee id",
+                    header_title="List assigned voyages in week",
+                    opt_instruction="Leave empty to cancel",
+                    validator=self.validate_employee,
+                )
+                employee = self.logic_wrapper.get_employee(int(employee_id))
+            except UICancelException:
+                return
+
+            try:
+                starting_day = self._prompt(
+                    "Pick first day of week (yyyy-mm-dd)",
+                    header_title="",
+                    opt_instruction="Leave empty to cancel",
+                    validator=self.validate_date,
+                )
+                starting_day = self.parse_date(starting_day)
+            except UICancelException:
+                continue
+
+            next_week = starting_day + datetime.timedelta(weeks=1)
+
+            voyages = []
+            if isinstance(employee, Pilot) or isinstance(employee, FlightAttendant):
+                for voyage_id in employee.assignments:
+                    voyage: Voyage = self.logic_wrapper.get_voyage(voyage_id)
+
+                    if next_week >= voyage.departure_date >= starting_day or next_week >= voyage.return_date >= starting_day:
+                        voyages.append(voyage)
+
+            voyages.sort(key=lambda e: e.departure_date)
+
+            voyage_data = []
+            for voyage in voyages:
+                voyage_data.append(
+                    [
+                        voyage.id,
+                        voyage.departure_flight,
+                        voyage.return_flight,
+                        voyage.sold_seats,
+                        voyage.departure_date,
+                        voyage.return_date,
+                        voyage.status,
+                    ]
+                )
+
+            self._display_interactive_datalist(
+                {
+                    "id": 3,
+                    "From": 6,
+                    "DEST": 6,
+                    "Seats": 5,
+                    "Date": 10,
+                    "Return date": 11,
+                    "Status": 15,
+                },
+                voyage_data,
+                title="Voyages",
+            )
+
     def _prompt_assignments(self, title):
         def format_voyage(elem):
             voyage: Voyage = self.logic_wrapper.get_voyage(elem)
@@ -578,6 +646,17 @@ class EmployeeUI(UIElement):
             self.parse_date(inp)
         except:
             return "Invalid date format"
+
+    def validate_employee(self, inp):
+        try:
+            employee_id = int(inp)
+            employee = self.logic_wrapper.get_employee(employee_id)
+            if employee is None:
+                return f"Employee with id '{employee_id}' doesn't exist"
+
+            return None
+        except ValueError:
+            return "Input must be number"
 
     def parse_date(self, date):
         year, month, day = date.split('-')
