@@ -106,7 +106,7 @@ class VoyageUI(UIElement):
             pilots = self._prompt_list(
                 "Enter lead pilot ID's",
                 header_title="Create voyage",
-                validator=self.validate_pilot,
+                validator=lambda e: self.validate_pilot(e, int(plane)),
             )
 
             self.logic_wrapper.create_voyage(
