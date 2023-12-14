@@ -212,10 +212,6 @@ class LogicWrapper(object):
         """"""
         return self.validate.phone_number(phone_nr_data)
 
-    def validate_date(self, date_data):
-        """w.i.p"""
-        return self.validate.date(date_data)
-
     ## Destination Validation
 
     ## Employee Validation

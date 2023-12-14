@@ -13,7 +13,7 @@ class PlaneLogic:
         self.data_wrapper = data_wrapper
         self.voyage_logic = VoyageLogic(data_wrapper)
 
-    def create_plane(self, plane) -> None:
+    def create_plane(self, plane: Plane) -> None:
         """Takes in plane data checks if ID is valid and forwards it to data layer"""
         if plane.capacity < 0:
             return
@@ -30,7 +30,7 @@ class PlaneLogic:
         """Gets list of all planes through data wrapper and forwards list of planes"""
         return self.data_wrapper.get_all_planes()
 
-    def get_plane(self, search_id) -> Plane:
+    def get_plane(self, search_id: int) -> Plane:
         """Gets info on a plane witha a specific ID and forwards data"""
         plane_list = self.get_all_planes()
 
@@ -39,7 +39,7 @@ class PlaneLogic:
                 return plane
         return None
 
-    def update_plane(self, plane) -> None:
+    def update_plane(self, plane: Plane) -> None:
         """Updates information of a plane with a specific ID"""
 
         plane_to_update = self.get_plane(plane.id)
@@ -61,6 +61,6 @@ class PlaneLogic:
 
         return self.data_wrapper.update_plane(plane_to_update)
 
-    def delete_plane(self, id) -> None:
+    def delete_plane(self, id: int) -> None:
         """Removes a plane with specific ID"""
         return self.data_wrapper.delete_plane(id)

@@ -1,22 +1,26 @@
-from logic import FlightLogic, VoyageLogic
-from model import Flight, PlaneStatus
+from logic import PlaneLogic, VoyageLogic
+from model import Plane, PlaneStatus
 import datetime
 
 class FlightUtilities:
     def __init__(self, data_connection):
-        self.flight_logic = FlightLogic(data_connection)
+        self.plane_logic = PlaneLogic(data_connection)
         self.voyage_logic = VoyageLogic(data_connection)
 
-    def get_plane_status(self, flight) -> PlaneStatus:
-        '''Update's status on flight'''
+    def get_plane_status(self, plane: Plane) -> PlaneStatus:
+        """Returns the status of the plane"""
 
         now = datetime.datetime.now()
 
-        for voyage_id in flight.voyages:
+        for voyage_id in plane.voyages:
             voyage = self.voyage_logic.get_voyage(voyage_id)
 
-            if voyage.departure_date <= now.date() <= voyage.return_date:
-                if voyage.departure_time <= now.time() <= voyage.return_departure_time:
-                    return PlaneStatus.InUse
+            if not (voyage.departure_date <= now.date() <= voyage.return_date):
+                continue
+
+            if not (voyage.departure_time <= now.time() <= voyage.return_departure_time):
+                continue
+
+            return PlaneStatus.InUse
 
         return PlaneStatus.Available

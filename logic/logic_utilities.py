@@ -2,8 +2,9 @@ import datetime
 import bcrypt
 import re
 
-from model import Voyage
-
+from model import Voyage, Employee
+from data.data_wrapper import DataWrapper
+from typing import Any
 
 class Validator:
     """Class which handles.
@@ -11,7 +12,7 @@ class Validator:
     true or false, or a valid version"""
 
     # General validation
-    def phone_number(self, phone_number) -> bool:
+    def phone_number(self, phone_number: str) -> bool:
         """Takes in a phonenumber and returns
         if it is valid(True) or invalid(False)"""
 
@@ -25,12 +26,6 @@ class Validator:
 
         except (ValueError, IndexError):
             return False
-
-    def date(self, date) -> bool:
-        """Takes in a date and returns
-        valid(True) or Invalid(False)"""
-
-        # Think that Datetime module has this as a feature
 
     def distance_km(self, km: int) -> bool:
         """Returns true if distance is not under zero"""
@@ -49,7 +44,7 @@ class Validator:
             return False
 
     # Employee validation
-    def ssn(self, ssn) -> bool:
+    def ssn(self, ssn: str) -> bool:
         """Take in a social security number
         and returns True if it is valid and
         False if it is not valid.
@@ -84,7 +79,7 @@ class Validator:
         except (ValueError, Exception):
             return False
 
-    def email(self, email):
+    def email(self, email: str) -> bool:
         """Checks if the given email is an email"""
 
         # Regex email validation
@@ -96,14 +91,15 @@ class Validator:
         return re.match("[^@]+@[^@]+\.[^@]+", email)
 
     # Pilot and flight attendant validations
-    def license(self, data_wrapper, planelicense) -> bool:
+    def license(self, data_wrapper: DataWrapper, planelicense: str) -> bool:
         """Verifies if the plane license is valid by getting the list of planes"""
         for plane in data_wrapper.get_all_planes():
             if planelicense == plane.ty:
                 return True
+
         return False
 
-    def assignments(self, assignments) -> bool:
+    def assignments(self, assignments: list[int]) -> bool:
         """Validates the assignments
         for example, if the same assignment comes up twice"""
         cleaned_assignments = []
@@ -123,14 +119,14 @@ class Validator:
     # Plane validation
 
     # Voyage Validations
-    def seats_available(self, voyage) -> bool:
+    def seats_available(self, voyage: Voyage) -> bool:
         """Checks if seats are available
         in the voyage"""
         plane_seats = voyage.plane.capacity
         available_seats = plane_seats - voyage.sold_seats
         return 1 > available_seats
 
-    def flight_times(self, voyage) -> bool:
+    def flight_times(self, voyage: Voyage) -> bool:
         """Compares the times and check
         if they do not cause conflicts"""
         flight_times = [
@@ -144,13 +140,9 @@ class Validator:
     def pilot_validator(self, data):
         """Validates that there aren't to many pilots"""
 
-        if len(data.get_all_flights.pilots) == 2:
-            return False
+        raise NotImplementedError
 
-        else:
-            return True
-
-    def voyage_staff(self, voyage) -> Voyage:
+    def voyage_staff(self, voyage: Voyage) -> bool:
         """Validates a voyage and return a validated
         voyage if possible, else None"""
         are_pilots_valid = self.job_position(voyage.pilots, "Pilot")
@@ -164,14 +156,14 @@ class Utilities:
     """A class which contains
     a bunch of logic utilities"""
 
-    def password_encoder(self, password):
+    def password_encoder(self, password: str) -> str:
         """Takes in a password and encodes it"""
         encoded_password = password.encode("utf-8")
         salt = bcrypt.gensalt()
         hashed_password = bcrypt.hashpw(encoded_password, salt)
         return hashed_password.decode("utf-8")
 
-    def check_password(self, employee, given_password):
+    def check_password(self, employee: Employee, given_password: str) -> bool:
         """Takes in a password check if it is the password."""
         try:
             inputted_password = given_password.encode("utf-8")
@@ -179,9 +171,9 @@ class Utilities:
             result = bcrypt.checkpw(inputted_password, encoded_employee_password)
             return result
         except ValueError:
-            return None
+            return False
 
-    def get_by_id(self, list_of_classes, search_id):
+    def get_by_id(self, list_of_classes: list[Any], search_id: int):
         """Parses through a list til the class with the correct id is found"""
         for class_obj in list_of_classes:
             if class_obj.id == search_id:
