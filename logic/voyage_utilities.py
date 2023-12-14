@@ -17,7 +17,7 @@ class VoyageUtilities:
 
     def assign_flight_attendant_to_voyage(self, voyage_id: int, attendant_id: int):
         voyage = self.voyage_logic.get_voyage(voyage_id)
-        voyage.pilots.append(attendant_id)
+        voyage.flight_attendants.append(attendant_id)
         self.voyage_logic.update_voyage(voyage)
 
         attendant = self.employee_logic.get_employee(attendant_id)
