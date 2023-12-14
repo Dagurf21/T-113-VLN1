@@ -120,6 +120,7 @@ class VoyageLogic:
     
     def staff_voyage(self,):
         ''' '''
+        
         raise NotImplementedError
 
     def get_voyage_by_date(self, date) -> list[Voyage]:
