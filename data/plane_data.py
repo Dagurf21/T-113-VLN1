@@ -58,7 +58,7 @@ class PlaneData:
                         ty = row["type"], 
                         manufacturer = row["manufacturer"], 
                         capacity = int(row["capacity"]), 
-                        voyages = '.'.join(voyages)))
+                        voyages = voyages))
     
         return ret_list
 
@@ -71,7 +71,7 @@ class PlaneData:
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
             fieldnames = ["id", "name", "type", "manufacturer", "capacity", "voyages"]
            
-            reader = csv.DictReader(csvfile, fieldnames=fieldnames)
+            reader = csv.DictReader(csvfile)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
             for row in reader:

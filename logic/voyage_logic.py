@@ -20,8 +20,6 @@ class VoyageLogic:
         departure_time: datetime.time,
         return_departure_time: datetime.time,
         sold_seats: int,
-        flight_attendants: list[int],
-        pilots: list[int],
     ) -> int:
         """Takes in a voyage object and forwards it to the data layer"""
 
@@ -38,8 +36,8 @@ class VoyageLogic:
                 destination=destination_id,
                 sold_seats=sold_seats,
                 plane=plane_id,
-                pilots=pilots,
-                flight_attendants=flight_attendants,
+                pilots=[],
+                flight_attendants=[],
                 departure_time=departure_time,
                 departure_flight=departure_flight,
                 return_departure_time=return_departure_time,
@@ -150,7 +148,6 @@ class VoyageLogic:
         voyage_to_update.sold_seats = voyage.sold_seats
         voyage_to_update.pilots = voyage.pilots
         voyage_to_update.flight_attendants = voyage.flight_attendants
-        voyage_to_update.plane = voyage.plane
 
         return self.data_wrapper.update_voyage(voyage_to_update)
 

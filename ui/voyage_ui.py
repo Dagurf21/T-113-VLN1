@@ -531,32 +531,20 @@ class VoyageUI(UIElement):
 
                 match pilots_or_attendants:
                     case "Pilots":
-                        pilot = (self._prompt(
+                        pilot = self._prompt(
                             prompt="Enter pilot ID",
                             header_title="Enter ID of pilot",
                             validator= lambda e: self.validate_assign_pilot(voyage, e),
-                        ))
-                        voyage.pilots.append(int(pilot))
-
-                        self.logic_wrapper.update_voyage(voyage)
-
-                        assigned_pilot = self.logic_wrapper.get_employee(int(pilot))
-                        assigned_pilot.assignments.append(voyage.id)
-                        self.logic_wrapper.update_employee(assigned_pilot)
+                        )
+                        self.logic_wrapper.staff_voyage_pilot(voyage_id, int(pilot))
 
                     case "Flight attendant":
-                        attendant = (self._prompt(
+                        attendant = self._prompt(
                             prompt="Enter ID of flight attendant",
                             header_title="Enter ID of flight attendant",
                             validator=lambda e: self.validate_assign_flight_attendant(voyage, e),
-                        ))
-                        voyage.flight_attendants.append(int(attendant))
-
-                        self.logic_wrapper.update_voyage(voyage)
-                        
-                        assigned_attendant = self.logic_wrapper.get_employee(int(attendant))
-                        assigned_attendant.assignments.append(voyage.id)
-                        self.logic_wrapper.update_employee(assigned_attendant)
+                        )
+                        self.logic_wrapper.staff_voyage_attendant(voyage_id, int(attendant))
 
                 return
             except UICancelException:
@@ -609,13 +597,7 @@ class VoyageUI(UIElement):
                             opt_instruction="Leave empty to cancel",
                             validator= lambda e: self.validate_unassign_pilot(voyage, e),
                         )
-                        voyage.pilots.remove(int(pilot))
-
-                        self.logic_wrapper.update_voyage(voyage)
-
-                        assigned_pilot = self.logic_wrapper.get_employee(int(pilot))
-                        assigned_pilot.assignments.remove(voyage.id)
-                        self.logic_wrapper.update_employee(assigned_pilot)
+                        self.logic_wrapper.unstaff_voyage_pilot(voyage_id, int(pilot))
 
                     case "Flight attendant":
                         employee_data = []
@@ -638,13 +620,7 @@ class VoyageUI(UIElement):
                             opt_instruction="Leave empty to cancel",
                             validator=lambda e: self.validate_unassign_flight_attendant(voyage, e),
                         )
-                        voyage.flight_attendants.remove(int(attendant))
-
-                        self.logic_wrapper.update_voyage(voyage)
-                        
-                        assigned_attendant = self.logic_wrapper.get_employee(int(attendant))
-                        assigned_attendant.assignments.remove(voyage.id)
-                        self.logic_wrapper.update_employee(assigned_attendant)
+                        self.logic_wrapper.unstaff_voyage_attendant(voyage_id, int(attendant))
 
                 return
             except UICancelException:
@@ -692,9 +668,9 @@ class VoyageUI(UIElement):
             time = self.parse_time(inp)
 
             valid = None
-            if ret and self.logic_wrapper.validate_return_departure_time(date, time):
+            if ret and not self.logic_wrapper.validate_return_departure_time(date, time):
                 return "Return departure time conflicts with another voyage"
-            elif self.logic_wrapper.validate_departure_time(date, time):
+            elif not self.logic_wrapper.validate_departure_time(date, time):
                 return "Departure time conflicts with another voyage"
 
             if valid:
