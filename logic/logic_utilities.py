@@ -141,10 +141,9 @@ class Validator:
         ]
         return all(map(self.flight_time, flight_times))
 
-    def status(self, status) -> bool:
-        """Validates the status, returns either
-        valid(True) or invalid(False)"""
-        return False
+    def status(self, voyage) -> bool:
+        """Validates the status, returns a validated version of the voyage"""
+        # TODO AXEL PLEASE GOD HELP US
 
     def pilot_validator(self, data):
         """Validates that there aren't to many pilots"""

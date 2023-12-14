@@ -144,11 +144,12 @@ class LogicWrapper(object):
     def delete_voyage(self, id) -> None:
         """Erases voyage/ via ID"""
         return self.voyage_logic.delete_voyage(id)
-    
-    def validate_departure_time(self, departure_date: datetime.date, departure_time: datetime.time) -> bool:
-        """Validates that two flights dont depart at the same time""" 
-        return self.voyage_logic.validate_departure_time(departure_date, departure_time)
 
+    def validate_departure_time(
+        self, departure_date: datetime.date, departure_time: datetime.time
+    ) -> bool:
+        """Validates that two flights dont depart at the same time"""
+        return self.voyage_logic.validate_departure_time(departure_date, departure_time)
 
     # Destination class
     def create_destination(self, data) -> None:
@@ -234,6 +235,9 @@ class LogicWrapper(object):
 
     def validate_voyage_staff(self, voyage):
         return self.validate.voyage_staff(voyage)
+
+    def validate_status(self, voyage):
+        return self.voyage_logic.validate_status(voyage)
 
     ### Utilities
     # Password Utility
