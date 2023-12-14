@@ -1,10 +1,5 @@
 from dataclasses import dataclass
 import datetime
-import enum
-
-class FlightStatus(enum.StrEnum):
-    Available = "Available"
-    InUse     = "In Use"
 
 @dataclass(kw_only=True)
 class Flight:
