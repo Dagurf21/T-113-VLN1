@@ -96,7 +96,7 @@ class VoyageUI(UIElement):
                 "Enter the amount of sold seats",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
-                validator=self.validate_number,
+                validator=lambda e: self.validate_seats_sold_by_plane(plane, e)
             )
             flight_attendants = self._prompt_list(
                 "Enter flight attendant ID",
@@ -304,7 +304,7 @@ class VoyageUI(UIElement):
                         voyage.sold_seats = int(self._prompt(
                             "Enter new amount of sold seats",
                             opt_instruction="Leave empty to cancel",
-                            validator=self.validate_number,
+                            validator=lambda e: self.validate_seats_sold(voyage, e),
                         ))
                 
                 self.logic_wrapper.update_voyage(voyage)
@@ -768,6 +768,40 @@ class VoyageUI(UIElement):
             return "Attendant not assigned"
         
         return None
+
+    def validate_seats_sold(self, voyage: Voyage, seats_sold: int):
+        err = self.validate_number(seats_sold)
+        if err is not None:
+            return err
+    
+        plane = self.logic_wrapper.get_plane(voyage.plane)
+        plane_capacity = int(plane.capacity)
+        seats_sold = int(seats_sold)
+
+        if seats_sold > plane_capacity:
+            return f"The planes maximum capacity is {plane.capacity}"
+        
+        else:
+            return None
+        
+    def validate_seats_sold_by_plane(self, plane_id: str, seats_sold:int):
+        err = self.validate_plane(plane_id)
+        if err is not None:
+            return err
+        
+        err = self.validate_number(seats_sold)
+        if err is not None:
+            return err
+
+        plane = self.logic_wrapper.get_plane(int(plane_id))
+        plane_capacity = plane.capacity
+        seats_sold = int(seats_sold)
+
+        if seats_sold > plane_capacity:
+            return f"The planes maximum capacity is {plane_capacity}"
+        else:
+            return None
+
 
     def parse_date(self, date):
         year, month, day = date.split('-')
