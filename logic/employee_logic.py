@@ -204,16 +204,41 @@ class EmployeeLogic:
     def is_working(self, employee_id, date) -> bool:
         '''Checks if employee is working on a given date'''
 
-        status = 
+        status = False
 
         employee = self.get_employee(employee_id)
-        activeflights = VoyageLogic.get_voyage_by_date(date)
+        active_voyages = VoyageLogic.get_voyage_by_date(date)
 
+        if isinstance(employee, Pilot):
+            
+            for voyage in active_voyages:
 
+                pilots = voyage.pilots
+
+                if employee.id in pilots:
+                    status = True
+                
+                else:
+                    pass
+        
+        elif isinstance(employee, Pilot):
+                
+                for voyage in active_voyages:
+
+                    flight_attendants = voyage.flight_attendants
+
+                if employee.id in flight_attendants:
+                    status = True
+                
+                else:
+                    pass
+        
+        else:
+            return False
         
 
 
-        return 
+        return status
     
     def check_job_position(self, employee_id, job_title) -> bool:
         """Validates if the employee is the job title"""
