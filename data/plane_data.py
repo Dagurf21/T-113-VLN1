@@ -74,6 +74,7 @@ class PlaneData:
             reader = csv.DictReader(csvfile)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
+            writer.writeheader()
             for row in reader:
                 # Writes the plane with the new data into the temp file
                 if int(row["id"]) == plane.id:
