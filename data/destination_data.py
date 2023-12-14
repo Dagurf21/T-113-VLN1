@@ -70,9 +70,10 @@ class DestinationData:
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
             fieldnames = ["id", "country", "airport", "flight_time", "distance", "representative", "emergency_number"]
             
-            reader = csv.DictReader(csvfile, fieldnames=fieldnames)
+            reader = csv.DictReader(csvfile)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
 
+            writer.writeheader()
             for row in reader:
                 if int(row["id"]) == destination.id:
                     writer.writerow({'id': row["id"], 

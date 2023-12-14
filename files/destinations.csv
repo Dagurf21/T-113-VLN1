@@ -1,7 +1,7 @@
-id,country,airport,distance,flight_time,representative,emergency_number
-0,Iceland,Reykjavík Airport,0,0,Chuck Norris,000-0000
-1,Greenland,Nuuk,1430,32,Joe,2324232
-2,Greenland,Kulusuk Airport,733,110,mama,8888888
-3,Faroe Island,Vágar Floghavn,770,85,Friðþjófur,0312330
-4,Shetland,Tingwall Airport,1155,140,Boris,+441595840246
-5,Norway,Longyearbyen Airport,1992,180,Polar Bear,02341324
+id,country,airport,flight_time,distance,representative,emergency_number
+0,Iceland,Reykjavik Airport,0,0,Chuck Norris,000-0000
+1,Greenland,Nuuk,32,1430,Joe,2324232
+2,Greenland,Kulusuk Airport,110,733,mama,8888888
+3,Faroe Island,Vagar Floghavn,85,770,Fridthjofur,0312330
+4,Shetland,Tingwall Airport,140,1155,Boris,+441595840246
+5,Norway,Longyearbyen Airport,180,1992,Polar Bear,02341324
