@@ -14,7 +14,7 @@
 - Axel Snær: Bugfixes, farayfir kröfur, voyage validation
 - Dagur Freyr: Bugfixes, farayfir kröfur, Verkefna Skýrsla
 - Elías Andri: Bugfixes, On ground research
-- Kristján Kári: Bugfixes, farayfir kröfur, Verkefna Skýrsla
+- Kristján Kári: Bugfixes, farayfir kröfur, Verkefna Skýrsla, Dagbók
 - Marteinn Logi: Kennslu-myndband, Profun, Verkefnaskýrslan
 
 #### Dagslok skýrsla (Hvað gerði hver og einn í dag) ?
