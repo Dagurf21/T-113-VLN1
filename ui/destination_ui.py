@@ -111,10 +111,10 @@ class DestinationUI(UIElement):
         try:
             country          = self._prompt("Enter country",             header_title="Register Employee", opt_instruction="Leave empty to cancel")
             airport          = self._prompt("Enter airport",             header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self.validate_airport)
-            distance_km      = self._prompt("Enter distance (km)",       header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            distance_km      = self._prompt("Enter distance (km)",       header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self.validate_number)
             flight_time      = self._prompt("Enter flight time (00:00)", header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self.validate_time_delta)
             representative   = self._prompt("Enter representative name", header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            emergency_number = self._prompt("Enter emergency number",    header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            emergency_number = self._prompt("Enter emergency number",    header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self.validate_phone_number)
 
             destination = Destination(
                 country=country,
@@ -179,7 +179,8 @@ class DestinationUI(UIElement):
                     case "Emergency Number": # Emergency Number
                         destination.emergency_number = self._prompt(
                             "Enter new emergency number",
-                            opt_instruction="Leave empty to cancel"
+                            opt_instruction="Leave empty to cancel",
+                            validator=self.validate_phone_number
                         )
 
                 self.logic_wrapper.update_destination(destination)
@@ -241,6 +242,19 @@ class DestinationUI(UIElement):
             self.parse_time_delta(inp)
         except:
             return "Invalid date format"
+
+    def validate_phone_number(self, inp):
+        if self.logic_wrapper.validate_phone_number(inp):
+            return None
+
+        return "Invalid phone number"
+
+    def validate_number(self, inp):
+        try:
+            int(inp)
+            return None
+        except ValueError:
+            return "Input must be a number"
 
     def parse_time_delta(self, date) -> datetime.timedelta:
         hours, minutes = date.split(':')
