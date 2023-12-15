@@ -989,7 +989,7 @@ class VoyageUI(UIElement):
         if int(attendant_id) in voyage.flight_attendants:
             return "Attendant already assigned"
 
-        attendant = self.logic_wrapper.get_employee(int(attendant_id))
+        self.logic_wrapper.get_employee(int(attendant_id))
 
         if self.logic_wrapper.is_working(attendant_id, voyage.departure_date):
             return "Attendant is already working on the departure date"
