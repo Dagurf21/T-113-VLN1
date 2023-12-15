@@ -7,7 +7,7 @@ from logic import (
     DestinationLogic,
     FlightLogic,
     EmployeeLogic,
-    FlightUtilities,
+    PlaneUtilities,
     VoyageUtilities,
 )
 from model import (
@@ -19,6 +19,7 @@ from model import (
     Manager,
     Pilot,
     Plane,
+    PlaneStatus,
     Voyage,
 )
 from data.data_wrapper import DataWrapper
@@ -36,7 +37,7 @@ class LogicWrapper(object):
         self.destination_logic = DestinationLogic(self.data_wrapper)
         self.voyage_logic = VoyageLogic(self.data_wrapper)
         self.plane_logic = PlaneLogic(self.data_wrapper)
-        self.flight_utilities = FlightUtilities(self.data_wrapper)
+        self.plane_utilities = PlaneUtilities(self.data_wrapper)
         self.voyage_utilities = VoyageUtilities(self.data_wrapper)
         self.validate = Validator()
         self.utility = Utilities()
@@ -268,4 +269,14 @@ class LogicWrapper(object):
 
     def unstaff_voyage_attendant(self, staff_to_remove: int):
         return self.voyage_utilities.unstaff_voyage_attendant(staff_to_remove)
+    
+    # Plane Utilities
 
+    def get_plane_status(self, plane: Plane) -> PlaneStatus:
+        return self.plane_utilities.get_plane_status(plane)
+
+    def get_plane_active_flight(self, plane: Plane) -> Flight | None:
+        return self.plane_utilities.get_plane_active_flight(plane)
+
+    def get_plane_active_voyage(self, plane: Plane) -> Voyage | None:
+        return self.plane_utilities.get_plane_active_voyage(plane)

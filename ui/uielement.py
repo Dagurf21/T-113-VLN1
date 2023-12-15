@@ -275,12 +275,9 @@ class UIElement:
         Data format: [ row1, row2, row3 ]
         """
 
-        HEADER_COLOR = Fore.MAGENTA
-        DIVIDER_COLOR = Fore.BLACK
-
-        # Print headers
-        header_labels = [f"{HEADER_COLOR}{header.ljust(headers[header])}{Fore.RESET}" for header in headers]
-        print(Fore.BLACK + f"{DIVIDER_COLOR} | {Fore.RESET}".join(header_labels).center(UI_WIDTH) + Style.RESET_ALL)
+        header_labels = [header.ljust(headers[header]) for header in headers]
+        header = " | ".join(header_labels).center(UI_WIDTH)
+        print(Fore.BLACK + header + Fore.RESET)
 
         # Print rows
         header_sizes = [headers[header] for header in headers]
@@ -296,7 +293,8 @@ class UIElement:
 
                 data_row.append(elem)
 
-            print(f"{Fore.BLACK} | {Fore.RESET}".join(data_row).center(UI_WIDTH))
+            print(" | ".join(data_row).center(UI_WIDTH))
+
 
     def _print_header(self, message = None, add_extra_newline: bool = False, clear_screen: bool = True):
         """
