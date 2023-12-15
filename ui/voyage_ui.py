@@ -143,8 +143,6 @@ class VoyageUI(UIElement):
                 list(map(int, pilots)),
             )
 
-            return  # TODO
-
         except UICancelException:
             return
 
