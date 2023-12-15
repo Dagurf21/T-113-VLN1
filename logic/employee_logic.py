@@ -1,12 +1,13 @@
 from logic import Validator, Utilities, PlaneLogic, VoyageLogic, DestinationLogic
-from model import Employee, Pilot, Destination
+from model import Employee, Pilot, Destination, FlightAttendant
+from data.data_wrapper import DataWrapper
 import datetime
 
 
 class EmployeeLogic:
     """This class is the logic layer for the employee class"""
 
-    def __init__(self, data_connection) -> None:
+    def __init__(self, data_connection: DataWrapper) -> None:
         self.data_wrapper = data_connection
         self.validate = Validator()
         self.utility = Utilities()
@@ -15,7 +16,7 @@ class EmployeeLogic:
         self.destination_logic = DestinationLogic(data_connection)
 
 
-    def create_employee(self, employee) -> None:
+    def create_employee(self, employee: Employee) -> int | None:
         """Takes in a employee object and forwards it to the data layer"""
         if self.validate_employee(employee):
             employee.password = self.utility.password_encoder(employee.password)
@@ -26,12 +27,12 @@ class EmployeeLogic:
             return None
 
 
-    def get_all_employees(self) -> list["Employee"]:
+    def get_all_employees(self) -> list[Employee]:
         """Returns a list of all employees"""
         return self.data_wrapper.get_all_employees()
 
 
-    def get_employee(self, employee_id) -> "Employee":
+    def get_employee(self, employee_id: int) -> Employee | None:
         """Returns the requested employee as the correct employee class type.
         If no employee with the id is found return None"""
         employee_list = self.get_all_employees()
@@ -43,7 +44,7 @@ class EmployeeLogic:
         return None
 
 
-    def get_employee_by_email(self, search_email) -> "Employee":
+    def get_employee_by_email(self, search_email: str) -> Employee | None:
         """Returns a employee object with the given id"""
         employee_list = self.get_all_employees()
 
@@ -54,7 +55,7 @@ class EmployeeLogic:
         return None
 
 
-    def get_employees_by_job(self, job_title) -> list["Employee"]:
+    def get_employees_by_job(self, job_title: str) -> list[Employee]:
         """Returns a employee object with the given id"""
         employee_list = self.get_all_employees()
 
@@ -67,7 +68,7 @@ class EmployeeLogic:
         return employees_with_the_job
 
 
-    def get_employee_by_workday(self, workdate: datetime.date) -> list[("Employee", "Destination")]:
+    def get_employee_by_workday(self, workdate: datetime.date) -> list[(Employee, Destination)]:
         """Returns a list of employees that are working on a specific day"""
         employee_return_list = []
         pilots_and_attendants = self.get_employees_by_job("Pilot")
@@ -87,40 +88,38 @@ class EmployeeLogic:
         return employee_return_list
        
 
-    def get_employee_by_not_workday(self, workdate) -> list["Employee"]:
+    def get_employee_by_not_workday(self, workdate: datetime.date) -> list[Employee]:
         """Returns a list of employees that are working on a specific day"""
         list_of_voyages = self.data_wrapper.get_all_voyages()
         list_of_employees = self.data_wrapper.get_all_employees()
         
         for voyage in list_of_voyages:
-            
             if voyage.departure_date == workdate or voyage.return_date == workdate:
-                
                 try:
                     for pilot in voyage.pilots:
                         pilot = self.get_employee(int(pilot))
                         list_of_employees.remove(pilot)
                 except (TypeError, ValueError):
-                    ...
+                    pass
                 
                 try:
                     for flight_attendant in voyage.flight_attendants:
                         flight_attendant = self.get_employee(int(flight_attendant))
                         list_of_employees.remove(flight_attendant)
                 except (TypeError, ValueError):
-                    ...
+                    pass
         
         return list_of_employees
 
 
-    def get_all_pilots(self) -> list["Employee"]:
+    def get_all_pilots(self) -> list[Employee]:
         """Returns a sorted list of pilots"""
         pilot_list = self.get_employees_by_job("Pilot")
         pilot_list.sort()
         return pilot_list
 
 
-    def get_pilots_by_license(self, planelicense) -> list["Pilot"]:
+    def get_pilots_by_license(self, planelicense: str) -> list[Pilot]:
         """Returns a list of pilots with the given license"""
         pilot_list = self.get_all_pilots()
 
@@ -133,7 +132,7 @@ class EmployeeLogic:
         return pilots_with_the_license
 
 
-    def update_employee(self, employee) -> None:
+    def update_employee(self, employee: Employee) -> None:
         """Updates a employee object with the given id"""
         change_employee = self.get_employee(employee.id)
 
@@ -146,12 +145,12 @@ class EmployeeLogic:
             return None
 
 
-    def delete_employee(self, employee_id) -> None:
+    def delete_employee(self, employee_id: int) -> None:
         """Deletes a employee object with the given id"""
         return self.data_wrapper.delete_employee(employee_id)
 
     
-    def get_plane_licenses(self) -> list:
+    def get_plane_licenses(self) -> list[str]:
         """Returns a list of plane types"""
         plane_list = self.data_wrapper.get_all_planes()
         license_list = []
@@ -162,7 +161,7 @@ class EmployeeLogic:
         return license_list
 
     
-    def validate_employee(self, employee):
+    def validate_employee(self, employee: Employee) -> bool:
         """Validates a given employee"""
         employee_job_title = type(employee).__name__
 
@@ -201,46 +200,19 @@ class EmployeeLogic:
             and is_phone_valid
         )
 
-    def is_working(self, employee_id, date) -> bool:
+    def is_working(self, employee_id: int, date: datetime.date) -> bool:
         '''Checks if employee is working on a given date'''
 
-        status = False
-
         employee = self.get_employee(employee_id)
-        active_voyages = VoyageLogic.get_voyage_by_date(date)
 
-        if isinstance(employee, Pilot):
-            
-            for voyage in active_voyages:
-
-                pilots = voyage.pilots
-
-                if employee.id in pilots:
-                    status = True
-                
-                else:
-                    pass
+        for voyage in self.voyage_logic.get_voyage_by_date(date):
+            if isinstance(employee, Pilot) or isinstance(employee, FlightAttendant):
+                if employee.id in voyage.pilots or employee.id in voyage.flight_attendants:
+                    return True
         
-        elif isinstance(employee, Pilot):
-                
-                for voyage in active_voyages:
-
-                    flight_attendants = voyage.flight_attendants
-
-                if employee.id in flight_attendants:
-                    status = True
-                
-                else:
-                    pass
-        
-        else:
-            return False
-        
-
-
-        return status
+        return False
     
-    def check_job_position(self, employee_id, job_title) -> bool:
+    def check_job_position(self, employee_id: int, job_title: str) -> bool:
         """Validates if the employee is the job title"""
         employee = self.get_employee(employee_id)
         
@@ -250,8 +222,9 @@ class EmployeeLogic:
         return False
 
 
-    def pilot_has_license(self, pilot_id, plane_id):
-            pilot = self.get_employee(pilot_id)
-            plane = self.plane_logic.get_plane(plane_id)
-            
-            return pilot.license == plane.ty
+    def pilot_has_license(self, pilot_id: int, plane_id: int) -> bool:
+        """Checks if the pilot has the correct license"""
+        pilot = self.get_employee(pilot_id)
+        plane = self.plane_logic.get_plane(plane_id)
+        
+        return pilot.license == plane.ty

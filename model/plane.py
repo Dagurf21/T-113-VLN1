@@ -1,4 +1,10 @@
 from dataclasses import dataclass, field
+import enum
+
+class PlaneStatus(enum.StrEnum):
+    Available = "Available"
+    InUse     = "In Use"
+    InFlight  = "In Flight"
 
 @dataclass(kw_only=True)
 class Plane:

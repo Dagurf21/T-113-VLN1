@@ -1,12 +1,13 @@
 from model import Voyage, VoyageStatus
 from logic import Validator, FlightLogic
+from data.data_wrapper import DataWrapper
 import datetime
 
 
 class VoyageLogic:
     """This class handles all the logic for the Voyage class."""
 
-    def __init__(self, data_connection) -> None:
+    def __init__(self, data_connection: DataWrapper) -> None:
         self.data_wrapper = data_connection
         self.validate = Validator()
         self.flight_logic = FlightLogic(data_connection)
@@ -48,12 +49,11 @@ class VoyageLogic:
             )
         )
 
-    def get_all_voyages(self) -> list:
+    def get_all_voyages(self) -> list[Voyage]:
         """Returns a list of all voyages"""
 
         all_voyages = self.data_wrapper.get_all_voyages()
         now = datetime.datetime.now()
-        now_time = datetime.time(hour=now.hour, minute=now.minute)
 
         for voyage in all_voyages:
             # Status options: Finished, Landed abroad, In the Air, Not started, Cancelled
@@ -68,22 +68,22 @@ class VoyageLogic:
                 pass
 
             # If the flight date has not been reached yet
-            elif voyage.departure_date > now.date():
+            elif voyage.departure_date < now.date():
                 voyage.status = VoyageStatus.NotStarted
 
             # If the flight is today
             elif voyage.departure_date == now.date():
                 # If the departure time has been reached
-                if voyage.departure_time >= now_time:
+                if voyage.departure_time <= now.time():
                     # If the flight has not arrived at it's destination
-                    if now_time < departure_flight.arrival_time:
+                    if now.time() < departure_flight.arrival_time:
                         voyage.status = VoyageStatus.InTheAir
 
                     # If the time is past the arrival time abroad
                     # and not reached the return flights departure time
                     elif (
                         departure_flight.arrival_time
-                        <= now_time
+                        <= now.time()
                         < arrival_flight.departure_time
                     ):
                         voyage.status = VoyageStatus.LandedAbroad
@@ -92,7 +92,7 @@ class VoyageLogic:
                     # and not past its arrival time
                     elif (
                         arrival_flight.departure_time
-                        <= now_time
+                        <= now.time()
                         < arrival_flight.arrival_time
                     ):
                         voyage.status = VoyageStatus.InTheAir
@@ -108,7 +108,7 @@ class VoyageLogic:
 
         return all_voyages
 
-    def get_voyage(self, voyage_id):
+    def get_voyage(self, voyage_id: int) -> Voyage | None:
         """Returns a voyage object with the given id"""
         voyage_list = self.get_all_voyages()
 
@@ -117,29 +117,20 @@ class VoyageLogic:
                 return voyage
 
         return None
-    
-    def staff_voyage(self,):
-        ''' '''
-        
-        raise NotImplementedError
 
-    def get_voyage_by_date(self, date) -> list[Voyage]:
-        '''Filters out all voyages by given date'''
+    def get_voyage_by_date(self, date: datetime.date) -> list[Voyage]:
+        """Filters out all voyages by given date"""
 
-        all_voyages = self.get_all_voyages
+        all_voyages = self.get_all_voyages()
         voyage_on_date = []
 
         for voyage in all_voyages:
-            
-            if voyage.date == date:
+            if voyage.departure_date == date or voyage.return_date == date:
                 voyage_on_date.append(voyage)
-            
-            else:
-                pass
 
         return voyage_on_date
 
-    def update_voyage(self, voyage) -> None:
+    def update_voyage(self, voyage: Voyage) -> None:
         """Updates a voyage object with the given id"""
         voyage_to_update = self.get_voyage(voyage.id)
 
@@ -152,18 +143,16 @@ class VoyageLogic:
 
         return self.data_wrapper.update_voyage(voyage_to_update)
 
-    def delete_voyage(self, id) -> None:
+    def delete_voyage(self, id: int) -> None:
         """Deletes a voyage object with the given id"""
         return self.data_wrapper.cancel_voyage(id)
 
-    def validate_status(self, voyage) -> None:
+    def validate_status(self, voyage: Voyage) -> None:
         """Validates the status of the given voyage"""
         validated_voyage = self.validate.status(voyage)
         return self.update_voyage(validated_voyage)
 
-    def validate_departure_time(
-        self, date: datetime.date, departure_time: datetime.time
-    ) -> bool:
+    def validate_departure_time(self, date: datetime.date, departure_time: datetime.time) -> bool:
         """Returns True if no other voyages are departing at the same date and time"""
         all_voyages = self.get_all_voyages()
 
@@ -171,22 +160,10 @@ class VoyageLogic:
             if (
                 date == voyage.departure_date
                 and departure_time == voyage.departure_time
-            ):
-                return False
-
-        return True
-    
-    def validate_return_departure_time(
-        self, date: datetime.date, departure_time: datetime.time
-    ) -> bool:
-        """Returns True if no other voyages are departing at the same date and time"""
-        all_voyages = self.get_all_voyages()
-
-        for voyage in all_voyages:
-            if (
-                date == voyage.return_date
+                or date == voyage.return_date
                 and departure_time == voyage.return_departure_time
             ):
                 return False
 
         return True
+    

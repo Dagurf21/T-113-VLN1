@@ -1,21 +1,21 @@
 # import os
 import datetime
-from data.data_wrapper import DataWrapper
-from model import Flight, FlightStatus
+from model import Flight
 from logic import Validator
 from logic import DestinationLogic
-
+from data.data_wrapper import DataWrapper
 
 class FlightLogic:
     """This is the logic class for flight"""
-    def __init__(self, data_wrapper):
+
+    def __init__(self, data_wrapper: DataWrapper):
         """Initiates flightlogic through data_wrapper"""
         self.data_wrapper = data_wrapper
         self.validator = Validator()
         self.destination_logic = DestinationLogic(data_wrapper)
 
 
-    def create_flight(self, departure, destination, date, departure_time) -> str:
+    def create_flight(self, departure: int, destination: int, date: datetime.date, departure_time: datetime.time) -> str:
         """Creates flight, returns flight number"""
         if self.destination_logic.get_destination(departure) is None or self.destination_logic.get_destination(destination) is None:
             return
@@ -27,21 +27,19 @@ class FlightLogic:
         else:
             arrival_time = self.calculate_arrival_time(date, departure_time, destination)
 
-        self.data_wrapper.create_flight(
-            Flight(
-                flight_number = flight_nr,
-                departure = departure,
-                destination = destination,
-                date = date,
-                departure_time = departure_time,
-                arrival_time = arrival_time.time(),
-            )
-        )
+        self.data_wrapper.create_flight(Flight(
+            flight_number = flight_nr,
+            departure = departure,
+            destination = destination,
+            date = date,
+            departure_time = departure_time,
+            arrival_time = arrival_time.time(),
+        ))
         
         return flight_nr
 
 
-    def create_flight_nr(self, destination, departure, date) -> str:
+    def create_flight_nr(self, destination: int, departure: int, date: datetime.date) -> str:
         """Creates a flight number and returns it"""
         # If destination is rvk
         if destination == 0:
@@ -54,7 +52,7 @@ class FlightLogic:
         return flight_nr
 
 
-    def get_same_date_flights(self, destination_id, date) -> int:
+    def get_same_date_flights(self, destination_id: int, date: datetime.date) -> int:
         """Returns the amount of flights with the same date and destination"""
         all_flights = self.get_all_flight()
         flights_within = 0

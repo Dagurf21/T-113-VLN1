@@ -6,25 +6,32 @@ import shutil
 class PlaneData:
     def __init__(self) -> None:
         self.file_name = "files/planes.csv"
-    
 
     def create_plane(self, plane) -> int:
         """Writes the new plane into the storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
-            fieldnames = ["id", "name", "type", "manufacturer", "capacity", "voyages"]
+            fieldnames = [
+                "id",
+                "name",
+                "type",
+                "manufacturer",
+                "capacity",
+                "voyages"
+            ]
             
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             id = self.get_new_id()
 
             voyages = ".".join(str(id) for id in plane.voyages)
-            writer.writerow({'id': id, 
-                             'name': plane.name, 
-                             'type': plane.ty, 
-                             'manufacturer': plane.manufacturer, 
-                             'capacity': plane.capacity, 
-                             'voyages': '.'.join(voyages)
-                            })
+            writer.writerow({
+                'id': id, 
+                'name': plane.name, 
+                'type': plane.ty, 
+                'manufacturer': plane.manufacturer, 
+                'capacity': plane.capacity, 
+                'voyages': '.'.join(voyages)
+            })
             
             return id
 
@@ -36,7 +43,7 @@ class PlaneData:
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             
-            for row in reader:
+            for _ in reader:
                 id += 1
 
             return id
@@ -58,7 +65,8 @@ class PlaneData:
                         ty = row["type"], 
                         manufacturer = row["manufacturer"], 
                         capacity = int(row["capacity"]), 
-                        voyages = voyages))
+                        voyages = voyages,
+                    ))
     
         return ret_list
 
@@ -69,7 +77,14 @@ class PlaneData:
         tempfile = NamedTemporaryFile(mode='w', delete=False)
         
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
-            fieldnames = ["id", "name", "type", "manufacturer", "capacity", "voyages"]
+            fieldnames = [
+                "id",
+                "name",
+                "type",
+                "manufacturer",
+                "capacity",
+                "voyages"
+            ]
            
             reader = csv.DictReader(csvfile)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
@@ -80,21 +95,25 @@ class PlaneData:
                 if int(row["id"]) == plane.id:
                     voyages = ".".join(str(id) for id in plane.voyages)
 
-                    writer.writerow({'id': row["id"], 
-                                     'name': plane.name, 
-                                     'type': plane.ty, 
-                                     'manufacturer': plane.manufacturer, 
-                                     'capacity': plane.capacity, 
-                                     'voyages': voyages})
+                    writer.writerow({
+                        'id': row["id"], 
+                        'name': plane.name, 
+                        'type': plane.ty, 
+                        'manufacturer': plane.manufacturer, 
+                        'capacity': plane.capacity, 
+                        'voyages': voyages
+                    })
                 
                 # Writes the other planes unchanged 
                 else:
-                    writer.writerow({'id': row["id"], 
-                                     'name': row["name"], 
-                                     'type': row["type"], 
-                                     'manufacturer': row["manufacturer"], 
-                                     'capacity': row["capacity"], 
-                                     'voyages': row["voyages"]})
+                    writer.writerow({
+                        'id': row["id"], 
+                        'name': row["name"], 
+                        'type': row["type"], 
+                        'manufacturer': row["manufacturer"], 
+                        'capacity': row["capacity"], 
+                        'voyages': row["voyages"]
+                    })
         
         # Replaces the main file with the tempfile
         shutil.move(tempfile.name, self.file_name)
@@ -106,7 +125,14 @@ class PlaneData:
         tempfile = NamedTemporaryFile(mode='w', delete=False)
 
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
-            fieldnames = ["id", "name", "type", "manufacturer", "capacity", "voyages"]
+            fieldnames = [
+                "id",
+                "name",
+                "type",
+                "manufacturer",
+                "capacity",
+                "voyages"
+            ]
             
             reader = csv.DictReader(csvfile)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
@@ -119,21 +145,25 @@ class PlaneData:
 
                 # If the plane is found, Everything except the id and name is erased
                 if int(row["id"]) == plane_id:
-                    row = {'id' : row["id"], 
-                           'name' : row["name"], 
-                           'type' : None, 
-                           'manufacturer' : None, 
-                           'capacity' : None, 
-                           'voyages' : None}
+                    row = {
+                        'id': row["id"], 
+                        'name': row["name"], 
+                        'type': None, 
+                        'manufacturer': None, 
+                        'capacity': None, 
+                        'voyages': None,
+                    }
 
                 # Each row from the original file is written to the temporary file
                 else:
-                    row = {'id': row["id"], 
-                           'name': row["name"], 
-                           'type': row["type"], 
-                           'manufacturer': row["manufacturer"], 
-                           'capacity': row["capacity"], 
-                           'voyages': row["voyages"]}
+                    row = {
+                        'id': row["id"], 
+                        'name': row["name"], 
+                        'type': row["type"], 
+                        'manufacturer': row["manufacturer"], 
+                        'capacity': row["capacity"], 
+                        'voyages': row["voyages"],
+                    }
                 
                 writer.writerow(row)
 

@@ -4,7 +4,7 @@ from colorama import Fore, Style, ansi
 import cursor
 import getch
 
-UI_WIDTH = 97
+UI_WIDTH = 117
 
 class UICancelException(Exception):
     pass
@@ -64,11 +64,21 @@ class UIElement:
         
         return inp
 
-    def _prompt_list(self, prompt: str, header_title: str, enable_cancel: bool = True, element_display: Callable[[str], str] = lambda e: str(e), validator: Callable[[str], str] = lambda e: None, max_elements: int = 0):
+    def _prompt_list(
+            self,
+            prompt: str,
+            header_title: str,
+            enable_cancel: bool = True,
+            element_display: Callable[[str], str] = lambda e: str(e),
+            validator: Callable[[str], str] = lambda e: None,
+            max_elements: int = 0,
+            disallow_duplicates: bool = True
+        ):
         """
         Prompts the user for a list of elements
 
         Options:
+            - header_title: Specify the title of the header
             - enable_cancel: Allows the user to cancel by inputting 'q' which throws a UICancelException
             - element_display: Function to convert the user input into another string for element based formatting
                 in  -> element
@@ -76,6 +86,8 @@ class UIElement:
             - validator: Function to validate elements before they are added to the list
                 in  -> element
                 out <- None if valid or string with error message if invalid
+            - max_elements: Specifies the maximum allowed elements in the list. If 0 then it's ignored
+            - disallow_duplicates: Disallows the user to enter duplicate values
         """
 
         elems = []
@@ -95,6 +107,11 @@ class UIElement:
                 self._print_header(message=header_title, add_extra_newline=True)
                 continue
 
+            if disallow_duplicates and elem in elems:
+                self._print_header(message=header_title, add_extra_newline=True)
+                self._print_centered("Duplicate values not allowed", add_newline_after=True, color=Fore.RED)
+                continue
+
             invalid = validator(elem)
             if invalid != None:
                 self._print_header(message=header_title, add_extra_newline=True)
@@ -102,7 +119,7 @@ class UIElement:
                 continue
 
             elems.append(elem)
-            if max_elements != 0:
+            if max_elements == 0:
                 self._print_header(message=header_title, add_extra_newline=True)
             else:
                 self._print_header(message=f"{header_title} ({max_elements - len(elems)})", add_extra_newline=True)
@@ -258,9 +275,9 @@ class UIElement:
         Data format: [ row1, row2, row3 ]
         """
 
-        # Print headers
         header_labels = [header.ljust(headers[header]) for header in headers]
-        print(Fore.BLACK + " | ".join(header_labels).center(UI_WIDTH) + Style.RESET_ALL)
+        header = " | ".join(header_labels).center(UI_WIDTH)
+        print(Fore.BLACK + header + Fore.RESET)
 
         # Print rows
         header_sizes = [headers[header] for header in headers]
@@ -278,6 +295,7 @@ class UIElement:
 
             print(" | ".join(data_row).center(UI_WIDTH))
 
+
     def _print_header(self, message = None, add_extra_newline: bool = False, clear_screen: bool = True):
         """
         Prints the NaN AIR application header
@@ -292,9 +310,9 @@ class UIElement:
             self._clear_screen()
 
         print("""
-+-----------------------------------------------------------------------------------------------+
-|                                   NaN AIR Management system                                   |
-+-----------------------------------------------------------------------------------------------+""")
++-------------------------------------------------------------------------------------------------------------------+
+|                                             NaN AIR Management system                                             |
++-------------------------------------------------------------------------------------------------------------------+""")
 
         if isinstance(message, str):
             self._print_centered(message, color=Fore.LIGHTYELLOW_EX)

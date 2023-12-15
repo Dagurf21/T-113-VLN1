@@ -61,8 +61,6 @@ class TestVoyage(unittest.TestCase):
             datetime.time(15, 00), # Departure time
             datetime.time(12, 00), # Return departure time
             150,
-            [],
-            []
         )
 
         voyage = data.get_first_voyage()
@@ -92,8 +90,6 @@ class TestVoyage(unittest.TestCase):
             datetime.time(15, 00), # Departure time
             datetime.time(17, 00), # Return departure time
             150,
-            [],
-            []
         )
 
         voyage = data.get_first_voyage()

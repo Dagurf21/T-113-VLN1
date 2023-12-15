@@ -4,6 +4,6 @@ from logic.flight_logic import *
 from logic.voyage_logic import *
 from logic.plane_logic import *
 from logic.employee_logic import *
-from logic.flight_utilities import *
+from logic.plane_utilities import *
 from logic.voyage_utilities import *
 from logic.logic_wrapper import *

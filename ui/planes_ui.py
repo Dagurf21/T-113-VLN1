@@ -1,5 +1,6 @@
+import datetime
 from ui import UIElement, UICancelException
-from model import Plane, Employee # Dont think we need this ??
+from model import Plane, Employee, PlaneStatus
 from logic import LogicWrapper
 
 class PlaneUI(UIElement):
@@ -40,17 +41,36 @@ class PlaneUI(UIElement):
         planes_data = []
 
         for plane in planes:
+            plane_status = self.logic_wrapper.get_plane_status(plane)
+
+            if plane_status == PlaneStatus.InFlight:
+                active_flight = self.logic_wrapper.get_plane_active_flight(plane)
+                destination = self.logic_wrapper.get_destination(active_flight.destination)
+                plane_status = f"{plane_status:<9} -> [{active_flight.flight_number}] {destination.airport:.9}. - arr: {active_flight.arrival_time}"
+            elif plane_status == PlaneStatus.InUse:
+                active_voyage = self.logic_wrapper.get_plane_active_voyage(plane)
+                destination = self.logic_wrapper.get_destination(active_voyage.destination)
+                return_flight = self.logic_wrapper.get_flight(active_voyage.return_flight, active_voyage.return_date)
+                available = datetime.datetime(
+                    active_voyage.return_date.year,
+                    active_voyage.return_date.month,
+                    active_voyage.return_date.day,
+                    hour=return_flight.arrival_time.hour,
+                    minute=return_flight.arrival_time.minute,
+                )
+                plane_status = f"{plane_status:<9} -> {destination.airport} - av: {available}"
+                
+            
             planes_data.append([
                 plane.id,
                 plane.name, 
                 plane.ty,
-                "UNIMPLEMENTED",
                 plane.capacity,
-                plane.voyages
+                plane_status,
             ])
 
         self._display_interactive_datalist(
-            { "ID": 3, "name": 12, "Type": 12, "Availability": 12, "Seats": 5, "Flight ID": 10},
+            { "ID": 3, "name": 12, "Type": 8, "Seats": 5, "Status": 54 },
             planes_data
         )
         # Should work, not sure about the spacing
@@ -81,15 +101,47 @@ class PlaneUI(UIElement):
                 self._print_header("List Plane", add_extra_newline=True)
                 self._print_centered(f"Plane with ID {plane_id} does not exist", add_newline_after=True)
                 continue
+
+            plane_status = self.logic_wrapper.get_plane_status(plane)
+            status_list = []
+
+            if plane_status == PlaneStatus.InFlight:
+                active_flight = self.logic_wrapper.get_plane_active_flight(plane)
+                active_voyage = self.logic_wrapper.get_plane_active_voyage(plane)
+                destination = self.logic_wrapper.get_destination(active_flight.destination)
+                return_flight = self.logic_wrapper.get_flight(active_voyage.return_flight, active_voyage.return_date)
+                available = datetime.datetime(
+                    active_voyage.return_date.year,
+                    active_voyage.return_date.month,
+                    active_voyage.return_date.day,
+                    hour=return_flight.arrival_time.hour,
+                    minute=return_flight.arrival_time.minute,
+                )
+                status_list.append(f"Arrives on:     {active_flight.arrival_time}")
+                status_list.append(f"Next Available: {available}")
+
+            elif plane_status == PlaneStatus.InUse:
+                active_voyage = self.logic_wrapper.get_plane_active_voyage(plane)
+                destination = self.logic_wrapper.get_destination(active_voyage.destination)
+                return_flight = self.logic_wrapper.get_flight(active_voyage.return_flight, active_voyage.return_date)
+                available = datetime.datetime(
+                    active_voyage.return_date.year,
+                    active_voyage.return_date.month,
+                    active_voyage.return_date.day,
+                    hour=return_flight.arrival_time.hour,
+                    minute=return_flight.arrival_time.minute,
+                )
+                status_list.append(f"Next Available: {available}")
             
             self._print_header(f"List Plane [id: {plane_id}]", add_extra_newline=True)
             self._print_list([
-                f"ID:           {plane.id}",
-                f"Name:         {plane.name}",
-                f"Type:         {plane.ty}",
-                f"Manufacturer: {plane.manufacturer}",
-                f"Capacity:     {plane.capacity}",
-                f"Voyages:      {plane.voyages}"
+                f"ID:             {plane.id}",
+                f"Name:           {plane.name}",
+                f"Type:           {plane.ty}",
+                f"Manufacturer:   {plane.manufacturer}",
+                f"Capacity:       {plane.capacity}",
+                f"Status:         {plane_status}",
+                *status_list
             ], add_newline_after=True)
 
     def register_plane(self):

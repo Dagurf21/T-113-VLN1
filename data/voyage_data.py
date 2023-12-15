@@ -9,17 +9,45 @@ class VoyageData:
         self.file_name = "files/voyages.csv"
     
 
-    def create_voyage(self, voyage) -> int:
+    def create_voyage(self, voyage: Voyage) -> int:
         """Writes new voyage into the storage file"""
         with open(self.file_name, 'a', newline='', encoding="utf-8") as csvfile:
-            fieldnames = ["id", "destination", "sold_seats", "plane", "pilots", "attendants", "departure_time", "departure_flight", "arrival_departure_time", "arrival_flight", "date", "return_date", "status"]
+            fieldnames = [
+                "id",
+                "destination",
+                "sold_seats",
+                "plane",
+                "pilots",
+                "attendants",
+                "departure_time",
+                "departure_flight",
+                "arrival_departure_time",
+                "arrival_flight",
+                "date",
+                "return_date",
+                "status"
+            ]
             
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
             id = self.get_new_id()
             pilots_csv_list = ".".join(str(id) for id in voyage.pilots)
             attendants_csv_list = ".".join(str(id) for id in voyage.flight_attendants)
-            writer.writerow({'id': id, 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': pilots_csv_list, 'attendants': attendants_csv_list, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.return_departure_time, 'arrival_flight': voyage.return_flight, 'date': voyage.departure_date, 'return_date': voyage.return_date, 'status': voyage.status})
+            writer.writerow({
+				'id': id,
+				'destination': voyage.destination,
+				'sold_seats': voyage.sold_seats,
+				'plane': voyage.plane,
+				'pilots': pilots_csv_list,
+				'attendants': attendants_csv_list,
+				'departure_time': voyage.departure_time,
+				'departure_flight': voyage.departure_flight,
+				'arrival_departure_time': voyage.return_departure_time,
+				'arrival_flight': voyage.return_flight,
+				'date': voyage.departure_date,
+				'return_date': voyage.return_date,
+				'status': voyage.status
+            })
             
             return id
 
@@ -30,7 +58,7 @@ class VoyageData:
         with open(self.file_name, newline='', encoding="utf-8") as csvfile:
             reader = csv.DictReader(csvfile)
             
-            for row in reader:
+            for _ in reader:
                 id += 1
 
             return id
@@ -53,48 +81,61 @@ class VoyageData:
                 pilots_list = [int(pilot) for pilot in row["pilots"].split(".") if pilot != ""]
                 attendants_list = [int(attendant) for attendant in row["attendants"].split(".") if attendant != ""]
 
-                ret_list.append(
-                    Voyage(
-                        id = int(row["id"]), 
-                        destination = int(row["destination"]), 
-                        sold_seats = int(row["sold_seats"]), 
-                        plane = int(row["plane"]), 
-                        pilots = pilots_list, 
-                        flight_attendants = attendants_list, 
-                        departure_time = datetime.time(hour = dep_hour, minute = dep_minute), 
-                        departure_flight = row["departure_flight"], 
-                        return_departure_time = datetime.time(hour = ret_hour, minute = ret_minute), 
-                        return_flight = row["arrival_flight"], 
-                        departure_date = datetime.date(year = dep_year, month = dep_month, day = dep_day), 
-                        return_date = datetime.date(year = ret_year, month = ret_month, day = ret_day), 
-                        status = row["status"])
-                    )
+                ret_list.append(Voyage(
+                    id = int(row["id"]), 
+                    destination = int(row["destination"]), 
+                    sold_seats = int(row["sold_seats"]), 
+                    plane = int(row["plane"]), 
+                    pilots = pilots_list, 
+                    flight_attendants = attendants_list, 
+                    departure_time = datetime.time(hour = dep_hour, minute = dep_minute), 
+                    departure_flight = row["departure_flight"], 
+                    return_departure_time = datetime.time(hour = ret_hour, minute = ret_minute), 
+                    return_flight = row["arrival_flight"], 
+                    departure_date = datetime.date(year = dep_year, month = dep_month, day = dep_day), 
+                    return_date = datetime.date(year = ret_year, month = ret_month, day = ret_day), 
+                    status = row["status"],
+                ))
         
         return ret_list
 
 
-    def split_date(self, date: str):
+    def split_date(self, date: str) -> (int, int, int):
         """Splits the date string into year, month and day integers"""
         year, month, day = date.split("-")
 
         return int(year), int(month), int(day)
 
 
-    def split_time(self, time):
-        """SPlits the time string into hour, minute and second 
+    def split_time(self, time: str) -> (int, int):
+        """Splits the time string into hour, minute and second 
         and returns the hour and minute as int"""
         hour, minute, second = time.split(":")
 
         return int(hour), int(minute)
 
 
-    def update_voyage(self, voyage) -> None:
+    def update_voyage(self, voyage: Voyage) -> None:
         """Updates the voyage with the given id"""
         # Makes temporary file to not overwrite the original file
         tempfile = NamedTemporaryFile(mode='w', delete=False)
         
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
-            fieldnames = ["id", "destination", "sold_seats", "plane", "pilots", "attendants", "departure_time", "departure_flight", "arrival_departure_time", "arrival_flight", "date", "return_date", "status"]
+            fieldnames = [
+                "id",
+                "destination",
+                "sold_seats",
+                "plane",
+                "pilots",
+                "attendants",
+                "departure_time",
+                "departure_flight",
+                "arrival_departure_time",
+                "arrival_flight",
+                "date",
+                "return_date",
+                "status"
+            ]
             
             reader = csv.DictReader(csvfile)
             writer = csv.DictWriter(tempfile, fieldnames = fieldnames)
@@ -108,10 +149,39 @@ class VoyageData:
                     pilots_csv_list = ".".join(str(id) for id in voyage.pilots)
                     attendants_csv_list = ".".join(str(id) for id in voyage.flight_attendants)
                     
-                    row = {'id': row["id"], 'destination': voyage.destination, 'sold_seats': voyage.sold_seats, 'plane': voyage.plane, 'pilots': pilots_csv_list, 'attendants': attendants_csv_list, 'departure_time': voyage.departure_time, 'departure_flight': voyage.departure_flight, 'arrival_departure_time': voyage.return_departure_time, 'arrival_flight': voyage.return_flight, 'date': voyage.departure_date, 'return_date': voyage.return_date, 'status': voyage.status}
+                    row = {
+                        'id': row["id"],
+                        'destination': voyage.destination,
+                        'sold_seats': voyage.sold_seats,
+                        'plane': voyage.plane,
+                        'pilots': pilots_csv_list,
+                        'attendants': attendants_csv_list,
+                        'departure_time': voyage.departure_time,
+                        'departure_flight': voyage.departure_flight,
+                        'arrival_departure_time': voyage.return_departure_time,
+                        'arrival_flight': voyage.return_flight,
+                        'date': voyage.departure_date,
+                        'return_date': voyage.return_date,
+                        'status': voyage.status
+                    }
+
                 # Writes the other planes unchanged 
                 else:
-                    row = {'id': row["id"], 'destination': row["destination"], 'sold_seats': row["sold_seats"], 'plane': row["plane"], 'pilots': row["pilots"], 'attendants': row["attendants"], 'departure_time': row["departure_time"], 'departure_flight': row["departure_flight"], 'arrival_departure_time': row["arrival_departure_time"], 'arrival_flight': row["arrival_flight"], 'date': row["date"], 'return_date': row["return_date"], 'status': row["status"]}
+                    row = {
+                        'id': row["id"],
+                        'destination': row["destination"],
+                        'sold_seats': row["sold_seats"],
+                        'plane': row["plane"],
+                        'pilots': row["pilots"],
+                        'attendants': row["attendants"],
+                        'departure_time': row["departure_time"],
+                        'departure_flight': row["departure_flight"],
+                        'arrival_departure_time': row["arrival_departure_time"],
+                        'arrival_flight': row["arrival_flight"],
+                        'date': row["date"],
+                        'return_date': row["return_date"],
+                        'status': row["status"]
+                    }
 
                 writer.writerow(row)
 
@@ -125,7 +195,21 @@ class VoyageData:
         tempfile = NamedTemporaryFile(mode='w', delete=False)
 
         with open(self.file_name, 'r', newline='', encoding="utf-8") as csvfile, tempfile:
-            fieldnames = ["id", "destination", "sold_seats", "plane", "pilots", "attendants", "departure_time", "departure_flight", "arrival_departure_time", "arrival_flight", "date", "return_date", "status"]
+            fieldnames = [
+                "id",
+                "destination",
+                "sold_seats",
+                "plane",
+                "pilots",
+                "attendants",
+                "departure_time",
+                "departure_flight",
+                "arrival_departure_time",
+                "arrival_flight",
+                "date",
+                "return_date",
+                "status"
+            ]
             
             reader = csv.DictReader(csvfile)
             writer = csv.DictWriter(tempfile, fieldnames=fieldnames)
@@ -138,11 +222,39 @@ class VoyageData:
 
                 # If the voyage is found, it removes employees from voyage and changes status to cancelled
                 if int(row["id"]) == voyage_id:
-                    row = {'id': row["id"], 'destination': row["destination"], 'sold_seats': row["sold_seats"], 'plane': row["plane"], 'pilots': [], 'attendants': [], 'departure_time': row["departure_time"], 'departure_flight': row["departure_flight"], 'arrival_departure_time': row["arrival_departure_time"], 'arrival_flight': row["arrival_flight"], 'date': row["date"], 'return_date': row["return_date"], 'status': "Cancelled"}
+                    row = {
+                        'id': row["id"],
+                        'destination': row["destination"],
+                        'sold_seats': row["sold_seats"],
+                        'plane': row["plane"],
+                        'pilots': [],
+                        'attendants': [],
+                        'departure_time': row["departure_time"],
+                        'departure_flight': row["departure_flight"],
+                        'arrival_departure_time': row["arrival_departure_time"],
+                        'arrival_flight': row["arrival_flight"],
+                        'date': row["date"],
+                        'return_date': row["return_date"],
+                        'status': "Cancelled"
+                    }
 
                 # Each row from the original file is written to the temporary file
                 else:
-                    row = {'id': row["id"], 'destination': row["destination"], 'sold_seats': row["sold_seats"], 'plane': row["plane"], 'pilots': row["pilots"], 'attendants': row["attendants"], 'departure_time': row["departure_time"], 'departure_flight': row["departure_flight"], 'arrival_departure_time': row["arrival_departure_time"], 'arrival_flight': row["arrival_flight"], 'date': row["date"], 'return_date': row["return_date"], 'status': row["status"]}
+                    row = {
+                        'id': row["id"],
+                        'destination': row["destination"],
+                        'sold_seats': row["sold_seats"],
+                        'plane': row["plane"],
+                        'pilots': row["pilots"],
+                        'attendants': row["attendants"],
+                        'departure_time': row["departure_time"],
+                        'departure_flight': row["departure_flight"],
+                        'arrival_departure_time': row["arrival_departure_time"],
+                        'arrival_flight': row["arrival_flight"],
+                        'date': row["date"],
+                        'return_date': row["return_date"],
+                        'status': row["status"]
+                    }
                 
                 writer.writerow(row)
 
