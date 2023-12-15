@@ -26,7 +26,18 @@
 #### Hópur 28
 Axel Snær Ammendrup Atlason, Dagur Freyr Guðbrandsson, Elías Andri Harðarson, Kristján Kári Gunnarsson(Odysseus101), Marteinn Logi Jóhannsson
 
-Velkomin!
+```ascii
+##======================================================================================================##
+|  __        __   _                            _          _   _                          _    _          |
+|  \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___   | \ | | __ _ _ __              / \  (_)_ __     |
+|   \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  |  \| |/ _` | '_ \   _____    / _ \ | | '__|    |
+|    \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |\  | (_| | | | | |_____|  / ___ \| | |       |
+|     \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/  |_| \_|\__,_|_| |_|         /_/   \_\_|_|       |
+|                                                                                                        |
+##======================================================================================================##
+```
+
+
 
 Aðgangur:
     Email
@@ -35,5 +46,7 @@ Aðgangur:
         "pass"
 
 Fyrir module þarfir þarf bara að skrifa:
-    "pip install -r requirements.txt" 
+    ```
+    "pip install -r requirements.txt
+    ```
 Inn í terminal-ið.
