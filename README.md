@@ -75,3 +75,7 @@ Login sem Chuck Norris, fyrir neðan eru aðgangs upplysingarnar
 - colorama
 - py-getch
 - cursor
+
+| Shortcuts                |  Keybindings |
+| ------------------------ | ------------ |
+| Exit current menu window | <kbd>q</kbd> |
