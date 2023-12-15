@@ -196,6 +196,8 @@ class VoyageUI(UIElement):
                         f"{voyage.return_date} @ {voyage.departure_time}",
                         manned,
                         voyage.status,
+                        voyage.departure_flight,
+                        voyage.return_flight,
                     ]
                 )
 
@@ -207,7 +209,9 @@ class VoyageUI(UIElement):
                     "Date": 19,
                     "Return date": 19,
                     "Manned": 8,
-                    "Status": 15,
+                    "Status": 13,
+                    "Dep.": 6,
+                    "Ret.": 6,
                 },
                 voyage_data,
                 title="Voyages",

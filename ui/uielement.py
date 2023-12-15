@@ -4,7 +4,7 @@ from colorama import Fore, Style, ansi
 import cursor
 import getch
 
-UI_WIDTH = 97
+UI_WIDTH = 117
 
 class UICancelException(Exception):
     pass
@@ -310,9 +310,9 @@ class UIElement:
             self._clear_screen()
 
         print("""
-+-----------------------------------------------------------------------------------------------+
-|                                   NaN AIR Management system                                   |
-+-----------------------------------------------------------------------------------------------+""")
++-------------------------------------------------------------------------------------------------------------------+
+|                                             NaN AIR Management system                                             |
++-------------------------------------------------------------------------------------------------------------------+""")
 
         if isinstance(message, str):
             self._print_centered(message, color=Fore.LIGHTYELLOW_EX)
