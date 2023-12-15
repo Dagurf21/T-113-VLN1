@@ -66,9 +66,9 @@ class LogicWrapper(object):
     def get_employee_by_workday(self, date) -> list[Employee]:
         """Retrieves a list of employees that are working on a specific date"""
         return self.employee_logic.get_employee_by_workday(date)
-    
-    def is_working(self,employee_id, date) -> bool:
-        '''Checks and returns if employee is working on given date'''
+
+    def is_working(self, employee_id, date) -> bool:
+        """Checks and returns if employee is working on given date"""
         return self.employee_logic.is_working(employee_id, date)
 
     def get_employee_by_not_workday(self, date) -> list[Employee]:
@@ -159,7 +159,7 @@ class LogicWrapper(object):
     ) -> bool:
         """Validates that two flights dont depart at the same time"""
         return self.voyage_logic.validate_departure_time(departure_date, departure_time)
-    
+
     def get_voyages_on_date(self, date: datetime.date) -> list[Voyage]:
         return self.voyage_logic.get_voyage_by_date(date)
 
@@ -247,7 +247,9 @@ class LogicWrapper(object):
     def validate_status(self, voyage):
         return self.voyage_logic.validate_status(voyage)
 
-    def voyage_contains_date_and_time(self, voyage: Voyage, date: datetime.date, time: datetime.time) -> bool:
+    def voyage_contains_date_and_time(
+        self, voyage: Voyage, date: datetime.date, time: datetime.time
+    ) -> bool:
         return self.voyage_logic.contains_date_and_time(voyage, date, time)
 
     def voyage_contains_overlap(self, voyage1: Voyage, voyage2: Voyage) -> bool:
@@ -264,18 +266,18 @@ class LogicWrapper(object):
 
     # Voyage Utilities
 
-    def staff_voyage_pilot(self, new_staff: int):
-        return self.voyage_utilities.staff_voyage_pilot(new_staff)
+    def staff_voyage_pilot(self, voyage_id, new_staff: int):
+        return self.voyage_utilities.staff_voyage_pilot(voyage_id, new_staff)
 
-    def staff_voyage_attendant(self, new_staff: int):
-        return self.voyage_utilities.staff_voyage_attendant(new_staff)
+    def staff_voyage_attendant(self, voyage_id, new_staff: int):
+        return self.voyage_utilities.staff_voyage_attendant(voyage_id, new_staff)
 
-    def unstaff_voyage_pilot(self, staff_to_remove: int):
-        return self.voyage_utilities.unstaff_voyage_pilot(staff_to_remove)
+    def unstaff_voyage_pilot(self, voyage_id, staff_to_remove: int):
+        return self.voyage_utilities.unstaff_voyage_pilot(voyage_id, staff_to_remove)
 
-    def unstaff_voyage_attendant(self, staff_to_remove: int):
-        return self.voyage_utilities.unstaff_voyage_attendant(staff_to_remove)
-    
+    def unstaff_voyage_attendant(self, voyage_id, staff_to_remove: int):
+        return self.voyage_utilities.unstaff_voyage_attendant(voyage_id, staff_to_remove)
+
     # Plane Utilities
 
     def get_plane_status(self, plane: Plane) -> PlaneStatus:
@@ -287,10 +289,14 @@ class LogicWrapper(object):
     def get_plane_active_voyage(self, plane: Plane) -> Voyage | None:
         return self.plane_utilities.get_plane_active_voyage(plane)
 
-    def validate_plane_availability(self, plane: Plane, when: datetime.datetime) -> bool:
+    def validate_plane_availability(
+        self, plane: Plane, when: datetime.datetime
+    ) -> bool:
         return self.plane_utilities.validate_plane_availability(plane, when)
-    
+
     # General Utilities
 
-    def make_datetime(self, date: datetime.date, time: datetime.time) -> datetime.datetime:
+    def make_datetime(
+        self, date: datetime.date, time: datetime.time
+    ) -> datetime.datetime:
         return Utilities.make_datetime(date, time)
