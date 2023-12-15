@@ -410,6 +410,7 @@ class EmployeeUI(UIElement):
                         "Enter license",
                         header_title="Register Employee",
                         opt_instruction="Leave empty to cancel",
+                        validator=self.validate_license,
                     )
                     employee = Pilot(
                         name=name,
@@ -550,6 +551,7 @@ class EmployeeUI(UIElement):
                         employee.license = self._prompt(
                             "Enter new license",
                             opt_instruction="Leave empty to cancel",
+                            validator=self.validate_license,
                         )
 
                 self.logic_wrapper.update_employee(employee)
@@ -753,6 +755,12 @@ class EmployeeUI(UIElement):
             return None
         except ValueError:
             return "Input must be number"
+
+    def validate_license(self, inp):
+        if self.logic_wrapper.validate_license(inp):
+            return None
+        
+        return "Invalid license"
 
     def parse_date(self, date):
         year, month, day = date.split("-")
