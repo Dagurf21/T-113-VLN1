@@ -161,6 +161,7 @@ class LogicWrapper(object):
         return self.voyage_logic.validate_departure_time(departure_date, departure_time)
 
     def get_voyages_on_date(self, date: datetime.date) -> list[Voyage]:
+        """returns Voyage on given date"""
         return self.voyage_logic.get_voyage_by_date(date)
 
     # Destination class
@@ -207,88 +208,105 @@ class LogicWrapper(object):
 
     # Validator class
     ## General validation
-    def validate_phone_number(self, phone_nr_data: str):
-        """"""
+    def validate_phone_number(self, phone_nr_data: str) -> bool:
+        """Validates phonenumber and returns bool"""
         return self.validate.phone_number(phone_nr_data)
 
     ## Destination Validation
 
     ## Employee Validation
-    def validate_ssn(self, ssn_data: str):
+    def validate_ssn(self, ssn_data: str) -> bool:
+        """Validates ssn (social security number)"""
         return self.validate.ssn(ssn_data)
 
-    def validate_email(self, email_data: str):
+    def validate_email(self, email_data: str) -> bool:
+        """validates email returns bool"""
         return self.validate.email(email_data)
 
     ### Pilot Validation
-    def validate_license(self, license_data: str):
+    def validate_license(self, license_data: str) -> bool:
+        """validates licens and returns bool"""
         return self.validate.license(self.data_wrapper, license_data)
 
-    def pilot_has_license(self, pilot_id: int, plane_id: int):
+    def pilot_has_license(self, pilot_id: int, plane_id: int) -> bool:
+        """validate if pilot has license and returns bool"""
         return self.employee_logic.pilot_has_license(pilot_id, plane_id)
 
     ### Pilot & Flight Attendant Validation
-    def validate_assignments(self, assignments_data: list[int] ):
+    def validate_assignments(self, assignments_data: list[int]) -> bool:
+        """Validate assignments and returns bool"""
         return self.validate.assignments(assignments_data)
 
     # Voyage Validation
-    def seats_available(self, voyage_data: Voyage):
+    def seats_available(self, voyage_data: Voyage) -> bool:
+        """Validates available seats and returns bool"""
         return self.validate.seats_available(voyage_data)
 
-    def check_job_position(self, employee_id: int, job_title: str):
+    def check_job_position(self, employee_id: int, job_title: str) -> bool:
+        """Validates job position and returns bool"""
         return self.employee_logic.check_job_position(employee_id, job_title)
 
     def validate_voyage_staff(self, voyage: Voyage):
+        """Validates Voyage"""
         return self.validate.voyage_staff(voyage)
 
-    def validate_status(self, voyage: Voyage):
+    def validate_status(self, voyage: Voyage) -> None:
+        """Validates status of Voyage"""
         return self.voyage_logic.validate_status(voyage)
 
-    def voyage_contains_date_and_time(
-        self, voyage: Voyage, date: datetime.date, time: datetime.time
-    ) -> bool:
+    def voyage_contains_date_and_time(self, voyage: Voyage, date: datetime.date, time: datetime.time ) -> bool:
+        """Checks if voyage has datetime.date"""
         return self.voyage_logic.contains_date_and_time(voyage, date, time)
 
     def voyage_contains_overlap(self, voyage1: Voyage, voyage2: Voyage) -> bool:
+        """Validates if there is an overlap"""
         return self.voyage_logic.contains_overlap(voyage1, voyage2)
 
     ### Utilities
     # Password Utility
-    def password_encoder(self, password: str):
+    def password_encoder(self, password: str) -> str:
+        """Encodes password using bcrypt"""
         return self.utility.password_encoder(password)
 
-    def check_password(self, email: str, given_password: str):
+    def check_password(self, email: str, given_password: str) -> bool:
+        """Checks password and returns bool"""
         employee = self.employee_logic.get_employee_by_email(email)
         return self.utility.check_password(employee, given_password)
 
     # Voyage Utilities
 
-    def staff_voyage_pilot(self, voyage_id: int, new_staff: int):
+    def staff_voyage_pilot(self, voyage_id: int, new_staff: int) -> None:
+        """adds pilot to voyage"""
         return self.voyage_utilities.staff_voyage_pilot(voyage_id, new_staff)
 
-    def staff_voyage_attendant(self, voyage_id, new_staff: int):
+    def staff_voyage_attendant(self, voyage_id: int, new_staff: int) -> None:
+        """adds attendant to voyage"""
         return self.voyage_utilities.staff_voyage_attendant(voyage_id, new_staff)
 
-    def unstaff_voyage_pilot(self, voyage_id, staff_to_remove: int):
+    def unstaff_voyage_pilot(self, voyage_id, staff_to_remove: int) -> None:
+        """Removes pilot from voyage"""
         return self.voyage_utilities.unstaff_voyage_pilot(voyage_id, staff_to_remove)
 
-    def unstaff_voyage_attendant(self, voyage_id, staff_to_remove: int):
+    def unstaff_voyage_attendant(self, voyage_id, staff_to_remove: int) -> None:
+        """Removes attendant from voyage"""
         return self.voyage_utilities.unstaff_voyage_attendant(voyage_id, staff_to_remove)
 
     # Plane Utilities
 
     def get_plane_status(self, plane: Plane) -> PlaneStatus:
+        """Gets plane status"""
         return self.plane_utilities.get_plane_status(plane)
 
     def get_plane_active_flight(self, plane: Plane) -> Flight | None:
+        """gets current flight if plane is on any active voyages"""
         return self.plane_utilities.get_plane_active_flight(plane)
 
     def get_plane_active_voyage(self, plane: Plane) -> Voyage | None:
+        """gets current Voyage if plane is on any active voyages"""
         return self.plane_utilities.get_plane_active_voyage(plane)
 
-    def validate_plane_availability(
-        self, plane: Plane, when: datetime.datetime
-    ) -> bool:
+    def validate_plane_availability(self, plane: Plane, when: datetime.datetime) -> bool:
+        """validate if plane is available and returns bool"""
         return self.plane_utilities.validate_plane_availability(plane, when)
 
     # General Utilities
@@ -296,4 +314,5 @@ class LogicWrapper(object):
     def make_datetime(
         self, date: datetime.date, time: datetime.time
     ) -> datetime.datetime:
+        """Makes datetime"""
         return Utilities.make_datetime(date, time)
