@@ -569,6 +569,19 @@ class EmployeeUI(UIElement):
                     clear_screen=False,
                 )
                 employee_id = int(employee_id)
+
+                # Chuck Norris is always employee ID 0
+                if employee_id == 0:
+                    # Prevent Chuck Norris from being deleted
+                    self._print_header("Remove Employee", add_extra_newline=True)
+                    self._print_centered("I'm afraid I can't let you do that", add_newline_after=True)
+                    continue
+
+                if employee_id == self.user.id:
+                    self._print_header("Remove Employee", add_extra_newline=True)
+                    self._print_centered("Cannot delete logged in user", add_newline_after=True)
+                    continue
+
             except UICancelException:
                 return
             except ValueError:
