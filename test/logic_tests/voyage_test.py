@@ -103,6 +103,7 @@ class TestVoyage(unittest.TestCase):
         self.assertEqual(voyage.return_date, datetime.date(2023, 2, 15))
         self.assertEqual(voyage.status, VoyageStatus.NotStarted)
     
+    # Outdated test - Does not run
     def test_get_all_voyages(self):
         data = MockDataWrapper()
         voyage_logic = VoyageLogic(data)
@@ -147,6 +148,7 @@ class TestVoyage(unittest.TestCase):
         self.assertListEqual(voyages, res)
 
 
+    # Outdated test - Does not run
     def test_get_voyage(self):
         data = MockDataWrapper()
         voyage_logic = VoyageLogic(data)
@@ -190,6 +192,7 @@ class TestVoyage(unittest.TestCase):
         voyage = voyage_logic.get_voyage(1)
         self.assertEqual(voyage, voyages[1])
 
+    # Outdated test - Does not run
     def test_update_voyage(self):
         data = MockDataWrapper()
         voyage_logic = VoyageLogic(data)
