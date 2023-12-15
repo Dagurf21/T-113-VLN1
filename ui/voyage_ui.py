@@ -370,7 +370,10 @@ class VoyageUI(UIElement):
                 voyage = self.logic_wrapper.get_voyage(voyage_id)
                 if voyage is None:
                     self._print_header("Staff voyage", add_extra_newline=True)
-                    self._print_centered(f"Voyage with id '{voyage_id}' doesn't exist", add_newline_after=True)
+                    self._print_centered(
+                        f"Voyage with id '{voyage_id}' doesn't exist",
+                        add_newline_after=True,
+                    )
                     continue
 
                 if voyage == None:
@@ -441,27 +444,34 @@ class VoyageUI(UIElement):
                         copy_voyage = self.logic_wrapper.get_voyage(voyage_id)
                         if copy_voyage is None:
                             self._print_header("Staff voyage", add_extra_newline=True)
-                            self._print_centered(f"Voyage with id '{voyage_id}' doesn't exist", add_newline_after=True)
+                            self._print_centered(
+                                f"Voyage with id '{voyage_id}' doesn't exist",
+                                add_newline_after=True,
+                            )
                             continue
 
                         new_voyage = copy_voyage
 
-                        departure_date = self.parse_date(self._prompt(
-                            "Enter date of voyage (yyyy-mm-dd)",
-                            header_title="Create voyage",
-                            opt_instruction="Leave empty to cancel",
-                            validator=lambda i: self.validate_duplicate_voyage_date_departure(
-                                copy_voyage, i
-                            ),
-                        ))
-                        return_date = self.parse_date(self._prompt(
-                            "Enter Return date of voyage (yyyy-mm-dd)",
-                            header_title="Create voyage",
-                            opt_instruction="Leave empty to cancel",
-                            validator=lambda i: self.validate_duplicate_voyage_date_return(
-                                departure_date, copy_voyage, i
-                            ),
-                        ))
+                        departure_date = self.parse_date(
+                            self._prompt(
+                                "Enter date of voyage (yyyy-mm-dd)",
+                                header_title="Create voyage",
+                                opt_instruction="Leave empty to cancel",
+                                validator=lambda i: self.validate_duplicate_voyage_date_departure(
+                                    copy_voyage, i
+                                ),
+                            )
+                        )
+                        return_date = self.parse_date(
+                            self._prompt(
+                                "Enter Return date of voyage (yyyy-mm-dd)",
+                                header_title="Create voyage",
+                                opt_instruction="Leave empty to cancel",
+                                validator=lambda i: self.validate_duplicate_voyage_date_return(
+                                    departure_date, copy_voyage, i
+                                ),
+                            )
+                        )
 
                         new_voyage.pilots = []
                         new_voyage.flight_attendants = []
@@ -517,7 +527,10 @@ class VoyageUI(UIElement):
                     copy_voyage = self.logic_wrapper.get_voyage(voyage_id)
                     if copy_voyage is None:
                         self._print_header("Staff voyage", add_extra_newline=True)
-                        self._print_centered(f"Voyage with id '{voyage_id}' doesn't exist", add_newline_after=True)
+                        self._print_centered(
+                            f"Voyage with id '{voyage_id}' doesn't exist",
+                            add_newline_after=True,
+                        )
                         continue
 
                     start_date_voyage = self._prompt(
@@ -607,7 +620,10 @@ class VoyageUI(UIElement):
                 voyage = self.logic_wrapper.get_voyage(voyage_id)
                 if voyage is None:
                     self._print_header("Staff voyage", add_extra_newline=True)
-                    self._print_centered(f"Voyage with id '{voyage_id}' doesn't exist", add_newline_after=True)
+                    self._print_centered(
+                        f"Voyage with id '{voyage_id}' doesn't exist",
+                        add_newline_after=True,
+                    )
                     continue
 
                 pilots_or_attendants = self._display_selection(
@@ -661,7 +677,10 @@ class VoyageUI(UIElement):
                 voyage = self.logic_wrapper.get_voyage(voyage_id)
                 if voyage is None:
                     self._print_header("Staff voyage", add_extra_newline=True)
-                    self._print_centered(f"Voyage with id '{voyage_id}' doesn't exist", add_newline_after=True)
+                    self._print_centered(
+                        f"Voyage with id '{voyage_id}' doesn't exist",
+                        add_newline_after=True,
+                    )
                     continue
 
                 pilots_or_attendants = self._display_selection(
@@ -783,7 +802,9 @@ class VoyageUI(UIElement):
             "Duplicate voyage conflicts with another voyage on the new departure date"
         )
 
-    def validate_duplicate_voyage_date_return(self, departure_date: datetime.date, voyage: Voyage, inp: str):
+    def validate_duplicate_voyage_date_return(
+        self, departure_date: datetime.date, voyage: Voyage, inp: str
+    ):
         error = self.validate_date(inp)
         if error is not None:
             return error
@@ -942,7 +963,7 @@ class VoyageUI(UIElement):
         if self.logic_wrapper.is_working(
             int(pilot_id), departure_date
         ) or self.logic_wrapper.is_working(int(pilot_id), return_date):
-            return "Pilot already assined that day"
+            return "Pilot already assigned that day"
 
         return None
 
@@ -959,7 +980,7 @@ class VoyageUI(UIElement):
         if self.logic_wrapper.is_working(
             int(attendant_id), departure_date
         ) or self.logic_wrapper.is_working(int(attendant_id), return_date):
-            return "Attendant already assined that day"
+            return "Attendant already assigned that day"
 
         return None
 
