@@ -46,7 +46,6 @@ Axel Snær Ammendrup Atlason, Dagur Freyr Guðbrandsson, Elías Andri Harðarson
 
 ## Step 2:
 
-
 Fyrir module þarfir þarf bara að skrifa:
 
 ```pip install -r requirements.txt```
@@ -67,3 +66,12 @@ Login sem Chuck Norris, fyrir neðan eru aðgangs upplysingarnar
 | --------- | ---------------------- | 
 | Email:    | chucknorri@nanair.is   |
 | Password: | Password               |
+
+
+# Requiremnets
+
+- python 3.11.6
+- bcrypt
+- colorama
+- py-getch
+- cursor
