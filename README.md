@@ -39,14 +39,15 @@ Axel Snær Ammendrup Atlason, Dagur Freyr Guðbrandsson, Elías Andri Harðarson
 
 
 
-Aðgangur:
-    Email
-        "Kennari"
-    Password
-        "pass"
+|Aðgangs upplysingar: |              |
+| --------- | ---------------------- | 
+| Email:    | chucknorri@nanair.is   |
+| Password: | []                     |
+
+
 
 Fyrir module þarfir þarf bara að skrifa:
     ```
-    "pip install -r requirements.txt
+    pip install -r requirements.txt
     ```
 Inn í terminal-ið.
