@@ -1,7 +1,17 @@
 import datetime
 from ui import UIElement, UICancelException
-from model import Employee, Pilot, Manager, FlightAttendant, FlightManager, Voyage, Destination, Flight
+from model import (
+    Employee,
+    Pilot,
+    Manager,
+    FlightAttendant,
+    FlightManager,
+    Voyage,
+    Destination,
+    Flight,
+)
 from logic import LogicWrapper
+
 
 class EmployeeUI(UIElement):
     def __init__(self, user: Employee, logic_wrapper: LogicWrapper):
@@ -21,7 +31,7 @@ class EmployeeUI(UIElement):
                         "Remove employee",
                     ],
                     header_title="Employees",
-                    include_back=True
+                    include_back=True,
                 )
             except UICancelException:
                 return
@@ -57,7 +67,7 @@ class EmployeeUI(UIElement):
                         "List all employees unavailable on.",
                     ],
                     header_title="Employees",
-                    include_back=True
+                    include_back=True,
                 )
             except UICancelException:
                 return
@@ -79,16 +89,18 @@ class EmployeeUI(UIElement):
         employee_data = []
 
         for employee in employees:
-            employee_data.append([
-                employee.id,
-                employee.name,
-                employee.address,
-                employee.mobile_phone,
-                employee.email
-            ])
+            employee_data.append(
+                [
+                    employee.id,
+                    employee.name,
+                    employee.address,
+                    employee.mobile_phone,
+                    employee.email,
+                ]
+            )
 
         self._display_interactive_datalist(
-            { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, 
+            {"id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25},
             employee_data,
             title="Employees",
         )
@@ -104,11 +116,11 @@ class EmployeeUI(UIElement):
                         "With License",
                     ],
                     header_title="List Pilots [Filter]",
-                    include_back=True
+                    include_back=True,
                 )
             except UICancelException:
                 return
-            
+
             match option:
                 case "With License":
                     try:
@@ -120,10 +132,14 @@ class EmployeeUI(UIElement):
                     except UICancelException:
                         continue
 
-                    employees = [employee for employee in employees if employee.license == license]
+                    employees = [
+                        employee
+                        for employee in employees
+                        if employee.license == license
+                    ]
                 case "Back":
                     return
-            
+
             self.list_pilots(employees)
 
     def list_pilots(self, employees):
@@ -136,7 +152,7 @@ class EmployeeUI(UIElement):
                         "License",
                     ],
                     header_title="List Pilots [Sort]",
-                    include_back=True
+                    include_back=True,
                 )
             except UICancelException:
                 return
@@ -154,17 +170,26 @@ class EmployeeUI(UIElement):
             employee_data = []
 
             for employee in employees:
-                employee_data.append([
-                    employee.id,
-                    employee.name,
-                    employee.address,
-                    employee.mobile_phone,
-                    employee.license,
-                    employee.email
-                ])
+                employee_data.append(
+                    [
+                        employee.id,
+                        employee.name,
+                        employee.address,
+                        employee.mobile_phone,
+                        employee.license,
+                        employee.email,
+                    ]
+                )
 
             self._display_interactive_datalist(
-                { "id": 3, "name": 8, "addr.": 10, "phone": 8, "license": 8, "email": 25 }, 
+                {
+                    "id": 3,
+                    "name": 8,
+                    "addr.": 10,
+                    "phone": 8,
+                    "license": 8,
+                    "email": 25,
+                },
                 employee_data,
                 title="Employees",
             )
@@ -174,16 +199,18 @@ class EmployeeUI(UIElement):
         employee_data = []
 
         for employee in employees:
-            employee_data.append([
-                employee.id,
-                employee.name,
-                employee.address,
-                employee.mobile_phone,
-                employee.email
-            ])
+            employee_data.append(
+                [
+                    employee.id,
+                    employee.name,
+                    employee.address,
+                    employee.mobile_phone,
+                    employee.email,
+                ]
+            )
 
         self._display_interactive_datalist(
-            { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, 
+            {"id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25},
             employee_data,
             title="Employees",
         )
@@ -201,22 +228,24 @@ class EmployeeUI(UIElement):
             employee_data = []
 
             for employee in employees:
-                employee_data.append([
-                    employee.id,
-                    employee.name,
-                    employee.address,
-                    employee.mobile_phone,
-                    employee.email
-                ])
+                employee_data.append(
+                    [
+                        employee.id,
+                        employee.name,
+                        employee.address,
+                        employee.mobile_phone,
+                        employee.email,
+                    ]
+                )
 
             self._display_interactive_datalist(
-                { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, 
+                {"id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25},
                 employee_data,
                 title="Employees",
             )
         except UICancelException:
             pass
-    
+
     def list_all_unavailable_on(self):
         try:
             date = self._prompt(
@@ -229,17 +258,19 @@ class EmployeeUI(UIElement):
             employees_destinations = self.logic_wrapper.get_employee_by_workday(date)
             employee_data = []
 
-            for (employee, destination) in employees_destinations:
-                employee_data.append([
-                    employee.id,
-                    employee.name,
-                    employee.address,
-                    employee.mobile_phone,
-                    f"-> {destination.country} ({destination.airport})"
-                ])
+            for employee, destination in employees_destinations:
+                employee_data.append(
+                    [
+                        employee.id,
+                        employee.name,
+                        employee.address,
+                        employee.mobile_phone,
+                        f"-> {destination.country} ({destination.airport})",
+                    ]
+                )
 
             self._display_interactive_datalist(
-                { "id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25 }, 
+                {"id": 3, "name": 8, "addr.": 10, "phone": 8, "email": 25},
                 employee_data,
                 title="Employees",
             )
@@ -247,17 +278,14 @@ class EmployeeUI(UIElement):
             pass
 
     def display_employee(self):
-        self._print_header(
-            message="List Employee",
-            add_extra_newline=True
-        )
+        self._print_header(message="List Employee", add_extra_newline=True)
 
         while True:
             try:
                 employee_id = self._prompt(
                     "Enter employee id",
                     opt_instruction="Leave empty to cancel",
-                    clear_screen=False
+                    clear_screen=False,
                 )
             except UICancelException:
                 return
@@ -268,12 +296,15 @@ class EmployeeUI(UIElement):
                 self._print_header("List Employee", add_extra_newline=True)
                 self._print_centered("Id has to be a number", add_newline_after=True)
                 continue
-                
+
             employee = self.logic_wrapper.get_employee(employee_id)
 
             if employee == None:
                 self._print_header("List Employee", add_extra_newline=True)
-                self._print_centered(f"Employee with id {employee_id} doesn't exist", add_newline_after=True)
+                self._print_centered(
+                    f"Employee with id {employee_id} doesn't exist",
+                    add_newline_after=True,
+                )
                 continue
 
             table = [
@@ -282,7 +313,7 @@ class EmployeeUI(UIElement):
                 f"Email:   {employee.email}",
                 f"SSN:     {employee.ssn}",
                 f"Mobile:  {employee.mobile_phone}",
-                f"Home:    {employee.home_phone}"
+                f"Home:    {employee.home_phone}",
             ]
 
             if isinstance(employee, Manager):
@@ -290,42 +321,79 @@ class EmployeeUI(UIElement):
             if isinstance(employee, FlightManager):
                 table.append(f"Work:    {employee.work_phone}")
             if isinstance(employee, Pilot):
+                employee.assignments = [str(x) for x in employee.assignments]
                 table.append(f"Assign:  {', '.join(employee.assignments)}")
                 table.append(f"License: {employee.license}")
             if isinstance(employee, FlightAttendant):
                 table.append(f"Assign:  {employee.assignments}")
 
-            self._print_header(f"List Employee [id:{employee.id}]", add_extra_newline=True)
+            self._print_header(
+                f"List Employee [id:{employee.id}]", add_extra_newline=True
+            )
             self._print_list(table, add_newline_after=True)
-
 
     def register_employee(self):
         try:
-            employee_title = self._display_selection([
-                "Manager",
-                "Pilot",
-                "Flight Attendant",
-                "Flight Manager",
-            ], header_title="Register Employee")
+            employee_title = self._display_selection(
+                [
+                    "Manager",
+                    "Pilot",
+                    "Flight Attendant",
+                    "Flight Manager",
+                ],
+                header_title="Register Employee",
+            )
 
-            name         = self._prompt("Enter name",         header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            password     = self._prompt("Enter password",     header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            address      = self._prompt("Enter address",      header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            ssn          = self._prompt("Enter SSN",          header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_ssn)
-            mobile_phone = self._prompt("Enter mobile phone", header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_phone_number)
-            email        = self._prompt("Enter email",        header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self._validate_email)
-            home_phone   = self._prompt("Enter home phone",   header_title="Register Employee", opt_instruction="Leave empty to cancel (optional: n to skip)", validator=self._validate_optional_phone_number)
+            name = self._prompt(
+                "Enter name",
+                header_title="Register Employee",
+                opt_instruction="Leave empty to cancel",
+            )
+            password = self._prompt(
+                "Enter password",
+                header_title="Register Employee",
+                opt_instruction="Leave empty to cancel",
+            )
+            address = self._prompt(
+                "Enter address",
+                header_title="Register Employee",
+                opt_instruction="Leave empty to cancel",
+            )
+            ssn = self._prompt(
+                "Enter SSN",
+                header_title="Register Employee",
+                opt_instruction="Leave empty to cancel",
+                validator=self._validate_ssn,
+            )
+            mobile_phone = self._prompt(
+                "Enter mobile phone",
+                header_title="Register Employee",
+                opt_instruction="Leave empty to cancel",
+                validator=self._validate_phone_number,
+            )
+            email = self._prompt(
+                "Enter email",
+                header_title="Register Employee",
+                opt_instruction="Leave empty to cancel",
+                validator=self._validate_email,
+            )
+            home_phone = self._prompt(
+                "Enter home phone",
+                header_title="Register Employee",
+                opt_instruction="Leave empty to cancel (optional: n to skip)",
+                validator=self._validate_optional_phone_number,
+            )
 
             if home_phone == "n":
                 home_phone = None
 
             match employee_title:
                 case "Manager":
-                    work_phone   = self._prompt(
+                    work_phone = self._prompt(
                         "Enter work phone",
                         header_title="Register Employee",
                         opt_instruction="Leave empty to cancel",
-                        validator=self._validate_phone_number
+                        validator=self._validate_phone_number,
                     )
                     employee = Manager(
                         name=name,
@@ -335,13 +403,14 @@ class EmployeeUI(UIElement):
                         mobile_phone=mobile_phone,
                         email=email,
                         home_phone=home_phone,
-                        work_phone=work_phone
+                        work_phone=work_phone,
                     )
                 case "Pilot":
                     license = self._prompt(
                         "Enter license",
                         header_title="Register Employee",
                         opt_instruction="Leave empty to cancel",
+                        validator=self.validate_license,
                     )
                     employee = Pilot(
                         name=name,
@@ -352,7 +421,7 @@ class EmployeeUI(UIElement):
                         email=email,
                         home_phone=home_phone,
                         license=license,
-                        assignments=[]
+                        assignments=[],
                     )
                 case "Flight Attendant":
                     employee = FlightAttendant(
@@ -363,14 +432,14 @@ class EmployeeUI(UIElement):
                         mobile_phone=mobile_phone,
                         email=email,
                         home_phone=home_phone,
-                        assignments=[]
+                        assignments=[],
                     )
                 case "Flight Manager":
                     work_phone = self._prompt(
                         "Enter work phone",
                         header_title="Register Employee",
                         opt_instruction="Leave empty to cancel",
-                        validator=self._validate_phone_number
+                        validator=self._validate_phone_number,
                     )
                     employee = FlightManager(
                         name=name,
@@ -380,7 +449,7 @@ class EmployeeUI(UIElement):
                         mobile_phone=mobile_phone,
                         email=email,
                         home_phone=home_phone,
-                        work_phone=work_phone
+                        work_phone=work_phone,
                     )
 
             self.logic_wrapper.create_employee(employee)
@@ -389,17 +458,14 @@ class EmployeeUI(UIElement):
             return
 
     def update_employee(self):
-        self._print_header(
-            "Update Employee",
-            add_extra_newline=True
-        )
+        self._print_header("Update Employee", add_extra_newline=True)
 
         while True:
             try:
                 employee_id = self._prompt(
                     "Enter employee id",
                     opt_instruction="Leave empty to cancel",
-                    clear_screen=False
+                    clear_screen=False,
                 )
                 employee_id = int(employee_id)
             except UICancelException:
@@ -408,13 +474,16 @@ class EmployeeUI(UIElement):
                 self._print_header("List Employee", add_extra_newline=True)
                 self._print_centered("Id has to be a number", add_newline_after=True)
                 continue
-                
+
             try:
                 employee = self.logic_wrapper.get_employee(employee_id)
 
                 if employee == None:
                     self._print_header("List Employee", add_extra_newline=True)
-                    self._print_centered(f"Employee with id {employee_id} doesn't exist", add_newline_after=True)
+                    self._print_centered(
+                        f"Employee with id {employee_id} doesn't exist",
+                        add_newline_after=True,
+                    )
                     continue
 
                 employee_fields = [
@@ -437,51 +506,52 @@ class EmployeeUI(UIElement):
                     employee_fields.append("Work Phone")
 
                 field_to_update = self._display_selection(
-                    employee_fields,
-                    header_title=f"Update Employee [{employee.name}]"
+                    employee_fields, header_title=f"Update Employee [{employee.name}]"
                 )
 
                 match field_to_update:
                     case "Password":
                         employee.password = self._prompt(
                             "Enter new password",
-                            opt_instruction="Leave empty to cancel"
+                            opt_instruction="Leave empty to cancel",
                         )
                     case "Address":
                         employee.address = self._prompt(
-                            "Enter new address",
-                            opt_instruction="Leave empty to cancel"
+                            "Enter new address", opt_instruction="Leave empty to cancel"
                         )
                     case "Mobile Phone":
                         employee.mobile_phone = self._prompt(
                             "Enter new mobile phone",
                             opt_instruction="Leave empty to cancel",
-                            validator=self._validate_phone_number
+                            validator=self._validate_phone_number,
                         )
                     case "Email":
                         employee.email = self._prompt(
                             "Enter new email",
                             opt_instruction="Leave empty to cancel",
-                            validator=self._validate_email
+                            validator=self._validate_email,
                         )
                     case "Home Phone":
                         employee.home_phone = self._prompt(
                             "Enter new home phone",
                             opt_instruction="Leave empty to cancel",
-                            validator=self._validate_phone_number
+                            validator=self._validate_phone_number,
                         )
-                    case "Assignments": # Field 5 [Manager, FlightManager, Pilot, FlightAttendant]
-                        employee.assignments = self._prompt_assignments("Update employee")
+                    case "Assignments":  # Field 5 [Manager, FlightManager, Pilot, FlightAttendant]
+                        employee.assignments = self._prompt_assignments(
+                            "Update employee"
+                        )
                     case "Work Phone":
                         employee.work_phone = self._prompt(
                             "Enter new work phone",
                             opt_instruction="Leave empty to cancel",
-                            validator=self._validate_phone_number
+                            validator=self._validate_phone_number,
                         )
                     case "License":
                         employee.license = self._prompt(
                             "Enter new license",
                             opt_instruction="Leave empty to cancel",
+                            validator=self.validate_license,
                         )
 
                 self.logic_wrapper.update_employee(employee)
@@ -495,34 +565,52 @@ class EmployeeUI(UIElement):
 
         while True:
             try:
-                employee_id = self._prompt("Enter employee id", opt_instruction="Leave empty to cancel", clear_screen=False)
+                employee_id = self._prompt(
+                    "Enter employee id",
+                    opt_instruction="Leave empty to cancel",
+                    clear_screen=False,
+                )
                 employee_id = int(employee_id)
+
+                # Chuck Norris is always employee ID 0
+                if employee_id == 0:
+                    # Prevent Chuck Norris from being deleted
+                    self._print_header("Remove Employee", add_extra_newline=True)
+                    self._print_centered("I'm afraid I can't let you do that", add_newline_after=True)
+                    continue
+
+                if employee_id == self.user.id:
+                    self._print_header("Remove Employee", add_extra_newline=True)
+                    self._print_centered("Cannot delete logged in user", add_newline_after=True)
+                    continue
+
             except UICancelException:
                 return
             except ValueError:
                 self._print_header("Remove Employee", add_extra_newline=True)
                 self._print_centered("Id has to be a number", add_newline_after=True)
                 continue
-                
+
             try:
                 employee = self.logic_wrapper.get_employee(employee_id)
 
                 if employee == None:
                     self._print_header("Remove Employee", add_extra_newline=True)
-                    self._print_centered(f"Employee with id {employee_id} doesn't exist", add_newline_after=True)
+                    self._print_centered(
+                        f"Employee with id {employee_id} doesn't exist",
+                        add_newline_after=True,
+                    )
                     continue
 
                 should_delete = self._display_selection(
-                    [
-                        "Delete"
-                    ],
+                    ["Delete"],
                     header_title=f"Delete {employee.name}?",
-                    allow_cancel=False
+                    allow_cancel=False,
                 )
 
                 if should_delete == "Delete":
                     self.logic_wrapper.delete_employee(employee_id)
-    
+
                 return
             except UICancelException:
                 return
@@ -558,7 +646,10 @@ class EmployeeUI(UIElement):
                 for voyage_id in employee.assignments:
                     voyage: Voyage = self.logic_wrapper.get_voyage(voyage_id)
 
-                    if next_week >= voyage.departure_date >= starting_day or next_week >= voyage.return_date >= starting_day:
+                    if (
+                        next_week >= voyage.departure_date >= starting_day
+                        or next_week >= voyage.return_date >= starting_day
+                    ):
                         voyages.append(voyage)
 
             voyages.sort(key=lambda e: e.departure_date)
@@ -595,40 +686,44 @@ class EmployeeUI(UIElement):
         def format_voyage(elem):
             voyage: Voyage = self.logic_wrapper.get_voyage(elem)
             departure: Flight = self.logic_wrapper.get_flight(voyage.departure_flight)
-            departure_location: Destination = self.logic_wrapper.get_destination(departure.departure)
-            destination_location: Destination = self.logic_wrapper.get_destination(departure.destination)
+            departure_location: Destination = self.logic_wrapper.get_destination(
+                departure.departure
+            )
+            destination_location: Destination = self.logic_wrapper.get_destination(
+                departure.destination
+            )
             return f"{departure_location.country} ({departure_location.airport}) -> {destination_location.country} ({destination_location.airport})"
 
         assignments = self._prompt_list(
             "Enter assignment id",
             title,
             element_display=format_voyage,
-            validator=self._validate_assignment
+            validator=self._validate_assignment,
         )
         return list(map(int, assignments))
 
     def _validate_ssn(self, ssn):
         if self.logic_wrapper.validate_ssn(ssn):
             return None
-        
+
         return "Invalid ssn format"
 
     def _validate_email(self, email):
         if self.logic_wrapper.validate_email(email):
             return None
-        
+
         return "Invalid email format"
-    
+
     def _validate_phone_number(self, number):
         if self.logic_wrapper.validate_phone_number(number):
             return None
-        
+
         return "Invalid phone number format"
 
     def _validate_optional_phone_number(self, number):
         if number == "n" or self.logic_wrapper.validate_phone_number(number):
             return None
-        
+
         return "Invalid phone number format"
 
     def _validate_assignment(self, assignment_id):
@@ -644,7 +739,7 @@ class EmployeeUI(UIElement):
     def validate_date(self, inp):
         if len(inp) != 10:
             return "Invalid date format"
-        
+
         try:
             self.parse_date(inp)
         except:
@@ -661,6 +756,12 @@ class EmployeeUI(UIElement):
         except ValueError:
             return "Input must be number"
 
+    def validate_license(self, inp):
+        if self.logic_wrapper.validate_license(inp):
+            return None
+        
+        return "Invalid license"
+
     def parse_date(self, date):
-        year, month, day = date.split('-')
+        year, month, day = date.split("-")
         return datetime.date(int(year), int(month), int(day))

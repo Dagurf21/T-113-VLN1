@@ -2,20 +2,76 @@
 
 ### Verklegt Námskeið 1 - Háskólinn í Reykjavík
 
-<img width="781" alt="Screenshot 2023-12-06 at 10 06 05" src="https://github.com/Dagurf21/T-113-VLN1/assets/54533207/56daaacf-9430-439b-b279-4471cd812cac">
+```ascii
+---------------------------------------------------------------------
+|                     NaN AIR Management system                     |
+---------------------------------------------------------------------
+|            ______                                                 |
+|            _\ _~-\___                                             |
+|    =  = ==(_NaN AIR__D                                            |
+|                \_____\___________________,-~~~~~~~`-.._           |
+|                /     o O o o o o O O o o o o o o O o  |\_         |
+|                `~-.__        ___..----..                  )       |
+|                      `---~~\___________/------------`````         |
+|                      =  ===(_________D                            |
+|                                                                   |
+-----------------------------  NaN Air  -----------------------------
+|                                                                   |
+|                       [L]og in  -  [Q]uit                         |
+|                                                                   |
+---------------------------------------------------------------------
+```
 
 
 #### Hópur 28
 Axel Snær Ammendrup Atlason, Dagur Freyr Guðbrandsson, Elías Andri Harðarson, Kristján Kári Gunnarsson(Odysseus101), Marteinn Logi Jóhannsson
 
-Velkomin!
+```ascii
+##======================================================================================================##
+|  __        __   _                            _          _   _                          _    _          |
+|  \ \      / /__| | ___ ___  _ __ ___   ___  | |_ ___   | \ | | __ _ _ __              / \  (_)_ __     |
+|   \ \ /\ / / _ \ |/ __/ _ \| '_ ` _ \ / _ \ | __/ _ \  |  \| |/ _` | '_ \   _____    / _ \ | | '__|    |
+|    \ V  V /  __/ | (_| (_) | | | | | |  __/ | || (_) | | |\  | (_| | | | | |_____|  / ___ \| | |       |
+|     \_/\_/ \___|_|\___\___/|_| |_| |_|\___|  \__\___/  |_| \_|\__,_|_| |_|         /_/   \_\_|_|       |
+|                                                                                                        |
+##======================================================================================================##
+```
 
-Aðgangur:
-    Email
-        "Kennari"
-    Password
-        "pass"
+
+# Installation
+
+## Step 1: 
+
+```git clone https://github.com/Dagurf21/T-113-VLN1.git```
+
+## Step 2:
 
 Fyrir module þarfir þarf bara að skrifa:
-    "pip install -r requirements.txt" 
+
+```pip install -r requirements.txt```
+
 Inn í terminal-ið.
+
+## Step 3:
+
+Keyrðu forritið með:
+
+```cd T-113- && python main.py```
+
+## Step 4:
+
+Login sem Chuck Norris, fyrir neðan eru aðgangs upplysingarnar
+
+| Aðgangs upplysingar: |             |
+| --------- | ---------------------- | 
+| Email:    | chucknorri@nanair.is   |
+| Password: | Password               |
+
+
+# Requiremnets
+
+- python 3.11.6
+- bcrypt
+- colorama
+- py-getch
+- cursor

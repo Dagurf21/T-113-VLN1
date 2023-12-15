@@ -1,6 +1,5 @@
 from logic import LogicWrapper
-from ui import UIElement
-from ui import MainMenuUI
+from ui import UIElement, UICancelException, MainMenuUI
 from colorama import Fore, Style
 
 class LoginUI(UIElement):
@@ -25,18 +24,26 @@ class LoginUI(UIElement):
                     pass
 
     def login(self):
-        email = self._prompt("Input email", validator=self._validate_email, enable_cancel=False)
-        employee = self.logic_wrapper.get_employee_by_email(email)
-        self._prompt("Input password", header_title=f"Log in as {employee.email}", enable_cancel=False, validator=lambda e: self._validate_password(employee, e))
+        try:
+            email = self._prompt(
+                "Input email",
+                validator=self._validate_email,
+                opt_instruction="Leave empty to cancel"
+            )
+            employee = self.logic_wrapper.get_employee_by_email(email)
+            self._prompt(
+                "Input password",
+                header_title=f"Log in as {employee.email}",
+                opt_instruction="Leave empty to cancel",
+                validator=lambda e: self._validate_password(employee, e)
+            )
+        except UICancelException:
+            return
 
         main_menu = MainMenuUI(employee, self.logic_wrapper)
         main_menu.show()
     
     def _validate_email(self, email):
-        # TODO: FOR DEBUG PURPOSES ONLY -- REMOVE IN PROD.
-        if email == "":
-            return None
-
         if not self.logic_wrapper.validate_email(email):
             return "Invalid email"
         
