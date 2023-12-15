@@ -135,6 +135,7 @@ class EmployeeLogic:
         if change_employee != None:
             employee.name = change_employee.name
             employee.ssn = change_employee.ssn
+            employee.password = self.utility.password_encoder(employee.password)
             return self.data_wrapper.update_employee(employee)
 
         else:
