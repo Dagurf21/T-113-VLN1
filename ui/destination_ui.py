@@ -103,7 +103,7 @@ class DestinationUI(UIElement):
                 f"Airport:        {destination.airport}",
                 f"Distance:       {destination.distance_km}",
                 f"Flight Time:    {destination.flight_time}KM",
-                f"Representative: {destination.representative}"
+                f"Representative: {destination.representative}",
                 f"Emerg. Number:  {destination.emergency_number}"
             ], add_newline_after=True)
 
