@@ -2,14 +2,14 @@
 
 #### Verkefni Vikunar
 - [ ] Bugfixes
--
+- [ ] Lokk yfir ferð
 
 ### Verkefna skipting
-- Axel Snær: 
-- Dagur Freyr: 
-- Elías Andri: 
-- Kristján Kári: 
-- Marteinn Logi: 
+- Axel Snær: Bugfixes, Lokk yfir ferð
+- Dagur Freyr: Bugfixes, Lokk yfir ferð
+- Elías Andri: Bugfixes, Lokk yfir ferð
+- Kristján Kári: Bugfixes, Lokk yfir ferð
+- Marteinn Logi: Bugfixes, Lokk yfir ferð, kennslu myndband
 
 #### Dagslok skýrsla (Hvað gerði hver og einn í dag) ?
 
