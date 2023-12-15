@@ -26,6 +26,9 @@
 #### Hópur 28
 Axel Snær Ammendrup Atlason, Dagur Freyr Guðbrandsson, Elías Andri Harðarson, Kristján Kári Gunnarsson(Odysseus101), Marteinn Logi Jóhannsson
 
+Kennslumyndband:
+https://vimeo.com/895089294?share=copy
+
 ```ascii
 ##======================================================================================================##
 |  __        __   _                            _          _   _                          _    _          |
