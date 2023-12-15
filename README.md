@@ -38,16 +38,40 @@ Axel Snær Ammendrup Atlason, Dagur Freyr Guðbrandsson, Elías Andri Harðarson
 ```
 
 
+# Installation
 
-|Aðgangs upplysingar: |              |
-| --------- | ---------------------- | 
-| Email:    | chucknorri@nanair.is   |
-| Password: | []                     |
+## Step 1: 
 
+```git clone https://github.com/Dagurf21/T-113-VLN1.git```
 
+## Step 2:
 
 Fyrir module þarfir þarf bara að skrifa:
-    ```
-    pip install -r requirements.txt
-    ```
+
+```pip install -r requirements.txt```
+
 Inn í terminal-ið.
+
+## Step 3:
+
+Keyrðu forritið með:
+
+```cd T-113- && python main.py```
+
+## Step 4:
+
+Login sem Chuck Norris, fyrir neðan eru aðgangs upplysingarnar
+
+| Aðgangs upplysingar: |             |
+| --------- | ---------------------- | 
+| Email:    | chucknorri@nanair.is   |
+| Password: | Password               |
+
+
+# Requiremnets
+
+- python 3.11.6
+- bcrypt
+- colorama
+- py-getch
+- cursor
