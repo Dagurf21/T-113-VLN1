@@ -1,5 +1,5 @@
 from ui import UIElement, UICancelException
-from model import Voyage, Employee, FlightAttendant, Pilot, VoyageStatus
+from model import Voyage, Employee
 from logic import LogicWrapper
 import datetime
 from copy import deepcopy
