@@ -102,11 +102,13 @@ class VoyageUI(UIElement):
                 "Enter flight attendant ID",
                 header_title="Create voyage",
                 validator=self.validate_flight_attendant,
+                element_display=self.format_employee,
             )
             pilots = self._prompt_list(
                 "Enter lead pilot ID's",
                 header_title="Create voyage",
                 validator=lambda e: self.validate_pilot(e, int(plane)),
+                element_display=self.format_employee,
             )
 
             self.logic_wrapper.create_voyage(
@@ -244,6 +246,8 @@ class VoyageUI(UIElement):
             attendant_repr = self.format_employee_list(voyage.flight_attendants, 14, "Attendants: ", 1)
             plane = self.logic_wrapper.get_plane(voyage.plane)
 
+            destination = self.logic_wrapper.get_destination(voyage.destination)
+
             self._print_header(f"List Voyage [ID:{voyage_id}]", add_extra_newline=True)
             self._print_list(
                 [
@@ -253,8 +257,7 @@ class VoyageUI(UIElement):
                     *attendant_repr,
                     f"Sold Seats:   {voyage.sold_seats}",
                     f"Capacity:     {plane.capacity}",
-                    f"From:         {voyage.departure_flight}",
-                    f"To:           {voyage.return_flight}",
+                    f"To:           {destination.country} ({destination.airport})",
                     f"Date:         {voyage.departure_date}",
                     f"Return Date:  {voyage.return_date}",
                     f"Status:       {voyage.status}",
@@ -401,17 +404,17 @@ class VoyageUI(UIElement):
                             "Enter date of voyage (yyyy-mm-dd)",
                             header_title="Create voyage",
                             opt_instruction="Leave empty to cancel",
-                            validator=self.validate_date,
+                            validator=lambda i: self.validate_duplicate_voyage_date_departure(copy_voyage, i),
                         )
                         return_date = self._prompt(
                             "Enter Return date of voyage (yyyy-mm-dd)",
                             header_title="Create voyage",
                             opt_instruction="Leave empty to cancel",
-                            validator=self.validate_date,
+                            validator=lambda i: self.validate_duplicate_voyage_date_return(copy_voyage, i),
                         )
 
                         new_voyage.pilots = []
-                        new_voyage.attendants = []
+                        new_voyage.flight_attendants = []
                         new_voyage.sold_seats = 0
                         new_voyage.departure_date = self.parse_date(departure_date)
                         new_voyage.return_date = self.parse_date(return_date)
@@ -454,6 +457,17 @@ class VoyageUI(UIElement):
                         self._print_header("Duplicate voyage, new dates", add_extra_newline=True)
                         self._print_centered("ID has to be a number", add_newline_after=True)
                         continue
+
+                    copy_voyage = self.logic_wrapper.get_voyage(voyage_id)
+
+                    start_date_voyage = self._prompt(
+                        "Enter the date of which the reccurance will start (yyyy-mm-dd)",
+                        opt_instruction="Leave empty to cancel",
+                        clear_screen=True,
+                        validator=lambda i: self.validate_date(i)
+                    )
+
+                    start_date_voyage = self.parse_date(start_date_voyage)
                     
                     # Interval how many days between voyages
                     try: 
@@ -465,31 +479,25 @@ class VoyageUI(UIElement):
                             validator=self.validate_number
                         ))
 
+                        time_between_flights = datetime.timedelta(days=voyage_interval)
+
                         end_date_voyage = self._prompt(
-                            "Enter the date of which the reccurance will end",
+                            "Enter the date of which the reccurance will end (yyyy-mm-dd)",
                             opt_instruction="Leave empty to cancel",
                             clear_screen=True,
-                            validator=self.validate_date
+                            validator=lambda i: self.validate_duplicate_voyage_date_recurring(copy_voyage, start_date_voyage, time_between_flights, i)
                         )
 
                         end_date_voyage = self.parse_date(end_date_voyage)
-                        now = datetime.date.today()
-                        print(end_date_voyage)
-                        print(type(end_date_voyage))
-                        
-                        copy_voyage = self.logic_wrapper.get_voyage(voyage_id)
-                        time_between_flights = datetime.timedelta(days=voyage_interval)
+                        time_between_departure_and_arrival = copy_voyage.return_date - copy_voyage.departure_date
 
-                        while now < end_date_voyage:
+                        while start_date_voyage < end_date_voyage:
                             new_voyage = deepcopy(copy_voyage)
-                           
-                            time_between_flights += datetime.timedelta(days=voyage_interval)
-
                             new_voyage.pilots = []
-                            new_voyage.attendants = []
+                            new_voyage.flight_attendants = []
                             new_voyage.sold_seats = 0
-                            new_voyage.departure_date += time_between_flights
-                            new_voyage.return_date += time_between_flights
+                            new_voyage.departure_date = start_date_voyage
+                            new_voyage.return_date = start_date_voyage + time_between_departure_and_arrival
 
                             self.logic_wrapper.create_voyage(
                                 int(copy_voyage.plane),
@@ -502,8 +510,7 @@ class VoyageUI(UIElement):
                                 list(map(int, copy_voyage.flight_attendants)),
                                 list(map(int, copy_voyage.pilots)),
                             )
-
-                            now = new_voyage.return_date
+                            start_date_voyage += time_between_flights
 
                     except UICancelException:
                         return
@@ -664,6 +671,43 @@ class VoyageUI(UIElement):
         except:
             return "Invalid date format"
 
+    def validate_duplicate_voyage_date_departure(self, voyage: Voyage, inp: str):
+        error = self.validate_date(inp)
+        if error is not None:
+            return error
+        
+        date = self.parse_date(inp)
+        if self.logic_wrapper.validate_departure_time(date, voyage.departure_time) and self.logic_wrapper.validate_departure_time(date, voyage.departure_time):
+            return None
+        
+        return "Duplicate voyage conflicts with another voyage on the new departure date"
+
+    def validate_duplicate_voyage_date_return(self, voyage: Voyage, inp: str):
+        error = self.validate_date(inp)
+        if error is not None:
+            return error
+        
+        date = self.parse_date(inp)
+        if self.logic_wrapper.validate_departure_time(date, voyage.return_departure_time) and self.logic_wrapper.validate_departure_time(date, voyage.return_departure_time):
+            return None
+        
+        return "Duplicate voyage conflicts with another voyage on the new return date"
+    
+    def validate_duplicate_voyage_date_recurring(self, voyage: Voyage, start_date: datetime.date, interval: datetime.timedelta, inp: str):
+        error = self.validate_date(inp)
+        if error is not None:
+            return error
+        
+        end_date = self.parse_date(inp)
+        date = start_date
+
+        while date <= end_date:
+            if self.logic_wrapper.validate_departure_time(date, voyage.departure_time) and self.logic_wrapper.validate_departure_time(date, voyage.return_departure_time):
+                date += interval
+                continue
+
+            return "A duplicate voyage conflicts with another voyage"
+
     def validate_departure_time(self, date: datetime.date, ret: bool, inp):
         if len(inp) != 5:
             return "Invalid time format"
@@ -671,17 +715,15 @@ class VoyageUI(UIElement):
         try:
             time = self.parse_time(inp)
 
-            valid = None
-            if ret and not self.logic_wrapper.validate_return_departure_time(date, time):
+            if ret and not self.logic_wrapper.validate_departure_time(date, time):
                 return "Return departure time conflicts with another voyage"
             elif not self.logic_wrapper.validate_departure_time(date, time):
                 return "Departure time conflicts with another voyage"
-
-            if valid:
-                return False
+            
+            return None
         except:
             return "Invalid time format"
-
+    
     def validate_flight_attendant(self, inp):
         try:
             employee_id = int(inp)
@@ -840,3 +882,7 @@ class VoyageUI(UIElement):
             result.append(f"{string}{employee.name}")
         
         return result
+
+    def format_employee(self, employee_id: str) -> str:
+        employee = self.logic_wrapper.get_employee(int(employee_id))
+        return f"{employee.name}"

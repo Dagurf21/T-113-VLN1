@@ -161,20 +161,10 @@ class VoyageLogic:
             if (
                 date == voyage.departure_date
                 and departure_time == voyage.departure_time
-            ):
-                return False
-
-        return True
-    
-    def validate_return_departure_time(self, date: datetime.date, departure_time: datetime.time) -> bool:
-        """Returns True if no other voyages are departing at the same date and time"""
-        all_voyages = self.get_all_voyages()
-
-        for voyage in all_voyages:
-            if (
-                date == voyage.return_date
+                or date == voyage.return_date
                 and departure_time == voyage.return_departure_time
             ):
                 return False
 
         return True
+    

@@ -73,40 +73,40 @@ class VoyageUtilities:
         """Adds a single pilot to a voyage"""
         voyage = self.voyage_logic.get_voyage(voyage_id)
         voyage.pilots.append(new_staff)
-        self.logic_wrapper.update_voyage(voyage)
+        self.voyage_logic.update_voyage(voyage)
 
-        assigned_pilot = self.logic_wrapper.get_employee(new_staff)
+        assigned_pilot = self.employee_logic.get_employee(new_staff)
         assigned_pilot.assignments.append(voyage.id)
-        self.logic_wrapper.update_employee(assigned_pilot)
+        self.employee_logic.update_employee(assigned_pilot)
 
     def staff_voyage_attendant(self, voyage_id: int, new_staff: int):
         """Adds a single attendant to a voyage"""
         voyage = self.voyage_logic.get_voyage(voyage_id)
-        voyage.pilots.append(new_staff)
-        self.logic_wrapper.update_voyage(voyage)
+        voyage.flight_attendants.append(new_staff)
+        self.voyage_logic.update_voyage(voyage)
 
-        assigned_attendant = self.logic_wrapper.get_employee(new_staff)
+        assigned_attendant = self.employee_logic.get_employee(new_staff)
         assigned_attendant.assignments.append(voyage.id)
-        self.logic_wrapper.update_employee(assigned_attendant)
+        self.employee_logic.update_employee(assigned_attendant)
 
 
     def unstaff_voyage_pilot(self, voyage_id: int, staff_to_remove: int):
         """Removed a pilot from a voyage"""
         voyage = self.voyage_logic.get_voyage(voyage_id)
         voyage.pilots.remove(int(staff_to_remove))
-        self.logic_wrapper.update_voyage(voyage)
+        self.voyage_logic.update_voyage(voyage)
 
-        assigned_pilot = self.logic_wrapper.get_employee(staff_to_remove)
+        assigned_pilot = self.employee_logic.get_employee(staff_to_remove)
         assigned_pilot.assignments.remove(voyage.id)
-        self.logic_wrapper.update_employee(assigned_pilot)
+        self.employee_logic.update_employee(assigned_pilot)
 
     def unstaff_voyage_attendant(self, voyage_id, staff_to_remove: int):
         """Removes an attendant from a voyage"""
         voyage = self.voyage_logic.get_voyage(voyage_id)
         voyage.flight_attendants.remove(int(staff_to_remove))
-        self.logic_wrapper.update_voyage(voyage)
+        self.voyage_logic.update_voyage(voyage)
 
-        assigned_attendant = self.logic_wrapper.get_employee(staff_to_remove)
+        assigned_attendant = self.employee_logic.get_employee(staff_to_remove)
         assigned_attendant.assignments.remove(voyage.id)
-        self.logic_wrapper.update_employee(assigned_attendant)
+        self.employee_logic.update_employee(assigned_attendant)
 

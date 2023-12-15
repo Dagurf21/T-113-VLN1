@@ -102,7 +102,7 @@ class UIElement:
                 continue
 
             elems.append(elem)
-            if max_elements != 0:
+            if max_elements == 0:
                 self._print_header(message=header_title, add_extra_newline=True)
             else:
                 self._print_header(message=f"{header_title} ({max_elements - len(elems)})", add_extra_newline=True)
