@@ -135,11 +135,11 @@ class LogicWrapper(object):
             sold_seats,
         )
 
-    def get_all_voyages(self) -> list:
+    def get_all_voyages(self) -> list[Destination]:
         """Returns a list of all current voyages"""
         return self.voyage_logic.get_all_voyages()
 
-    def get_voyage(self, id) -> list[Destination]:
+    def get_voyage(self, id) -> Destination:
         """Returns a voyage/ via ID"""
         return self.voyage_logic.get_voyage(id)
 
