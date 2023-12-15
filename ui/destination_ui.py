@@ -109,12 +109,12 @@ class DestinationUI(UIElement):
 
     def register_destination(self):
         try:
-            country          = self._prompt("Enter country",             header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            airport          = self._prompt("Enter airport",             header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self.validate_airport)
-            distance_km      = self._prompt("Enter distance (km)",       header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self.validate_number)
-            flight_time      = self._prompt("Enter flight time (00:00)", header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self.validate_time_delta)
-            representative   = self._prompt("Enter representative name", header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            emergency_number = self._prompt("Enter emergency number",    header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self.validate_phone_number)
+            country          = self._prompt("Enter country",             header_title="Register Destination", opt_instruction="Leave empty to cancel")
+            airport          = self._prompt("Enter airport",             header_title="Register Destination", opt_instruction="Leave empty to cancel", validator=self.validate_airport)
+            distance_km      = self._prompt("Enter distance (km)",       header_title="Register Destination", opt_instruction="Leave empty to cancel", validator=self.validate_number)
+            flight_time      = self._prompt("Enter flight time (00:00)", header_title="Register Destination", opt_instruction="Leave empty to cancel", validator=self.validate_time_delta)
+            representative   = self._prompt("Enter representative name", header_title="Register Destination", opt_instruction="Leave empty to cancel")
+            emergency_number = self._prompt("Enter emergency number",    header_title="Register Destination", opt_instruction="Leave empty to cancel", validator=self.validate_phone_number)
 
             destination = Destination(
                 country=country,
