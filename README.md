@@ -68,10 +68,20 @@ Login sem Chuck Norris, fyrir neðan eru aðgangs upplysingarnar
 | Password: | Password               |
 
 
-# Requiremnets
+
+# guide
+
+## Requiremnets
 
 - python 3.11.6
 - bcrypt
 - colorama
 - py-getch
 - cursor
+
+
+## Shortcut
+
+| Discription              |  Keybindings |
+| ------------------------ | ------------ |
+| Exit current menu window | <kbd>q</kbd> |
