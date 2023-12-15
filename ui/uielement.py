@@ -203,7 +203,7 @@ class UIElement:
 
             self._print_header(message=f"{title} [{current_page+1}/{page_count+1}]", add_extra_newline=True)
             self._print_datalist(headers, data[current_page * rows_per_page:current_page*rows_per_page+rows_per_page])
-            self._print_centered(f"{Fore.BLUE}q: {return_msg} - n: next page - p: prev page{Style.RESET_ALL}", add_newline_after=True, add_newline_before=True)
+            self._print_centered(f"{Fore.CYAN}q: {return_msg} - n: next page - p: prev page{Style.RESET_ALL}", add_newline_after=True, add_newline_before=True)
 
             opt = self._getkey()
 
@@ -277,7 +277,7 @@ class UIElement:
 
         header_labels = [header.ljust(headers[header]) for header in headers]
         header = " | ".join(header_labels).center(UI_WIDTH)
-        print(Fore.BLUE + header + Fore.RESET)
+        print(Fore.CYAN + header + Fore.RESET)
 
         # Print rows
         header_sizes = [headers[header] for header in headers]
