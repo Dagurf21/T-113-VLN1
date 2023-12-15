@@ -110,7 +110,7 @@ class DestinationUI(UIElement):
     def register_destination(self):
         try:
             country          = self._prompt("Enter country",             header_title="Register Employee", opt_instruction="Leave empty to cancel")
-            airport          = self._prompt("Enter airport",             header_title="Register Employee", opt_instruction="Leave empty to cancel")
+            airport          = self._prompt("Enter airport",             header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self.validate_airport)
             distance_km      = self._prompt("Enter distance (km)",       header_title="Register Employee", opt_instruction="Leave empty to cancel")
             flight_time      = self._prompt("Enter flight time (00:00)", header_title="Register Employee", opt_instruction="Leave empty to cancel", validator=self.validate_time_delta)
             representative   = self._prompt("Enter representative name", header_title="Register Employee", opt_instruction="Leave empty to cancel")
@@ -224,6 +224,14 @@ class DestinationUI(UIElement):
                 return
             except UICancelException:
                 return
+    
+    def validate_airport(self, inp):
+        destinations = self.logic_wrapper.get_all_destinations()
+        for destination in destinations:
+            if destination.airport == inp:
+                return "Cannot have duplicate voyage"
+        
+        return None
 
     def validate_time_delta(self, inp):
         if len(inp) != 5:
