@@ -751,7 +751,10 @@ class VoyageUI(UIElement):
     
     def validate_number(self, inp):
         try:
-            int(inp)
+            num = int(inp)
+            if num < 0:
+                return "Number must be positive"
+
             return None
         except ValueError:
             return "Input must be a number"
