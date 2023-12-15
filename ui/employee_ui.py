@@ -321,11 +321,12 @@ class EmployeeUI(UIElement):
             if isinstance(employee, FlightManager):
                 table.append(f"Work:    {employee.work_phone}")
             if isinstance(employee, Pilot):
-                employee.assignments = [str(x) for x in employee.assignments]
-                table.append(f"Assign:  {', '.join(employee.assignments)}")
-                table.append(f"License: {employee.license}")
+                assignment_format = self.format_assignment_list(employee.assignments, 9)
+                table.extend(assignment_format)
             if isinstance(employee, FlightAttendant):
-                table.append(f"Assign:  {employee.assignments}")
+                assignment_format = self.format_assignment_list(employee.assignments, 9)
+                table.extend(assignment_format)
+
 
             self._print_header(
                 f"List Employee [id:{employee.id}]", add_extra_newline=True
@@ -765,3 +766,25 @@ class EmployeeUI(UIElement):
     def parse_date(self, date):
         year, month, day = date.split("-")
         return datetime.date(int(year), int(month), int(day))
+
+    def format_assignment_list(
+        self,
+        assignments: list[int],
+        padding_len: int,
+    ) -> str:
+        result = []
+        header = "Assign:"
+        
+        if len(assignments) == 0:
+            return [f"{header:<{padding_len}}"]
+
+        for i, assignment in enumerate(assignments):
+            string = " " * padding_len
+            if i == 0:
+                string = f"{header:<{padding_len}}"
+
+            assignment = self.logic_wrapper.get_voyage(assignment)
+            destination = self.logic_wrapper.get_destination(assignment.destination)
+            result.append(f"{string}-> {destination.country} ({destination.airport})")
+
+        return result
