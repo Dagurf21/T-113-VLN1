@@ -71,6 +71,11 @@ Login sem Chuck Norris, fyrir neðan eru aðgangs upplysingarnar
 
 # guide
 
+## Video
+
+<iframe src="https://player.vimeo.com/video/895089294?h=b39b3c0b33" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture"allowfullscreen></iframe>
+<p><a href="https://vimeo.com/895089294">NaNAir Kennslu Myndband H28</a>
+
 ## Requiremnets
 
 - python 3.11.6
