@@ -448,28 +448,28 @@ class VoyageUI(UIElement):
 
                         new_voyage = copy_voyage
 
-                        departure_date = self._prompt(
+                        departure_date = self.parse_date(self._prompt(
                             "Enter date of voyage (yyyy-mm-dd)",
                             header_title="Create voyage",
                             opt_instruction="Leave empty to cancel",
                             validator=lambda i: self.validate_duplicate_voyage_date_departure(
                                 copy_voyage, i
                             ),
-                        )
-                        return_date = self._prompt(
+                        ))
+                        return_date = self.parse_date(self._prompt(
                             "Enter Return date of voyage (yyyy-mm-dd)",
                             header_title="Create voyage",
                             opt_instruction="Leave empty to cancel",
                             validator=lambda i: self.validate_duplicate_voyage_date_return(
-                                copy_voyage, i
+                                departure_date, copy_voyage, i
                             ),
-                        )
+                        ))
 
                         new_voyage.pilots = []
                         new_voyage.flight_attendants = []
                         new_voyage.sold_seats = 0
-                        new_voyage.departure_date = self.parse_date(departure_date)
-                        new_voyage.return_date = self.parse_date(return_date)
+                        new_voyage.departure_date = departure_date
+                        new_voyage.return_date = return_date
 
                         self.logic_wrapper.create_voyage(
                             int(copy_voyage.plane),
@@ -785,12 +785,16 @@ class VoyageUI(UIElement):
             "Duplicate voyage conflicts with another voyage on the new departure date"
         )
 
-    def validate_duplicate_voyage_date_return(self, voyage: Voyage, inp: str):
+    def validate_duplicate_voyage_date_return(self, departure_date: datetime.date, voyage: Voyage, inp: str):
         error = self.validate_date(inp)
         if error is not None:
             return error
 
         date = self.parse_date(inp)
+
+        if date < departure_date:
+            return "End date must be after the start date"
+
         if self.logic_wrapper.validate_departure_time(
             date, voyage.return_departure_time
         ) and self.logic_wrapper.validate_departure_time(
