@@ -4,10 +4,9 @@ from logic import LogicWrapper
 
 colorama.init()
 
-logic_wrapper = LogicWrapper()
-
 while True:
     try:
+        logic_wrapper = LogicWrapper()
         ui = LoginUI(logic_wrapper)
         ui.show()
     except KeyboardInterrupt:
