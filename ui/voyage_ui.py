@@ -977,7 +977,7 @@ class VoyageUI(UIElement):
         return None
 
     def validate_unassign_pilot(self, voyage: Voyage, pilot_id: str):
-        err = self.validate_pilot(pilot_id)
+        err = self.validate_pilot(pilot_id, voyage.plane)
         if err is not None:
             return err
 
