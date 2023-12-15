@@ -179,3 +179,9 @@ class Utilities:
             if class_obj.id == search_id:
                 return class_obj
         return None
+    
+    def make_datetime(date: datetime.date, time: datetime.time) -> datetime.datetime:
+        return datetime.datetime(date.year, date.month, date.day, time.hour, time.minute)
+    
+    def contains_date_and_time(begin: datetime.datetime, end: datetime.datetime, point: datetime.datetime) -> bool:
+        return begin <= point <= end

@@ -247,6 +247,12 @@ class LogicWrapper(object):
     def validate_status(self, voyage):
         return self.voyage_logic.validate_status(voyage)
 
+    def voyage_contains_date_and_time(self, voyage: Voyage, date: datetime.date, time: datetime.time) -> bool:
+        return self.voyage_logic.contains_date_and_time(voyage, date, time)
+
+    def voyage_contains_overlap(self, voyage1: Voyage, voyage2: Voyage) -> bool:
+        return self.voyage_logic.contains_overlap(voyage1, voyage2)
+
     ### Utilities
     # Password Utility
     def password_encoder(self, password):
@@ -280,3 +286,11 @@ class LogicWrapper(object):
 
     def get_plane_active_voyage(self, plane: Plane) -> Voyage | None:
         return self.plane_utilities.get_plane_active_voyage(plane)
+
+    def validate_plane_availability(self, plane: Plane, when: datetime.datetime) -> bool:
+        return self.plane_utilities.validate_plane_availability(plane, when)
+    
+    # General Utilities
+
+    def make_datetime(self, date: datetime.date, time: datetime.time) -> datetime.datetime:
+        return Utilities.make_datetime(date, time)

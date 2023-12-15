@@ -90,7 +90,7 @@ class VoyageUI(UIElement):
                 "Enter plane ID",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
-                validator=self.validate_plane,
+                validator=lambda i: self.validate_plane_available(date, departure_time, return_date, return_departure_time, i),
             ))
             sold_seats = self._prompt(
                 "Enter the amount of sold seats",
@@ -906,6 +906,20 @@ class VoyageUI(UIElement):
             return None
 
         return f"Voyage with id '{inp}' doesn't exist"
+    
+    def validate_plane_available(self, departure_date: datetime.date, departure_time: datetime.time, return_date: datetime.date, return_time: datetime.time, inp):
+        err = self.validate_plane(inp)
+        if err is not None:
+            return err
+        
+        plane = self.logic_wrapper.get_plane(int(inp))
+        departure = self.logic_wrapper.make_datetime(departure_date, departure_time)
+        return_departure = self.logic_wrapper.make_datetime(return_date, return_time)
+
+        if self.logic_wrapper.validate_plane_availability(plane, departure) and self.logic_wrapper.validate_plane_availability(plane, return_departure):
+            return None
+        
+        return "Plane is unavailable during that time"
 
     def parse_date(self, date):
         year, month, day = date.split('-')

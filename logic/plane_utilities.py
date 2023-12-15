@@ -1,4 +1,4 @@
-from logic import PlaneLogic, VoyageLogic, DestinationLogic, FlightLogic
+from logic import PlaneLogic, VoyageLogic, DestinationLogic, FlightLogic, Utilities
 from model import Plane, PlaneStatus, Flight, Voyage
 import datetime
 
@@ -17,16 +17,10 @@ class PlaneUtilities:
         for voyage_id in plane.voyages:
             voyage = self.voyage_logic.get_voyage(voyage_id)
 
-            if voyage.departure_date > now.date():
-                continue
+            departure = Utilities.make_datetime(voyage.departure_date, voyage.departure_time)
+            return_departure = Utilities.make_datetime(voyage.return_date, voyage.return_departure_time)
 
-            if voyage.departure_date == now.date() and voyage.departure_time > now.time():
-                continue
-
-            if voyage.return_date < now.date():
-                continue
-
-            if voyage.return_date == now.date() and voyage.return_departure_time > now.time():
+            if not Utilities.contains_date_and_time(departure, return_departure, now):
                 continue
                 
             destination = self.destination_logic.get_destination(voyage.destination)
@@ -53,16 +47,10 @@ class PlaneUtilities:
         for voyage_id in plane.voyages:
             voyage = self.voyage_logic.get_voyage(voyage_id)
 
-            if voyage.departure_date > now.date():
-                continue
+            departure = Utilities.make_datetime(voyage.departure_date, voyage.departure_time)
+            return_departure = Utilities.make_datetime(voyage.return_date, voyage.return_departure_time)
 
-            if voyage.departure_date == now.date() and voyage.departure_time > now.time():
-                continue
-
-            if voyage.return_date < now.date():
-                continue
-
-            if voyage.return_date == now.date() and voyage.return_departure_time > now.time():
+            if not Utilities.contains_date_and_time(departure, return_departure, now):
                 continue
                 
             destination = self.destination_logic.get_destination(voyage.destination)
@@ -87,16 +75,10 @@ class PlaneUtilities:
         for voyage_id in plane.voyages:
             voyage = self.voyage_logic.get_voyage(voyage_id)
 
-            if voyage.departure_date > now.date():
-                continue
+            departure = Utilities.make_datetime(voyage.departure_date, voyage.departure_time)
+            return_departure = Utilities.make_datetime(voyage.return_date, voyage.return_departure_time)
 
-            if voyage.departure_date == now.date() and voyage.departure_time > now.time():
-                continue
-
-            if voyage.return_date < now.date():
-                continue
-
-            if voyage.return_date == now.date() and voyage.return_departure_time > now.time():
+            if not Utilities.contains_date_and_time(departure, return_departure, now):
                 continue
                 
             return voyage
@@ -106,3 +88,15 @@ class PlaneUtilities:
     def add_to_time(self, time: datetime.time, time_delta: datetime.timedelta) -> datetime.datetime:
         as_datetime = datetime.datetime(1, 1, 1, time.hour, time.minute, time.second)
         return (as_datetime + time_delta).time()
+
+    def validate_plane_availability(self, plane: Plane, when: datetime.datetime) -> bool:
+        for voyage_id in plane.voyages:
+            voyage = self.voyage_logic.get_voyage(voyage_id)
+
+            departure = Utilities.make_datetime(voyage.departure_date, voyage.departure_time)
+            return_departure = Utilities.make_datetime(voyage.return_date, voyage.return_departure_time)
+
+            if Utilities.contains_date_and_time(departure, return_departure, when):
+                return False
+        
+        return True
