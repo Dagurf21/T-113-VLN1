@@ -716,12 +716,36 @@ class VoyageUI(UIElement):
         end_date = self.parse_date(inp)
         date = start_date
 
-        while date <= end_date:
-            if self.logic_wrapper.validate_departure_time(date, voyage.departure_time) and self.logic_wrapper.validate_departure_time(date, voyage.return_departure_time):
-                date += interval
-                continue
+        if end_date < start_date:
+            return "End date must be after the start date"
 
-            return "A duplicate voyage conflicts with another voyage"
+        dates = []
+        time_between_dep_and_ret = voyage.return_date - voyage.departure_date
+        plane = self.logic_wrapper.get_plane(voyage.plane)
+
+        while date <= end_date:
+            dep = self.logic_wrapper.make_datetime(date, voyage.departure_time)
+            ret = self.logic_wrapper.make_datetime(date + time_between_dep_and_ret, voyage.return_departure_time)
+
+            if not self.logic_wrapper.validate_departure_time(date, voyage.departure_time) or not self.logic_wrapper.validate_departure_time(date, voyage.return_departure_time):
+                return "A duplicate voyage conflicts with another voyage"
+            
+            for potential_overlap_date in dates:
+                if dep == potential_overlap_date:
+                    return f"The recurring voyage overlaps itself on {dep}"
+                if ret == potential_overlap_date:
+                    return f"The recurring voyage overlaps itself on {ret}"
+            
+            if not self.logic_wrapper.validate_plane_availability(plane, dep):
+                return f"The assigned plane is not available on {dep}"
+            if not self.logic_wrapper.validate_plane_availability(plane, ret):
+                return f"The assigned plane is not available on {ret}"
+
+            dates.append(dep)
+            dates.append(ret)
+
+            date += interval
+            continue
 
     def validate_departure_time(self, date: datetime.date, inp):
         err = self.validate_time(inp)
