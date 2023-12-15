@@ -1,5 +1,5 @@
 from logic import PlaneLogic, VoyageLogic, DestinationLogic, FlightLogic, Utilities
-from model import Plane, PlaneStatus, Flight, Voyage
+from model import Plane, PlaneStatus, Flight, Voyage, VoyageStatus
 import datetime
 
 class PlaneUtilities:
@@ -16,6 +16,9 @@ class PlaneUtilities:
 
         for voyage_id in plane.voyages:
             voyage = self.voyage_logic.get_voyage(voyage_id)
+
+            if voyage.status == VoyageStatus.Cancelled:
+                continue
 
             departure = Utilities.make_datetime(voyage.departure_date, voyage.departure_time)
             return_departure = Utilities.make_datetime(voyage.return_date, voyage.return_departure_time)
@@ -47,6 +50,9 @@ class PlaneUtilities:
         for voyage_id in plane.voyages:
             voyage = self.voyage_logic.get_voyage(voyage_id)
 
+            if voyage.status == VoyageStatus.Cancelled:
+                continue
+
             departure = Utilities.make_datetime(voyage.departure_date, voyage.departure_time)
             return_departure = Utilities.make_datetime(voyage.return_date, voyage.return_departure_time)
 
@@ -75,6 +81,9 @@ class PlaneUtilities:
         for voyage_id in plane.voyages:
             voyage = self.voyage_logic.get_voyage(voyage_id)
 
+            if voyage.status == VoyageStatus.Cancelled:
+                continue
+
             departure = Utilities.make_datetime(voyage.departure_date, voyage.departure_time)
             return_departure = Utilities.make_datetime(voyage.return_date, voyage.return_departure_time)
 
@@ -92,6 +101,9 @@ class PlaneUtilities:
     def validate_plane_availability(self, plane: Plane, when: datetime.datetime) -> bool:
         for voyage_id in plane.voyages:
             voyage = self.voyage_logic.get_voyage(voyage_id)
+
+            if voyage.status == VoyageStatus.Cancelled:
+                continue
 
             departure = Utilities.make_datetime(voyage.departure_date, voyage.departure_time)
             return_departure = Utilities.make_datetime(voyage.return_date, voyage.return_departure_time)
