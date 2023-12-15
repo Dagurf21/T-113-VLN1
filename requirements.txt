@@ -1,3 +1,5 @@
+# Verklegt Námskeið 1 - Hópur 28
+# Requirements
 bcrypt
 colorama
 py-getch
