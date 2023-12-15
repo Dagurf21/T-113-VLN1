@@ -6,10 +6,16 @@ colorama.init()
 
 logic_wrapper = LogicWrapper()
 
-try:
-    ui = LoginUI(logic_wrapper)
-    ui.show()
-except KeyboardInterrupt:
-    print()
-    print("Stopping...")
+while True:
+    try:
+        ui = LoginUI(logic_wrapper)
+        ui.show()
+    except KeyboardInterrupt:
+        print()
+        print("Stopping...")
+    except:
+        print("A fatal error has orrurred. Press enter to restart")
+        input()
+        continue
 
+    break
