@@ -370,6 +370,10 @@ class VoyageUI(UIElement):
 
             try:
                 voyage = self.logic_wrapper.get_voyage(voyage_id)
+                if voyage is None:
+                    self._print_header("Staff voyage", add_extra_newline=True)
+                    self._print_centered(f"Voyage with id '{voyage_id}' doesn't exist", add_newline_after=True)
+                    continue
 
                 if voyage == None:
                     self._print_header("Remove voyage", add_extra_newline=True)
@@ -437,6 +441,11 @@ class VoyageUI(UIElement):
                     try:
                         """Duplicate voyage new date only"""
                         copy_voyage = self.logic_wrapper.get_voyage(voyage_id)
+                        if copy_voyage is None:
+                            self._print_header("Staff voyage", add_extra_newline=True)
+                            self._print_centered(f"Voyage with id '{voyage_id}' doesn't exist", add_newline_after=True)
+                            continue
+
                         new_voyage = copy_voyage
 
                         departure_date = self._prompt(
@@ -508,6 +517,10 @@ class VoyageUI(UIElement):
                         continue
 
                     copy_voyage = self.logic_wrapper.get_voyage(voyage_id)
+                    if copy_voyage is None:
+                        self._print_header("Staff voyage", add_extra_newline=True)
+                        self._print_centered(f"Voyage with id '{voyage_id}' doesn't exist", add_newline_after=True)
+                        continue
 
                     start_date_voyage = self._prompt(
                         "Enter the date of which the reccurance will start (yyyy-mm-dd)",
@@ -594,6 +607,10 @@ class VoyageUI(UIElement):
 
             try:
                 voyage = self.logic_wrapper.get_voyage(voyage_id)
+                if voyage is None:
+                    self._print_header("Staff voyage", add_extra_newline=True)
+                    self._print_centered(f"Voyage with id '{voyage_id}' doesn't exist", add_newline_after=True)
+                    continue
 
                 pilots_or_attendants = self._display_selection(
                     ["Pilots", "Flight attendant"], header_title="Staff voyage"
@@ -644,6 +661,10 @@ class VoyageUI(UIElement):
 
             try:
                 voyage = self.logic_wrapper.get_voyage(voyage_id)
+                if voyage is None:
+                    self._print_header("Staff voyage", add_extra_newline=True)
+                    self._print_centered(f"Voyage with id '{voyage_id}' doesn't exist", add_newline_after=True)
+                    continue
 
                 pilots_or_attendants = self._display_selection(
                     ["Pilots", "Flight attendant"], header_title="Staff voyage"
@@ -948,7 +969,7 @@ class VoyageUI(UIElement):
         if int(pilot_id) in voyage.pilots:
             return "Pilot already assigned"
 
-        pilot = self.logic_wrapper.get_employee(int(pilot_id))
+        self.logic_wrapper.get_employee(int(pilot_id))
 
         if self.logic_wrapper.is_working(pilot_id, voyage.departure_date):
             return "Pilot is already working on the departure date"
