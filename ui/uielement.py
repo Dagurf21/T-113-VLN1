@@ -64,11 +64,21 @@ class UIElement:
         
         return inp
 
-    def _prompt_list(self, prompt: str, header_title: str, enable_cancel: bool = True, element_display: Callable[[str], str] = lambda e: str(e), validator: Callable[[str], str] = lambda e: None, max_elements: int = 0):
+    def _prompt_list(
+            self,
+            prompt: str,
+            header_title: str,
+            enable_cancel: bool = True,
+            element_display: Callable[[str], str] = lambda e: str(e),
+            validator: Callable[[str], str] = lambda e: None,
+            max_elements: int = 0,
+            disallow_duplicates: bool = True
+        ):
         """
         Prompts the user for a list of elements
 
         Options:
+            - header_title: Specify the title of the header
             - enable_cancel: Allows the user to cancel by inputting 'q' which throws a UICancelException
             - element_display: Function to convert the user input into another string for element based formatting
                 in  -> element
@@ -76,6 +86,8 @@ class UIElement:
             - validator: Function to validate elements before they are added to the list
                 in  -> element
                 out <- None if valid or string with error message if invalid
+            - max_elements: Specifies the maximum allowed elements in the list. If 0 then it's ignored
+            - disallow_duplicates: Disallows the user to enter duplicate values
         """
 
         elems = []
@@ -93,6 +105,11 @@ class UIElement:
             if elem == 'b' and len(elems) > 0:
                 elems.pop()
                 self._print_header(message=header_title, add_extra_newline=True)
+                continue
+
+            if disallow_duplicates and elem in elems:
+                self._print_header(message=header_title, add_extra_newline=True)
+                self._print_centered("Duplicate values not allowed", add_newline_after=True, color=Fore.RED)
                 continue
 
             invalid = validator(elem)
