@@ -104,7 +104,7 @@ class VoyageLogic:
                     voyage.status = VoyageStatus.NotStarted
 
             else:
-                voyage.status = VoyageStatus.Finished
+                voyage.status = VoyageStatus.NotStarted
 
         return all_voyages
 
