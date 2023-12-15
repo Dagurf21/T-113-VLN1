@@ -58,10 +58,10 @@ class VoyageUtilities:
         attendants = copy(voyage.flight_attendants)
 
         for pilot in pilots:
-            self.unstaff_voyage_pilot(pilot)
+            self.unstaff_voyage_pilot(voyage_id, pilot)
 
         for attendant in attendants:
-            self.unstaff_voyage_attendant(attendant)
+            self.unstaff_voyage_attendant(voyage_id, attendant)
 
         plane = self.plane_logic.get_plane(voyage.plane)
         plane.voyages.remove(voyage_id)
