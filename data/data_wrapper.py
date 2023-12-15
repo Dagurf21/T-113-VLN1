@@ -7,7 +7,11 @@ from data.voyage_data import VoyageData
 from model import Employee, Destination, Voyage, Flight, Plane
 
 class DataWrapper:
+    '''Connect the data layer and logic layer'''
+
     def __init__(self):
+        '''Initiates data_wrapper'''
+
         self.employee_data = EmployeeData()
         self.destination_data = DestinationData()
         self.flight_data = FlightData()
