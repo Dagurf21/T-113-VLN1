@@ -49,7 +49,7 @@ class VoyageLogic:
             )
         )
 
-    def get_all_voyages(self) -> list:
+    def get_all_voyages(self) -> list[Voyage]:
         """Returns a list of all voyages"""
 
         all_voyages = self.data_wrapper.get_all_voyages()
@@ -122,11 +122,11 @@ class VoyageLogic:
     def get_voyage_by_date(self, date: datetime.date) -> list[Voyage]:
         """Filters out all voyages by given date"""
 
-        all_voyages = self.get_all_voyages
+        all_voyages = self.get_all_voyages()
         voyage_on_date = []
 
         for voyage in all_voyages:
-            if voyage.date == date:
+            if voyage.departure_date == date or voyage.return_date == date:
                 voyage_on_date.append(voyage)
 
         return voyage_on_date

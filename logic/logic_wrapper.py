@@ -158,6 +158,9 @@ class LogicWrapper(object):
     ) -> bool:
         """Validates that two flights dont depart at the same time"""
         return self.voyage_logic.validate_departure_time(departure_date, departure_time)
+    
+    def get_voyages_on_date(self, date: datetime.date) -> list[Voyage]:
+        return self.voyage_logic.get_voyage_by_date(date)
 
     # Destination class
     def create_destination(self, data) -> None:

@@ -56,12 +56,12 @@ class VoyageUI(UIElement):
 
     def create_voyage(self):
         try:
-            destination = self._prompt(
+            destination = int(self._prompt(
                 "Enter destination ID of voyage",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
                 validator=self.validate_destination,
-            )
+            ))
             date = self.parse_date(self._prompt(
                 "Enter date of voyage (yyyy-mm-dd)",
                 header_title="Create voyage",
@@ -72,26 +72,26 @@ class VoyageUI(UIElement):
                 "Enter time of departure (hh:mm)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
-                validator=lambda e: self.validate_departure_time(date, False, e),
+                validator=lambda e: self.validate_departure_time(date, e),
             ))
             return_date = self.parse_date(self._prompt(
                 "Enter Return date of voyage (yyyy-mm-dd)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
-                validator=self.validate_date,
+                validator=lambda i: self.validate_date_after(date, i),
             ))
             return_departure_time = self.parse_time(self._prompt(
                 "Enter departure time of arrival flight (hh:mm)",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
-                validator=lambda e: self.validate_departure_time(date, True, e),
+                validator=lambda i: self.validate_return_departure_time(return_date, date, departure_time, i),
             ))
-            plane = self._prompt(
+            plane = int(self._prompt(
                 "Enter plane ID",
                 header_title="Create voyage",
                 opt_instruction="Leave empty to cancel",
                 validator=self.validate_plane,
-            )
+            ))
             sold_seats = self._prompt(
                 "Enter the amount of sold seats",
                 header_title="Create voyage",
@@ -101,19 +101,19 @@ class VoyageUI(UIElement):
             flight_attendants = self._prompt_list(
                 "Enter flight attendant ID",
                 header_title="Create voyage",
-                validator=self.validate_flight_attendant,
+                validator=lambda i: self.validate_attendant_to_assign(date, return_date, i),
                 element_display=self.format_employee,
             )
             pilots = self._prompt_list(
                 "Enter lead pilot ID's",
                 header_title="Create voyage",
-                validator=lambda e: self.validate_pilot(e, int(plane)),
+                validator=lambda i: self.validate_pilot_to_assign(date, return_date, plane, i),
                 element_display=self.format_employee,
             )
 
             self.logic_wrapper.create_voyage(
-                int(plane),
-                int(destination),
+                plane,
+                destination,
                 date,
                 return_date,
                 departure_time,
@@ -426,9 +426,9 @@ class VoyageUI(UIElement):
                             new_voyage.return_date,
                             copy_voyage.departure_time,
                             copy_voyage.return_departure_time,
-                            int(copy_voyage.sold_seats),
-                            list(map(int, copy_voyage.flight_attendants)),
-                            list(map(int, copy_voyage.pilots)),
+                            0,
+                            [],
+                            [],
                         )
 
                         self._print_header(
@@ -506,9 +506,9 @@ class VoyageUI(UIElement):
                                 new_voyage.return_date,
                                 copy_voyage.departure_time,
                                 copy_voyage.return_departure_time,
-                                int(copy_voyage.sold_seats),
-                                list(map(int, copy_voyage.flight_attendants)),
-                                list(map(int, copy_voyage.pilots)),
+                                0,
+                                [],
+                                [],
                             )
                             start_date_voyage += time_between_flights
 
@@ -670,6 +670,17 @@ class VoyageUI(UIElement):
             self.parse_date(inp)
         except:
             return "Invalid date format"
+    
+    def validate_date_after(self, after_date: datetime.date, inp: str):
+        err = self.validate_date(inp)
+        if err is not None:
+            return err
+        
+        date = self.parse_date(inp)
+        if date < after_date:
+            return f"Date must be after {after_date}"
+        
+        return None
 
     def validate_duplicate_voyage_date_departure(self, voyage: Voyage, inp: str):
         error = self.validate_date(inp)
@@ -708,19 +719,36 @@ class VoyageUI(UIElement):
 
             return "A duplicate voyage conflicts with another voyage"
 
-    def validate_departure_time(self, date: datetime.date, ret: bool, inp):
-        if len(inp) != 5:
-            return "Invalid time format"
+    def validate_departure_time(self, date: datetime.date, inp):
+        err = self.validate_time(inp)
+        if err is not None:
+            return err
         
-        try:
-            time = self.parse_time(inp)
+        time = self.parse_time(inp)
 
-            if ret and not self.logic_wrapper.validate_departure_time(date, time):
-                return "Return departure time conflicts with another voyage"
-            elif not self.logic_wrapper.validate_departure_time(date, time):
-                return "Departure time conflicts with another voyage"
-            
-            return None
+        if not self.logic_wrapper.validate_departure_time(date, time):
+            return "Departure time conflicts with another voyage"
+        
+        return None
+    
+    def validate_return_departure_time(self, return_date: datetime.date, departure_date: datetime.date, departure_time: datetime.time, inp: str):
+        err = self.validate_time(inp)
+        if err is not None:
+            return err
+
+        time = self.parse_time(inp)
+
+        if not self.logic_wrapper.validate_departure_time(return_date, time):
+            return "Return departure time conflicts with another voyage"
+        
+        if return_date == departure_date and time <= departure_time:
+            return "Return departure time cannot be before the departure time"
+        
+        return None
+    
+    def validate_time(self, inp: str):
+        try:
+            self.parse_time(inp)
         except:
             return "Invalid time format"
     
@@ -758,6 +786,26 @@ class VoyageUI(UIElement):
             return None
         except ValueError:
             return "Input must be a number"
+
+    def validate_pilot_to_assign(self, departure_date: datetime.date, return_date: datetime.date, plane_id: int, pilot_id: str):
+        err = self.validate_pilot(pilot_id, plane_id)
+        if err is not None:
+            return err
+        
+        if self.logic_wrapper.is_working(int(pilot_id), departure_date) or self.logic_wrapper.is_working(int(pilot_id), return_date):
+            return "Pilot already assined that day"
+
+        return None
+
+    def validate_attendant_to_assign(self, departure_date: datetime.date, return_date: datetime.date, attendant_id: str):
+        err = self.validate_flight_attendant(attendant_id)
+        if err is not None:
+            return err
+        
+        if self.logic_wrapper.is_working(int(attendant_id), departure_date) or self.logic_wrapper.is_working(int(attendant_id), return_date):
+            return "Attendant already assined that day"
+
+        return None
 
     def validate_assign_pilot(self, voyage: Voyage, pilot_id: str):
         err = self.validate_pilot(pilot_id)

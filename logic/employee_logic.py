@@ -207,7 +207,7 @@ class EmployeeLogic:
 
         for voyage in self.voyage_logic.get_voyage_by_date(date):
             if isinstance(employee, Pilot) or isinstance(employee, FlightAttendant):
-                if employee.id in voyage.pilots:
+                if employee.id in voyage.pilots or employee.id in voyage.flight_attendants:
                     return True
         
         return False
