@@ -1,7 +1,8 @@
 ## Föstudagur 15. Desember - Dagur 15
 
 #### Verkefni Vikunar
-- [ ]
+- [ ] Bugfixes
+-
 
 ### Verkefna skipting
 - Axel Snær: 
@@ -19,3 +20,10 @@
 - Marteinn Logi: 
 
 #### TODO á morgun
+
+- [ ] Kennslu myndband
+- [ ] Plane status
+- [ ] Uppfæra skýrslu
+- [ ] Bugfixes
+- [ ] Fara yfir kröfur
+- [ ] Skrá allar C kröfur
