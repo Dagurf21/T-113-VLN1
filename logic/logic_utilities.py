@@ -137,11 +137,6 @@ class Validator:
         ]
         return all(map(self.flight_time, flight_times))
 
-    def pilot_validator(self, data):
-        """Validates that there aren't to many pilots"""
-
-        raise NotImplementedError
-
     def voyage_staff(self, voyage: Voyage) -> bool:
         """Validates a voyage and return a validated
         voyage if possible, else None"""
