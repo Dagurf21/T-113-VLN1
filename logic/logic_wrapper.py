@@ -238,10 +238,6 @@ class LogicWrapper(object):
     def check_job_position(self, employee_id: int, job_title: str):
         return self.employee_logic.check_job_position(employee_id, job_title)
 
-# TODO Find out if in use
-    def validate_status(self, status_data):
-        return self.validate.status(status_data)
-
     def validate_voyage_staff(self, voyage: Voyage):
         return self.validate.voyage_staff(voyage)
 

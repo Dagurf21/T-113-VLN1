@@ -113,7 +113,7 @@ class EmployeeLogic:
     def get_all_pilots(self) -> list[Employee]:
         """Returns a sorted list of pilots"""
         pilot_list = self.get_employees_by_job("Pilot")
-        pilot_list.sort()
+        pilot_list.sort(key=lambda pilot: pilot.license)
         return pilot_list
 
     def get_pilots_by_license(self, planelicense: str) -> list[Pilot]:
